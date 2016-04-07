@@ -54,11 +54,41 @@
     </Compile>
     <Compile Include="Forms\UserControls\Section.cs" />
     <Compile Include="Forms\UserControls\Track.cs" />
+    <Compile Include="Forms\UserControls\ucInfoSpoor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucInfoSpoor.Designer.cs">
+      <DependentUpon>ucInfoSpoor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserControls\ucMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\UserControls\ucMain.Designer.cs">
       <DependentUpon>ucMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucReservering.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucReservering.Designer.cs">
+      <DependentUpon>ucReservering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucStatusTramWijzigen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucStatusTramWijzigen.Designer.cs">
+      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucToggleBlokkade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucToggleBlokkade.Designer.cs">
+      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucTramInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucTramInfo.Designer.cs">
+      <DependentUpon>ucTramInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\UserControls\ucTramPlaatsen.cs">
       <SubType>UserControl</SubType>
@@ -66,16 +96,40 @@
     <Compile Include="Forms\UserControls\ucTramPlaatsen.Designer.cs">
       <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UserControls\ucTramVerwijderen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucTramVerwijderen.Designer.cs">
+      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmBS.resx">
       <DependentUpon>frmBS.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserControls\ucInfoSpoor.resx">
+      <DependentUpon>ucInfoSpoor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserControls\ucMain.resx">
       <DependentUpon>ucMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserControls\ucReservering.resx">
+      <DependentUpon>ucReservering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserControls\ucStatusTramWijzigen.resx">
+      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserControls\ucToggleBlokkade.resx">
+      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserControls\ucTramInfo.resx">
+      <DependentUpon>ucTramInfo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserControls\ucTramPlaatsen.resx">
       <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserControls\ucTramVerwijderen.resx">
+      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

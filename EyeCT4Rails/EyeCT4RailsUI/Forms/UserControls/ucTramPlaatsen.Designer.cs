@@ -31,9 +31,9 @@
             this.lblTramnummer = new System.Windows.Forms.Label();
             this.lblSectornummer = new System.Windows.Forms.Label();
             this.lblSpoornummer = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbTramnummer = new System.Windows.Forms.TextBox();
+            this.tbSpoornummer = new System.Windows.Forms.TextBox();
+            this.tbSectornummer = new System.Windows.Forms.TextBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -65,26 +65,26 @@
             this.lblSpoornummer.TabIndex = 2;
             this.lblSpoornummer.Text = "Spoornummer:";
             // 
-            // textBox1
+            // tbTramnummer
             // 
-            this.textBox1.Location = new System.Drawing.Point(16, 80);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
+            this.tbTramnummer.Location = new System.Drawing.Point(16, 80);
+            this.tbTramnummer.Name = "tbTramnummer";
+            this.tbTramnummer.Size = new System.Drawing.Size(100, 20);
+            this.tbTramnummer.TabIndex = 3;
             // 
-            // textBox2
+            // tbSpoornummer
             // 
-            this.textBox2.Location = new System.Drawing.Point(153, 80);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 4;
+            this.tbSpoornummer.Location = new System.Drawing.Point(153, 80);
+            this.tbSpoornummer.Name = "tbSpoornummer";
+            this.tbSpoornummer.Size = new System.Drawing.Size(100, 20);
+            this.tbSpoornummer.TabIndex = 4;
             // 
-            // textBox3
+            // tbSectornummer
             // 
-            this.textBox3.Location = new System.Drawing.Point(287, 80);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 5;
+            this.tbSectornummer.Location = new System.Drawing.Point(287, 80);
+            this.tbSectornummer.Name = "tbSectornummer";
+            this.tbSectornummer.Size = new System.Drawing.Size(100, 20);
+            this.tbSectornummer.TabIndex = 5;
             // 
             // btnOk
             // 
@@ -110,9 +110,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbSectornummer);
+            this.Controls.Add(this.tbSpoornummer);
+            this.Controls.Add(this.tbTramnummer);
             this.Controls.Add(this.lblSpoornummer);
             this.Controls.Add(this.lblSectornummer);
             this.Controls.Add(this.lblTramnummer);
@@ -128,9 +128,9 @@
         private System.Windows.Forms.Label lblTramnummer;
         private System.Windows.Forms.Label lblSectornummer;
         private System.Windows.Forms.Label lblSpoornummer;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbTramnummer;
+        private System.Windows.Forms.TextBox tbSpoornummer;
+        private System.Windows.Forms.TextBox tbSectornummer;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
     }
