@@ -1,6 +1,6 @@
-﻿namespace EyeCT4RailsUI.Forms.Beheersysteem
+﻿namespace EyeCT4RailsUI.Forms.Reparatiesysteem
 {
-    partial class frmSCH
+    partial class frmRS
     {
         /// <summary>
         /// Required designer variable.
@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ucMainSCH = new EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls.ucMainSCH();
+            this.ucMainRS1 = new EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls.ucMainRS();
             this.SuspendLayout();
             // 
-            // ucMainSCH
+            // ucMainRS1
             // 
-            this.ucMainSCH.Location = new System.Drawing.Point(0, 0);
-            this.ucMainSCH.Name = "ucMainSCH";
-            this.ucMainSCH.Size = new System.Drawing.Size(646, 425);
-            this.ucMainSCH.TabIndex = 0;
+            this.ucMainRS1.Location = new System.Drawing.Point(1, 1);
+            this.ucMainRS1.Name = "ucMainRS1";
+            this.ucMainRS1.Size = new System.Drawing.Size(659, 424);
+            this.ucMainRS1.TabIndex = 0;
             // 
-            // frmSCH
+            // frmRS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 429);
-            this.Controls.Add(this.ucMainSCH);
-            this.Name = "frmSCH";
-            this.Text = "frmSCH";
+            this.ClientSize = new System.Drawing.Size(652, 425);
+            this.Controls.Add(this.ucMainRS1);
+            this.Name = "frmRS";
+            this.Text = "Schoonmaaksysteem";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Schoonmaaksysteem.UserControls.ucMainSCH ucMainSCH;
+        private UserControls.ucMainRS ucMainRS1;
     }
 }

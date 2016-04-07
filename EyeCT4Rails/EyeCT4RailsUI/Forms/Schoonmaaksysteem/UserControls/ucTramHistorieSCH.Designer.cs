@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
-    partial class ucTramHistorie
+    partial class ucTramHistorieSCH
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,12 +31,12 @@
             this.lblTramNummer = new System.Windows.Forms.Label();
             this.lblSoort = new System.Windows.Forms.Label();
             this.lblSpoor = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvTramHistorie = new System.Windows.Forms.DataGridView();
             this.Type_Beurt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Schoonmaak_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Opmerkingen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Uitgevoerd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTramHistorie)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTramNummer
@@ -66,18 +66,18 @@
             this.lblSpoor.TabIndex = 2;
             this.lblSpoor.Text = "Spoor:";
             // 
-            // dataGridView1
+            // dgvTramHistorie
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTramHistorie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTramHistorie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Type_Beurt,
             this.Schoonmaak_Datum,
             this.Opmerkingen,
             this.Uitgevoerd});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 28);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(443, 464);
-            this.dataGridView1.TabIndex = 3;
+            this.dgvTramHistorie.Location = new System.Drawing.Point(3, 28);
+            this.dgvTramHistorie.Name = "dgvTramHistorie";
+            this.dgvTramHistorie.Size = new System.Drawing.Size(443, 464);
+            this.dgvTramHistorie.TabIndex = 3;
             // 
             // Type_Beurt
             // 
@@ -99,17 +99,17 @@
             this.Uitgevoerd.HeaderText = "Uitgevoerd door";
             this.Uitgevoerd.Name = "Uitgevoerd";
             // 
-            // ucTramHistorie
+            // ucTramHistorieSCH
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvTramHistorie);
             this.Controls.Add(this.lblSpoor);
             this.Controls.Add(this.lblSoort);
             this.Controls.Add(this.lblTramNummer);
-            this.Name = "ucTramHistorie";
+            this.Name = "ucTramHistorieSCH";
             this.Size = new System.Drawing.Size(449, 498);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTramHistorie)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,7 +120,7 @@
         private System.Windows.Forms.Label lblTramNummer;
         private System.Windows.Forms.Label lblSoort;
         private System.Windows.Forms.Label lblSpoor;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvTramHistorie;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Beurt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Schoonmaak_Datum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Opmerkingen;

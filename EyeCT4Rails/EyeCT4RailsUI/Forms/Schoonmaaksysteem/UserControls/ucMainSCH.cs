@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
-    public partial class ucTramHistorie : UserControl
+    public partial class ucMainSCH : UserControl
     {
-        public ucTramHistorie()
+        public ucMainSCH()
         {
             InitializeComponent();
         }

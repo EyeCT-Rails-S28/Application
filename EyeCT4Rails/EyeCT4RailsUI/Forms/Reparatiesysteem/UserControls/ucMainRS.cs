@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
+namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
-    public partial class ucMain : UserControl
+    public partial class ucMainRS : UserControl
     {
-        public ucMain()
+        public ucMainRS()
         {
             InitializeComponent();
         }
