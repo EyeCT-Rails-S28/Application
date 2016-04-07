@@ -52,6 +52,12 @@
     <Compile Include="Forms\Beheersysteem\frmBS.Designer.cs">
       <DependentUpon>frmBS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\frmSCH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\frmSCH.Designer.cs">
+      <DependentUpon>frmSCH.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\Section.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\Track.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\ucInfoSpoor.cs">
@@ -108,6 +114,18 @@
     <Compile Include="Forms\InUitSysteem\frmIUS.Designer.cs">
       <DependentUpon>frmIUS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucMain.Designer.cs">
+      <DependentUpon>ucMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorie.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorie.Designer.cs">
+      <DependentUpon>ucTramHistorie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Beheersysteem\frmBS.resx">
@@ -139,6 +157,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InUitSysteem\frmIUS.resx">
       <DependentUpon>frmIUS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucMain.resx">
+      <DependentUpon>ucMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorie.resx">
+      <DependentUpon>ucTramHistorie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
