@@ -60,6 +60,12 @@
     <Compile Include="Forms\UserControls\ucMain.Designer.cs">
       <DependentUpon>ucMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UserControls\ucTramPlaatsen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\UserControls\ucTramPlaatsen.Designer.cs">
+      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmBS.resx">
@@ -67,6 +73,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserControls\ucMain.resx">
       <DependentUpon>ucMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserControls\ucTramPlaatsen.resx">
+      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

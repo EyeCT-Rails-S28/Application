@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EyeCT4RailsUI
+namespace EyeCT4RailsUI.Forms.UserControls
 {
-    public partial class frmBs : Form
+    public partial class ucTramPlaatsen : UserControl
     {
-        public frmBs()
+        public ucTramPlaatsen()
         {
             InitializeComponent();
         }

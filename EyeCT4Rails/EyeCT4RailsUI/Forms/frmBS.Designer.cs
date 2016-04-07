@@ -33,20 +33,22 @@
             // 
             // ucMain
             // 
+            this.ucMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ucMain.Location = new System.Drawing.Point(0, 0);
             this.ucMain.Name = "ucMain";
-            this.ucMain.Size = new System.Drawing.Size(1123, 522);
+            this.ucMain.Size = new System.Drawing.Size(1123, 675);
             this.ucMain.TabIndex = 0;
             // 
             // frmBs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1122, 522);
+            this.ClientSize = new System.Drawing.Size(1122, 675);
             this.Controls.Add(this.ucMain);
             this.Name = "frmBs";
             this.Text = "Beheersysteem";
-            this.Resize += new System.EventHandler(this.frmBs_Resize);
             this.ResumeLayout(false);
 
         }
