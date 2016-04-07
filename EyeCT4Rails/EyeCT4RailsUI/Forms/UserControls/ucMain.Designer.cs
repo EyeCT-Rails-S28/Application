@@ -49,6 +49,8 @@
             this.tbSpoor = new System.Windows.Forms.TextBox();
             this.lblReserveringen = new System.Windows.Forms.Label();
             this.lbReserveringen = new System.Windows.Forms.ListBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pnlTracks = new System.Windows.Forms.Panel();
             this.msMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +66,7 @@
             this.exitToolStripMenuItem});
             this.msMenu.Location = new System.Drawing.Point(0, 0);
             this.msMenu.Name = "msMenu";
-            this.msMenu.Size = new System.Drawing.Size(595, 24);
+            this.msMenu.Size = new System.Drawing.Size(796, 24);
             this.msMenu.TabIndex = 0;
             this.msMenu.Text = "menuStrip1";
             // 
@@ -183,14 +185,14 @@
             // 
             this.tbTram.Location = new System.Drawing.Point(16, 65);
             this.tbTram.Name = "tbTram";
-            this.tbTram.Size = new System.Drawing.Size(100, 20);
+            this.tbTram.Size = new System.Drawing.Size(120, 20);
             this.tbTram.TabIndex = 3;
             // 
             // tbSpoor
             // 
             this.tbSpoor.Location = new System.Drawing.Point(16, 136);
             this.tbSpoor.Name = "tbSpoor";
-            this.tbSpoor.Size = new System.Drawing.Size(100, 20);
+            this.tbSpoor.Size = new System.Drawing.Size(120, 20);
             this.tbSpoor.TabIndex = 4;
             // 
             // lblReserveringen
@@ -210,10 +212,23 @@
             this.lbReserveringen.Size = new System.Drawing.Size(120, 160);
             this.lbReserveringen.TabIndex = 6;
             // 
+            // pnlTracks
+            // 
+            this.pnlTracks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlTracks.Location = new System.Drawing.Point(142, 39);
+            this.pnlTracks.Name = "pnlTracks";
+            this.pnlTracks.Size = new System.Drawing.Size(654, 469);
+            this.pnlTracks.TabIndex = 7;
+            this.pnlTracks.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.pnlTracks.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlTracks_MouseClick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pnlTracks);
             this.Controls.Add(this.lbReserveringen);
             this.Controls.Add(this.lblReserveringen);
             this.Controls.Add(this.tbSpoor);
@@ -222,7 +237,7 @@
             this.Controls.Add(this.lblTram);
             this.Controls.Add(this.msMenu);
             this.Name = "Main";
-            this.Size = new System.Drawing.Size(595, 459);
+            this.Size = new System.Drawing.Size(796, 508);
             this.msMenu.ResumeLayout(false);
             this.msMenu.PerformLayout();
             this.ResumeLayout(false);
@@ -253,5 +268,7 @@
         private System.Windows.Forms.TextBox tbSpoor;
         private System.Windows.Forms.Label lblReserveringen;
         private System.Windows.Forms.ListBox lbReserveringen;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Panel pnlTracks;
     }
 }

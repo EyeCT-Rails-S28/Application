@@ -52,19 +52,21 @@
     <Compile Include="Forms\frmBS.Designer.cs">
       <DependentUpon>frmBS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UserControls\Main.cs">
+    <Compile Include="Forms\UserControls\Section.cs" />
+    <Compile Include="Forms\UserControls\Track.cs" />
+    <Compile Include="Forms\UserControls\ucMain.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\UserControls\Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
+    <Compile Include="Forms\UserControls\ucMain.Designer.cs">
+      <DependentUpon>ucMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\frmBS.resx">
       <DependentUpon>frmBS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserControls\Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\UserControls\ucMain.resx">
+      <DependentUpon>ucMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

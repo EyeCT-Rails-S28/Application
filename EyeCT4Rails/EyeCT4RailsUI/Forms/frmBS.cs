@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace EyeCT4RailsUI
 {
-    public partial class Form1 : Form
+    public partial class frmBs : Form
     {
-        public Form1()
+        public frmBs()
         {
             InitializeComponent();
+        }
+
+        private void frmBs_Resize(object sender, EventArgs e)
+        {
+            ucMain.Size = this.Size;
+            ucMain.Refresh();
         }
     }
 }
