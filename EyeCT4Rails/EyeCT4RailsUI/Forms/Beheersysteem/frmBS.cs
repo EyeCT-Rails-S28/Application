@@ -16,5 +16,10 @@ namespace EyeCT4RailsUI
         {
             InitializeComponent();
         }
+
+        private void frmBs_Resize(object sender, EventArgs e)
+        {
+            ucMain.Refresh();
+        }
     }
 }

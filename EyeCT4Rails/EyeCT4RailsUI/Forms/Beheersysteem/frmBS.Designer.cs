@@ -38,7 +38,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ucMain.Location = new System.Drawing.Point(0, 0);
             this.ucMain.Name = "ucMain";
-            this.ucMain.Size = new System.Drawing.Size(1123, 675);
+            this.ucMain.Size = new System.Drawing.Size(1110, 675);
             this.ucMain.TabIndex = 0;
             // 
             // frmBs
@@ -49,6 +49,7 @@
             this.Controls.Add(this.ucMain);
             this.Name = "frmBs";
             this.Text = "Beheersysteem";
+            this.Resize += new System.EventHandler(this.frmBs_Resize);
             this.ResumeLayout(false);
 
         }
