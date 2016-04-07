@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{124D6AFB-EBEB-418E-A3FD-178571A47403}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EyeCT4RailsUI</RootNamespace>
+    <AssemblyName>EyeCT4RailsUI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Forms\Beheersysteem\frmBS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\frmBS.Designer.cs">
+      <DependentUpon>frmBS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reparatiesysteem\frmRS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Reparatiesysteem\frmRS.Designer.cs">
+      <DependentUpon>frmRS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reparatiesysteem\UserControls\ucMainRS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Reparatiesysteem\UserControls\ucMainRS.Designer.cs">
+      <DependentUpon>ucMainRS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.Designer.cs">
+      <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\frmSCH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\frmSCH.Designer.cs">
+      <DependentUpon>frmSCH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\Section.cs" />
+    <Compile Include="Forms\Beheersysteem\UserControls\Track.cs" />
+    <Compile Include="Forms\Beheersysteem\UserControls\ucInfoSpoor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucInfoSpoor.Designer.cs">
+      <DependentUpon>ucInfoSpoor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucMainBS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucMainBS.Designer.cs">
+      <DependentUpon>ucMainBS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucReservering.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucReservering.Designer.cs">
+      <DependentUpon>ucReservering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.Designer.cs">
+      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.Designer.cs">
+      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucTramInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucTramInfo.Designer.cs">
+      <DependentUpon>ucTramInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.Designer.cs">
+      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.Designer.cs">
+      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InUitSysteem\frmIUS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InUitSysteem\frmIUS.Designer.cs">
+      <DependentUpon>frmIUS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucMainSCH.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucMainSCH.Designer.cs">
+      <DependentUpon>ucMainSCH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorieSCH.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorieSCH.Designer.cs">
+      <DependentUpon>ucTramHistorieSCH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Beheersysteem\frmBS.resx">
+      <DependentUpon>frmBS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucInfoSpoor.resx">
+      <DependentUpon>ucInfoSpoor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucMainBS.resx">
+      <DependentUpon>ucMainBS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucReservering.resx">
+      <DependentUpon>ucReservering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.resx">
+      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.resx">
+      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramInfo.resx">
+      <DependentUpon>ucTramInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.resx">
+      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.resx">
+      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InUitSysteem\frmIUS.resx">
+      <DependentUpon>frmIUS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reparatiesysteem\frmRS.resx">
+      <DependentUpon>frmRS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucMainRS.resx">
+      <DependentUpon>ucMainRS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.resx">
+      <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\frmSCH.resx">
+      <DependentUpon>frmSCH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucMainSCH.resx">
+      <DependentUpon>ucMainSCH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorieSCH.resx">
+      <DependentUpon>ucTramHistorieSCH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

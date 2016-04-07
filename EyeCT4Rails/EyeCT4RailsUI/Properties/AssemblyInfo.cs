@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EyeCT4RailsLib")]
+[assembly: AssemblyTitle("EyeCT4RailsUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("EyeCT4RailsLib")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("EyeCT4RailsUI")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,8 +18,8 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the Id of the typelib if this project is exposed to COM
-[assembly: Guid("f7313ddb-a30d-4e74-992f-c4cce8d8cbdc")]
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("124d6afb-ebeb-418e-a3fd-178571a47403")]
 
 // Version information for an assembly consists of the following four values:
 //
