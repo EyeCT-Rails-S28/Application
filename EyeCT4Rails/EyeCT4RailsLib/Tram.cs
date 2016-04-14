@@ -35,5 +35,10 @@ namespace EyeCT4RailsLib
             PreferredLine = preferredLine;
             HasForcedLine = hasForcedLine;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} - {Status}";
+        }
     }
 }

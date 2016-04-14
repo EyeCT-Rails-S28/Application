@@ -40,5 +40,10 @@ namespace EyeCT4RailsLib
             if (!_tracks.Contains(track))
                 _tracks.Add(track);
         }
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

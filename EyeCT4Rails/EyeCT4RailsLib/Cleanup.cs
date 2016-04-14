@@ -9,6 +9,7 @@ namespace EyeCT4RailsLib
         /// The id of the cleanup in the database.
         /// </summary>
         public int Id { get; }
+
         /// <summary>
         /// The user that is involved with the cleanup.
         /// </summary>
