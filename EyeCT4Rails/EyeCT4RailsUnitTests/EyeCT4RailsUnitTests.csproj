@@ -54,6 +54,13 @@
   <ItemGroup>
     <Compile Include="LibTests\DepotTest.cs" />
     <Compile Include="LibTests\TrackTest.cs" />
+    <Compile Include="LibTests\SectionTest.cs" />
+    <Compile Include="LibTests\TramTest.cs" />
+    <Compile Include="LibTests\MaintenanceTest.cs" />
+    <Compile Include="LibTests\UserTest.cs" />
+    <Compile Include="LibTests\RideTest.cs" />
+    <Compile Include="LibTests\CleanupTest.cs" />
+    <Compile Include="LibTests\LineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

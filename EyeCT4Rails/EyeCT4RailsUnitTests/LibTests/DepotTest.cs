@@ -1,4 +1,6 @@
-﻿using EyeCT4RailsLib;
+﻿using System;
+using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EyeCT4RailsUnitTests.LibTests
@@ -9,20 +11,20 @@ namespace EyeCT4RailsUnitTests.LibTests
         private Depot _depot;
 
         [TestInitialize]
-        public void Init()
+        public void DepotInit()
         {
             _depot = new Depot(1, "Havenstraat");
         }
 
         [TestMethod]
-        public void ConstructorTest()
+        public void DepotConstructorTest()
         {
             Assert.AreEqual(1, _depot.Id);
             Assert.AreEqual("Havenstraat", _depot.Name);
         }
 
         [TestMethod]
-        public void AddTrackTest()
+        public void DepotAddTrackTest()
         {
             _depot.AddTrack(new Track(3));
 
@@ -31,13 +33,19 @@ namespace EyeCT4RailsUnitTests.LibTests
         }
 
         [TestMethod]
-        public void PropertyTest()
+        public void DepotPropertyTest()
         {
             _depot.AddTrack(new Track(42));
 
             Assert.AreEqual(1, _depot.Tracks.Count, "Pre Clear");
             _depot.Tracks.Clear();
             Assert.AreEqual(1, _depot.Tracks.Count, "After Clear");
+        }
+
+        [TestMethod]
+        public void DepotToStringTest()
+        {
+            Assert.AreEqual("Havenstraat", _depot.ToString());
         }
     }
 }
