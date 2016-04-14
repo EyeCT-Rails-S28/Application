@@ -1,6 +1,7 @@
-﻿namespace EyeCT4RailsUI.Forms.UserControls
+﻿
+namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    partial class ucReservering
+    partial class ucReserveringPlaatsen
     {
         /// <summary> 
         /// Required designer variable.
@@ -87,7 +88,7 @@
             this.cbReparatie.Text = "Reparatie";
             this.cbReparatie.UseVisualStyleBackColor = true;
             // 
-            // ucReservering
+            // ucReserveringPlaatsen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -97,7 +98,7 @@
             this.Controls.Add(this.tbTramnummer);
             this.Controls.Add(this.lblSpoornummer);
             this.Controls.Add(this.lblTramnummer);
-            this.Name = "ucReservering";
+            this.Name = "ucReserveringPlaatsen";
             this.Size = new System.Drawing.Size(270, 162);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EyeCT4RailsLib;
 
-namespace EyeCT4RailsUI.Forms.UserControls
+namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     class Track
     {

@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using EyeCT4RailsUI.Forms.UserControls;
 using System.Reflection;
+using System.Windows.Forms;
 
-namespace EyeCT4RailsUI.Forms.frmBS
+namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class Main : UserControl
+    public partial class ucMainRs : UserControl
     {
         private const int SectionWidth = 50;
         private const int SectionHeight = 50;
@@ -20,18 +14,20 @@ namespace EyeCT4RailsUI.Forms.frmBS
         private const int AboveMargin = 5;
         private const int Margin = 20;
 
+        public event EventHandler UserControl_Changed;
+
         //private Graphics _gr;
         private List<Track> _tracks;
 
-        public Main()
+        public ucMainRs()
         {
             InitializeComponent();
             //_gr = CreateGraphics();
+
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
 
             _tracks = Track.GetDefaultTracks();
         }
-
         
 
         private void DrawSections(Graphics g)
@@ -129,5 +125,7 @@ namespace EyeCT4RailsUI.Forms.frmBS
                 }
             }
         }
+
+        
     }
 }

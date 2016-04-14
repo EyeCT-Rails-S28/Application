@@ -78,11 +78,11 @@
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\Section.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\Track.cs" />
-    <Compile Include="Forms\Beheersysteem\UserControls\ucInfoSpoor.cs">
+    <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucInfoSpoor.Designer.cs">
-      <DependentUpon>ucInfoSpoor.cs</DependentUpon>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.Designer.cs">
+      <DependentUpon>ucSpoorInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucMainBS.cs">
       <SubType>UserControl</SubType>
@@ -90,11 +90,11 @@
     <Compile Include="Forms\Beheersysteem\UserControls\ucMainBS.Designer.cs">
       <DependentUpon>ucMainBS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucReservering.cs">
+    <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucReservering.Designer.cs">
-      <DependentUpon>ucReservering.cs</DependentUpon>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.Designer.cs">
+      <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.cs">
       <SubType>UserControl</SubType>
@@ -132,11 +132,11 @@
     <Compile Include="Forms\InUitSysteem\frmIUS.Designer.cs">
       <DependentUpon>frmIUS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucMainSCH.cs">
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucMainSCH.Designer.cs">
-      <DependentUpon>ucMainSCH.cs</DependentUpon>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.Designer.cs">
+      <DependentUpon>ucSchoonmaak.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorieSCH.cs">
       <SubType>UserControl</SubType>
@@ -149,14 +149,14 @@
     <EmbeddedResource Include="Forms\Beheersysteem\frmBS.resx">
       <DependentUpon>frmBS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucInfoSpoor.resx">
-      <DependentUpon>ucInfoSpoor.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.resx">
+      <DependentUpon>ucSpoorInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucMainBS.resx">
       <DependentUpon>ucMainBS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucReservering.resx">
-      <DependentUpon>ucReservering.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.resx">
+      <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.resx">
       <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
@@ -188,8 +188,8 @@
     <EmbeddedResource Include="Forms\Schoonmaaksysteem\frmSCH.resx">
       <DependentUpon>frmSCH.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucMainSCH.resx">
-      <DependentUpon>ucMainSCH.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.resx">
+      <DependentUpon>ucSchoonmaak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucTramHistorieSCH.resx">
       <DependentUpon>ucTramHistorieSCH.cs</DependentUpon>
@@ -216,7 +216,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EyeCT4RailsLib\EyeCT4RailsLib.csproj">
+      <Project>{f7313ddb-a30d-4e74-992f-c4cce8d8cbdc}</Project>
+      <Name>EyeCT4RailsLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

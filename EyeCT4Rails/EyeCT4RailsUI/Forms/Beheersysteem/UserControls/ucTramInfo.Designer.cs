@@ -1,4 +1,6 @@
-﻿namespace EyeCT4RailsUI.Forms.UserControls
+﻿using EyeCT4RailsLib;
+
+namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     partial class ucTramInfo
     {

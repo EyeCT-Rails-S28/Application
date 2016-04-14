@@ -1,4 +1,6 @@
-﻿namespace EyeCT4RailsUI.Forms.Beheersysteem
+﻿using EyeCT4RailsLib;
+
+namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem
 {
     partial class frmSCH
     {
@@ -28,22 +30,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ucMainSCH = new EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls.ucMainSCH();
+            this._ucSchoonmaak = new EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls.ucSchoonmaak();
             this.SuspendLayout();
             // 
-            // ucMainSCH
+            // ucSchoonmaak
             // 
-            this.ucMainSCH.Location = new System.Drawing.Point(0, 0);
-            this.ucMainSCH.Name = "ucMainSCH";
-            this.ucMainSCH.Size = new System.Drawing.Size(646, 425);
-            this.ucMainSCH.TabIndex = 0;
+            this._ucSchoonmaak.Location = new System.Drawing.Point(0, 0);
+            this._ucSchoonmaak.Name = "_ucSchoonmaak";
+            this._ucSchoonmaak.Size = new System.Drawing.Size(646, 425);
+            this._ucSchoonmaak.TabIndex = 0;
             // 
             // frmSCH
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(653, 429);
-            this.Controls.Add(this.ucMainSCH);
+            this.Controls.Add(this._ucSchoonmaak);
             this.Name = "frmSCH";
             this.Text = "frmSCH";
             this.ResumeLayout(false);
@@ -52,6 +54,6 @@
 
         #endregion
 
-        private Schoonmaaksysteem.UserControls.ucMainSCH ucMainSCH;
+        private Schoonmaaksysteem.UserControls.ucSchoonmaak _ucSchoonmaak;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
-    partial class ucMainSCH
+    partial class ucSchoonmaak
     {
         /// <summary> 
         /// Required designer variable.
