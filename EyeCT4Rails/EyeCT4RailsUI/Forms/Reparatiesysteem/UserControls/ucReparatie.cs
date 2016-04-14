@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
-    public partial class ucMainRS : UserControl
+    public partial class ucReparatie : UserControl
     {
-        public ucMainRS()
+        public ucReparatie()
         {
             InitializeComponent();
         }

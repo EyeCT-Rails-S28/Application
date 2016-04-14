@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
-    partial class ucMainRS
+    partial class ucReparatie
     {
         /// <summary> 
         /// Required designer variable.
@@ -102,14 +102,14 @@
             this.Reparatie_Datum.HeaderText = "Reparatie Datum";
             this.Reparatie_Datum.Name = "Reparatie_Datum";
             // 
-            // ucMainRS
+            // ucReparatie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tbOpmerking);
             this.Controls.Add(this.btnReparatieAfronden);
             this.Controls.Add(this.dgvTrams);
-            this.Name = "ucMainRS";
+            this.Name = "ucReparatie";
             this.Size = new System.Drawing.Size(659, 424);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).EndInit();
             this.ResumeLayout(false);

@@ -1,7 +1,7 @@
 ﻿
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    partial class ucMainRs
+    partial class ucOverzichtBS
     {
         /// <summary> 
         /// Required designer variable.
@@ -100,7 +100,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.pnlTracks.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.pnlTracks.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlTracks_MouseClick);
             // 
-            // ucMainRs
+            // ucOverzichtBS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,8 +111,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Controls.Add(this.tbTram);
             this.Controls.Add(this.lblSpoor);
             this.Controls.Add(this.lblTram);
-            this.Name = "ucMainRs";
+            this.Name = "ucOverzichtBS";
             this.Size = new System.Drawing.Size(796, 508);
+            this.Resize += new System.EventHandler(this.ucOverzichtBS_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.msMenu = new System.Windows.Forms.MenuStrip();
+            this.overzichtBSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramVerwijderenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +51,7 @@
             // msMenu
             // 
             this.msMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.overzichtBSToolStripMenuItem,
             this.tramsToolStripMenuItem,
             this.sporenToolStripMenuItem,
             this.lijnenToolStripMenuItem,
@@ -62,6 +64,13 @@
             this.msMenu.Size = new System.Drawing.Size(1122, 24);
             this.msMenu.TabIndex = 1;
             this.msMenu.Text = "menuStrip1";
+            // 
+            // overzichtBSToolStripMenuItem
+            // 
+            this.overzichtBSToolStripMenuItem.Name = "overzichtBSToolStripMenuItem";
+            this.overzichtBSToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.overzichtBSToolStripMenuItem.Text = "Overzicht BS";
+            this.overzichtBSToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
             // tramsToolStripMenuItem
             // 
@@ -157,6 +166,7 @@
             this.reparatieToolStripMenuItem.Name = "reparatieToolStripMenuItem";
             this.reparatieToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.reparatieToolStripMenuItem.Text = "Reparatie";
+            this.reparatieToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
             // exitToolStripMenuItem
             // 
@@ -166,7 +176,9 @@
             // 
             // panelControls
             // 
-            this.panelControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelControls.Location = new System.Drawing.Point(0, 24);
             this.panelControls.Name = "panelControls";
             this.panelControls.Size = new System.Drawing.Size(1122, 651);
@@ -206,6 +218,7 @@
         private System.Windows.Forms.ToolStripMenuItem reparatieToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Panel panelControls;
+        private System.Windows.Forms.ToolStripMenuItem overzichtBSToolStripMenuItem;
     }
 }
 

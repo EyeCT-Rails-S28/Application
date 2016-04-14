@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ucMainRS1 = new EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls.ucMainRS();
+            this.ucMainRS1 = new EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls.ucReparatie();
             this.SuspendLayout();
             // 
             // ucMainRS1
@@ -52,6 +52,6 @@
 
         #endregion
 
-        private UserControls.ucMainRS ucMainRS1;
+        private UserControls.ucReparatie ucMainRS1;
     }
 }

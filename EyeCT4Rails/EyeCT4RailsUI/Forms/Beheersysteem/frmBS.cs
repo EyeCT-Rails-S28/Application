@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO.Pipes;
 using System.Linq;
 using System.Windows.Forms;
 using EyeCT4RailsUI.Forms.Beheersysteem.UserControls;
+using EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls;
 using EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem
@@ -20,6 +22,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _namespaces.Add(tramsToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(sporenToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(ucSchoonmaak).Namespace);
+            _namespaces.Add(reparatieToolStripMenuItem, typeof(ucReparatie).Namespace);
+            _namespaces.Add(overzichtBSToolStripMenuItem, typeof(ucOverzichtBS).Namespace);
         }
 
         private void UserControl_Change(object sender, EventArgs e)
@@ -45,6 +49,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
                 panelControls.Controls.Clear();
                 panelControls.Controls.Add(uc);
+                uc.Size = panelControls.Size;
+                uc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                 panelControls.Refresh();
             }
             catch (Exception ex)

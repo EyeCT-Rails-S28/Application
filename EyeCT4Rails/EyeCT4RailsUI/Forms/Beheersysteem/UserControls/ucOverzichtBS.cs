@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucMainRs : UserControl
+    public partial class ucOverzichtBS : UserControl
     {
         private const int SectionWidth = 50;
         private const int SectionHeight = 50;
@@ -19,7 +19,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         //private Graphics _gr;
         private List<Track> _tracks;
 
-        public ucMainRs()
+        public ucOverzichtBS()
         {
             InitializeComponent();
             //_gr = CreateGraphics();
@@ -126,6 +126,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             }
         }
 
-        
+        private void ucOverzichtBS_Resize(object sender, EventArgs e)
+        {
+            Refresh();
+        }
     }
 }

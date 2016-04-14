@@ -58,11 +58,11 @@
     <Compile Include="Forms\Reparatiesysteem\frmRS.Designer.cs">
       <DependentUpon>frmRS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Reparatiesysteem\UserControls\ucMainRS.cs">
+    <Compile Include="Forms\Reparatiesysteem\UserControls\ucReparatie.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Reparatiesysteem\UserControls\ucMainRS.Designer.cs">
-      <DependentUpon>ucMainRS.cs</DependentUpon>
+    <Compile Include="Forms\Reparatiesysteem\UserControls\ucReparatie.Designer.cs">
+      <DependentUpon>ucReparatie.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.cs">
       <SubType>UserControl</SubType>
@@ -76,7 +76,6 @@
     <Compile Include="Forms\Schoonmaaksysteem\frmSCH.Designer.cs">
       <DependentUpon>frmSCH.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\Section.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\Track.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.cs">
       <SubType>UserControl</SubType>
@@ -84,11 +83,11 @@
     <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.Designer.cs">
       <DependentUpon>ucSpoorInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucMainBS.cs">
+    <Compile Include="Forms\Beheersysteem\UserControls\ucOverzichtBS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucMainBS.Designer.cs">
-      <DependentUpon>ucMainBS.cs</DependentUpon>
+    <Compile Include="Forms\Beheersysteem\UserControls\ucOverzichtBS.Designer.cs">
+      <DependentUpon>ucOverzichtBS.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.cs">
       <SubType>UserControl</SubType>
@@ -152,8 +151,8 @@
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.resx">
       <DependentUpon>ucSpoorInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucMainBS.resx">
-      <DependentUpon>ucMainBS.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucOverzichtBS.resx">
+      <DependentUpon>ucOverzichtBS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.resx">
       <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
@@ -179,8 +178,8 @@
     <EmbeddedResource Include="Forms\Reparatiesysteem\frmRS.resx">
       <DependentUpon>frmRS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucMainRS.resx">
-      <DependentUpon>ucMainRS.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucReparatie.resx">
+      <DependentUpon>ucReparatie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.resx">
       <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
