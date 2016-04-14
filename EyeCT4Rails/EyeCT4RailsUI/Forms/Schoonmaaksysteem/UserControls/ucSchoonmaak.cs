@@ -26,10 +26,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
         private void dgvTrams_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView data = sender as DataGridView;
-
-            string test = data.Rows[e.RowIndex].Cells[e.ColumnIndex].EditedFormattedValue.ToString();
-
+            FunctionThatRaisesEvent();
         }
     }
 }

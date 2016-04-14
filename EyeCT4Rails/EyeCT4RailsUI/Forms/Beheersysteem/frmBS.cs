@@ -31,26 +31,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         {
             try
             {
-                string ns = "";
-
                 ToolStripMenuItem item = sender as ToolStripMenuItem;
 
-                ns = item.OwnerItem == null ? _namespaces[item as ToolStripMenuItem] : _namespaces[item.OwnerItem as ToolStripMenuItem];
-                
-                string strNamespace = ns + GetUcName(item.Text);
-
-                Type type = Type.GetType(strNamespace);
-                var uc = (UserControl) Activator.CreateInstance(type);
-
-                panelControls.Controls.Clear();
-                panelControls.Controls.Add(uc);
-
-                uc.Size = panelControls.Size;
-                uc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-
-                this.Text = "Beheersysteem - " + item.Text;
-
-                panelControls.Refresh();
+                AddControl(GetUserControl(sender), item.Text);
             }
             catch (Exception ex)
             {
@@ -59,13 +42,56 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
         }
 
+        private void AddControl(UserControl uc, string text)
+        {
+            panelControls.Controls.Clear();
+            panelControls.Controls.Add(uc);
+
+            uc.Size = panelControls.Size;
+            uc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+
+            this.Text = "Beheersysteem - " + text;
+
+            panelControls.Refresh();
+        }
+
+        private UserControl GetUserControl(object sender)
+        {
+            string ns = "";
+
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+
+            ns = item.OwnerItem == null ? _namespaces[item as ToolStripMenuItem] : _namespaces[item.OwnerItem as ToolStripMenuItem];
+
+            string strNamespace = ns + GetUcName(item.Text);
+
+            Type type = Type.GetType(strNamespace);
+
+            var uc = (UserControl) Activator.CreateInstance(type);
+
+            if (type == typeof(ucSchoonmaak))
+            {
+                (uc as ucSchoonmaak).StatusUpdated += MyEventHandlerFunction_StatusUpdated;
+            }
+
+            return uc;
+        }
+
         public void MyEventHandlerFunction_StatusUpdated(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
 
-            string tramNumer =
-                data.Rows[data.SelectedRows[0].Index].Cells[data.SelectedColumns[0].Index].EditedFormattedValue.ToString
-                    ();
+            if (data != null)
+            {
+                if (data.SelectedCells[0].ColumnIndex == 1)
+                {
+                    string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
+
+                    ucTramHistorieSCH uc = new ucTramHistorieSCH(tramNummer);
+
+                    AddControl(uc, "Tram historie");
+                }
+            }
         }
 
         private static string UppercaseFirst(string s)
@@ -74,6 +100,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 return string.Empty;
             }
+
 
             return char.ToUpper(s[0]) + s.Substring(1);
         }
