@@ -9,11 +9,11 @@
         /// <summary>
         /// Tram that is parked on this section. Can be null.
         /// </summary>
-        public Tram Tram { get; set; }
+        public Tram Tram { get; }
         /// <summary>
         /// Bool determining wheter the section is blocked or not.
         /// </summary>
-        public bool Blocked { get; set; }
+        public bool Blocked { get; }
 
         /// <summary>
         /// Creates a section without a tram.

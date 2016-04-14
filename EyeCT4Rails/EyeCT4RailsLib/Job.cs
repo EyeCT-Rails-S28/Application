@@ -45,15 +45,15 @@ namespace EyeCT4RailsLib
         {
             string job = GetType().Name == "Cleanup" ? "CL" : "MT";
             string done = IsDone ? "Done" : "Not Done";
-            string tram = "No Tram";
-            string user = "No User";
+            string tram = "None";
+            string user = "None";
 
             if (Tram != null)
                 tram = Tram.Id.ToString();
             if (User != null)
                 user = User?.Name;
 
-            return $"{job}: {Date} - {done} - {JobSize} - {tram} - {user}";
+            return $"{job}: {Date} - {done} - Size: {JobSize} - Tram: {tram} - User: {user}";
         }
     }
 }
