@@ -1,6 +1,7 @@
-﻿namespace EyeCT4RailsUI.Forms.UserControls
+﻿
+namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    partial class ucInfoSpoor
+    partial class ucSpoorInfo
     {
         /// <summary> 
         /// Required designer variable.
@@ -57,14 +58,14 @@
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
-            // ucInfoSpoor
+            // ucSpoorInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.tbSpoornummer);
             this.Controls.Add(this.lblSpoornummer);
-            this.Name = "ucInfoSpoor";
+            this.Name = "ucSpoorInfo";
             this.Size = new System.Drawing.Size(307, 287);
             this.ResumeLayout(false);
             this.PerformLayout();

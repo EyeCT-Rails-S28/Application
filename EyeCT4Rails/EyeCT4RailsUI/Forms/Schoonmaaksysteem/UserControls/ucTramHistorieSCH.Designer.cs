@@ -68,15 +68,18 @@
             // 
             // dgvTramHistorie
             // 
+            this.dgvTramHistorie.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTramHistorie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTramHistorie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Type_Beurt,
             this.Schoonmaak_Datum,
             this.Opmerkingen,
             this.Uitgevoerd});
-            this.dgvTramHistorie.Location = new System.Drawing.Point(3, 28);
+            this.dgvTramHistorie.Location = new System.Drawing.Point(0, 28);
             this.dgvTramHistorie.Name = "dgvTramHistorie";
-            this.dgvTramHistorie.Size = new System.Drawing.Size(443, 464);
+            this.dgvTramHistorie.Size = new System.Drawing.Size(449, 470);
             this.dgvTramHistorie.TabIndex = 3;
             // 
             // Type_Beurt

@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace EyeCT4RailsUI.Forms.UserControls
+namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     public partial class ucTramPlaatsen : UserControl
     {
