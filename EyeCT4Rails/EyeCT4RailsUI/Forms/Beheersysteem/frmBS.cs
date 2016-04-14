@@ -34,12 +34,19 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 ToolStripMenuItem item = sender as ToolStripMenuItem;
 
                 AddControl(GetUserControl(sender), item.Text);
+
+                UpdateTitle(item.Text);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 MessageBox.Show("Menu item not found!");
             }
+        }
+
+        private void UpdateTitle(string titleExtension)
+        {
+            this.Text = "Beheersysteem - " + titleExtension;
         }
 
         private void AddControl(UserControl uc, string text)
@@ -49,8 +56,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             uc.Size = panelControls.Size;
             uc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-
-            this.Text = "Beheersysteem - " + text;
 
             panelControls.Refresh();
         }
@@ -90,22 +95,23 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                     ucTramHistorieSCH uc = new ucTramHistorieSCH(tramNummer);
 
                     AddControl(uc, "Tram historie");
+
+                    UpdateTitle("Tram historie");
                 }
             }
         }
 
-        private static string UppercaseFirst(string s)
+        private string UppercaseFirst(string s)
         {
             if (string.IsNullOrEmpty(s))
             {
                 return string.Empty;
             }
 
-
             return char.ToUpper(s[0]) + s.Substring(1);
         }
 
-        private static string GetUcName(string text)
+        private string GetUcName(string text)
         {
             List<string> names = new List<string>();
 
