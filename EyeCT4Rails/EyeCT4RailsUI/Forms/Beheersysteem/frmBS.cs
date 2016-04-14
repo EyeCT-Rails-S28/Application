@@ -12,13 +12,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 {
     public partial class frmBs : Form
     {
-        private Dictionary<ToolStripMenuItem, string> _namespaces;
+        private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
         public frmBs()
         {
             InitializeComponent();
 
             _namespaces = new Dictionary<ToolStripMenuItem, string>();
+
             _namespaces.Add(tramsToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(sporenToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(ucSchoonmaak).Namespace);
@@ -33,14 +34,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 string ns = "";
 
                 ToolStripMenuItem item = sender as ToolStripMenuItem;
-                if (item.OwnerItem == null)
-                {
-                    ns = _namespaces[item as ToolStripMenuItem];
-                }
-                else
-                {
-                    ns = _namespaces[item.OwnerItem as ToolStripMenuItem];
-                }
+
+                ns = item.OwnerItem == null ? _namespaces[item as ToolStripMenuItem] : _namespaces[item.OwnerItem as ToolStripMenuItem];
                 
                 string strNamespace = ns + GetUcName(item.Text);
 
@@ -49,8 +44,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
                 panelControls.Controls.Clear();
                 panelControls.Controls.Add(uc);
+
                 uc.Size = panelControls.Size;
                 uc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+
                 panelControls.Refresh();
             }
             catch (Exception ex)
@@ -60,7 +57,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
         }
 
-        static string UppercaseFirst(string s)
+        private static string UppercaseFirst(string s)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -70,28 +67,24 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             return char.ToUpper(s[0]) + s.Substring(1);
         }
 
-        static string GetUcName(string text)
+        private static string GetUcName(string text)
         {
             List<string> names = new List<string>();
 
             string fullName = "";
             string itemNaam = text;
-            int index = itemNaam.IndexOf(" ");
+            int index = itemNaam.IndexOf(" ", StringComparison.Ordinal);
 
-            if (index > 0)
+            while (index > 0)
             {
-                do
-                {
-                    names.Add(UppercaseFirst(itemNaam.Substring(0, index)));
-                    itemNaam = itemNaam.Substring(index + 1, itemNaam.Length - 1 - index);
-                    index = itemNaam.IndexOf(" ");
-                } while (index > 0);
+                names.Add(UppercaseFirst(itemNaam.Substring(0, index)));
+                itemNaam = itemNaam.Substring(index + 1, itemNaam.Length - 1 - index);
+                index = itemNaam.IndexOf(" ", StringComparison.Ordinal);
             }
 
             names.Add(UppercaseFirst(itemNaam));
 
             fullName += ".uc";
-
             fullName = names.Aggregate(fullName, (current, name) => current + name);
 
             return fullName;

@@ -93,6 +93,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 if (e.X >= x && e.X <= x + SectionWidth && e.Y >= y && e.Y <= y + track.GetHeight(SectionHeight))
                 {
                     int y2 = y + SectionHeight;
+
                     if (e.Y <= y2)
                     {
                         MessageBox.Show("Clicked: " + track.Number);
@@ -102,6 +103,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     for (int i = 0; i < track.AmountSections; i++)
                     {
                         y2 += SectionHeight;
+
                         if (e.Y <= y2)
                         {
                             MessageBox.Show("Clicked: " + track.Number + "; Section: " + i);
