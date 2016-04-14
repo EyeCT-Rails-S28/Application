@@ -21,5 +21,10 @@
             Id = id;
             AssociatedLineLine = associatedLine;
         }
+
+        public override string ToString()
+        {
+            return $"{Id}";
+        }
     }
 }

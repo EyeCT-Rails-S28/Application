@@ -40,5 +40,20 @@ namespace EyeCT4RailsLib
             JobSize = jobSize;
             Tram = tram;
         }
+
+        public override string ToString()
+        {
+            string job = GetType().Name == "Cleanup" ? "CL" : "MT";
+            string done = IsDone ? "Done" : "Not Done";
+            string tram = "No Tram";
+            string user = "No User";
+
+            if (Tram != null)
+                tram = Tram.Id.ToString();
+            if (User != null)
+                user = User?.Name;
+
+            return $"{job}: {Date} - {done} - {JobSize} - {tram} - {user}";
+        }
     }
 }

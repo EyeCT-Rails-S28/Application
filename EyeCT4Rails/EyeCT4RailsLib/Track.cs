@@ -34,5 +34,10 @@ namespace EyeCT4RailsLib
             if(!_sections.Contains(section))
                 _sections.Add(section);
         }
+
+        public override string ToString()
+        {
+            return $"{Id} - Length: {Sections.Count}";
+        }
     }
 }

@@ -33,5 +33,10 @@
             User = user;
             Tram = tram;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} - Line: {Line.Id} - Tram: {Tram.Id} - Driver: {User.Name}";
+        }
     }
 }

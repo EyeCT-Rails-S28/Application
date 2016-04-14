@@ -36,5 +36,15 @@
         {
             Tram = tram;
         }
+
+        public override string ToString()
+        {
+            string blocked = Blocked ? "Blocked" : "Not Blocked";
+            string tram = Tram?.Id.ToString();
+            if (Tram == null)
+                tram = "No Tram";
+
+            return $"{Id} - {blocked} - {tram}";
+        }
     }
 }
