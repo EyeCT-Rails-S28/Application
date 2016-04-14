@@ -10,11 +10,11 @@ using EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem
 {
-    public partial class frmBs : Form
+    public partial class frmBS : Form
     {
         private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
-        public frmBs()
+        public frmBS()
         {
             InitializeComponent();
 
@@ -55,8 +55,17 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                MessageBox.Show("Menuitem not found!");
+                MessageBox.Show("Menu item not found!");
             }
+        }
+
+        public void MyEventHandlerFunction_StatusUpdated(object sender, EventArgs e)
+        {
+            DataGridView data = sender as DataGridView;
+
+            string tramNumer =
+                data.Rows[data.SelectedRows[0].Index].Cells[data.SelectedColumns[0].Index].EditedFormattedValue.ToString
+                    ();
         }
 
         private static string UppercaseFirst(string s)

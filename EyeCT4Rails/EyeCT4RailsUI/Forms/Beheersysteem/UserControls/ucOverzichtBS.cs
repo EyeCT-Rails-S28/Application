@@ -12,17 +12,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private const int SectionHeight = 50;
         private const int LeftMargin = 5;
         private const int AboveMargin = 5;
-        private const int Margin = 20;
-
-        public event EventHandler UserControl_Changed;
-
-        //private Graphics _gr;
+        private const int NewlineMargin = 20;
+        
         private List<Track> _tracks;
 
         public ucOverzichtBS()
         {
             InitializeComponent();
-            //_gr = CreateGraphics();
 
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
 
@@ -49,10 +45,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                 x += SectionWidth;
 
-                if (x + SectionWidth + Margin > pnlTracks.Width)
+                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
                 {
                     x = LeftMargin;
-                    y += maxHeight + Margin;
+                    y += maxHeight + NewlineMargin;
                     maxHeight = 0;
                 }
             }
@@ -96,7 +92,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                     if (e.Y <= y2)
                     {
-                        MessageBox.Show("Clicked: " + track.Number);
+                        MessageBox.Show($"Clicked: {track.Number}");
                         break;
                     }
 
@@ -106,7 +102,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                         if (e.Y <= y2)
                         {
-                            MessageBox.Show("Clicked: " + track.Number + "; Section: " + i);
+                            MessageBox.Show($"Clicked: {track.Number}; Section: {i}");
                             break;
                         }
                     }
@@ -119,10 +115,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                 x += SectionWidth;
 
-                if (x + SectionWidth + Margin > pnlTracks.Width)
+                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
                 {
                     x = LeftMargin;
-                    y += maxHeight + Margin;
+                    y += maxHeight + NewlineMargin;
                     maxHeight = 0;
                 }
             }

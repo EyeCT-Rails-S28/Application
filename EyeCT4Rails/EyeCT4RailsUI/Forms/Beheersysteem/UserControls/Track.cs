@@ -7,43 +7,29 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     class Track
     {
-        private readonly int _number;
-        private readonly int _amountSections;
-
         public Track(int number, int amountSections)
         {
-            _number = number;
-            _amountSections = amountSections;
-        }
-
-        public void Draw(Graphics gr, int x, int y, int sectionWidth, int sectionHeight)
-        {
-            
+            Number = number;
+            AmountSections = amountSections;
         }
 
         public int GetHeight(int sectionHeight)
         {
-            return (_amountSections + 1) * sectionHeight;
+            return (AmountSections + 1) * sectionHeight;
         }
 
-        public int Number
-        {
-            get { return _number; }
-        }
+        public int Number { get; }
 
-        public int AmountSections
-        {
-            get { return _amountSections; }
-        }
+        public int AmountSections { get; }
 
         public static List<Track> GetDefaultTracks()
         {
             List<Track> tracks = new List<Track>();
             Random r = new Random();
 
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 38; i++)
             {
-                tracks.Add(new Track(i, r.Next(1, 6)));
+                tracks.Add(new Track(i, r.Next(1, 5)));
             }
 
             return tracks;
