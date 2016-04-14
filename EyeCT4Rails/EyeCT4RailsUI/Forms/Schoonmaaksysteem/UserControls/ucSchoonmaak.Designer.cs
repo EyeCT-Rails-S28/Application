@@ -42,6 +42,9 @@
             // 
             // dgvTrams
             // 
+            this.dgvTrams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTrams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTrams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Select,
@@ -50,10 +53,10 @@
             this.Spoor,
             this.Type_Beurt,
             this.Schoonmaak_Datum});
-            this.dgvTrams.Location = new System.Drawing.Point(0, 3);
+            this.dgvTrams.Location = new System.Drawing.Point(0, 0);
             this.dgvTrams.Name = "dgvTrams";
             this.dgvTrams.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvTrams.Size = new System.Drawing.Size(644, 383);
+            this.dgvTrams.Size = new System.Drawing.Size(646, 383);
             this.dgvTrams.TabIndex = 0;
             // 
             // Select
@@ -88,6 +91,7 @@
             // 
             // btnSchoonmaakbeurtAfronden
             // 
+            this.btnSchoonmaakbeurtAfronden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSchoonmaakbeurtAfronden.Location = new System.Drawing.Point(3, 392);
             this.btnSchoonmaakbeurtAfronden.Name = "btnSchoonmaakbeurtAfronden";
             this.btnSchoonmaakbeurtAfronden.Size = new System.Drawing.Size(162, 23);
@@ -97,19 +101,21 @@
             // 
             // tbOpmerking
             // 
+            this.tbOpmerking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbOpmerking.Location = new System.Drawing.Point(183, 395);
             this.tbOpmerking.Name = "tbOpmerking";
             this.tbOpmerking.Size = new System.Drawing.Size(460, 20);
             this.tbOpmerking.TabIndex = 2;
             // 
-            // ucMain
+            // ucSchoonmaak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tbOpmerking);
             this.Controls.Add(this.btnSchoonmaakbeurtAfronden);
             this.Controls.Add(this.dgvTrams);
-            this.Name = "ucMain";
+            this.Name = "ucSchoonmaak";
             this.Size = new System.Drawing.Size(646, 425);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).EndInit();
             this.ResumeLayout(false);

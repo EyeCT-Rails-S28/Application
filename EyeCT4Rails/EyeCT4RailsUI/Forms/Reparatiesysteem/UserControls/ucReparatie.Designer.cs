@@ -42,13 +42,17 @@
             // 
             // tbOpmerking
             // 
-            this.tbOpmerking.Location = new System.Drawing.Point(186, 395);
+            this.tbOpmerking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbOpmerking.BackColor = System.Drawing.SystemColors.Window;
+            this.tbOpmerking.Location = new System.Drawing.Point(174, 395);
             this.tbOpmerking.Name = "tbOpmerking";
-            this.tbOpmerking.Size = new System.Drawing.Size(460, 20);
+            this.tbOpmerking.Size = new System.Drawing.Size(485, 20);
             this.tbOpmerking.TabIndex = 5;
             // 
             // btnReparatieAfronden
             // 
+            this.btnReparatieAfronden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReparatieAfronden.Location = new System.Drawing.Point(6, 392);
             this.btnReparatieAfronden.Name = "btnReparatieAfronden";
             this.btnReparatieAfronden.Size = new System.Drawing.Size(162, 23);
@@ -58,6 +62,9 @@
             // 
             // dgvTrams
             // 
+            this.dgvTrams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTrams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTrams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Select,
@@ -66,10 +73,10 @@
             this.Spoor,
             this.Type_Beurt,
             this.Reparatie_Datum});
-            this.dgvTrams.Location = new System.Drawing.Point(3, 3);
+            this.dgvTrams.Location = new System.Drawing.Point(0, 0);
             this.dgvTrams.Name = "dgvTrams";
             this.dgvTrams.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvTrams.Size = new System.Drawing.Size(644, 383);
+            this.dgvTrams.Size = new System.Drawing.Size(659, 386);
             this.dgvTrams.TabIndex = 3;
             // 
             // Select

@@ -41,7 +41,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             List<Track> tracks = new List<Track>();
             Random r = new Random();
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 60; i++)
             {
                 tracks.Add(new Track(i, r.Next(1, 6)));
             }

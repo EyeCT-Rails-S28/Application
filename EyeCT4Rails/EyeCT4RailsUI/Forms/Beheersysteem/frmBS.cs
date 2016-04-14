@@ -48,6 +48,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 uc.Size = panelControls.Size;
                 uc.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
+                this.Text = "Beheersysteem - " + item.Text;
+
                 panelControls.Refresh();
             }
             catch (Exception ex)
@@ -88,6 +90,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             fullName = names.Aggregate(fullName, (current, name) => current + name);
 
             return fullName;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

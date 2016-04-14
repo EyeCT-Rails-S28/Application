@@ -48,6 +48,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tramnummer,
@@ -57,9 +59,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Spoor,
             this.Reparaties,
             this.Schoonmaak});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 35);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 35);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(746, 447);
+            this.dataGridView1.Size = new System.Drawing.Size(751, 447);
             this.dataGridView1.TabIndex = 0;
             // 
             // Tramnummer
