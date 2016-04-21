@@ -85,7 +85,7 @@ namespace EyeCT4RailsDatabase
             return true;
         }
 
-        public bool ScheduleRecurringJob(Cleanup cleanup, User user, Tram tram, DateTime date, DateTime interval, DateTime endDate)
+        public bool ScheduleRecurringJob(JobSize size, User user, Tram tram, DateTime date, DateTime interval, DateTime endDate)
         {
             OracleConnection connection = Database.Instance.Connection;
             OracleCommand command = new OracleCommand("", connection);
