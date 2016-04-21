@@ -53,11 +53,17 @@
     <Compile Include="Forms\Beheersysteem\frmBS.Designer.cs">
       <DependentUpon>frmBS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Reparatiesysteem\frmRS.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Forms\InUitSysteem\ucInEnUitRijSysteem.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Reparatiesysteem\frmRS.Designer.cs">
-      <DependentUpon>frmRS.cs</DependentUpon>
+    <Compile Include="Forms\InUitSysteem\ucInEnUitRijSysteem.Designer.cs">
+      <DependentUpon>ucInEnUitRijSysteem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Login\ucLogIn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Login\ucLogIn.Designer.cs">
+      <DependentUpon>ucLogIn.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucReparatie.cs">
       <SubType>UserControl</SubType>
@@ -70,12 +76,6 @@
     </Compile>
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.Designer.cs">
       <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Schoonmaaksysteem\frmSCH.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Schoonmaaksysteem\frmSCH.Designer.cs">
-      <DependentUpon>frmSCH.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\Track.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.cs">
@@ -126,12 +126,6 @@
     <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.Designer.cs">
       <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\InUitSysteem\frmIUS.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\InUitSysteem\frmIUS.Designer.cs">
-      <DependentUpon>frmIUS.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -173,20 +167,17 @@
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.resx">
       <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InUitSysteem\frmIUS.resx">
-      <DependentUpon>frmIUS.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\InUitSysteem\ucInEnUitRijSysteem.resx">
+      <DependentUpon>ucInEnUitRijSysteem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Reparatiesysteem\frmRS.resx">
-      <DependentUpon>frmRS.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Login\ucLogIn.resx">
+      <DependentUpon>ucLogIn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucReparatie.resx">
       <DependentUpon>ucReparatie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.resx">
       <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Schoonmaaksysteem\frmSCH.resx">
-      <DependentUpon>frmSCH.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.resx">
       <DependentUpon>ucSchoonmaak.cs</DependentUpon>

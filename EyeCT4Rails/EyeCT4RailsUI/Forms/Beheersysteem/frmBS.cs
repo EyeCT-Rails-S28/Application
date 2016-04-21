@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO.Pipes;
 using System.Linq;
 using System.Windows.Forms;
+using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 using EyeCT4RailsUI.Forms.Beheersysteem.UserControls;
+using EyeCT4RailsUI.Forms.InUitSysteem;
+using EyeCT4RailsUI.Forms.Login;
 using EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls;
 using EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls;
 
@@ -14,17 +16,77 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
     {
         private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
+        private ucLogIn _ucLogIn;
+
+        private User _currentUser;
+
         public frmBS()
         {
             InitializeComponent();
 
             _namespaces = new Dictionary<ToolStripMenuItem, string>();
+            _ucLogIn = new ucLogIn();
 
             _namespaces.Add(tramsToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(sporenToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(ucSchoonmaak).Namespace);
             _namespaces.Add(reparatieToolStripMenuItem, typeof(ucReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(ucOverzichtBS).Namespace);
+            _namespaces.Add(inEnUitrijSysteemToolStripMenuItem, typeof(ucInEnUitRijSysteem).Namespace);
+
+            msMenu.Visible = false;
+            AddControl(_ucLogIn);
+            _ucLogIn.LoginSucceeded += LoginSucceeded;
+
+            foreach (ToolStripMenuItem item in msMenu.Items)
+            {
+                item.Enabled = false;
+            }
+        }
+
+        private void LoginSucceeded(object sender, EventArgs e)
+        {
+            _ucLogIn.Dispose();
+            _currentUser = sender as User;
+            msMenu.Visible = true;
+
+            ShowMenuItems(_currentUser.Privilege);
+
+            UpdateTitle("");
+        }
+
+        private void ShowMenuItems(Privilege privilege)
+        {
+            switch (_currentUser.Privilege)
+            {
+                case Privilege.Administrator:
+                    foreach (ToolStripMenuItem item in msMenu.Items)
+                    {
+                        item.Enabled = true;
+                    }
+
+                    break;
+                case Privilege.Mechanic:
+                    reparatieToolStripMenuItem.Enabled = true;
+
+                    break;
+                case Privilege.Cleanup:
+                    schoonmaakToolStripMenuItem.Enabled = true;
+
+                    break;
+                case Privilege.DepotMananger:
+                    overzichtBSToolStripMenuItem.Enabled = true;
+                    tramsToolStripMenuItem.Enabled = true;
+                    sporenToolStripMenuItem.Enabled = true;
+
+                    break;
+                case Privilege.Driver:
+                    inEnUitrijSysteemToolStripMenuItem.Enabled = true;
+
+                    break;
+            }
+
+            exitToolStripMenuItem.Enabled = true;
         }
 
         private void UserControl_Change(object sender, EventArgs e)
@@ -33,7 +95,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 ToolStripMenuItem item = sender as ToolStripMenuItem;
 
-                AddControl(GetUserControl(sender), item.Text);
+                AddControl(GetUserControl(sender));
 
                 UpdateTitle(item.Text);
             }
@@ -46,10 +108,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private void UpdateTitle(string titleExtension)
         {
-            this.Text = "Beheersysteem - " + titleExtension;
+            this.Text = _currentUser.Privilege + " - " + titleExtension;
         }
 
-        private void AddControl(UserControl uc, string text)
+        private void AddControl(UserControl uc)
         {
             panelControls.Controls.Clear();
             panelControls.Controls.Add(uc);
@@ -76,13 +138,17 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             if (type == typeof(ucSchoonmaak))
             {
-                (uc as ucSchoonmaak).StatusUpdated += MyEventHandlerFunction_StatusUpdated;
+                (uc as ucSchoonmaak).Cel_DoubleClicked += CelDoubleClicked;
+            }
+            else if (type == typeof(ucReparatie))
+            {
+                (uc as ucReparatie).Cel_DoubleClicked += CelDoubleClicked;
             }
 
             return uc;
         }
 
-        public void MyEventHandlerFunction_StatusUpdated(object sender, EventArgs e)
+        public void CelDoubleClicked(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
 
@@ -94,9 +160,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
                     ucTramHistorieSCH uc = new ucTramHistorieSCH(tramNummer);
 
-                    AddControl(uc, "Tram historie");
+                    AddControl(uc);
 
-                    UpdateTitle("Tram historie");
+                    UpdateTitle("Historie");
                 }
             }
         }
