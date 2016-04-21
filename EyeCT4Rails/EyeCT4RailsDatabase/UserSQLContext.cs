@@ -12,7 +12,7 @@ namespace EyeCT4RailsDatabase
     // ReSharper disable once InconsistentNaming
     public class UserSQLContext : IUserContext
     {
-        public User CreateUser(string name, string password, string email, Privilege privilege)
+        public User CreateUser(string name, string password, string email, Role role)
         {
             throw new NotImplementedException();
         }

@@ -16,9 +16,9 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="name">Name of the user.</param>
         /// <param name="password">Password of the user.</param>
         /// <param name="email">Email of the user.</param>
-        /// <param name="privilege">Privilege of the user.</param>
+        /// <param name="role">Role of the user.</param>
         /// <returns>A user object with the given information.</returns>
-        User CreateUser(string name, string password, string email, Privilege privilege);
+        User CreateUser(string name, string password, string email, Role role);
 
         /// <summary>
         /// Tries to login an user with the given email and password.

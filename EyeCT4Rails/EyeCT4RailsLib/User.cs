@@ -17,9 +17,9 @@ namespace EyeCT4RailsLib
         /// </summary>
         public string Email { get;}
         /// <summary>
-        /// The privilege of the user.
+        /// The Role of the user.
         /// </summary>
-        public Privilege Privilege { get; }
+        public Role Role { get; }
 
         /// <summary>
         /// Creates an user.
@@ -27,28 +27,28 @@ namespace EyeCT4RailsLib
         /// <param name="id">The id of the user.</param>
         /// <param name="name">The name of the user.</param>
         /// <param name="email">The email of the user.</param>
-        /// <param name="privilege">The privilege of the user.</param>
-        public User(int id, string name, string email, Privilege privilege)
+        /// <param name="role">The Role of the user.</param>
+        public User(int id, string name, string email, Role role)
         {
             Id = id;
             Name = name;
             Email = email;
-            Privilege = privilege;
+            Role = role;
         }
 
         /// <summary>
-        /// Returns wheter a user has a certain privilege.
+        /// Returns wheter a user has a certain Role.
         /// </summary>
-        /// <param name="privilege">Privilege to check.</param>
-        /// <returns>A bool which specifies wheter the user has the privilege.</returns>
-        public bool HasPrivilege(Privilege privilege)
+        /// <param name="role">Role to check.</param>
+        /// <returns>A bool which specifies wheter the user has the Role.</returns>
+        public bool HasPrivilege(Role role)
         {
-            return Privilege == privilege || Privilege == Privilege.Administrator;
+            return Role == role || Role == Role.Administrator;
         }
 
         public override string ToString()
         {
-            return $"{Id} - {Name} - {Privilege}";
+            return $"{Id} - {Name} - {Role}";
         }
     }
 }
