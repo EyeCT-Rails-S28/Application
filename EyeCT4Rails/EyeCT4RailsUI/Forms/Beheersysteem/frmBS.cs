@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsUI.Forms.Beheersysteem.UserControls;
+using EyeCT4RailsUI.Forms.InUitSysteem;
 using EyeCT4RailsUI.Forms.Login;
 using EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls;
 using EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls;
@@ -31,6 +32,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(ucSchoonmaak).Namespace);
             _namespaces.Add(reparatieToolStripMenuItem, typeof(ucReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(ucOverzichtBS).Namespace);
+            _namespaces.Add(inEnUitrijSysteemToolStripMenuItem, typeof(ucInEnUitRijSysteem).Namespace);
 
             msMenu.Visible = false;
             AddControl(_ucLogIn);
@@ -49,6 +51,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             msMenu.Visible = true;
 
             ShowMenuItems(_currentUser.Privilege);
+
+            UpdateTitle("");
         }
 
         private void ShowMenuItems(Privilege privilege)
@@ -77,8 +81,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
                     break;
                 case Privilege.Driver:
+                    inEnUitrijSysteemToolStripMenuItem.Enabled = true;
+
                     break;
             }
+
+            exitToolStripMenuItem.Enabled = true;
         }
 
         private void UserControl_Change(object sender, EventArgs e)
@@ -100,7 +108,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private void UpdateTitle(string titleExtension)
         {
-            this.Text = "Beheersysteem - " + titleExtension;
+            this.Text = _currentUser.Privilege + " - " + titleExtension;
         }
 
         private void AddControl(UserControl uc)

@@ -53,6 +53,12 @@
     <Compile Include="Forms\Beheersysteem\frmBS.Designer.cs">
       <DependentUpon>frmBS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\InUitSysteem\ucInEnUitRijSysteem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\InUitSysteem\ucInEnUitRijSysteem.Designer.cs">
+      <DependentUpon>ucInEnUitRijSysteem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login\ucLogIn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InUitSysteem\frmIUS.resx">
       <DependentUpon>frmIUS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InUitSysteem\ucInEnUitRijSysteem.resx">
+      <DependentUpon>ucInEnUitRijSysteem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login\ucLogIn.resx">
       <DependentUpon>ucLogIn.cs</DependentUpon>
