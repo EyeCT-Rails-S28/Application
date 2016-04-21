@@ -15,8 +15,10 @@ namespace EyeCT4RailsDatabase
             List<Tram> list = new List<Tram>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("dirty_trams", connection);
+            OracleCommand command = new OracleCommand("fetch_trams_type", connection);
             command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add(new OracleParameter("p_job_status", OracleDbType.Varchar2).Value = Convert.ToString(Status.Defect));
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
