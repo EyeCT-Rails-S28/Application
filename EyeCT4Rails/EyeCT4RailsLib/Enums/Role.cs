@@ -1,9 +1,9 @@
 ﻿namespace EyeCT4RailsLib.Enums
 {
     /// <summary>
-    /// Privilege of a user.
+    /// Role of a user.
     /// </summary>
-    public enum Privilege
+    public enum Role
     {
         Administrator,
         Mechanic,

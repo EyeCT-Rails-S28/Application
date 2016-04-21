@@ -43,7 +43,7 @@
     <Compile Include="Cleanup.cs" />
     <Compile Include="Depot.cs" />
     <Compile Include="Enums\JobSize.cs" />
-    <Compile Include="Enums\Privilege.cs" />
+    <Compile Include="Enums\Role.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Line.cs" />
