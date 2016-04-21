@@ -12,7 +12,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
     public partial class ucSchoonmaak : UserControl
     {
-        public event EventHandler StatusUpdated;
+        public event EventHandler Cel_DubbleClicked;
 
         public ucSchoonmaak()
         {
@@ -21,7 +21,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
         private void FunctionThatRaisesEvent()
         {
-            StatusUpdated?.Invoke(dgvTrams, new EventArgs());
+            Cel_DubbleClicked?.Invoke(dgvTrams, new EventArgs());
         }
 
         private void dgvTrams_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

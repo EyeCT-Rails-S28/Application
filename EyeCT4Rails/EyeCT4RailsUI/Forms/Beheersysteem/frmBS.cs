@@ -76,13 +76,16 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             if (type == typeof(ucSchoonmaak))
             {
-                (uc as ucSchoonmaak).StatusUpdated += MyEventHandlerFunction_StatusUpdated;
+                (uc as ucSchoonmaak).Cel_DubbleClicked += Cel_DubbleClicked;
+            }else if (type == typeof(ucReparatie))
+            {
+                (uc as ucReparatie).Cel_DubbleClicked += Cel_DubbleClicked;
             }
 
             return uc;
         }
 
-        public void MyEventHandlerFunction_StatusUpdated(object sender, EventArgs e)
+        public void Cel_DubbleClicked(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
 
@@ -94,9 +97,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
                     ucTramHistorieSCH uc = new ucTramHistorieSCH(tramNummer);
 
-                    AddControl(uc, "Tram historie");
+                    AddControl(uc, "Historie");
 
-                    UpdateTitle("Tram historie");
+                    UpdateTitle("Historie");
                 }
             }
         }
