@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -16,8 +15,10 @@ namespace EyeCT4RailsDatabase
             List<Tram> list = new List<Tram>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("dirty_trams", connection);
+            OracleCommand command = new OracleCommand("fetch_trams_type", connection);
             command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add(new OracleParameter("p_job_status", OracleDbType.Varchar2).Value = Convert.ToString(Status.Schoonmaak));
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -38,8 +39,10 @@ namespace EyeCT4RailsDatabase
             List<Cleanup> list = new List<Cleanup>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("cleanup_schedule", connection);
+            OracleCommand command = new OracleCommand("job_schedule", connection);
             command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Cleanup");
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -53,14 +56,14 @@ namespace EyeCT4RailsDatabase
                 Line line = new Line(reader.GetInt32(5));
                 bool forced = reader.GetByte(6) == 1;
 
-                Tram tram = new Tram(id, status, line, forced);
+                Tram tram = new Tram(tramId, status, line, forced);
 
                 int userId = reader.GetInt32(7);
                 string name = reader.GetString(8);
                 string email = reader.GetString(9);
-                Role role = (Role) Enum.Parse(typeof (Role), reader.GetString(10));
+                Role privilege = (Role) Enum.Parse(typeof (Role), reader.GetString(10));
 
-                User user = new User(userId, name, email, role);
+                User user = new User(userId, name, email, privilege);
 
                 list.Add(new Cleanup(id, date, false, size, tram, user));
             }
@@ -73,10 +76,11 @@ namespace EyeCT4RailsDatabase
             List<Cleanup> list = new List<Cleanup>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("cleanup_history_tram", connection);
+            OracleCommand command = new OracleCommand("job_history_tram", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.Add(new OracleParameter("p_id", OracleDbType.Int32).Value = tram.Id);
+            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Cleanup");
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -88,9 +92,9 @@ namespace EyeCT4RailsDatabase
                 int userId = reader.GetInt32(3);
                 string name = reader.GetString(4);
                 string email = reader.GetString(5);
-                Role role = (Role)Enum.Parse(typeof(Role), reader.GetString(6));
+                Role privilege = (Role)Enum.Parse(typeof(Role), reader.GetString(6));
 
-                User user = new User(userId, name, email, role);
+                User user = new User(userId, name, email, privilege);
 
                 list.Add(new Cleanup(id, date, false, size, tram, user));
             }
@@ -102,8 +106,11 @@ namespace EyeCT4RailsDatabase
         {
             List<Cleanup> list = new List<Cleanup>();
 
-            OracleCommand command = new OracleCommand("cleanup_history", Database.Instance.Connection);
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("job_history", connection);
             command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Cleanup");
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -117,14 +124,14 @@ namespace EyeCT4RailsDatabase
                 Line line = new Line(reader.GetInt32(5));
                 bool forced = reader.GetByte(6) == 1;
 
-                Tram tram = new Tram(id, status, line, forced);
+                Tram tram = new Tram(tramId, status, line, forced);
 
                 int userId = reader.GetInt32(7);
                 string name = reader.GetString(8);
                 string email = reader.GetString(9);
-                Role role = (Role)Enum.Parse(typeof(Role), reader.GetString(10));
+                Role privilege = (Role)Enum.Parse(typeof(Role), reader.GetString(10));
 
-                User user = new User(userId, name, email, role);
+                User user = new User(userId, name, email, privilege);
 
                 list.Add(new Cleanup(id, date, false, size, tram, user));
             }
@@ -132,7 +139,7 @@ namespace EyeCT4RailsDatabase
             return list;
         }
 
-        public bool AddCleanupJob(JobSize size, User user, Tram tram, DateTime date)
+        public bool ScheduleCleanupJob(JobSize size, User user, Tram tram, DateTime date)
         {
             OracleConnection connection = Database.Instance.Connection;
             OracleCommand command = new OracleCommand("add_job", connection);
@@ -163,7 +170,7 @@ namespace EyeCT4RailsDatabase
         public bool EditJobStatus(Cleanup cleanup, bool isDone)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("edit_cleanup_status", connection);
+            OracleCommand command = new OracleCommand("edit_job_status", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.Add(new OracleParameter("p_cleanup_id", OracleDbType.Int32).Value = cleanup.Id);
