@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EyeCT4RailsUI.Forms.Beheersysteem;
+using EyeCT4RailsUI.Forms.Reparatiesysteem;
+using EyeCT4RailsUI.Forms.Schoonmaaksysteem;
 
 namespace EyeCT4RailsUI
 {
@@ -16,7 +19,7 @@ namespace EyeCT4RailsUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmBs());
+            Application.Run(new frmBS());
         }
     }
 }

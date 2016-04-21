@@ -1,11 +1,10 @@
 ﻿using System.Windows.Forms;
-using EyeCT4RailsLib;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucTramInfo : UserControl
+    public partial class ucSpoorInfo : UserControl
     {
-        public ucTramInfo()
+        public ucSpoorInfo()
         {
             InitializeComponent();
         }

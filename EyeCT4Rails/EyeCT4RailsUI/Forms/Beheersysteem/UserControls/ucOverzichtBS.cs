@@ -1,37 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using EyeCT4RailsUI.Forms.UserControls;
 using System.Reflection;
+using System.Windows.Forms;
 
-namespace EyeCT4RailsUI.Forms.frmBS
+namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class Main : UserControl
+    public partial class ucOverzichtBS : UserControl
     {
         private const int SectionWidth = 50;
         private const int SectionHeight = 50;
         private const int LeftMargin = 5;
         private const int AboveMargin = 5;
-        private const int Margin = 20;
-
-        //private Graphics _gr;
+        private const int NewlineMargin = 20;
+        
         private List<Track> _tracks;
 
-        public Main()
+        public ucOverzichtBS()
         {
             InitializeComponent();
-            //_gr = CreateGraphics();
+
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
 
             _tracks = Track.GetDefaultTracks();
         }
-
         
 
         private void DrawSections(Graphics g)
@@ -53,10 +45,10 @@ namespace EyeCT4RailsUI.Forms.frmBS
 
                 x += SectionWidth;
 
-                if (x + SectionWidth + Margin > pnlTracks.Width)
+                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
                 {
                     x = LeftMargin;
-                    y += maxHeight + Margin;
+                    y += maxHeight + NewlineMargin;
                     maxHeight = 0;
                 }
             }
@@ -97,18 +89,20 @@ namespace EyeCT4RailsUI.Forms.frmBS
                 if (e.X >= x && e.X <= x + SectionWidth && e.Y >= y && e.Y <= y + track.GetHeight(SectionHeight))
                 {
                     int y2 = y + SectionHeight;
+
                     if (e.Y <= y2)
                     {
-                        MessageBox.Show("Clicked: " + track.Number);
+                        MessageBox.Show($"Clicked: {track.Number}");
                         break;
                     }
 
                     for (int i = 0; i < track.AmountSections; i++)
                     {
                         y2 += SectionHeight;
+
                         if (e.Y <= y2)
                         {
-                            MessageBox.Show("Clicked: " + track.Number + "; Section: " + i);
+                            MessageBox.Show($"Clicked: {track.Number}; Section: {i}");
                             break;
                         }
                     }
@@ -121,13 +115,18 @@ namespace EyeCT4RailsUI.Forms.frmBS
 
                 x += SectionWidth;
 
-                if (x + SectionWidth + Margin > pnlTracks.Width)
+                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
                 {
                     x = LeftMargin;
-                    y += maxHeight + Margin;
+                    y += maxHeight + NewlineMargin;
                     maxHeight = 0;
                 }
             }
+        }
+
+        private void ucOverzichtBS_Resize(object sender, EventArgs e)
+        {
+            Refresh();
         }
     }
 }

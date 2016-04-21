@@ -28,22 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ucMainRS1 = new EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls.ucMainRS();
+            this.ucMain = new EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls.ucReparatie();
             this.SuspendLayout();
             // 
-            // ucMainRS1
+            // ucMain
             // 
-            this.ucMainRS1.Location = new System.Drawing.Point(1, 1);
-            this.ucMainRS1.Name = "ucMainRS1";
-            this.ucMainRS1.Size = new System.Drawing.Size(659, 424);
-            this.ucMainRS1.TabIndex = 0;
+            this.ucMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ucMain.Location = new System.Drawing.Point(0, 0);
+            this.ucMain.Name = "ucMain";
+            this.ucMain.Size = new System.Drawing.Size(777, 458);
+            this.ucMain.TabIndex = 0;
             // 
             // frmRS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 425);
-            this.Controls.Add(this.ucMainRS1);
+            this.ClientSize = new System.Drawing.Size(779, 455);
+            this.Controls.Add(this.ucMain);
             this.Name = "frmRS";
             this.Text = "Schoonmaaksysteem";
             this.ResumeLayout(false);
@@ -52,6 +55,6 @@
 
         #endregion
 
-        private UserControls.ucMainRS ucMainRS1;
+        private UserControls.ucReparatie ucMain;
     }
 }
