@@ -5,7 +5,7 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsDatabase.Models
 {
-    interface IMaintenanceContext
+    public interface IMaintenanceContext
     {
         /// <summary>
         /// Gets all current tram in maintenance.
@@ -71,6 +71,7 @@ namespace EyeCT4RailsDatabase.Models
 
         /// <summary>
         /// Checks whether there's a free spot for a maintenance job to be done on a specific date.
+        /// </summary>
         /// <param name="date">The time when the job should be added.</param>
         /// <returns>true if, and only if, a maintenance job can be added on the specified date.</returns>
         bool CheckJobLimit(DateTime date);
