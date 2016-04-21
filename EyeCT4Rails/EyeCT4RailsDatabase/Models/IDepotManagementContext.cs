@@ -37,5 +37,12 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="tram">Tram that is involved in the reservation.</param>
         /// <param name="section">Section that is being reserved.</param>
         void ReserveSection(Tram tram, Section section);
+
+        /// <summary>
+        /// Gets the information of the depot.
+        /// </summary>
+        /// <param name="name">Name of the depot.</param>
+        /// <returns>The depot object.</returns>
+        Depot GetDepot(string name);
     }
 }

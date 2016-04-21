@@ -9,8 +9,7 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsDatabase
 {
-    // ReSharper disable once InconsistentNaming
-    public class UserSQLContext : IUserContext
+    public class UserSqlContext : IUserContext
     {
         public User CreateUser(string name, string password, string email, Role role)
         {
