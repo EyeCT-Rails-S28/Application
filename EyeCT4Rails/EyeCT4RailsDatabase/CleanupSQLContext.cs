@@ -58,9 +58,9 @@ namespace EyeCT4RailsDatabase
                 int userId = reader.GetInt32(7);
                 string name = reader.GetString(8);
                 string email = reader.GetString(9);
-                Privilege privilege = (Privilege) Enum.Parse(typeof (Privilege), reader.GetString(10));
+                Role role = (Role) Enum.Parse(typeof (Role), reader.GetString(10));
 
-                User user = new User(userId, name, email, privilege);
+                User user = new User(userId, name, email, role);
 
                 list.Add(new Cleanup(id, date, false, size, tram, user));
             }
@@ -88,9 +88,9 @@ namespace EyeCT4RailsDatabase
                 int userId = reader.GetInt32(3);
                 string name = reader.GetString(4);
                 string email = reader.GetString(5);
-                Privilege privilege = (Privilege)Enum.Parse(typeof(Privilege), reader.GetString(6));
+                Role role = (Role)Enum.Parse(typeof(Role), reader.GetString(6));
 
-                User user = new User(userId, name, email, privilege);
+                User user = new User(userId, name, email, role);
 
                 list.Add(new Cleanup(id, date, false, size, tram, user));
             }
@@ -122,9 +122,9 @@ namespace EyeCT4RailsDatabase
                 int userId = reader.GetInt32(7);
                 string name = reader.GetString(8);
                 string email = reader.GetString(9);
-                Privilege privilege = (Privilege)Enum.Parse(typeof(Privilege), reader.GetString(10));
+                Role role = (Role)Enum.Parse(typeof(Role), reader.GetString(10));
 
-                User user = new User(userId, name, email, privilege);
+                User user = new User(userId, name, email, role);
 
                 list.Add(new Cleanup(id, date, false, size, tram, user));
             }
