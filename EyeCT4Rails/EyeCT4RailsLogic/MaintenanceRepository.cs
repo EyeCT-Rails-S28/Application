@@ -8,6 +8,7 @@ using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+using Oracle.ManagedDataAccess.Types;
 
 namespace EyeCT4RailsLogic
 {
@@ -25,38 +26,86 @@ namespace EyeCT4RailsLogic
 
         public List<Tram> GetTramsInMaintenance()
         {
-           return _context.GetTramsInMaintenance();
+            try
+            {
+                return _context.GetTramsInMaintenance();
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public List<MaintenanceJob> GetSchedule()
         {
-            return _context.GetSchedule();
+            try
+            {
+                return _context.GetSchedule();
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public List<MaintenanceJob> GetHistory()
         {
-            return _context.GetHistory();
+            try
+            {
+                return _context.GetHistory();
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public List<MaintenanceJob> GetHistory(Tram tram)
         {
-            return _context.GetHistory(tram);
+            try
+            {
+                return _context.GetHistory(tram);
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public bool RemoveScheduledJob(MaintenanceJob job)
         {
-            return _context.RemoveScheduledJob(job);
+            try
+            {
+                return _context.RemoveScheduledJob(job);
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public bool ScheduleJob(JobSize size, User user, Tram tram, DateTime date)
         {
-            if (_context.CheckJobLimit(date, size))
+            try
             {
-                _context.ScheduleJob(size, user, tram, date);
-                return true;
-            }
+                if (_context.CheckJobLimit(date, size))
+                {
+                    _context.ScheduleJob(size, user, tram, date);
+                    return true;
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         /// <summary>
@@ -100,7 +149,15 @@ namespace EyeCT4RailsLogic
 
         public bool EditJobStatus(MaintenanceJob job, bool isDone)
         {
-            return _context.EditJobStatus(job, isDone);
+            try
+            {
+                return _context.EditJobStatus(job, isDone);
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         private void CheckException(DateTime startDate, DateTime endDate, int interval)
@@ -110,6 +167,14 @@ namespace EyeCT4RailsLogic
 
             if (interval < 1)
                 throw new InvalidDateException("Interval has to be greater than 1.");
+        }
+
+        private void ExceptionCatch(Exception e)
+        {
+            Console.WriteLine(e.StackTrace);
+
+            if (e.GetType() == typeof (OracleTypeException) || e.GetBaseException() is OracleTypeException)
+                throw new DatabaseException("A database error has occured.");
         }
     }
 }
