@@ -93,7 +93,7 @@ namespace EyeCT4RailsLogic
             {
                 if (_context.CheckJobLimit(date, size))
                 {
-                    _context.AddCleanupJob(size, user, tram, date);
+                    _context.ScheduleCleanupJob(size, user, tram, date);
                     return true;
                 }
 
