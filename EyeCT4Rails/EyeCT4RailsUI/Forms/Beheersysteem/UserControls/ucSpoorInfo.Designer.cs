@@ -1,7 +1,7 @@
 ﻿
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    partial class ucSpoorInfo
+    partial class UcSpoorInfo
     {
         /// <summary> 
         /// Required designer variable.
@@ -65,7 +65,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.tbSpoornummer);
             this.Controls.Add(this.lblSpoornummer);
-            this.Name = "ucSpoorInfo";
+            this.Name = "UcSpoorInfo";
             this.Size = new System.Drawing.Size(307, 287);
             this.ResumeLayout(false);
             this.PerformLayout();

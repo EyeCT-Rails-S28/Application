@@ -2,9 +2,9 @@
 
 namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
-    public partial class ucTramHistorieRS : UserControl
+    public partial class UcTramHistorieRs : UserControl
     {
-        public ucTramHistorieRS()
+        public UcTramHistorieRs()
         {
             InitializeComponent();
         }

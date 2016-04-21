@@ -1,5 +1,4 @@
-﻿using System;
-using EyeCT4RailsLib;
+﻿using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

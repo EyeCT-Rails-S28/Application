@@ -3,9 +3,9 @@ using EyeCT4RailsLib;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucTramInfo : UserControl
+    public partial class UcTramInfo : UserControl
     {
-        public ucTramInfo()
+        public UcTramInfo()
         {
             InitializeComponent();
         }
