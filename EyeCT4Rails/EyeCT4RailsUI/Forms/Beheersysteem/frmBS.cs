@@ -138,17 +138,17 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             if (type == typeof(ucSchoonmaak))
             {
-                (uc as ucSchoonmaak).Cel_DubbleClicked += Cel_DubbleClicked;
+                (uc as ucSchoonmaak).Cel_DoubleClicked += CelDoubleClicked;
             }
             else if (type == typeof(ucReparatie))
             {
-                (uc as ucReparatie).Cel_DubbleClicked += Cel_DubbleClicked;
+                (uc as ucReparatie).Cel_DoubleClicked += CelDoubleClicked;
             }
 
             return uc;
         }
 
-        public void Cel_DubbleClicked(object sender, EventArgs e)
+        public void CelDoubleClicked(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
 

@@ -5,21 +5,16 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
     public partial class ucSchoonmaak : UserControl
     {
-        public event EventHandler Cel_DubbleClicked;
+        public event EventHandler Cel_DoubleClicked;
 
         public ucSchoonmaak()
         {
             InitializeComponent();
         }
 
-        private void FunctionThatRaisesEvent()
-        {
-            Cel_DubbleClicked?.Invoke(dgvTrams, new EventArgs());
-        }
-
         private void dgvTrams_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            FunctionThatRaisesEvent();
+            Cel_DoubleClicked?.Invoke(dgvTrams, new EventArgs());
         }
     }
 }
