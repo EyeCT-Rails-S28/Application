@@ -16,7 +16,7 @@ namespace EyeCT4RailsDatabase
         public User CreateUser(string name, string password, string email, Role role)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("", connection);
+            OracleCommand command = new OracleCommand("create_user", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.Add(new OracleParameter("p_role", OracleDbType.Varchar2).Value = Convert.ToString(role));
@@ -31,14 +31,17 @@ namespace EyeCT4RailsDatabase
         public User LoginUser(string email, string password)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("", connection);
+            OracleCommand command = new OracleCommand("login_user", connection);
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.Add(new OracleParameter("p_email", OracleDbType.Varchar2).Value = email);
             command.Parameters.Add(new OracleParameter("p_password", OracleDbType.Varchar2).Value = password);
 
             OracleDataReader reader = command.ExecuteReader();
-            reader.Read();
+            if (!reader.Read())
+            {
+                return null;
+            }
 
             int id = reader.GetInt32(0);
             string name = reader.GetString(1);
