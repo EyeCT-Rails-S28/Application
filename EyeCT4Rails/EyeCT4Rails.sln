@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeCT4RailsUnitTests", "Eye
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeCT4RailsDatabase", "EyeCT4RailsDatabase\EyeCT4RailsDatabase.csproj", "{3CAA62D9-E5B4-4160-B224-AF47DA3C8461}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeCT4RailsLogic", "EyeCT4RailsLogic\EyeCT4RailsLogic.csproj", "{78965E2B-8332-4AE3-AF0B-66DB22D16D98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3CAA62D9-E5B4-4160-B224-AF47DA3C8461}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CAA62D9-E5B4-4160-B224-AF47DA3C8461}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CAA62D9-E5B4-4160-B224-AF47DA3C8461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78965E2B-8332-4AE3-AF0B-66DB22D16D98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78965E2B-8332-4AE3-AF0B-66DB22D16D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78965E2B-8332-4AE3-AF0B-66DB22D16D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78965E2B-8332-4AE3-AF0B-66DB22D16D98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
