@@ -50,37 +50,37 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _currentUser = sender as User;
             msMenu.Visible = true;
 
-            ShowMenuItems(_currentUser.Privilege);
+            ShowMenuItems(_currentUser.Role);
 
             UpdateTitle("");
         }
 
-        private void ShowMenuItems(Privilege privilege)
+        private void ShowMenuItems(Role role)
         {
-            switch (_currentUser.Privilege)
+            switch (_currentUser.Role)
             {
-                case Privilege.Administrator:
+                case Role.Administrator:
                     foreach (ToolStripMenuItem item in msMenu.Items)
                     {
                         item.Enabled = true;
                     }
 
                     break;
-                case Privilege.Mechanic:
+                case Role.Mechanic:
                     reparatieToolStripMenuItem.Enabled = true;
 
                     break;
-                case Privilege.Cleanup:
+                case Role.Cleanup:
                     schoonmaakToolStripMenuItem.Enabled = true;
 
                     break;
-                case Privilege.DepotMananger:
+                case Role.DepotMananger:
                     overzichtBSToolStripMenuItem.Enabled = true;
                     tramsToolStripMenuItem.Enabled = true;
                     sporenToolStripMenuItem.Enabled = true;
 
                     break;
-                case Privilege.Driver:
+                case Role.Driver:
                     inEnUitrijSysteemToolStripMenuItem.Enabled = true;
 
                     break;
@@ -108,7 +108,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private void UpdateTitle(string titleExtension)
         {
-            this.Text = _currentUser.Privilege + " - " + titleExtension;
+            this.Text = _currentUser.Role + " - " + titleExtension;
         }
 
         private void AddControl(UserControl uc)
