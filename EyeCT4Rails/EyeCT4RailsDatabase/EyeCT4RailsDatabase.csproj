@@ -46,10 +46,14 @@
   <ItemGroup>
     <Compile Include="CleanupSQLContext.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="DepotManagementSQLContext.cs" />
     <Compile Include="MaintenanceSQLContext.cs" />
     <Compile Include="Models\ICleanupContext.cs" />
+    <Compile Include="Models\IDepotManagementContext.cs" />
     <Compile Include="Models\IMaintenanceContext.cs" />
+    <Compile Include="Models\IUserContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserSQLContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EyeCT4RailsLib\EyeCT4RailsLib.csproj">
