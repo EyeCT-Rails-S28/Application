@@ -39,12 +39,11 @@
             this.sporenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleBlokkadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lijnenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dienstenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.schoonmaakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reparatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControls = new System.Windows.Forms.Panel();
+            this.inEnUitrijSysteemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,8 +53,7 @@
             this.overzichtBSToolStripMenuItem,
             this.tramsToolStripMenuItem,
             this.sporenToolStripMenuItem,
-            this.lijnenToolStripMenuItem,
-            this.dienstenToolStripMenuItem,
+            this.inEnUitrijSysteemToolStripMenuItem,
             this.schoonmaakToolStripMenuItem,
             this.reparatieToolStripMenuItem,
             this.exitToolStripMenuItem});
@@ -142,18 +140,6 @@
             this.infoToolStripMenuItem.Text = "Spoor info";
             this.infoToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
-            // lijnenToolStripMenuItem
-            // 
-            this.lijnenToolStripMenuItem.Name = "lijnenToolStripMenuItem";
-            this.lijnenToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.lijnenToolStripMenuItem.Text = "Lijnen";
-            // 
-            // dienstenToolStripMenuItem
-            // 
-            this.dienstenToolStripMenuItem.Name = "dienstenToolStripMenuItem";
-            this.dienstenToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.dienstenToolStripMenuItem.Text = "Diensten";
-            // 
             // schoonmaakToolStripMenuItem
             // 
             this.schoonmaakToolStripMenuItem.Name = "schoonmaakToolStripMenuItem";
@@ -185,6 +171,13 @@
             this.panelControls.Size = new System.Drawing.Size(1122, 651);
             this.panelControls.TabIndex = 2;
             // 
+            // inEnUitrijSysteemToolStripMenuItem
+            // 
+            this.inEnUitrijSysteemToolStripMenuItem.Name = "inEnUitrijSysteemToolStripMenuItem";
+            this.inEnUitrijSysteemToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
+            this.inEnUitrijSysteemToolStripMenuItem.Text = "In en uit rij systeem";
+            this.inEnUitrijSysteemToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
+            // 
             // frmBS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,13 +206,12 @@
         private System.Windows.Forms.ToolStripMenuItem sporenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toggleBlokkadeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lijnenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dienstenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem schoonmaakToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reparatieToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Panel panelControls;
         private System.Windows.Forms.ToolStripMenuItem overzichtBSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inEnUitrijSysteemToolStripMenuItem;
     }
 }
 
