@@ -20,7 +20,7 @@ namespace EyeCT4RailsLogic
 
         private UserRepository()
         {
-            _context = new UserSQLContext();
+            _context = new UserSqlContext();
         }
 
         public static UserRepository Instance => _instance ?? (_instance = new UserRepository());

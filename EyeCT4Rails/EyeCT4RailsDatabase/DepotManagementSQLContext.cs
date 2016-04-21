@@ -9,8 +9,7 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsDatabase
 {
-    // ReSharper disable once InconsistentNaming
-    public class DepotManagementSQLContext : IDepotManagementContext
+    public class DepotManagementSqlContext : IDepotManagementContext
     {
         public void ChangeTramStatus(Tram tram, Status status)
         {
@@ -28,6 +27,11 @@ namespace EyeCT4RailsDatabase
         }
 
         public void ReserveSection(Tram tram, Section section)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Depot GetDepot(string name)
         {
             throw new NotImplementedException();
         }

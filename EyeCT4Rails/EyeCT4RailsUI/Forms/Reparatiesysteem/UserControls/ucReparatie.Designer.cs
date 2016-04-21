@@ -78,6 +78,7 @@
             this.dgvTrams.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvTrams.Size = new System.Drawing.Size(659, 386);
             this.dgvTrams.TabIndex = 3;
+            this.dgvTrams.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrams_CellDoubleClick);
             // 
             // Select
             // 
