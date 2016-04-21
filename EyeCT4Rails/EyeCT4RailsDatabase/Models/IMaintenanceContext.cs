@@ -50,18 +50,6 @@ namespace EyeCT4RailsDatabase.Models
         bool RemoveScheduledJob(MaintenanceJob job);
 
         /// <summary>
-        /// Adds a recurring maintenance job, it will repeat itself in the future.
-        /// </summary>
-        /// <param name="size">The type of maintenance which should be done.</param>
-        /// <param name="user">The user who will be performing the job.</param>
-        /// <param name="tram">The tram which the job will be done for.</param>
-        /// <param name="date">The time when the job will start.</param>
-        /// <param name="interval">The interval at which the job will be repeating itself.</param>
-        /// <param name="endDate">The time when the job will end repeating itself.</param>
-        /// <returns>true if, and only if, all scheduled jobs were succesfully added.</returns>
-        bool ScheduleRecurringJob(JobSize size, User user, Tram tram, DateTime date, DateTime interval, DateTime endDate);
-
-        /// <summary>
         /// Edits the status of job.
         /// </summary>
         /// <param name="job">The job to be edited.</param>
@@ -72,8 +60,9 @@ namespace EyeCT4RailsDatabase.Models
         /// <summary>
         /// Checks whether there's a free spot for a maintenance job to be done on a specific date.
         /// </summary>
-        /// <param name="date">The time when the job should be added.</param>
+        /// <param name="date">The date when the job should be added.</param>
+        /// <param name="size">The size of the job to be performed.</param>
         /// <returns>true if, and only if, a maintenance job can be added on the specified date.</returns>
-        bool CheckJobLimit(DateTime date);
+        bool CheckJobLimit(DateTime date, JobSize size);
     }
 }
