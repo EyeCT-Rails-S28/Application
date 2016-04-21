@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 using EyeCT4RailsUI.Forms.Beheersysteem.UserControls;
 using EyeCT4RailsUI.Forms.Login;
 using EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls;
@@ -34,6 +35,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             msMenu.Visible = false;
             AddControl(_ucLogIn);
             _ucLogIn.LoginSucceeded += LoginSucceeded;
+
+            foreach (ToolStripMenuItem item in msMenu.Items)
+            {
+                item.Enabled = false;
+            }
         }
 
         private void LoginSucceeded(object sender, EventArgs e)
@@ -41,6 +47,38 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _ucLogIn.Dispose();
             _currentUser = sender as User;
             msMenu.Visible = true;
+
+            ShowMenuItems(_currentUser.Privilege);
+        }
+
+        private void ShowMenuItems(Privilege privilege)
+        {
+            switch (_currentUser.Privilege)
+            {
+                case Privilege.Administrator:
+                    foreach (ToolStripMenuItem item in msMenu.Items)
+                    {
+                        item.Enabled = true;
+                    }
+
+                    break;
+                case Privilege.Mechanic:
+                    reparatieToolStripMenuItem.Enabled = true;
+
+                    break;
+                case Privilege.Cleanup:
+                    schoonmaakToolStripMenuItem.Enabled = true;
+
+                    break;
+                case Privilege.DepotMananger:
+                    overzichtBSToolStripMenuItem.Enabled = true;
+                    tramsToolStripMenuItem.Enabled = true;
+                    sporenToolStripMenuItem.Enabled = true;
+
+                    break;
+                case Privilege.Driver:
+                    break;
+            }
         }
 
         private void UserControl_Change(object sender, EventArgs e)
@@ -93,7 +131,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             if (type == typeof(ucSchoonmaak))
             {
                 (uc as ucSchoonmaak).Cel_DubbleClicked += Cel_DubbleClicked;
-            }else if (type == typeof(ucReparatie))
+            }
+            else if (type == typeof(ucReparatie))
             {
                 (uc as ucReparatie).Cel_DubbleClicked += Cel_DubbleClicked;
             }
