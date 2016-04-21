@@ -9,17 +9,30 @@
         /// <summary>
         /// The line that is associated with this line. Can be null.
         /// </summary>
-        public Line AssociatedLineLine { get; }
+        public Line AssociatedLine { get; }
+
+        /// <summary>
+        /// Creates a line.
+        /// </summary>
+        /// <param name="id">The id of the line.</param>
+        public Line(int id)
+        {
+            Id = id;
+        }
 
         /// <summary>
         /// Creates a line.
         /// </summary>
         /// <param name="id">The id of the line.</param>
         /// <param name="associatedLine">The line that is associated with this line.</param>
-        public Line(int id, Line associatedLine)
+        public Line(int id, Line associatedLine) : this(id)
         {
-            Id = id;
-            AssociatedLineLine = associatedLine;
+            AssociatedLine = associatedLine;
+        }
+
+        public override string ToString()
+        {
+            return $"{Id}";
         }
     }
 }

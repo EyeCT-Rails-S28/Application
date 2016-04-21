@@ -9,11 +9,11 @@
         /// <summary>
         /// Tram that is parked on this section. Can be null.
         /// </summary>
-        public Tram Tram { get; set; }
+        public Tram Tram { get; }
         /// <summary>
         /// Bool determining wheter the section is blocked or not.
         /// </summary>
-        public bool Blocked { get; set; }
+        public bool Blocked { get; }
 
         /// <summary>
         /// Creates a section without a tram.
@@ -35,6 +35,16 @@
         public Section(int id, bool blocked, Tram tram) : this(id, blocked)
         {
             Tram = tram;
+        }
+
+        public override string ToString()
+        {
+            string blocked = Blocked ? "Blocked" : "Not Blocked";
+            string tram = Tram?.Id.ToString();
+            if (Tram == null)
+                tram = "No Tram";
+
+            return $"{Id} - {blocked} - {tram}";
         }
     }
 }

@@ -45,5 +45,10 @@ namespace EyeCT4RailsLib
         {
             return Privilege == privilege || Privilege == Privilege.Administrator;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} - {Name} - {Privilege}";
+        }
     }
 }
