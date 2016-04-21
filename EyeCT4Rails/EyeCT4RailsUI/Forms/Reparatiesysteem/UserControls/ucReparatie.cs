@@ -3,18 +3,18 @@ using System.Windows.Forms;
 
 namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
-    public partial class ucReparatie : UserControl
+    public partial class UcReparatie : UserControl
     {
-        public event EventHandler Cel_DoubleClicked;
+        public event EventHandler CelDoubleClicked;
 
-        public ucReparatie()
+        public UcReparatie()
         {
             InitializeComponent();
         }
 
         private void dgvTrams_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Cel_DoubleClicked?.Invoke(dgvTrams, new EventArgs());
+            CelDoubleClicked?.Invoke(dgvTrams, new EventArgs());
         }
     }
 }

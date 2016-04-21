@@ -2,9 +2,9 @@
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucReserveringPlaatsen : UserControl
+    public partial class UcReserveringPlaatsen : UserControl
     {
-        public ucReserveringPlaatsen()
+        public UcReserveringPlaatsen()
         {
             InitializeComponent();
         }

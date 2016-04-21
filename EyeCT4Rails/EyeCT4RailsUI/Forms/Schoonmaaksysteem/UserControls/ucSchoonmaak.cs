@@ -3,18 +3,18 @@ using System.Windows.Forms;
 
 namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
-    public partial class ucSchoonmaak : UserControl
+    public partial class UcSchoonmaak : UserControl
     {
-        public event EventHandler Cel_DoubleClicked;
+        public event EventHandler CelDoubleClicked;
 
-        public ucSchoonmaak()
+        public UcSchoonmaak()
         {
             InitializeComponent();
         }
 
         private void dgvTrams_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Cel_DoubleClicked?.Invoke(dgvTrams, new EventArgs());
+            CelDoubleClicked?.Invoke(dgvTrams, new EventArgs());
         }
     }
 }

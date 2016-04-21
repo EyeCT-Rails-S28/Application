@@ -5,11 +5,11 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsUI.Forms.Login
 {
-    public partial class ucLogIn : UserControl
+    public partial class UcLogIn : UserControl
     {
         public event EventHandler LoginSucceeded;
 
-        public ucLogIn()
+        public UcLogIn()
         {
             InitializeComponent();
         }

@@ -2,9 +2,9 @@
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucStatusTramWijzigen : UserControl
+    public partial class UcStatusTramWijzigen : UserControl
     {
-        public ucStatusTramWijzigen()
+        public UcStatusTramWijzigen()
         {
             InitializeComponent();
         }

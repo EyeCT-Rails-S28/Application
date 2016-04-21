@@ -2,7 +2,7 @@
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    partial class ucTramPlaatsen
+    partial class UcTramPlaatsen
     {
         /// <summary> 
         /// Required designer variable.
@@ -118,7 +118,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Controls.Add(this.lblSpoornummer);
             this.Controls.Add(this.lblSectornummer);
             this.Controls.Add(this.lblTramnummer);
-            this.Name = "ucTramPlaatsen";
+            this.Name = "UcTramPlaatsen";
             this.Size = new System.Drawing.Size(417, 200);
             this.ResumeLayout(false);
             this.PerformLayout();

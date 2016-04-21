@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
@@ -22,7 +18,7 @@ namespace EyeCT4RailsLogic
             _context = new DepotManagementSqlContext();
         }
 
-        public DepotManagementRepository Instance => _instance ?? (_instance = new DepotManagementRepository());
+        public static DepotManagementRepository Instance => _instance ?? (_instance = new DepotManagementRepository());
 
         public void SetTrackBlocked(Track track, bool blocked)
         {

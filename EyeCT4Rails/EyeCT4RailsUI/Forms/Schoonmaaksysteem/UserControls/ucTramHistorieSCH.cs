@@ -4,11 +4,11 @@ using EyeCT4RailsLib;
 
 namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
-    public partial class ucTramHistorieSCH : UserControl
+    public partial class UcTramHistorieSch : UserControl
     {
-        private EyeCT4RailsLib.Tram _tram;
+        private readonly EyeCT4RailsLib.Tram _tram;
 
-        public ucTramHistorieSCH(string tramnummer)
+        public UcTramHistorieSch(string tramnummer)
         {
             InitializeComponent();
 
