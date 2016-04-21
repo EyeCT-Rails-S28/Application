@@ -40,7 +40,7 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="tram">The tram the job will be performed on.</param>
         /// <param name="date">The date the job will be performed on.</param>
         /// <returns>True if, and only if, this job was succesfully added.</returns>
-        bool AddCleanupJob(JobSize size, User user, Tram tram, DateTime date);
+        bool ScheduleCleanupJob(JobSize size, User user, Tram tram, DateTime date);
 
         /// <summary>
         /// Removes a clean up job.
