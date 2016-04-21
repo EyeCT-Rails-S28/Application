@@ -3,9 +3,9 @@ using EyeCT4RailsLib;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucToggleBlokkade : UserControl
+    public partial class UcToggleBlokkade : UserControl
     {
-        public ucToggleBlokkade()
+        public UcToggleBlokkade()
         {
             InitializeComponent();
         }

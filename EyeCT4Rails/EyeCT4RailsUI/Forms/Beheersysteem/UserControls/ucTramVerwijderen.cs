@@ -3,9 +3,9 @@ using EyeCT4RailsLib;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucTramVerwijderen : UserControl
+    public partial class UcTramVerwijderen : UserControl
     {
-        public ucTramVerwijderen()
+        public UcTramVerwijderen()
         {
             InitializeComponent();
         }

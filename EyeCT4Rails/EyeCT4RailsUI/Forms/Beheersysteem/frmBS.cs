@@ -12,27 +12,27 @@ using EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem
 {
-    public partial class frmBS : Form
+    public partial class FrmBs : Form
     {
         private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
-        private ucLogIn _ucLogIn;
+        private readonly UcLogIn _ucLogIn;
 
         private User _currentUser;
 
-        public frmBS()
+        public FrmBs()
         {
             InitializeComponent();
 
             _namespaces = new Dictionary<ToolStripMenuItem, string>();
-            _ucLogIn = new ucLogIn();
+            _ucLogIn = new UcLogIn();
 
-            _namespaces.Add(tramsToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
-            _namespaces.Add(sporenToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
-            _namespaces.Add(schoonmaakToolStripMenuItem, typeof(ucSchoonmaak).Namespace);
-            _namespaces.Add(reparatieToolStripMenuItem, typeof(ucReparatie).Namespace);
-            _namespaces.Add(overzichtBSToolStripMenuItem, typeof(ucOverzichtBS).Namespace);
-            _namespaces.Add(inEnUitrijSysteemToolStripMenuItem, typeof(ucInEnUitRijSysteem).Namespace);
+            _namespaces.Add(tramsToolStripMenuItem, typeof(UcTramPlaatsen).Namespace);
+            _namespaces.Add(sporenToolStripMenuItem, typeof(UcTramPlaatsen).Namespace);
+            _namespaces.Add(schoonmaakToolStripMenuItem, typeof(UcSchoonmaak).Namespace);
+            _namespaces.Add(reparatieToolStripMenuItem, typeof(UcReparatie).Namespace);
+            _namespaces.Add(overzichtBSToolStripMenuItem, typeof(UcOverzichtBs).Namespace);
+            _namespaces.Add(inEnUitrijSysteemToolStripMenuItem, typeof(UcInEnUitRijSysteem).Namespace);
 
             msMenu.Visible = false;
             AddControl(_ucLogIn);
@@ -136,13 +136,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             var uc = (UserControl) Activator.CreateInstance(type);
 
-            if (type == typeof(ucSchoonmaak))
+            if (type == typeof(UcSchoonmaak))
             {
-                (uc as ucSchoonmaak).Cel_DoubleClicked += CelDoubleClicked;
+                (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClicked;
             }
-            else if (type == typeof(ucReparatie))
+            else if (type == typeof(UcReparatie))
             {
-                (uc as ucReparatie).Cel_DoubleClicked += CelDoubleClicked;
+                (uc as UcReparatie).CelDoubleClicked += CelDoubleClicked;
             }
 
             return uc;
@@ -158,7 +158,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 {
                     string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
 
-                    ucTramHistorieSCH uc = new ucTramHistorieSCH(tramNummer);
+                    UcTramHistorieSch uc = new UcTramHistorieSch(tramNummer);
 
                     AddControl(uc);
 

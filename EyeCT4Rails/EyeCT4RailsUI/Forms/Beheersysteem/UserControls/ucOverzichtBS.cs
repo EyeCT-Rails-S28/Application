@@ -6,17 +6,17 @@ using System.Windows.Forms;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucOverzichtBS : UserControl
+    public partial class UcOverzichtBs : UserControl
     {
-        private const int SectionWidth = 50;
-        private const int SectionHeight = 50;
-        private const int LeftMargin = 5;
-        private const int AboveMargin = 5;
-        private const int NewlineMargin = 20;
+        private const int SECTION_WIDTH = 50;
+        private const int SECTION_HEIGHT = 50;
+        private const int LEFT_MARGIN = 5;
+        private const int ABOVE_MARGIN = 5;
+        private const int NEWLINE_MARGIN = 20;
         
-        private List<Track> _tracks;
+        private readonly List<Track> _tracks;
 
-        public ucOverzichtBS()
+        public UcOverzichtBs()
         {
             InitializeComponent();
 
@@ -28,8 +28,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void DrawSections(Graphics g)
         {
-            int x = LeftMargin;
-            int y = AboveMargin;
+            int x = LEFT_MARGIN;
+            int y = ABOVE_MARGIN;
             int maxHeight = 0;
 
             Size ucSize = this.Size;
@@ -38,17 +38,17 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 DrawSection(g, track, x, y);
 
-                if (maxHeight < track.GetHeight(SectionHeight))
+                if (maxHeight < track.GetHeight(SECTION_HEIGHT))
                 {
-                    maxHeight = track.GetHeight(SectionHeight);
+                    maxHeight = track.GetHeight(SECTION_HEIGHT);
                 }
 
-                x += SectionWidth;
+                x += SECTION_WIDTH;
 
-                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
+                if (x + SECTION_WIDTH + NEWLINE_MARGIN > pnlTracks.Width)
                 {
-                    x = LeftMargin;
-                    y += maxHeight + NewlineMargin;
+                    x = LEFT_MARGIN;
+                    y += maxHeight + NEWLINE_MARGIN;
                     maxHeight = 0;
                 }
             }
@@ -60,14 +60,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             Brush brush = new SolidBrush(Color.Black);
             Font font = new Font(FontFamily.GenericSansSerif, 12);
 
-            g.DrawRectangle(pen, x, y, SectionWidth, SectionHeight);
+            g.DrawRectangle(pen, x, y, SECTION_WIDTH, SECTION_HEIGHT);
             g.DrawString(Convert.ToString(track.Number), font, brush, x, y);
-            y += SectionHeight;
+            y += SECTION_HEIGHT;
 
             for (int i = 0; i < track.AmountSections; i++)
             {
-                g.DrawRectangle(pen, x, y, SectionWidth, SectionHeight);
-                y += SectionHeight;
+                g.DrawRectangle(pen, x, y, SECTION_WIDTH, SECTION_HEIGHT);
+                y += SECTION_HEIGHT;
             }
         }
 
@@ -78,17 +78,15 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void pnlTracks_MouseClick(object sender, MouseEventArgs e)
         {
-            int x = LeftMargin;
-            int y = AboveMargin;
-            int maxHeight = 0;
-
-            Size ucSize = this.Size;
+            int x = LEFT_MARGIN;
+            int y = ABOVE_MARGIN;
+            int maxHeight = 0;          
 
             foreach (Track track in _tracks)
             {
-                if (e.X >= x && e.X <= x + SectionWidth && e.Y >= y && e.Y <= y + track.GetHeight(SectionHeight))
+                if (e.X >= x && e.X <= x + SECTION_WIDTH && e.Y >= y && e.Y <= y + track.GetHeight(SECTION_HEIGHT))
                 {
-                    int y2 = y + SectionHeight;
+                    int y2 = y + SECTION_HEIGHT;
 
                     if (e.Y <= y2)
                     {
@@ -98,7 +96,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                     for (int i = 0; i < track.AmountSections; i++)
                     {
-                        y2 += SectionHeight;
+                        y2 += SECTION_HEIGHT;
 
                         if (e.Y <= y2)
                         {
@@ -108,17 +106,17 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     }
                 }
 
-                if (maxHeight < track.GetHeight(SectionHeight))
+                if (maxHeight < track.GetHeight(SECTION_HEIGHT))
                 {
-                    maxHeight = track.GetHeight(SectionHeight);
+                    maxHeight = track.GetHeight(SECTION_HEIGHT);
                 }
 
-                x += SectionWidth;
+                x += SECTION_WIDTH;
 
-                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
+                if (x + SECTION_WIDTH + NEWLINE_MARGIN > pnlTracks.Width)
                 {
-                    x = LeftMargin;
-                    y += maxHeight + NewlineMargin;
+                    x = LEFT_MARGIN;
+                    y += maxHeight + NEWLINE_MARGIN;
                     maxHeight = 0;
                 }
             }

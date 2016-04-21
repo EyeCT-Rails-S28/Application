@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.Beheersysteem
 {
-    partial class frmBS
+    partial class FrmBs
     {
         /// <summary>
         /// Required designer variable.
@@ -185,7 +185,7 @@
             this.ClientSize = new System.Drawing.Size(1122, 675);
             this.Controls.Add(this.panelControls);
             this.Controls.Add(this.msMenu);
-            this.Name = "frmBS";
+            this.Name = "FrmBs";
             this.Text = "Beheersysteem";
             this.msMenu.ResumeLayout(false);
             this.msMenu.PerformLayout();

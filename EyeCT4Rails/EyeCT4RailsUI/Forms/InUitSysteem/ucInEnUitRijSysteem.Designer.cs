@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.InUitSysteem
 {
-    partial class ucInEnUitRijSysteem
+    partial class UcInEnUitRijSysteem
     {
         /// <summary> 
         /// Required designer variable.
@@ -156,7 +156,7 @@
             this.Controls.Add(this.tbTramnummer);
             this.Controls.Add(this.lblSpoornummer);
             this.Controls.Add(this.lblTramnummer);
-            this.Name = "ucInEnUitRijSysteem";
+            this.Name = "UcInEnUitRijSysteem";
             this.Size = new System.Drawing.Size(647, 348);
             this.gbTA.ResumeLayout(false);
             this.gbTA.PerformLayout();

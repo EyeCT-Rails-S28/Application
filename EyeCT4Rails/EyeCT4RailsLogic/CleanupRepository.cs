@@ -1,16 +1,12 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
 using Oracle.ManagedDataAccess.Types;
+// ReSharper disable UnusedParameter.Local
 
 namespace EyeCT4RailsLogic
 {
@@ -97,7 +93,7 @@ namespace EyeCT4RailsLogic
             {
                 if (_context.CheckJobLimit(date, size))
                 {
-                    _context.AddCleanupJob(size, user, tram, date);
+                    _context.ScheduleCleanupJob(size, user, tram, date);
                     return true;
                 }
 

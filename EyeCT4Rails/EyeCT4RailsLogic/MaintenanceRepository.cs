@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
 using Oracle.ManagedDataAccess.Types;
+// ReSharper disable UnusedParameter.Local
 
 namespace EyeCT4RailsLogic
 {

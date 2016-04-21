@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using EyeCT4RailsLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

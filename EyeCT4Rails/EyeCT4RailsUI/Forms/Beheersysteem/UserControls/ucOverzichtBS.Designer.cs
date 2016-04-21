@@ -1,7 +1,7 @@
 ﻿
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    partial class ucOverzichtBS
+    partial class UcOverzichtBs
     {
         /// <summary> 
         /// Required designer variable.
@@ -111,7 +111,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Controls.Add(this.tbTram);
             this.Controls.Add(this.lblSpoor);
             this.Controls.Add(this.lblTram);
-            this.Name = "ucOverzichtBS";
+            this.Name = "UcOverzichtBs";
             this.Size = new System.Drawing.Size(796, 508);
             this.Resize += new System.EventHandler(this.ucOverzichtBS_Resize);
             this.ResumeLayout(false);

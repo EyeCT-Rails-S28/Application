@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.Login
 {
-    partial class ucLogIn
+    partial class UcLogIn
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucLogIn));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcLogIn));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
@@ -108,7 +108,7 @@
             this.Controls.Add(this.tbEmail);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblEmail);
-            this.Name = "ucLogIn";
+            this.Name = "UcLogIn";
             this.Size = new System.Drawing.Size(357, 153);
             ((System.ComponentModel.ISupportInitialize)(this.pbLock)).EndInit();
             this.ResumeLayout(false);

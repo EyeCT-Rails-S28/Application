@@ -2,9 +2,9 @@
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucTramPlaatsen : UserControl
+    public partial class UcTramPlaatsen : UserControl
     {
-        public ucTramPlaatsen()
+        public UcTramPlaatsen()
         {
             InitializeComponent();
         }
