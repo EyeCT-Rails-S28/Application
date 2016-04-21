@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO.Pipes;
 using System.Linq;
 using System.Windows.Forms;
+using EyeCT4RailsLib;
 using EyeCT4RailsUI.Forms.Beheersysteem.UserControls;
+using EyeCT4RailsUI.Forms.Login;
 using EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls;
 using EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls;
 
@@ -14,17 +14,33 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
     {
         private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
+        private ucLogIn _ucLogIn;
+
+        private User _currentUser;
+
         public frmBS()
         {
             InitializeComponent();
 
             _namespaces = new Dictionary<ToolStripMenuItem, string>();
+            _ucLogIn = new ucLogIn();
 
             _namespaces.Add(tramsToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(sporenToolStripMenuItem, typeof(ucTramPlaatsen).Namespace);
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(ucSchoonmaak).Namespace);
             _namespaces.Add(reparatieToolStripMenuItem, typeof(ucReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(ucOverzichtBS).Namespace);
+
+            msMenu.Visible = false;
+            AddControl(_ucLogIn);
+            _ucLogIn.LoginSucceeded += LoginSucceeded;
+        }
+
+        private void LoginSucceeded(object sender, EventArgs e)
+        {
+            _ucLogIn.Dispose();
+            _currentUser = sender as User;
+            msMenu.Visible = true;
         }
 
         private void UserControl_Change(object sender, EventArgs e)
@@ -33,7 +49,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 ToolStripMenuItem item = sender as ToolStripMenuItem;
 
-                AddControl(GetUserControl(sender), item.Text);
+                AddControl(GetUserControl(sender));
 
                 UpdateTitle(item.Text);
             }
@@ -49,7 +65,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             this.Text = "Beheersysteem - " + titleExtension;
         }
 
-        private void AddControl(UserControl uc, string text)
+        private void AddControl(UserControl uc)
         {
             panelControls.Controls.Clear();
             panelControls.Controls.Add(uc);
@@ -97,7 +113,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
                     ucTramHistorieSCH uc = new ucTramHistorieSCH(tramNummer);
 
-                    AddControl(uc, "Historie");
+                    AddControl(uc);
 
                     UpdateTitle("Historie");
                 }
