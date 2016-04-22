@@ -5,7 +5,7 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsDatabase.Models
 {
-    interface ICleanupContext
+    public interface ICleanupContext
     {
         /// <summary>
         /// Gets a list of all trams which should be cleaned.
@@ -40,7 +40,7 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="tram">The tram the job will be performed on.</param>
         /// <param name="date">The date the job will be performed on.</param>
         /// <returns>True if, and only if, this job was succesfully added.</returns>
-        bool AddCleanupJob(JobSize size, User user, Tram tram, DateTime date);
+        bool ScheduleCleanupJob(JobSize size, User user, Tram tram, DateTime date);
 
         /// <summary>
         /// Removes a clean up job.
@@ -48,18 +48,6 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="cleanup">The job to be removed.</param>
         /// <returns>True if, and only if, this job was succesfully removed.</returns>
         bool RemoveScheduledJob(Cleanup cleanup);
-
-        /// <summary>
-        /// Adds a recurring cleanup job, it will repeat itself in the future.
-        /// </summary>
-        /// <param name="size">The size of the job.</param>
-        /// <param name="user">The user who will be performing the job.</param>
-        /// <param name="tram">The tram the job will be performed on.</param>
-        /// <param name="date">The first date the job will be performed on.</param>
-        /// <param name="interval">The interval at which future jobs will take place.</param>
-        /// <param name="endDate">The date when the job should end.</param>
-        /// <returns>True if, and only if, all jobs were scheduled correctly.</returns>
-        bool ScheduleRecurringJob(JobSize size, User user, Tram tram, DateTime date, DateTime interval, DateTime endDate);
 
         /// <summary>
         /// Edits a status of a job.
@@ -72,8 +60,9 @@ namespace EyeCT4RailsDatabase.Models
         /// <summary>
         /// Checks whether or not a cleanup job can be done on this day.
         /// </summary>
-        /// <param name="cleanup">The cleanup to check.</param>
+        /// <param name="date">The date to check.</param>
+        /// <param name="size">The size of the job to be performed.</param>
         /// <returns>True if, and only if, the specified cleanup can be performed on this day.</returns>
-        bool CheckJobLimit(Cleanup cleanup);
+        bool CheckJobLimit(DateTime date, JobSize size);
     }
 }

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+using Oracle.ManagedDataAccess.Types;
+// ReSharper disable UnusedParameter.Local
 
 namespace EyeCT4RailsLogic
 {
@@ -25,38 +24,86 @@ namespace EyeCT4RailsLogic
 
         public List<Tram> GetDirtyTrams()
         {
-            return _context.GetDiryTrams();
+            try
+            {
+                return _context.GetDiryTrams();
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public List<Cleanup> GetSchedule()
         {
-            return _context.GetSchedule();
+            try
+            {
+                return _context.GetSchedule();
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public List<Cleanup> GetHistory()
         {
-            return _context.GetHistory();
+            try
+            {
+                return _context.GetHistory();
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public List<Cleanup> GetHistory(Tram tram)
         {
-            return _context.GetHistory(tram);
+            try
+            {
+                return _context.GetHistory(tram);
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public bool RemoveScheduledJob(Cleanup cleanup)
         {
-            return _context.RemoveScheduledJob(cleanup);
+            try
+            {
+                return _context.RemoveScheduledJob(cleanup);
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         public bool ScheduleJob(JobSize size, User user, Tram tram, DateTime date)
         {
-            if (_context.CheckJobLimit(date, size))
+            try
             {
-                _context.AddCleanupJob(size, user, tram, date);
-                return true;
-            }
+                if (_context.CheckJobLimit(date, size))
+                {
+                    _context.ScheduleCleanupJob(size, user, tram, date);
+                    return true;
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         /// <summary>
@@ -100,21 +147,37 @@ namespace EyeCT4RailsLogic
 
         public bool EditJobStatus(Cleanup cleanup, bool isDone)
         {
-            return _context.EditJobStatus(cleanup, isDone);
+            try
+            {
+                return _context.EditJobStatus(cleanup, isDone);
+            }
+            catch (Exception e)
+            {
+                ExceptionCatch(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         }
 
         //public bool EditJobUser(Cleanup cleanup, User user)
         //{
-            
+
         //}
 
         private void CheckException(DateTime startDate, DateTime endDate, int interval)
         {
-            if(endDate < startDate)
+            if (endDate < startDate)
                 throw new InvalidDateException("End date is before start date.");
 
-            if(interval < 1)
+            if (interval < 1)
                 throw new InvalidDateException("Interval has to be greater than 1.");
+        }
+
+        private void ExceptionCatch(Exception e)
+        {
+            Console.WriteLine(e.StackTrace);
+
+            if (e.GetType() == typeof (OracleTypeException) || e.GetBaseException() is OracleTypeException)
+                throw new DatabaseException("A database error has occured.");
         }
     }
 }

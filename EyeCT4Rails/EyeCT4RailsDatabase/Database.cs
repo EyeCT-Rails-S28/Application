@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using Oracle.ManagedDataAccess.Client;
 
 namespace EyeCT4RailsDatabase
 {
-    public class Database
+    internal class Database
     {
         /// <summary>
         /// 
         /// </summary>
-        private const string CONNECTION_STRING = "";
+        private const string CONNECTION_STRING = "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=XXX)));User ID=PTS36;PASSWORD=PTS36;";
 
         public static Database Instance { get; } = new Database();
 
@@ -18,9 +19,16 @@ namespace EyeCT4RailsDatabase
         {
             Connection = new OracleConnection();
             Connection.ConnectionString = CONNECTION_STRING;
+
+            Open();
         }
 
-        public bool Open()
+        ~Database()
+        {
+            Close();
+        }
+
+        private bool Open()
         {
             try
             {
@@ -34,7 +42,7 @@ namespace EyeCT4RailsDatabase
             }
         }
 
-        public bool Close()
+        private bool Close()
         {
             try
             {

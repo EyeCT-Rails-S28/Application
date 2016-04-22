@@ -2,7 +2,7 @@
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    partial class ucToggleBlokkade
+    partial class UcToggleBlokkade
     {
         /// <summary> 
         /// Required designer variable.
@@ -98,7 +98,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Controls.Add(this.tbSpoornummer);
             this.Controls.Add(this.lblSpoornummer);
             this.Controls.Add(this.lblSectornummer);
-            this.Name = "ucToggleBlokkade";
+            this.Name = "UcToggleBlokkade";
             this.Size = new System.Drawing.Size(294, 147);
             this.ResumeLayout(false);
             this.PerformLayout();

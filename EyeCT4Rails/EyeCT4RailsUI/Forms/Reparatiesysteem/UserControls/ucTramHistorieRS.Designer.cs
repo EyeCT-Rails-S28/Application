@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
-    partial class ucTramHistorieRS
+    partial class UcTramHistorieRs
     {
         /// <summary> 
         /// Required designer variable.
@@ -110,7 +110,7 @@
             this.Controls.Add(this.lblSpoor);
             this.Controls.Add(this.lblSoort);
             this.Controls.Add(this.lblTramNummer);
-            this.Name = "ucTramHistorieRS";
+            this.Name = "UcTramHistorieRs";
             this.Size = new System.Drawing.Size(450, 486);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTramHistorie)).EndInit();
             this.ResumeLayout(false);

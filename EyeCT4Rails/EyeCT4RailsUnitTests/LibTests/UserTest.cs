@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -16,29 +15,29 @@ namespace EyeCT4RailsUnitTests.LibTests
         [TestInitialize]
         public void UserInit()
         {
-            _user1 = new User(1, "Henk Stenk", "HenkyBaas@gmail.com", Privilege.Administrator);
-            _user2 = new User(2, "Piet Piraat", "Arrrr@gmail.com", Privilege.Mechanic);
+            _user1 = new User(1, "Henk Stenk", "HenkyBaas@gmail.com", Role.Administrator);
+            _user2 = new User(2, "Piet Piraat", "Arrrr@gmail.com", Role.Mechanic);
         }
 
         [TestMethod]
         public void UserConstructorTest()
         {
             Assert.AreEqual(1, _user1.Id);
-            Assert.AreEqual(Privilege.Administrator, _user1.Privilege);
+            Assert.AreEqual(Role.Administrator, _user1.Role);
             Assert.AreEqual("Piet Piraat", _user2.Name);
         }
 
         [TestMethod]
         public void HasPrivilegeTest()
         {
-            var enums = new List<Privilege> {
-                Privilege.Administrator, Privilege.Cleanup, Privilege.DepotMananger, Privilege.Driver,
-                Privilege.Mechanic
+            var enums = new List<Role> {
+                Role.Administrator, Role.Cleanup, Role.DepotMananger, Role.Driver,
+                Role.Mechanic
             };
             
             enums.ForEach(x => Assert.AreEqual(true, _user1.HasPrivilege(x)));
-            enums.FindAll(x => x != Privilege.Mechanic).ToList().ForEach(y => Assert.AreNotEqual(true, _user2.HasPrivilege(y)));
-            Assert.AreEqual(true, _user2.HasPrivilege(Privilege.Mechanic));
+            enums.FindAll(x => x != Role.Mechanic).ToList().ForEach(y => Assert.AreNotEqual(true, _user2.HasPrivilege(y)));
+            Assert.AreEqual(true, _user2.HasPrivilege(Role.Mechanic));
         }
 
         [TestMethod]

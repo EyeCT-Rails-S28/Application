@@ -5,11 +5,11 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsUI.Forms.Login
 {
-    public partial class ucLogIn : UserControl
+    public partial class UcLogIn : UserControl
     {
         public event EventHandler LoginSucceeded;
 
-        public ucLogIn()
+        public UcLogIn()
         {
             InitializeComponent();
         }
@@ -24,7 +24,7 @@ namespace EyeCT4RailsUI.Forms.Login
             }
 
             //test
-            LoginSucceeded?.Invoke(new User(1, "test", "test@test.test", Privilege.Administrator), new EventArgs());
+            LoginSucceeded?.Invoke(new User(1, "test", "test@test.test", Role.Driver), new EventArgs());
         }
 
         private User CheckLogin()

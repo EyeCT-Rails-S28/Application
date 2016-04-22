@@ -1,6 +1,6 @@
 ﻿namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
-    partial class ucTramHistorieSCH
+    partial class UcTramHistorieSch
     {
         /// <summary> 
         /// Required designer variable.
@@ -110,7 +110,7 @@
             this.Controls.Add(this.lblSpoor);
             this.Controls.Add(this.lblSoort);
             this.Controls.Add(this.lblTramNummer);
-            this.Name = "ucTramHistorieSCH";
+            this.Name = "UcTramHistorieSch";
             this.Size = new System.Drawing.Size(449, 498);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTramHistorie)).EndInit();
             this.ResumeLayout(false);

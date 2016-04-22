@@ -2,9 +2,9 @@
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucSpoorInfo : UserControl
+    public partial class UcSpoorInfo : UserControl
     {
-        public ucSpoorInfo()
+        public UcSpoorInfo()
         {
             InitializeComponent();
         }
