@@ -194,7 +194,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             names.Add(UppercaseFirst(itemNaam));
 
-            fullName += ".uc";
+            fullName += ".Uc";
             fullName = names.Aggregate(fullName, (current, name) => current + name);
 
             return fullName;

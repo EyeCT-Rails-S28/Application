@@ -8,42 +8,42 @@ using EyeCT4RailsLib;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
-    public partial class ucOverzichtBS : UserControl
+    public partial class UcOverzichtBs : UserControl
     {
-        private const int SectionWidth = 50;
-        private const int SectionHeight = 50;
-        private const int LeftMargin = 5;
-        private const int AboveMargin = 5;
-        private const int NewlineMargin = 20;
+        private const int SECTION_WIDTH = 50;
+        private const int SECTION_HEIGHT = 50;
+        private const int LEFT_MARGIN = 5;
+        private const int ABOVE_MARGIN = 5;
+        private const int NEWLINE_MARGIN = 20;
         
-        private List<TrackUIObj> _tracks;
+        private List<TrackUiObj> _tracks;
 
-        public ucOverzichtBS()
+        public UcOverzichtBs()
         {
             InitializeComponent();
 
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
 
             Random r = new Random();
-            _tracks = new List<TrackUIObj>();
+            _tracks = new List<TrackUiObj>();
 
             //make test tracks
             for (int i = 0; i < 40; i++)
             {
-                _tracks.Add(new TrackUIObj(i,r.Next(1,5)));
+                _tracks.Add(new TrackUiObj(i,r.Next(1,5)));
             }
         }
         
 
         private void DrawSections(Graphics g)
         {
-            int x = LeftMargin;
-            int y = AboveMargin;
+            int x = LEFT_MARGIN;
+            int y = ABOVE_MARGIN;
             int maxHeight = 0;
 
             Size ucSize = this.Size;
 
-            foreach (TrackUIObj track in _tracks)
+            foreach (TrackUiObj track in _tracks)
             {
                 track.DrawSections(g, x, y);
 
@@ -52,12 +52,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     maxHeight = track.Height;
                 }
 
-                x += SectionWidth;
+                x += SECTION_WIDTH;
 
-                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
+                if (x + SECTION_WIDTH + NEWLINE_MARGIN > pnlTracks.Width)
                 {
-                    x = LeftMargin;
-                    y += maxHeight + NewlineMargin;
+                    x = LEFT_MARGIN;
+                    y += maxHeight + NEWLINE_MARGIN;
                     maxHeight = 0;
                 }
             }
@@ -91,20 +91,20 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             Refresh();
         }
 
-        private class TrackUIObj : Track
+        private class TrackUiObj : Track
         {
-            public List<SectionUIObj> UiSections => new List<SectionUIObj>(_uiSections);
+            public List<SectionUiObj> UiSections => new List<SectionUiObj>(_uiSections);
 
             public int Height { get; }
 
             public Rectangle Area { get; private set; }
 
-            private List<SectionUIObj> _uiSections;
+            private List<SectionUiObj> _uiSections;
 
-            public TrackUIObj(int id, int amountOfSections) : base(id)
+            public TrackUiObj(int id, int amountOfSections) : base(id)
             {
                 //make test sections
-                _uiSections = new List<SectionUIObj>();  
+                _uiSections = new List<SectionUiObj>();  
 
                 for (int i = 0; i < amountOfSections; i++)
                 {
@@ -114,11 +114,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 foreach (var section in Sections)
                 {
                     _uiSections.Add(section.Tram == null
-                        ? new SectionUIObj(section.Id, section.Blocked)
-                        : new SectionUIObj(section.Id, section.Blocked, section.Tram));
+                        ? new SectionUiObj(section.Id, section.Blocked)
+                        : new SectionUiObj(section.Id, section.Blocked, section.Tram));
                 }
 
-                Height = (UiSections.Count + 1)*SectionHeight;
+                Height = (UiSections.Count + 1)*SECTION_HEIGHT;
             }
 
             public void DrawSections(Graphics g, int x, int y)
@@ -127,33 +127,33 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 Brush brush = new SolidBrush(Color.Black);
                 Font font = new Font(FontFamily.GenericSansSerif, 12);
 
-                Area = new Rectangle(x, y, SectionWidth, SectionHeight * (UiSections.Count + 1));
+                Area = new Rectangle(x, y, SECTION_WIDTH, SECTION_HEIGHT * (UiSections.Count + 1));
 
-                g.DrawRectangle(pen, x, y, SectionWidth, SectionHeight);
+                g.DrawRectangle(pen, x, y, SECTION_WIDTH, SECTION_HEIGHT);
                 g.DrawString(Convert.ToString(Id), font, brush, x, y);
-                y += SectionHeight;
+                y += SECTION_HEIGHT;
 
                 for (int i = 0; i < UiSections.Count; i++)
                 {
-                    _uiSections[i].Area = new Rectangle(x, y, SectionWidth, SectionHeight);
+                    _uiSections[i].Area = new Rectangle(x, y, SECTION_WIDTH, SECTION_HEIGHT);
 
                     g.DrawRectangle(pen, _uiSections[i].Area);
 
-                    y += SectionHeight;
+                    y += SECTION_HEIGHT;
                 }
             }
         }
 
-        class SectionUIObj : Section
+        class SectionUiObj : Section
         {
             public Rectangle Area { get; set; }
 
-            public SectionUIObj(int id, bool blocked) : base(id, blocked)
+            public SectionUiObj(int id, bool blocked) : base(id, blocked)
             {
 
             }
 
-            public SectionUIObj(int id, bool blocked, Tram tram) : base(id, blocked, tram)
+            public SectionUiObj(int id, bool blocked, Tram tram) : base(id, blocked, tram)
             {
                 
             }

@@ -90,8 +90,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // pnlTracks
             // 
-            this.pnlTracks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlTracks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlTracks.Location = new System.Drawing.Point(142, 39);
             this.pnlTracks.Name = "pnlTracks";
