@@ -211,6 +211,10 @@
       <Project>{f7313ddb-a30d-4e74-992f-c4cce8d8cbdc}</Project>
       <Name>EyeCT4RailsLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EyeCT4RailsLogic\EyeCT4RailsLogic.csproj">
+      <Project>{78965E2B-8332-4AE3-AF0B-66DB22D16D98}</Project>
+      <Name>EyeCT4RailsLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
