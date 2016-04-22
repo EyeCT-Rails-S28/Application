@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
+using EyeCT4RailsLib;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
@@ -14,7 +16,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private const int AboveMargin = 5;
         private const int NewlineMargin = 20;
         
-        private List<Track> _tracks;
+        private List<TrackUIObj> _tracks;
 
         public ucOverzichtBS()
         {
@@ -22,7 +24,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
 
-            _tracks = Track.GetDefaultTracks();
+            Random r = new Random();
+            _tracks = new List<TrackUIObj>();
+
+            //make test tracks
+            for (int i = 0; i < 40; i++)
+            {
+                _tracks.Add(new TrackUIObj(i,r.Next(1,5)));
+            }
         }
         
 
@@ -34,13 +43,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             Size ucSize = this.Size;
 
-            foreach (Track track in _tracks)
+            foreach (TrackUIObj track in _tracks)
             {
-                DrawSection(g, track, x, y);
+                track.DrawSections(g, x, y);
 
-                if (maxHeight < track.GetHeight(SectionHeight))
+                if (maxHeight < track.Height)
                 {
-                    maxHeight = track.GetHeight(SectionHeight);
+                    maxHeight = track.Height;
                 }
 
                 x += SectionWidth;
@@ -51,23 +60,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     y += maxHeight + NewlineMargin;
                     maxHeight = 0;
                 }
-            }
-        }
-
-        private void DrawSection(Graphics g, Track track, int x, int y)
-        {
-            Pen pen = new Pen(Color.Black, 1);
-            Brush brush = new SolidBrush(Color.Black);
-            Font font = new Font(FontFamily.GenericSansSerif, 12);
-
-            g.DrawRectangle(pen, x, y, SectionWidth, SectionHeight);
-            g.DrawString(Convert.ToString(track.Number), font, brush, x, y);
-            y += SectionHeight;
-
-            for (int i = 0; i < track.AmountSections; i++)
-            {
-                g.DrawRectangle(pen, x, y, SectionWidth, SectionHeight);
-                y += SectionHeight;
             }
         }
 
@@ -78,55 +70,102 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void pnlTracks_MouseClick(object sender, MouseEventArgs e)
         {
-            int x = LeftMargin;
-            int y = AboveMargin;
-            int maxHeight = 0;
-
-            Size ucSize = this.Size;
-
-            foreach (Track track in _tracks)
+            try
             {
-                if (e.X >= x && e.X <= x + SectionWidth && e.Y >= y && e.Y <= y + track.GetHeight(SectionHeight))
-                {
-                    int y2 = y + SectionHeight;
+                var track = _tracks.Find(x => x.Area.Contains(e.Location));
+                var section = track.UiSections.Find(x => x.Area.Contains(e.Location));
 
-                    if (e.Y <= y2)
-                    {
-                        MessageBox.Show($"Clicked: {track.Number}");
-                        break;
-                    }
+                string message = (section == null ? $"Clicked: {track.Id}" :
+                $"Clicked: {track.Id}; Section: {section.Id}");
 
-                    for (int i = 0; i < track.AmountSections; i++)
-                    {
-                        y2 += SectionHeight;
-
-                        if (e.Y <= y2)
-                        {
-                            MessageBox.Show($"Clicked: {track.Number}; Section: {i}");
-                            break;
-                        }
-                    }
-                }
-
-                if (maxHeight < track.GetHeight(SectionHeight))
-                {
-                    maxHeight = track.GetHeight(SectionHeight);
-                }
-
-                x += SectionWidth;
-
-                if (x + SectionWidth + NewlineMargin > pnlTracks.Width)
-                {
-                    x = LeftMargin;
-                    y += maxHeight + NewlineMargin;
-                    maxHeight = 0;
-                }
+                MessageBox.Show(message);
+            }
+            catch(NullReferenceException ex)
+            {
+                Console.Write(ex.StackTrace);
             }
         }
 
         private void ucOverzichtBS_Resize(object sender, EventArgs e)
         {
             Refresh();
+        }
+
+        private class TrackUIObj : Track
+        {
+            public List<SectionUIObj> UiSections => new List<SectionUIObj>(_uiSections);
+
+            public int Height { get; }
+
+            public Rectangle Area { get; private set; }
+
+            public Section SelectedSection { get; private set; }
+
+            private List<SectionUIObj> _uiSections;
+
+            public TrackUIObj(int id, int amountOfSections) : base(id)
+            {
+                //make test sections
+                _uiSections = new List<SectionUIObj>();  
+
+                for (int i = 0; i < amountOfSections; i++)
+                {
+                    AddSection(new Section(i, true));
+                }
+
+                foreach (var section in Sections)
+                {
+                    _uiSections.Add(section.Tram == null
+                        ? new SectionUIObj(section.Id, section.Blocked)
+                        : new SectionUIObj(section.Id, section.Blocked, section.Tram));
+                }
+
+                Height = (UiSections.Count + 1)*SectionHeight;
+            }
+
+            public void DrawSections(Graphics g, int x, int y)
+            {
+                Pen pen = new Pen(Color.Black, 1);
+                Brush brush = new SolidBrush(Color.Black);
+                Font font = new Font(FontFamily.GenericSansSerif, 12);
+
+                Area = new Rectangle(x, y, SectionWidth, SectionHeight * (UiSections.Count + 1));
+
+                g.DrawRectangle(pen, x, y, SectionWidth, SectionHeight);
+                g.DrawString(Convert.ToString(Id), font, brush, x, y);
+                y += SectionHeight;
+
+                for (int i = 0; i < UiSections.Count; i++)
+                {
+                    _uiSections[i].Area = new Rectangle(x, y, SectionWidth, SectionHeight);
+
+                    g.DrawRectangle(pen, _uiSections[i].Area);
+
+                    y += SectionHeight;
+                }
+            }
+
+            public bool OnArea(Point point)
+            {
+                SelectedSection = _uiSections.Find(x => x.Area.Contains(point));
+
+                return SelectedSection != null;
+            }
+        }
+
+        class SectionUIObj : Section
+        {
+            public Rectangle Area { get; set; }
+
+            public SectionUIObj(int id, bool blocked) : base(id, blocked)
+            {
+
+            }
+
+            public SectionUIObj(int id, bool blocked, Tram tram) : base(id, blocked, tram)
+            {
+                
+            }
         }
     }
 }

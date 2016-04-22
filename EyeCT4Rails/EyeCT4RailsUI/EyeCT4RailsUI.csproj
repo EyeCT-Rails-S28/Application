@@ -77,7 +77,6 @@
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.Designer.cs">
       <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\Track.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
