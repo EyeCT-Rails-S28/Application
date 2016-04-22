@@ -99,8 +99,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             public Rectangle Area { get; private set; }
 
-            public Section SelectedSection { get; private set; }
-
             private List<SectionUIObj> _uiSections;
 
             public TrackUIObj(int id, int amountOfSections) : base(id)
@@ -143,13 +141,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                     y += SectionHeight;
                 }
-            }
-
-            public bool OnArea(Point point)
-            {
-                SelectedSection = _uiSections.Find(x => x.Area.Contains(point));
-
-                return SelectedSection != null;
             }
         }
 
