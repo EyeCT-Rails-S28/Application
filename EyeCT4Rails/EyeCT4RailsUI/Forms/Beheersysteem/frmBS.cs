@@ -64,7 +64,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         {
             try
             {
-                _depot = DepotManagementRepository.Instance.GetDepot("havenstraat");
+                _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
             }
             catch (Exception ex)
             {
