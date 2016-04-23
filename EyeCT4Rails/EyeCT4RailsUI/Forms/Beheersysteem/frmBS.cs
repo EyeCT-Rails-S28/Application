@@ -183,7 +183,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             else if (type == typeof(UcToggleBlokkade))
             {
-                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection);
+                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection, _depot);
             }
             else if (type == typeof(UcSpoorInfo))
             {

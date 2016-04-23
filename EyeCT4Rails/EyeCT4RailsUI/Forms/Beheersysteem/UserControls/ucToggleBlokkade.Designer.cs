@@ -55,6 +55,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.btnOk.TabIndex = 12;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // tbSectornummer
             // 
@@ -88,7 +89,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblSectornummer.TabIndex = 8;
             this.lblSectornummer.Text = "Sectornummer:";
             // 
-            // ucToggleBlokkade
+            // UcToggleBlokkade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
