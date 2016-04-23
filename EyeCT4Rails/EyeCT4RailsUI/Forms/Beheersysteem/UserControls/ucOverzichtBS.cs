@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
+using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
@@ -15,25 +16,43 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private const int LEFT_MARGIN = 5;
         private const int ABOVE_MARGIN = 5;
         private const int NEWLINE_MARGIN = 20;
-        
+
+        private Depot _depot;
         private List<TrackUiObj> _tracks;
+        private TrackUiObj _selectedTrack;
+        private SectionUiObj _selectedSection;
 
         public UcOverzichtBs()
         {
             InitializeComponent();
 
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
-
-            Random r = new Random();
+            
             _tracks = new List<TrackUiObj>();
+        }
 
-            //make test tracks
-            for (int i = 0; i < 40; i++)
+        public void SetDepot(Depot depot)
+        {
+            _depot = depot;
+
+            if (depot != null)
             {
-                _tracks.Add(new TrackUiObj(i,r.Next(1,5)));
+                foreach (var track in _depot.Tracks)
+                {
+                    _tracks.Add(new TrackUiObj(track.Id));
+                }
+            }
+            else
+            {
+                //make test tracks
+                Random r = new Random();
+
+                for (int i = 0; i < 40; i++)
+                {
+                    _tracks.Add(new TrackUiObj(i, r.Next(1, 5)));
+                }
             }
         }
-        
 
         private void DrawSections(Graphics g)
         {
@@ -74,16 +93,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 var track = _tracks.Find(x => x.Area.Contains(e.Location));
                 var section = track.UiSections.Find(x => x.Area.Contains(e.Location));
-
-                string message = (section == null ? $"Clicked: {track.Id}" :
-                $"Clicked: {track.Id}; Section: {section.Id}");
-
-                MessageBox.Show(message);
+                
+                _selectedTrack = track;
+                if (section != null)_selectedSection = section;
+                
+                RefreshUi();
             }
             catch(NullReferenceException ex)
             {
                 Console.Write(ex.StackTrace);
             }
+        }
+
+        private void RefreshUi()
+        {
+            lblSeletedTrack.Text = _selectedTrack == null 
+                ? "Selected track:" 
+                : $"Selected track: {_selectedTrack.Id}";
+            lblSelectedSection.Text = _selectedSection == null
+                ? "Selected section:"
+                : $"Selected section: {_selectedSection.Id}";
         }
 
         private void ucOverzichtBS_Resize(object sender, EventArgs e)
@@ -101,24 +130,37 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             private List<SectionUiObj> _uiSections;
 
+            //test constructor
             public TrackUiObj(int id, int amountOfSections) : base(id)
             {
                 //make test sections
-                _uiSections = new List<SectionUiObj>();  
+                _uiSections = new List<SectionUiObj>();
 
                 for (int i = 0; i < amountOfSections; i++)
                 {
                     AddSection(new Section(i, true));
                 }
 
+                ConvertSections();
+
+                Height = (UiSections.Count + 1) * SECTION_HEIGHT;
+            }
+
+            public TrackUiObj(int id) : base(id)
+            {
+                ConvertSections();
+
+                Height = (UiSections.Count + 1)*SECTION_HEIGHT;
+            }
+
+            private void ConvertSections()
+            {
                 foreach (var section in Sections)
                 {
                     _uiSections.Add(section.Tram == null
                         ? new SectionUiObj(section.Id, section.Blocked)
                         : new SectionUiObj(section.Id, section.Blocked, section.Tram));
                 }
-
-                Height = (UiSections.Count + 1)*SECTION_HEIGHT;
             }
 
             public void DrawSections(Graphics g, int x, int y)

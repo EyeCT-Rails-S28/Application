@@ -37,6 +37,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lbReserveringen = new System.Windows.Forms.ListBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pnlTracks = new System.Windows.Forms.Panel();
+            this.lblSeletedTrack = new System.Windows.Forms.Label();
+            this.lblSelectedSection = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblTram
@@ -90,8 +92,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // pnlTracks
             // 
-            this.pnlTracks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.pnlTracks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlTracks.Location = new System.Drawing.Point(142, 39);
             this.pnlTracks.Name = "pnlTracks";
@@ -100,10 +102,30 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.pnlTracks.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             this.pnlTracks.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlTracks_MouseClick);
             // 
-            // ucOverzichtBS
+            // lblSeletedTrack
+            // 
+            this.lblSeletedTrack.AutoSize = true;
+            this.lblSeletedTrack.Location = new System.Drawing.Point(139, 14);
+            this.lblSeletedTrack.Name = "lblSeletedTrack";
+            this.lblSeletedTrack.Size = new System.Drawing.Size(79, 13);
+            this.lblSeletedTrack.TabIndex = 8;
+            this.lblSeletedTrack.Text = "Selected track:";
+            // 
+            // lblSelectedSection
+            // 
+            this.lblSelectedSection.AutoSize = true;
+            this.lblSelectedSection.Location = new System.Drawing.Point(279, 14);
+            this.lblSelectedSection.Name = "lblSelectedSection";
+            this.lblSelectedSection.Size = new System.Drawing.Size(89, 13);
+            this.lblSelectedSection.TabIndex = 9;
+            this.lblSelectedSection.Text = "Selected section:";
+            // 
+            // UcOverzichtBs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblSelectedSection);
+            this.Controls.Add(this.lblSeletedTrack);
             this.Controls.Add(this.pnlTracks);
             this.Controls.Add(this.lbReserveringen);
             this.Controls.Add(this.lblReserveringen);
@@ -128,5 +150,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.ListBox lbReserveringen;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Panel pnlTracks;
+        private System.Windows.Forms.Label lblSeletedTrack;
+        private System.Windows.Forms.Label lblSelectedSection;
     }
 }
