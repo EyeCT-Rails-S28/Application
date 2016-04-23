@@ -18,10 +18,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
         private readonly UcLogIn _ucLogIn;
-
         private User _currentUser;
-
         private Depot _depot;
+        private Track _selectedTrack;
+        private Section _selectedSection;
 
         public FrmBs()
         {
@@ -163,9 +163,24 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }else if (type == typeof(UcOverzichtBs))
             {
                 (uc as UcOverzichtBs).SetDepot(_depot);
+                (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
             }
 
             return uc;
+        }
+
+        private void SelectionChanged(object sender, EventArgs e)
+        {
+            if ((sender as Track) != null)
+            {
+                _selectedTrack = (Track) sender;
+                _selectedSection = null;
+            }
+
+            if ((sender as Section) != null)
+            {
+                _selectedSection = (Section) sender;
+            }
         }
 
         public void CelDoubleClicked(object sender, EventArgs e)

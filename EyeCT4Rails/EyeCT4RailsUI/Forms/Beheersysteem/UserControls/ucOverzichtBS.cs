@@ -17,10 +17,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private const int ABOVE_MARGIN = 5;
         private const int NEWLINE_MARGIN = 20;
 
+        public event EventHandler SelectionChanged;
+
         private Depot _depot;
         private List<TrackUiObj> _tracks;
-        private TrackUiObj _selectedTrack;
-        private SectionUiObj _selectedSection;
+        private Track _selectedTrack;
+        private Section _selectedSection;
 
         public UcOverzichtBs()
         {
@@ -95,7 +97,15 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 var section = track.UiSections.Find(x => x.Area.Contains(e.Location));
                 
                 _selectedTrack = track;
-                if (section != null)_selectedSection = section;
+
+                SelectionChanged?.Invoke(_selectedTrack, e);
+
+                if (section != null)
+                {
+                    _selectedSection = section;
+
+                    SelectionChanged?.Invoke(_selectedSection, e);
+                }
                 
                 RefreshUi();
             }
