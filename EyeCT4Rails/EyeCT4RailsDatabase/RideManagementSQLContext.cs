@@ -16,18 +16,15 @@ namespace EyeCT4RailsDatabase
         public void ReportStatusChange(Tram tram, Status status)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("change_tram_status", connection);
+            OracleCommand command = new OracleCommand("UPDATE \"tram\" " +
+                                                      "SET status = :status " +
+                                                      "WHERE id = :id", connection);
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.Add(new OracleParameter("p_tram_id", OracleDbType.Int32).Value = tram.Id);
-            command.Parameters.Add(new OracleParameter("p_status", OracleDbType.Varchar2).Value = Convert.ToString(status));
+            command.Parameters.Add(new OracleParameter(":status", OracleDbType.Varchar2)).Value = Convert.ToString(status);
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = tram.Id;
 
             command.ExecuteNonQuery();
-        }
-
-        public Section GetFreeSection(Track track)
-        {
-            throw new NotImplementedException();
         }
     }
 }
