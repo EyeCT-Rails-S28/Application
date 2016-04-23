@@ -77,18 +77,17 @@
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.Designer.cs">
       <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\Track.cs" />
     <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.Designer.cs">
       <DependentUpon>ucSpoorInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucOverzichtBS.cs">
+    <Compile Include="Forms\Beheersysteem\UserControls\UcOverzichtBS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucOverzichtBS.Designer.cs">
-      <DependentUpon>ucOverzichtBS.cs</DependentUpon>
+    <Compile Include="Forms\Beheersysteem\UserControls\UcOverzichtBS.Designer.cs">
+      <DependentUpon>UcOverzichtBS.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.cs">
       <SubType>UserControl</SubType>
@@ -146,8 +145,8 @@
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucSpoorInfo.resx">
       <DependentUpon>ucSpoorInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucOverzichtBS.resx">
-      <DependentUpon>ucOverzichtBS.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\UcOverzichtBS.resx">
+      <DependentUpon>UcOverzichtBS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.resx">
       <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
@@ -211,6 +210,10 @@
     <ProjectReference Include="..\EyeCT4RailsLib\EyeCT4RailsLib.csproj">
       <Project>{f7313ddb-a30d-4e74-992f-c4cce8d8cbdc}</Project>
       <Name>EyeCT4RailsLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EyeCT4RailsLogic\EyeCT4RailsLogic.csproj">
+      <Project>{78965E2B-8332-4AE3-AF0B-66DB22D16D98}</Project>
+      <Name>EyeCT4RailsLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
