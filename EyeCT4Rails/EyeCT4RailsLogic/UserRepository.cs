@@ -40,7 +40,6 @@ namespace EyeCT4RailsLogic
                     throw new InvalidUserException("Invalid username or password");
 
                 ExceptionCatch(e);
-
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
 
@@ -71,10 +70,10 @@ namespace EyeCT4RailsLogic
 
         private void ExceptionCatch(Exception e)
         {
-            Console.WriteLine(e.StackTrace);
+            Console.WriteLine(e.ToString());
 
             if (e.GetType() == typeof(OracleTypeException) || e.GetBaseException() is OracleTypeException)
-                throw new DatabaseException("A database error has occured.");
+                throw new DatabaseException("A database error has occured.", e);
         }
     }
 }
