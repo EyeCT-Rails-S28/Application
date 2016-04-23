@@ -6,14 +6,26 @@
         /// The id of the section in the database.
         /// </summary>
         public int Id { get; }
+
         /// <summary>
         /// Tram that is parked on this section. Can be null.
         /// </summary>
         public Tram Tram { get; }
+
         /// <summary>
         /// Bool determining wheter the section is blocked or not.
         /// </summary>
         public bool Blocked { get; }
+
+        /// <summary>
+        /// The section that comes after this section. Can be null.
+        /// </summary>
+        public Section NextSection { get; private set; }
+
+        /// <summary>
+        /// The section that comes before this section. Can be null.
+        /// </summary>
+        public Section PreviousSection { get; private set; }
 
         /// <summary>
         /// Creates a section without a tram.
@@ -35,6 +47,29 @@
         public Section(int id, bool blocked, Tram tram) : this(id, blocked)
         {
             Tram = tram;
+        }
+
+        /// <summary>
+        /// Adds a next section to a section.
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
+        public bool AddNextSection(Section section)
+        {
+            if (NextSection != null)
+                return false;
+
+            NextSection = section;
+            return true;
+        }
+
+        public bool AddPreviousSection(Section section)
+        {
+            if (PreviousSection != null)
+                return false;
+
+            PreviousSection = section;
+            return true;
         }
 
         public override string ToString()
