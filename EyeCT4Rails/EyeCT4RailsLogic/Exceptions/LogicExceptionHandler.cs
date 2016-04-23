@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 
 namespace EyeCT4RailsLogic.Exceptions
 {
@@ -20,7 +17,7 @@ namespace EyeCT4RailsLogic.Exceptions
         {
             Console.WriteLine(e.Message);
 
-            if (e is OracleException || e.GetBaseException() is OracleException)
+            if (e is OracleException || e.GetBaseException() is OracleException || e is OracleTypeException || e.GetBaseException() is OracleTypeException)
                 throw new DatabaseException("A database error has occured.", e);
         }
 
