@@ -4,7 +4,6 @@ using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
-using Oracle.ManagedDataAccess.Types;
 
 namespace EyeCT4RailsLogic
 {
@@ -28,7 +27,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -41,7 +40,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -54,7 +53,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -67,7 +66,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -80,17 +79,9 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
-        }
-
-        private void ExceptionCatch(Exception e)
-        {
-            Console.WriteLine(e.Message);
-
-            if (e.GetType() == typeof(OracleTypeException) || e.GetBaseException() is OracleTypeException)
-                throw new DatabaseException("A database error has occured.", e);
         }
     }
 }

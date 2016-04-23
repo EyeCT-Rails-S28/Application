@@ -6,7 +6,6 @@ using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
-using Oracle.ManagedDataAccess.Client;
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace EyeCT4RailsLogic
@@ -36,7 +35,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -97,18 +96,6 @@ namespace EyeCT4RailsLogic
             return direction
                 ? CheckSectionFreedom(section.NextSection, true)
                 : CheckSectionFreedom(section.PreviousSection, false);
-        }
-
-        /// <summary>
-        /// Catches all oracle database exceptions from an exception and turns it into a general database error if it is a oracle exception.
-        /// </summary>
-        /// <param name="e">The exception to check.</param>
-        private void ExceptionCatch(Exception e)
-        {
-            Console.WriteLine(e.Message);
-
-            if (e is OracleException || e.GetBaseException() is OracleException)
-                throw new DatabaseException("A database error has occured.", e);
         }
     }
 }

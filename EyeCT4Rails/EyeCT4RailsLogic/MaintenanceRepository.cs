@@ -5,7 +5,6 @@ using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
-using Oracle.ManagedDataAccess.Types;
 // ReSharper disable UnusedParameter.Local
 
 namespace EyeCT4RailsLogic
@@ -30,7 +29,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -43,7 +42,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -56,7 +55,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -69,7 +68,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -82,7 +81,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -101,7 +100,7 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -119,7 +118,7 @@ namespace EyeCT4RailsLogic
         public bool ScheduleRecurringJob(JobSize size, User user, Tram tram, DateTime date, int interval,
             DateTime endDate)
         {
-            CheckException(date, endDate, interval);
+            LogicExceptionHandler.CheckForInvalidDateException(date, endDate, interval);
 
             //bool used to determine wheter every job could be scheduled.
             bool success = true;
@@ -153,26 +152,9 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
-        }
-
-        private void CheckException(DateTime startDate, DateTime endDate, int interval)
-        {
-            if (endDate < startDate)
-                throw new InvalidDateException("End date is before start date.");
-
-            if (interval < 1)
-                throw new InvalidDateException("Interval has to be greater than 1.");
-        }
-
-        private void ExceptionCatch(Exception e)
-        {
-            Console.WriteLine(e.Message);
-
-            if (e.GetType() == typeof (OracleTypeException) || e.GetBaseException() is OracleTypeException)
-                throw new DatabaseException("A database error has occured.", e);
         }
     }
 }
