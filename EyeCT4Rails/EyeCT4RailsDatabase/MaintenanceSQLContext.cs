@@ -15,18 +15,16 @@ namespace EyeCT4RailsDatabase
             List<Tram> list = new List<Tram>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("fetch_trams_type", connection);
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.Add(new OracleParameter("p_job_status", OracleDbType.Varchar2).Value = Convert.ToString(Status.Defect));
+            OracleCommand command = new OracleCommand("SELECT id, line_id, forced FROM \"tram\" WHERE status = 'Defect'", connection);
+            command.CommandType = CommandType.Text;
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 int id = reader.GetInt32(0);
                 Status status = Status.Schoonmaak;
-                Line line = new Line(reader.GetInt32(2));
-                bool forced = reader.GetByte(3) == 1;
+                Line line = new Line(reader.GetInt32(1));
+                bool forced = reader.GetInt32(2) == 1;
 
                 list.Add(new Tram(id, status, line, forced));
             }
@@ -39,10 +37,14 @@ namespace EyeCT4RailsDatabase
             List<MaintenanceJob> list = new List<MaintenanceJob>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("job_schedule", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
+                                                      "FROM \"job\" j " +
+                                                      "JOIN \"tram\" t ON t.id = j.tram_id " +
+                                                      "JOIN \"line\" l ON t.line_id = l.id " +
+                                                      "JOIN \"user\" u ON u.id = j.user_id " +
+                                                      "WHERE j.finished = 0 AND j.job_type = 'Maintenance'", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Maintenance");
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -76,11 +78,15 @@ namespace EyeCT4RailsDatabase
             List<MaintenanceJob> list = new List<MaintenanceJob>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("job_history_tram", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, u.id, u.name, u.email, u.role " +
+                                                      "FROM \"job\" j " +
+                                                      "JOIN \"tram\" t ON t.id = j.tram_id " +
+                                                      "JOIN \"line\" l ON t.line_id = l.id " +
+                                                      "JOIN \"user\" u ON u.id = j.user_id " +
+                                                      "WHERE j.finished = 1 AND t.id = :id AND j.job_type = 'Maintenance'", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_id", OracleDbType.Int32).Value = tram.Id);
-            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Maintenance");
+            command.Parameters.Add(new OracleParameter(":id", tram.Id));
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -107,10 +113,13 @@ namespace EyeCT4RailsDatabase
             List<MaintenanceJob> list = new List<MaintenanceJob>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("job_history", connection);
-            command.CommandType = CommandType.StoredProcedure;
-
-            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Maintenance");
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
+                                                      "FROM\"job\" j " +
+                                                      "JOIN \"tram\" t ON t.id = j.tram_id " +
+                                                      "JOIN \"line\" l ON t.line_id = l.id " +
+                                                      "JOIN \"user\" u ON u.id = j.user_id " +
+                                                      "WHERE j.finished = 1 AND j.job_type = 'Cleanup'", connection);
+            command.CommandType = CommandType.Text;
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -142,14 +151,14 @@ namespace EyeCT4RailsDatabase
         public bool ScheduleJob(JobSize size, User user, Tram tram, DateTime date)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("add_job", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("INSERT INTO \"job\"(user_id, tram_id, job_type, job_size, \"date\") " +
+                                                      "VALUES(:user_id, :tram_id, 'Maintenance', :job_size, TO_DATE(:job_date, 'DD/MM/YYYY HH24:MI:SS'))", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_user_id", OracleDbType.Int32).Value = user.Id);
-            command.Parameters.Add(new OracleParameter("p_tram_id", OracleDbType.Int32).Value = tram.Id);
-            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Maintenance");
-            command.Parameters.Add(new OracleParameter("p_job_size", OracleDbType.Varchar2).Value = Convert.ToString(size));
-            command.Parameters.Add(new OracleParameter("p_date", OracleDbType.Date).Value = date);
+            command.Parameters.Add(new OracleParameter(":user_id", user.Id));
+            command.Parameters.Add(new OracleParameter(":tram_id", tram.Id));
+            command.Parameters.Add(new OracleParameter(":job_size", Convert.ToString(size)));
+            command.Parameters.Add(new OracleParameter(":job_date", date.ToString("dd/MM/yyyy HH:mm:ss")));
 
             command.ExecuteNonQuery();
             return true;
@@ -158,10 +167,10 @@ namespace EyeCT4RailsDatabase
         public bool RemoveScheduledJob(MaintenanceJob job)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("remove_job", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("DELETE FROM \"job\" WHERE(id = :id)", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_id", OracleDbType.Int32).Value = job.Id);
+            command.Parameters.Add(new OracleParameter(":id", job.Id));
 
             command.ExecuteNonQuery();
             return true;
@@ -170,12 +179,13 @@ namespace EyeCT4RailsDatabase
         public bool EditJobStatus(MaintenanceJob job, bool isDone)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("edit_job_status", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("UPDATE \"job\" " +
+                                                      "SET finished = :job_finished " +
+                                                      "WHERE id = :cleanup_id", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_cleanup_id", OracleDbType.Int32).Value = job.Id);
-            command.Parameters.Add(new OracleParameter("p_finished", OracleDbType.Int32).Value = isDone ? 1 : 0);
-            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Maintenance");
+            command.Parameters.Add(new OracleParameter(":job_finished", OracleDbType.Int32)).Value = isDone ? 1 : 0;
+            command.Parameters.Add(new OracleParameter(":cleanup_id", OracleDbType.Int32)).Value = job.Id;
 
             command.ExecuteNonQuery();
             return true;
@@ -184,12 +194,12 @@ namespace EyeCT4RailsDatabase
         public bool CheckJobLimit(DateTime date, JobSize size)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("check_jobs_amount", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("SELECT COUNT(j.id) FROM \"job\" j " +
+                                                      "WHERE TRUNC(j.\"date\") = TO_DATE(:job_date, 'DD/MM/YYYY') AND j.job_size = :job_size AND j.job_type = 'Maintenance'", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_job_type", OracleDbType.Varchar2).Value = "Maintenance");
-            command.Parameters.Add(new OracleParameter("p_date", OracleDbType.Date).Value = date);
-            command.Parameters.Add(new OracleParameter("p_size", OracleDbType.Varchar2).Value = Convert.ToString(size));
+            command.Parameters.Add(new OracleParameter(":job_date", date.ToString("dd/MM/yyyy")));
+            command.Parameters.Add(new OracleParameter(":job_size", Convert.ToString(size)));
 
             int amount = Convert.ToInt32(command.ExecuteScalar());
             return size == JobSize.Big ? amount < 1 : amount < 4;

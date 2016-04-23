@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
-using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Login
@@ -27,14 +26,14 @@ namespace EyeCT4RailsUI.Forms.Login
             {
                 Console.WriteLine(ex.Message);
 
-                //test
-                LoginSucceeded?.Invoke(new User(1, "test", "test@test.test", Role.Administrator), new EventArgs());
-            }
-        }
+                string message = ex.InnerException.Message == "Connection request timed out"
+                    ? "No database connection"
+                    : ex.Message;
 
-        private User CheckLogin()
-        {
-            return null;
+                MessageBox.Show(message);
+                //test
+                //LoginSucceeded?.Invoke(new User(1, "test", "test@test.test", Role.Administrator), new EventArgs());
+            }
         }
     }
 }

@@ -16,11 +16,13 @@ namespace EyeCT4RailsDatabase
         public void ChangeTramStatus(Tram tram, Status status)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("change_tram_status", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("UPDATE \"tram\" " +
+                                                      "SET status = :status " +
+                                                      "WHERE id = :id", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_tram_id", OracleDbType.Int32).Value = tram.Id);
-            command.Parameters.Add(new OracleParameter("p_status", OracleDbType.Varchar2).Value = Convert.ToString(status));
+            command.Parameters.Add(new OracleParameter(":status", OracleDbType.Varchar2)).Value = Convert.ToString(status);
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = tram.Id;
 
             command.ExecuteNonQuery();
         }
@@ -28,11 +30,13 @@ namespace EyeCT4RailsDatabase
         public void SetTrackBlocked(Track track, bool blocked)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("set_track_blocked", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+                                                      "SET blocked = :blocked " +
+                                                      "WHERE track_id = :id", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_id", OracleDbType.Int32).Value = track.Id);
-            command.Parameters.Add(new OracleParameter("p_blocked", OracleDbType.Int32).Value = blocked ? 1 : 0);
+            command.Parameters.Add(new OracleParameter(":blocked", OracleDbType.Int32)).Value = blocked ? 1 : 0;
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = track.Id;
 
             command.ExecuteNonQuery();
         }
@@ -40,11 +44,13 @@ namespace EyeCT4RailsDatabase
         public void SetSectionBlocked(Section section, bool blocked)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("set_section_blocked", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+                                                      "SET blocked = :blocked " +
+                                                      "WHERE id = :id", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_id", OracleDbType.Int32).Value = section.Id);
-            command.Parameters.Add(new OracleParameter("p_blocked", OracleDbType.Int32).Value = blocked ? 1 : 0);
+            command.Parameters.Add(new OracleParameter(":blocked", OracleDbType.Int32)).Value = blocked ? 1 : 0;
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = section.Id;
 
             command.ExecuteNonQuery();
         }
@@ -52,11 +58,13 @@ namespace EyeCT4RailsDatabase
         public void ReserveSection(Tram tram, Section section)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("reserve_section", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+                                                      "SET tram_id = :tram_id " +
+                                                      "WHERE id = :section_id", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_section_id", OracleDbType.Int32).Value = section.Id);
-            command.Parameters.Add(new OracleParameter("p_tram_id", OracleDbType.Int32).Value = tram.Id);
+            command.Parameters.Add(new OracleParameter(":tram_id", OracleDbType.Int32)).Value = tram.Id;
+            command.Parameters.Add(new OracleParameter(":section_id", OracleDbType.Int32)).Value = section.Id;
 
             command.ExecuteNonQuery();
         }
@@ -64,10 +72,12 @@ namespace EyeCT4RailsDatabase
         public Depot GetDepot(string name)
         {
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("get_depot", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("SELECT id " +
+                                                      "FROM \"depot\" " +
+                                                      "WHERE name = :name", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_name", OracleDbType.Varchar2).Value = name);
+            command.Parameters.Add(new OracleParameter(":name", OracleDbType.Varchar2)).Value = name;
 
             int id = Convert.ToInt32(command.ExecuteScalar());
             Depot depot = new Depot(id, name);
@@ -80,6 +90,8 @@ namespace EyeCT4RailsDatabase
                 {
                     track.AddSection(section);
                 }
+
+                depot.AddTrack(track);
             }
 
 
@@ -91,10 +103,12 @@ namespace EyeCT4RailsDatabase
             List<Track> list = new List<Track>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("get_tracks", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("SELECT id " +
+                                                      "FROM \"track\" " +
+                                                      "WHERE depot_id = :depot_id", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_depot_id", OracleDbType.Int32).Value = depot.Id);
+            command.Parameters.Add(new OracleParameter(":depot_id", OracleDbType.Int32)).Value = depot.Id;
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -111,10 +125,13 @@ namespace EyeCT4RailsDatabase
             List<Section> list = new List<Section>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("get_sections", connection);
-            command.CommandType = CommandType.StoredProcedure;
+            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id, t.status, t.line_id, t.forced " +
+                                                      "FROM \"section\" s, \"tram\" t " +
+                                                      "WHERE track_id = :track_id " +
+                                                      "AND(s.tram_id IS NULL OR s.tram_id = t.id)", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter("p_track_id", OracleDbType.Int32).Value = track.Id);
+            command.Parameters.Add(new OracleParameter(":track_id", OracleDbType.Int32)).Value = track.Id;
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())

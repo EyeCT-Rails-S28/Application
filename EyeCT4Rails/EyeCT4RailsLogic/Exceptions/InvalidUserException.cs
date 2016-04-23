@@ -7,5 +7,9 @@ namespace EyeCT4RailsLogic.Exceptions
         public InvalidUserException(string message) : base(message)
         {
         }
+
+        public InvalidUserException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }
