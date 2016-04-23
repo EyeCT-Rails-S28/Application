@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
-using Oracle.ManagedDataAccess.Types;
+using Oracle.ManagedDataAccess.Client;
+// ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace EyeCT4RailsLogic
 {
@@ -30,7 +29,7 @@ namespace EyeCT4RailsLogic
         /// <param name="tram"></param>
         /// <param name="status"></param>
         public void ChangeTramStatus(Tram tram, Status status)
-        {      
+        {
             try
             {
                 _context.ReportStatusChange(tram, status);
@@ -42,6 +41,11 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Gets a free section from a given depot.
+        /// </summary>
+        /// <param name="depot">The depot in question.</param>
+        /// <returns>The first free section it finds.</returns>
         public Section GetFreeSection(Depot depot)
         {
             foreach (Section ret in depot.Tracks.Select(GetFreeSection).Where(ret => ret != null))
@@ -59,43 +63,51 @@ namespace EyeCT4RailsLogic
         /// <returns>A free section.</returns>
         private Section GetFreeSection(Track track)
         {
-            bool found = false;
-            int sectionCount = 0;
-            Section ret = null;
+            //Fetches all sections that have access to the outside world.
+            List<Section> freeSections =
+                track.Sections.Where(
+                    section => CheckSectionFreedom(section, false) || CheckSectionFreedom(section, true)).ToList();
 
-            while (!found)
-            {
-                if (sectionCount >= track.Sections.Count)
-                    return null;
+            if (freeSections.Count == 0)
+                return null;
 
-                ret = track.Sections[sectionCount];
-                if (CheckSectionFreedom(ret))
-                    found = ret != null;
-                sectionCount++;
-            }
+            //Tries to get a section next to an already blocked/taken section.
+            var ret =
+                freeSections.Find(x => (x.NextSection != null && (x.NextSection.Blocked || x.NextSection.Tram != null))
+                                       ||
+                                       (x.PreviousSection != null &&
+                                        (x.PreviousSection.Blocked || x.PreviousSection.Tram != null)));
 
-            return ret;
+            //If the whole track is empty, i.e. ret is null then it will place the tram on the last section of the track.
+            return ret ?? freeSections.Last();
         }
 
         /// <summary>
         /// Checks wheter a section is accessible from the outside.
         /// </summary>
         /// <param name="section">The section to check for.</param>
+        /// <param name="direction">The direction in which to look.</param>
         /// <returns>A bool that is true, if and only if it can reach the outside.</returns>
-        private bool CheckSectionFreedom(Section section)
+        private bool CheckSectionFreedom(Section section, bool direction)
         {
             if (section.Blocked || section.Tram != null)
                 return false;
             if (section.NextSection == null || section.PreviousSection == null)
                 return true;
-            return CheckSectionFreedom(section.NextSection) || CheckSectionFreedom(section.PreviousSection);
+            return direction
+                ? CheckSectionFreedom(section.NextSection, true)
+                : CheckSectionFreedom(section.PreviousSection, false);
         }
 
+        /// <summary>
+        /// Catches all oracle database exceptions from an exception and turns it into a general database error if it is a oracle exception.
+        /// </summary>
+        /// <param name="e">The exception to check.</param>
         private void ExceptionCatch(Exception e)
         {
             Console.WriteLine(e.Message);
 
-            if (e.GetType() == typeof(OracleTypeException) || e.GetBaseException() is OracleTypeException)
+            if (e is OracleException || e.GetBaseException() is OracleException)
                 throw new DatabaseException("A database error has occured.", e);
         }
     }
