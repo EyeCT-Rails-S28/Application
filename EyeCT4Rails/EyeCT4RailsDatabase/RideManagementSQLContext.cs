@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -17,12 +13,12 @@ namespace EyeCT4RailsDatabase
         {
             OracleConnection connection = Database.Instance.Connection;
             OracleCommand command = new OracleCommand("UPDATE \"tram\" " +
-                                                      "SET status = :status " +
-                                                      "WHERE id = :id", connection);
-            command.CommandType = CommandType.StoredProcedure;
+                                                      "SET status = :tram_status " +
+                                                      "WHERE id = :tram_id", connection);
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter(":status", OracleDbType.Varchar2)).Value = Convert.ToString(status);
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = tram.Id;
+            command.Parameters.Add(new OracleParameter(":tram_status", OracleDbType.Varchar2)).Value = Convert.ToString(status);
+            command.Parameters.Add(new OracleParameter(":tram_id", OracleDbType.Int32)).Value = tram.Id;
 
             command.ExecuteNonQuery();
         }
