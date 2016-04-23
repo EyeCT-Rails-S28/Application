@@ -5,6 +5,7 @@ using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 
 namespace EyeCT4RailsLogic
 {
@@ -41,7 +42,7 @@ namespace EyeCT4RailsLogic
             {
                 Console.WriteLine(e.Message);
 
-                if(e is OracleException || e.GetBaseException() is OracleException)
+                if(e is OracleException || e.GetBaseException() is OracleException || e is OracleTypeException || e.GetBaseException() is OracleTypeException)
                     throw new InvalidUserException("Invalid username or password", e);
                               
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
