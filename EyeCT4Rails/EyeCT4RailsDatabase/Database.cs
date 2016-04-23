@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using Oracle.ManagedDataAccess.Client;
 
 namespace EyeCT4RailsDatabase
@@ -10,16 +8,32 @@ namespace EyeCT4RailsDatabase
         /// <summary>
         /// 
         /// </summary>
-        private const string CONNECTION_STRING = "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.20.36.2)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = XE)));USER ID=PTS36;PASSWORD=PTS36";
+        private const string CONNECTION_STRING =
+            "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.20.36.2)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = XE)));USER ID=PTS36;PASSWORD=PTS36";
 
-        public static Database Instance { get; } = new Database();
+        private static Database _instance;
 
-        public OracleConnection Connection { get; private set; }
+        public static Database Instance
+        {
+            get
+            {
+                if (_instance == null || !_instance.IsConnected)
+                {
+                    return _instance = new Database();
+                }
+                return _instance;
+            }
+        }
+
+        private bool IsConnected => Connection.State == ConnectionState.Open;
+
+        public OracleConnection Connection { get; }
+
+        
 
         private Database()
         {
-            Connection = new OracleConnection();
-            Connection.ConnectionString = CONNECTION_STRING;
+            Connection = new OracleConnection {ConnectionString = CONNECTION_STRING};
 
             Open();
         }
@@ -29,32 +43,14 @@ namespace EyeCT4RailsDatabase
             Close();
         }
 
-        private bool Open()
+        private void Open()
         {
-            try
-            {
-                Connection.Open();
-                return true;
-            }
-            catch (OracleException e)
-            {
-                throw e;
-            }
+            Connection.Open();
         }
 
-        private bool Close()
+        private void Close()
         {
-            try
-            {
-                Connection.Close();
-                return true;
-            }
-            catch (OracleException e)
-            {
-                Console.WriteLine(e.ToString());
-                return false;
-            }
+            Connection.Close();
         }
-
     }
 }

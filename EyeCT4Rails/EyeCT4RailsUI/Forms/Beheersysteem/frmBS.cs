@@ -18,10 +18,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
         private readonly UcLogIn _ucLogIn;
-
         private User _currentUser;
-
         private Depot _depot;
+        private Track _selectedTrack;
+        private Section _selectedSection;
 
         public FrmBs()
         {
@@ -53,7 +53,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _currentUser = sender as User;
             msMenu.Visible = true;
 
-            ShowMenuItems(_currentUser.Role);
+            ShowMenuItems();
 
             UpdateTitle("");
 
@@ -72,7 +72,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
         }
 
-        private void ShowMenuItems(Role role)
+        private void ShowMenuItems()
         {
             switch (_currentUser.Role)
             {
@@ -118,17 +118,17 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
                 MessageBox.Show("Menu item not found!");
             }
         }
 
         private void UpdateTitle(string titleExtension)
         {
-            this.Text = _currentUser.Role + " - " + titleExtension;
+            Text = _currentUser.Role + " - " + titleExtension;
         }
 
-        private void AddControl(UserControl uc)
+        private void AddControl(Control uc)
         {
             panelControls.Controls.Clear();
             panelControls.Controls.Add(uc);
@@ -141,11 +141,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private UserControl GetUserControl(object sender)
         {
-            string ns = "";
-
             ToolStripMenuItem item = sender as ToolStripMenuItem;
 
-            ns = item.OwnerItem == null ? _namespaces[item as ToolStripMenuItem] : _namespaces[item.OwnerItem as ToolStripMenuItem];
+            string ns = "";
+
+            ns = item.OwnerItem == null ? _namespaces[item] : _namespaces[item.OwnerItem as ToolStripMenuItem];
 
             string strNamespace = ns + GetUcName(item.Text);
 
@@ -153,6 +153,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             var uc = (UserControl) Activator.CreateInstance(type);
 
+            SetUcSpecificChanges(type, uc);
+
+            return uc;
+        }
+
+        private void SetUcSpecificChanges(Type type, UserControl uc)
+        {
             if (type == typeof(UcSchoonmaak))
             {
                 (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClicked;
@@ -160,30 +167,57 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             else if (type == typeof(UcReparatie))
             {
                 (uc as UcReparatie).CelDoubleClicked += CelDoubleClicked;
-            }else if (type == typeof(UcOverzichtBs))
+            }
+            else if (type == typeof(UcOverzichtBs))
             {
                 (uc as UcOverzichtBs).SetDepot(_depot);
+                (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
+            }
+            else if (type == typeof(UcTramPlaatsen))
+            {
+                (uc as UcTramPlaatsen).SetSelection(_selectedTrack, _selectedSection);
+            }
+            else if (type == typeof(UcReserveringPlaatsen))
+            {
+                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack);
+            }
+            else if (type == typeof(UcToggleBlokkade))
+            {
+                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection);
+            }
+            else if (type == typeof(UcSpoorInfo))
+            {
+                (uc as UcSpoorInfo).SetSelection(_selectedTrack);
+            }
+        }
+
+        private void SelectionChanged(object sender, EventArgs e)
+        {
+            if ((sender as Track) != null)
+            {
+                _selectedTrack = (Track) sender;
+                _selectedSection = null;
             }
 
-            return uc;
+            if ((sender as Section) != null)
+            {
+                _selectedSection = (Section) sender;
+            }
         }
 
         public void CelDoubleClicked(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
 
-            if (data != null)
+            if (data?.SelectedCells[0].ColumnIndex == 1)
             {
-                if (data.SelectedCells[0].ColumnIndex == 1)
-                {
-                    string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
+                string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
 
-                    UcTramHistorieSch uc = new UcTramHistorieSch(tramNummer);
+                UcTramHistorieSch uc = new UcTramHistorieSch(tramNummer);
 
-                    AddControl(uc);
+                AddControl(uc);
 
-                    UpdateTitle("Historie");
-                }
+                UpdateTitle("Historie");
             }
         }
 

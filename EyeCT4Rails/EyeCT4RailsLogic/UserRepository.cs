@@ -39,8 +39,10 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
+
                 if(e is OracleException || e.GetBaseException() is OracleException)
-                    throw new InvalidUserException("Invalid username or password");
+                    throw new InvalidUserException("Invalid username or password", e);
                               
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }

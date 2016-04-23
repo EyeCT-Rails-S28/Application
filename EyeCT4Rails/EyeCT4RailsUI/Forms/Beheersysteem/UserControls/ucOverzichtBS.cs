@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
-using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
@@ -17,10 +15,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private const int ABOVE_MARGIN = 5;
         private const int NEWLINE_MARGIN = 20;
 
+        public event EventHandler SelectionChanged;
+
         private Depot _depot;
-        private List<TrackUiObj> _tracks;
-        private TrackUiObj _selectedTrack;
-        private SectionUiObj _selectedSection;
+        private readonly List<TrackUiObj> _tracks;
+        private Track _selectedTrack;
+        private Section _selectedSection;
 
         public UcOverzichtBs()
         {
@@ -60,8 +60,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             int y = ABOVE_MARGIN;
             int maxHeight = 0;
 
-            Size ucSize = this.Size;
-
             foreach (TrackUiObj track in _tracks)
             {
                 track.DrawSections(g, x, y);
@@ -95,7 +93,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 var section = track.UiSections.Find(x => x.Area.Contains(e.Location));
                 
                 _selectedTrack = track;
-                if (section != null)_selectedSection = section;
+                _selectedSection = section;
+
+                SelectionChanged?.Invoke(_selectedTrack, e);
+
+                if (section != null) SelectionChanged?.Invoke(_selectedSection, e);
                 
                 RefreshUi();
             }
@@ -128,7 +130,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             public Rectangle Area { get; private set; }
 
-            private List<SectionUiObj> _uiSections;
+            private readonly List<SectionUiObj> _uiSections;
 
             //test constructor
             public TrackUiObj(int id, int amountOfSections) : base(id)
@@ -186,7 +188,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             }
         }
 
-        class SectionUiObj : Section
+        private class SectionUiObj : Section
         {
             public Rectangle Area { get; set; }
 
