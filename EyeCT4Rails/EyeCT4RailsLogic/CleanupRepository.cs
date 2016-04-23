@@ -5,6 +5,7 @@ using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 // ReSharper disable UnusedParameter.Local
 
@@ -174,10 +175,10 @@ namespace EyeCT4RailsLogic
 
         private void ExceptionCatch(Exception e)
         {
-            Console.WriteLine(e.StackTrace);
+            Console.WriteLine(e.Message);
 
-            if (e.GetType() == typeof (OracleTypeException) || e.GetBaseException() is OracleTypeException)
-                throw new DatabaseException("A database error has occured.");
+            if (e.GetType() == typeof (OracleException) || e.GetBaseException() is OracleException)
+                throw new DatabaseException("A database error has occured.", e);
         }
     }
 }
