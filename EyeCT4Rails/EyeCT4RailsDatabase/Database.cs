@@ -10,7 +10,7 @@ namespace EyeCT4RailsDatabase
         /// <summary>
         /// 
         /// </summary>
-        private const string CONNECTION_STRING = "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = orcl)));USER ID=SYSTEM;PASSWORD=43594";
+        private const string CONNECTION_STRING = "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.20.36.2)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = XE)));USER ID=PTS36;PASSWORD=PTS36";
 
         public static Database Instance { get; } = new Database();
 
@@ -38,8 +38,7 @@ namespace EyeCT4RailsDatabase
             }
             catch (OracleException e)
             {
-                Console.WriteLine("Error connecting: " + e.ToString());
-                return false;
+                throw e;
             }
         }
 
