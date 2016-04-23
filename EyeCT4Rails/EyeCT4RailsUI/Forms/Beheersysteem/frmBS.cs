@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
+using EyeCT4RailsLogic;
 using EyeCT4RailsUI.Forms.Beheersysteem.UserControls;
 using EyeCT4RailsUI.Forms.InUitSysteem;
 using EyeCT4RailsUI.Forms.Login;
@@ -19,6 +20,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         private readonly UcLogIn _ucLogIn;
 
         private User _currentUser;
+
+        private Depot _depot;
 
         public FrmBs()
         {
@@ -53,6 +56,20 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             ShowMenuItems(_currentUser.Role);
 
             UpdateTitle("");
+
+            RefreshDepot();
+        }
+
+        private void RefreshDepot()
+        {
+            try
+            {
+                _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void ShowMenuItems(Role role)
@@ -143,6 +160,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             else if (type == typeof(UcReparatie))
             {
                 (uc as UcReparatie).CelDoubleClicked += CelDoubleClicked;
+            }else if (type == typeof(UcOverzichtBs))
+            {
+                (uc as UcOverzichtBs).SetDepot(_depot);
             }
 
             return uc;
@@ -194,7 +214,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             names.Add(UppercaseFirst(itemNaam));
 
-            fullName += ".uc";
+            fullName += ".Uc";
             fullName = names.Aggregate(fullName, (current, name) => current + name);
 
             return fullName;
