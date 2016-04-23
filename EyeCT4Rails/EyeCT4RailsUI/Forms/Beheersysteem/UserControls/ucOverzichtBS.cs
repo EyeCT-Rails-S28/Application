@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
-using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
@@ -20,7 +18,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         public event EventHandler SelectionChanged;
 
         private Depot _depot;
-        private List<TrackUiObj> _tracks;
+        private readonly List<TrackUiObj> _tracks;
         private Track _selectedTrack;
         private Section _selectedSection;
 
@@ -61,8 +59,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             int x = LEFT_MARGIN;
             int y = ABOVE_MARGIN;
             int maxHeight = 0;
-
-            Size ucSize = this.Size;
 
             foreach (TrackUiObj track in _tracks)
             {
@@ -134,7 +130,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             public Rectangle Area { get; private set; }
 
-            private List<SectionUiObj> _uiSections;
+            private readonly List<SectionUiObj> _uiSections;
 
             //test constructor
             public TrackUiObj(int id, int amountOfSections) : base(id)
@@ -192,7 +188,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             }
         }
 
-        class SectionUiObj : Section
+        private class SectionUiObj : Section
         {
             public Rectangle Area { get; set; }
 
