@@ -67,7 +67,6 @@ namespace EyeCT4RailsLogic
             }
         }
 
-
         private void ExceptionCatch(Exception e)
         {
             Console.WriteLine(e.ToString());
