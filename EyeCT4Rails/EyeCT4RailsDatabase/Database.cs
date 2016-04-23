@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using Oracle.ManagedDataAccess.Client;
 
 namespace EyeCT4RailsDatabase
 {
-    internal class Database
+    public class Database
     {
         /// <summary>
         /// 
         /// </summary>
-        private const string CONNECTION_STRING = "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=XXX)));User ID=PTS36;PASSWORD=PTS36;";
+        private const string CONNECTION_STRING = "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 127.0.0.1)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = orcl)));USER ID=SYSTEM;PASSWORD=43594";
 
         public static Database Instance { get; } = new Database();
 
@@ -37,7 +38,7 @@ namespace EyeCT4RailsDatabase
             }
             catch (OracleException e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine("Error connecting: " + e.ToString());
                 return false;
             }
         }
