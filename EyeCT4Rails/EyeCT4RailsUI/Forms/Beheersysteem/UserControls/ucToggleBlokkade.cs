@@ -9,5 +9,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         {
             InitializeComponent();
         }
+
+        public void SetSelection(Track track, Section section)
+        {
+            tbSpoornummer.Text = track?.Id.ToString() ?? "";
+            tbSectornummer.Text = section?.Id.ToString() ?? "";
+        }
     }
 }
