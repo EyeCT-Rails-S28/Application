@@ -47,11 +47,14 @@
     <Compile Include="CleanupRepository.cs" />
     <Compile Include="DepotManagementRepository.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
+    <Compile Include="Exceptions\LogicExceptionHandler.cs" />
     <Compile Include="Exceptions\InvalidDateException.cs" />
     <Compile Include="Exceptions\InvalidUserException.cs" />
+    <Compile Include="Exceptions\NoFreeSectionException.cs" />
     <Compile Include="Exceptions\UnknownException.cs" />
     <Compile Include="MaintenanceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RideManagementRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

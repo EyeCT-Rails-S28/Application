@@ -4,7 +4,7 @@ using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
-using Oracle.ManagedDataAccess.Types;
+using Oracle.ManagedDataAccess.Client;
 
 namespace EyeCT4RailsLogic
 {
@@ -18,6 +18,9 @@ namespace EyeCT4RailsLogic
             _context = new UserSqlContext();
         }
 
+        /// <summary>
+        /// The instance of the singleton UserRepository.
+        /// </summary>
         public static UserRepository Instance => _instance ?? (_instance = new UserRepository());
 
         /// <summary>
@@ -36,11 +39,9 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                if(e is OracleNullValueException)
+                if(e is OracleException || e.GetBaseException() is OracleException)
                     throw new InvalidUserException("Invalid username or password");
-
-                ExceptionCatch(e);
-
+                              
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
 
@@ -63,18 +64,9 @@ namespace EyeCT4RailsLogic
             }
             catch (Exception e)
             {
-                ExceptionCatch(e);
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
-        }
-
-
-        private void ExceptionCatch(Exception e)
-        {
-            Console.WriteLine(e.StackTrace);
-
-            if (e.GetType() == typeof(OracleTypeException) || e.GetBaseException() is OracleTypeException)
-                throw new DatabaseException("A database error has occured.");
         }
     }
 }
