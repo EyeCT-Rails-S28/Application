@@ -20,13 +20,16 @@ namespace EyeCT4RailsLogic
             _context = new RideManagementSqlContext();
         }
 
+        /// <summary>
+        /// The instance of the singleton RideManagementRepository.
+        /// </summary>
         public static RideManagementRepository Instance => _instance ?? (_instance = new RideManagementRepository());
 
         /// <summary>
-        /// Changes the status of a tram.
+        /// Changes the status of a tram. Dangerous code!
         /// </summary>
-        /// <param name="tram"></param>
-        /// <param name="status"></param>
+        /// <param name="tram">The tram to change the status of/</param>
+        /// <param name="status">The new status of a tram.</param>
         public void ChangeTramStatus(Tram tram, Status status)
         {
             try

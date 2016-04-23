@@ -19,8 +19,15 @@ namespace EyeCT4RailsLogic
             _context = new MaintenanceSqlContext();
         }
 
+        /// <summary>
+        /// The instance of the singleton MaintenanceRepository. 
+        /// </summary>
         public static MaintenanceRepository Instance => _instance ?? (_instance = new MaintenanceRepository());
 
+        /// <summary>
+        /// Gets all current tram in maintenance. Dangerous code!
+        /// </summary>
+        /// <returns>A list of all tram currently in maintenance, can return an empty list, never null.</returns>
         public List<Tram> GetTramsInMaintenance()
         {
             try
@@ -34,6 +41,10 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Gets a list of all maintenance jobs which have not yet been finished. Dangerous code!
+        /// </summary>
+        /// <returns>A list of all maintenance jobs which haven't been finished yet, can return an empty list, never null.</returns>
         public List<MaintenanceJob> GetSchedule()
         {
             try
@@ -47,6 +58,10 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Gets a list of all maintenance jobs which have been finished. Dangerous code!
+        /// </summary> 
+        /// <returns>A list of all finished maintenance jobs.</returns>
         public List<MaintenanceJob> GetHistory()
         {
             try
@@ -60,6 +75,11 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Gets a list of all maintenance jobs which have been finished for one specific tram. Dangerous code!
+        /// </summary>
+        /// <param name="tram">The to view the history from.</param>
+        /// <returns>A list of maintenance jobs which have been finished</returns>
         public List<MaintenanceJob> GetHistory(Tram tram)
         {
             try
@@ -73,6 +93,11 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Removes a recurring job. Dangerous code!
+        /// </summary>
+        /// <param name="job">The job to be removed from the schedule.</param>
+        /// <returns>true if, and only if, this job was succesfully removed.</returns>
         public bool RemoveScheduledJob(MaintenanceJob job)
         {
             try
@@ -86,6 +111,14 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Adds a maintenance job. Dangerous code!
+        /// </summary>
+        /// <param name="size">The type of maintenance which should be done.</param>
+        /// <param name="user">The user who will be performing the job.</param>
+        /// <param name="tram">The tram which the job will be done for.</param>
+        /// <param name="date">The time when the job will start.</param>
+        /// <returns>true if, and only if, this job was succesfully added.</returns>
         public bool ScheduleJob(JobSize size, User user, Tram tram, DateTime date)
         {
             try
@@ -144,6 +177,12 @@ namespace EyeCT4RailsLogic
             return success;
         }
 
+        /// <summary>
+        /// Edits the status of job. Dangerous code!
+        /// </summary>
+        /// <param name="job">The job to be edited.</param>
+        /// <param name="isDone">Whether the job is finished or not. True should imply that the job is finished.</param>
+        /// <returns>true if, and only if, the job was succesfully edited.</returns>
         public bool EditJobStatus(MaintenanceJob job, bool isDone)
         {
             try

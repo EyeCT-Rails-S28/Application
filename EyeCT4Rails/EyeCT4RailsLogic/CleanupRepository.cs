@@ -19,8 +19,15 @@ namespace EyeCT4RailsLogic
             _context = new CleanupSqlContext();
         }
 
+        /// <summary>
+        /// Instance of the singleton CleanupRepository.
+        /// </summary>
         public static CleanupRepository Instance => _instance ?? (_instance = new CleanupRepository());
 
+        /// <summary>
+        /// Gets all tram that currently have the dirty status. Dangerous code!
+        /// </summary>
+        /// <returns>A list of tram that have the dirty status.</returns>
         public List<Tram> GetDirtyTrams()
         {
             try
@@ -34,6 +41,10 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Gets all cleanups that are scheduled for the future. Dangerous code!
+        /// </summary>
+        /// <returns>A list of cleanups that are scheduled for the future.</returns>
         public List<Cleanup> GetSchedule()
         {
             try
@@ -47,6 +58,10 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Gets the history of all cleanups done. Dangerous code!
+        /// </summary>
+        /// <returns>A list of cleanups that have been done.</returns>
         public List<Cleanup> GetHistory()
         {
             try
@@ -60,6 +75,11 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Gets the history of all cleanups done for a specific tram. Dangerous code!
+        /// </summary>
+        /// <param name="tram">The tram in question.</param>
+        /// <returns>A list of cleanups that have been done.</returns>
         public List<Cleanup> GetHistory(Tram tram)
         {
             try
@@ -73,6 +93,11 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Removes a job from the schedule. Dangerous code!
+        /// </summary>
+        /// <param name="cleanup">The scheduled cleanup that should be removed.</param>
+        /// <returns>A bool indicating wheter it was successfully removed.</returns>
         public bool RemoveScheduledJob(Cleanup cleanup)
         {
             try
@@ -86,6 +111,14 @@ namespace EyeCT4RailsLogic
             }
         }
 
+        /// <summary>
+        /// Schedules a new job. Dangerous code!
+        /// </summary>
+        /// <param name="size">Size of the job.</param>
+        /// <param name="user">The user involved in the job.</param>
+        /// <param name="tram">Tram involved in the job.</param>
+        /// <param name="date">Date of the job.</param>
+        /// <returns>A bool that is true, if and only if, the job was successfully scheduled.</returns>
         public bool ScheduleJob(JobSize size, User user, Tram tram, DateTime date)
         {
             try
@@ -106,7 +139,7 @@ namespace EyeCT4RailsLogic
         }
 
         /// <summary>
-        /// Schedules a job for till a certain day with a given interval. Schedules everything it can.
+        /// Schedules a job for till a certain day with a given interval. Schedules everything it can. Dangerous code!
         /// </summary>
         /// <param name="size">Size of the job.</param>
         /// <param name="user">User involved in the job.</param>
@@ -144,6 +177,12 @@ namespace EyeCT4RailsLogic
             return success;
         }
 
+        /// <summary>
+        /// Edits the status of a job to the given status. Dangerous code!
+        /// </summary>
+        /// <param name="cleanup">The job in question.</param>
+        /// <param name="isDone">The new status of the job.</param>
+        /// <returns>A bool that is true, if and only if, the status was successfully changed.</returns>
         public bool EditJobStatus(Cleanup cleanup, bool isDone)
         {
             try

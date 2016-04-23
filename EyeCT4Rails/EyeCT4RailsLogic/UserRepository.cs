@@ -18,6 +18,9 @@ namespace EyeCT4RailsLogic
             _context = new UserSqlContext();
         }
 
+        /// <summary>
+        /// The instance of the singleton UserRepository.
+        /// </summary>
         public static UserRepository Instance => _instance ?? (_instance = new UserRepository());
 
         /// <summary>
