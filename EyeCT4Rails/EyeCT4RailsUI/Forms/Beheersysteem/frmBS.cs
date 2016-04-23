@@ -153,6 +153,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             var uc = (UserControl) Activator.CreateInstance(type);
 
+            
             if (type == typeof(UcSchoonmaak))
             {
                 (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClicked;
@@ -164,6 +165,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 (uc as UcOverzichtBs).SetDepot(_depot);
                 (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
+            }else if (type == typeof(UcTramPlaatsen))
+            {
+                (uc as UcTramPlaatsen).SetSelection(_selectedTrack, _selectedSection);
             }
 
             return uc;
