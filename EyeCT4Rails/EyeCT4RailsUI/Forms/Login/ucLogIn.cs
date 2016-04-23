@@ -31,10 +31,5 @@ namespace EyeCT4RailsUI.Forms.Login
                 LoginSucceeded?.Invoke(new User(1, "test", "test@test.test", Role.Administrator), new EventArgs());
             }
         }
-
-        private User CheckLogin()
-        {
-            return null;
-        }
     }
 }

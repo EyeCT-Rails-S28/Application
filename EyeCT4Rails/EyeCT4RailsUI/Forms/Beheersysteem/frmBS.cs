@@ -53,7 +53,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _currentUser = sender as User;
             msMenu.Visible = true;
 
-            ShowMenuItems(_currentUser.Role);
+            ShowMenuItems();
 
             UpdateTitle("");
 
@@ -72,7 +72,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
         }
 
-        private void ShowMenuItems(Role role)
+        private void ShowMenuItems()
         {
             switch (_currentUser.Role)
             {
@@ -118,17 +118,17 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
                 MessageBox.Show("Menu item not found!");
             }
         }
 
         private void UpdateTitle(string titleExtension)
         {
-            this.Text = _currentUser.Role + " - " + titleExtension;
+            Text = _currentUser.Role + " - " + titleExtension;
         }
 
-        private void AddControl(UserControl uc)
+        private void AddControl(Control uc)
         {
             panelControls.Controls.Clear();
             panelControls.Controls.Add(uc);
@@ -141,11 +141,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private UserControl GetUserControl(object sender)
         {
-            string ns = "";
-
             ToolStripMenuItem item = sender as ToolStripMenuItem;
 
-            ns = item.OwnerItem == null ? _namespaces[item as ToolStripMenuItem] : _namespaces[item.OwnerItem as ToolStripMenuItem];
+            string ns = "";
+
+            ns = item.OwnerItem == null ? _namespaces[item] : _namespaces[item.OwnerItem as ToolStripMenuItem];
 
             string strNamespace = ns + GetUcName(item.Text);
 
@@ -209,18 +209,15 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         {
             DataGridView data = sender as DataGridView;
 
-            if (data != null)
+            if (data?.SelectedCells[0].ColumnIndex == 1)
             {
-                if (data.SelectedCells[0].ColumnIndex == 1)
-                {
-                    string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
+                string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
 
-                    UcTramHistorieSch uc = new UcTramHistorieSch(tramNummer);
+                UcTramHistorieSch uc = new UcTramHistorieSch(tramNummer);
 
-                    AddControl(uc);
+                AddControl(uc);
 
-                    UpdateTitle("Historie");
-                }
+                UpdateTitle("Historie");
             }
         }
 
