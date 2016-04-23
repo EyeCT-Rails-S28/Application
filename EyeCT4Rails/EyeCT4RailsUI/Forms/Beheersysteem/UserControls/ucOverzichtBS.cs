@@ -97,15 +97,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 var section = track.UiSections.Find(x => x.Area.Contains(e.Location));
                 
                 _selectedTrack = track;
+                _selectedSection = section;
 
                 SelectionChanged?.Invoke(_selectedTrack, e);
 
-                if (section != null)
-                {
-                    _selectedSection = section;
-
-                    SelectionChanged?.Invoke(_selectedSection, e);
-                }
+                if (section != null) SelectionChanged?.Invoke(_selectedSection, e);
                 
                 RefreshUi();
             }
