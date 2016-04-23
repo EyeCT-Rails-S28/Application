@@ -179,7 +179,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             else if (type == typeof(UcReserveringPlaatsen))
             {
-                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack);
+                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack, _depot);
             }
             else if (type == typeof(UcToggleBlokkade))
             {

@@ -29,17 +29,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbSpoornummer = new System.Windows.Forms.TextBox();
             this.lblSpoornummer = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.nudSpoornummer = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tbSpoornummer
-            // 
-            this.tbSpoornummer.Location = new System.Drawing.Point(101, 34);
-            this.tbSpoornummer.Name = "tbSpoornummer";
-            this.tbSpoornummer.Size = new System.Drawing.Size(100, 20);
-            this.tbSpoornummer.TabIndex = 6;
             // 
             // lblSpoornummer
             // 
@@ -58,24 +52,31 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.richTextBox1.TabIndex = 7;
             this.richTextBox1.Text = "";
             // 
-            // ucSpoorInfo
+            // nudSpoornummer
+            // 
+            this.nudSpoornummer.Location = new System.Drawing.Point(101, 32);
+            this.nudSpoornummer.Name = "nudSpoornummer";
+            this.nudSpoornummer.Size = new System.Drawing.Size(90, 20);
+            this.nudSpoornummer.TabIndex = 15;
+            // 
+            // UcSpoorInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudSpoornummer);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.tbSpoornummer);
             this.Controls.Add(this.lblSpoornummer);
             this.Name = "UcSpoorInfo";
             this.Size = new System.Drawing.Size(307, 287);
+            ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tbSpoornummer;
         private System.Windows.Forms.Label lblSpoornummer;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.NumericUpDown nudSpoornummer;
     }
 }

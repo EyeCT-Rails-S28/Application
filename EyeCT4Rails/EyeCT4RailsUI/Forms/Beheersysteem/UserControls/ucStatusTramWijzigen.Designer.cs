@@ -31,10 +31,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         {
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.tbTramnummer = new System.Windows.Forms.TextBox();
             this.lblTramnummer = new System.Windows.Forms.Label();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.nudTramnummer = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTramnummer)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -55,13 +56,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
             // 
-            // tbTramnummer
-            // 
-            this.tbTramnummer.Location = new System.Drawing.Point(13, 101);
-            this.tbTramnummer.Name = "tbTramnummer";
-            this.tbTramnummer.Size = new System.Drawing.Size(100, 20);
-            this.tbTramnummer.TabIndex = 9;
-            // 
             // lblTramnummer
             // 
             this.lblTramnummer.AutoSize = true;
@@ -79,17 +73,25 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.cbStatus.Size = new System.Drawing.Size(197, 21);
             this.cbStatus.TabIndex = 12;
             // 
-            // ucStatusTramWijzigen
+            // nudTramnummer
+            // 
+            this.nudTramnummer.Location = new System.Drawing.Point(13, 99);
+            this.nudTramnummer.Name = "nudTramnummer";
+            this.nudTramnummer.Size = new System.Drawing.Size(88, 20);
+            this.nudTramnummer.TabIndex = 14;
+            // 
+            // UcStatusTramWijzigen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudTramnummer);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.tbTramnummer);
             this.Controls.Add(this.lblTramnummer);
             this.Name = "UcStatusTramWijzigen";
             this.Size = new System.Drawing.Size(227, 150);
+            ((System.ComponentModel.ISupportInitialize)(this.nudTramnummer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,9 +101,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.TextBox tbTramnummer;
         private System.Windows.Forms.Label lblTramnummer;
         private System.Windows.Forms.ComboBox cbStatus;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.NumericUpDown nudTramnummer;
     }
 }

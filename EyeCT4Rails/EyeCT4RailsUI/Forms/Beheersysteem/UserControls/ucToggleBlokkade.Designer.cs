@@ -32,10 +32,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         {
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
-            this.tbSectornummer = new System.Windows.Forms.TextBox();
-            this.tbSpoornummer = new System.Windows.Forms.TextBox();
             this.lblSpoornummer = new System.Windows.Forms.Label();
             this.lblSectornummer = new System.Windows.Forms.Label();
+            this.nudSpoornummer = new System.Windows.Forms.NumericUpDown();
+            this.nudSectornummer = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSectornummer)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -57,20 +59,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // tbSectornummer
-            // 
-            this.tbSectornummer.Location = new System.Drawing.Point(147, 50);
-            this.tbSectornummer.Name = "tbSectornummer";
-            this.tbSectornummer.Size = new System.Drawing.Size(100, 20);
-            this.tbSectornummer.TabIndex = 11;
-            // 
-            // tbSpoornummer
-            // 
-            this.tbSpoornummer.Location = new System.Drawing.Point(13, 50);
-            this.tbSpoornummer.Name = "tbSpoornummer";
-            this.tbSpoornummer.Size = new System.Drawing.Size(100, 20);
-            this.tbSpoornummer.TabIndex = 10;
-            // 
             // lblSpoornummer
             // 
             this.lblSpoornummer.AutoSize = true;
@@ -89,18 +77,34 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblSectornummer.TabIndex = 8;
             this.lblSectornummer.Text = "Sectornummer:";
             // 
+            // nudSpoornummer
+            // 
+            this.nudSpoornummer.Location = new System.Drawing.Point(13, 46);
+            this.nudSpoornummer.Name = "nudSpoornummer";
+            this.nudSpoornummer.Size = new System.Drawing.Size(120, 20);
+            this.nudSpoornummer.TabIndex = 14;
+            // 
+            // nudSectornummer
+            // 
+            this.nudSectornummer.Location = new System.Drawing.Point(147, 46);
+            this.nudSectornummer.Name = "nudSectornummer";
+            this.nudSectornummer.Size = new System.Drawing.Size(120, 20);
+            this.nudSectornummer.TabIndex = 15;
+            // 
             // UcToggleBlokkade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudSectornummer);
+            this.Controls.Add(this.nudSpoornummer);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.tbSectornummer);
-            this.Controls.Add(this.tbSpoornummer);
             this.Controls.Add(this.lblSpoornummer);
             this.Controls.Add(this.lblSectornummer);
             this.Name = "UcToggleBlokkade";
             this.Size = new System.Drawing.Size(294, 147);
+            ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSectornummer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,9 +114,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.TextBox tbSectornummer;
-        private System.Windows.Forms.TextBox tbSpoornummer;
         private System.Windows.Forms.Label lblSpoornummer;
         private System.Windows.Forms.Label lblSectornummer;
+        private System.Windows.Forms.NumericUpDown nudSpoornummer;
+        private System.Windows.Forms.NumericUpDown nudSectornummer;
     }
 }
