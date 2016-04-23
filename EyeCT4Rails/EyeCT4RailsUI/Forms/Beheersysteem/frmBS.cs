@@ -18,10 +18,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         private readonly Dictionary<ToolStripMenuItem, string> _namespaces;
 
         private readonly UcLogIn _ucLogIn;
-
         private User _currentUser;
-
         private Depot _depot;
+        private Track _selectedTrack;
+        private Section _selectedSection;
 
         public FrmBs()
         {
@@ -153,6 +153,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             var uc = (UserControl) Activator.CreateInstance(type);
 
+            SetUcSpecificChanges(type, uc);
+
+            return uc;
+        }
+
+        private void SetUcSpecificChanges(Type type, UserControl uc)
+        {
             if (type == typeof(UcSchoonmaak))
             {
                 (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClicked;
@@ -160,12 +167,42 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             else if (type == typeof(UcReparatie))
             {
                 (uc as UcReparatie).CelDoubleClicked += CelDoubleClicked;
-            }else if (type == typeof(UcOverzichtBs))
+            }
+            else if (type == typeof(UcOverzichtBs))
             {
                 (uc as UcOverzichtBs).SetDepot(_depot);
+                (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
+            }
+            else if (type == typeof(UcTramPlaatsen))
+            {
+                (uc as UcTramPlaatsen).SetSelection(_selectedTrack, _selectedSection);
+            }
+            else if (type == typeof(UcReserveringPlaatsen))
+            {
+                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack);
+            }
+            else if (type == typeof(UcToggleBlokkade))
+            {
+                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection);
+            }
+            else if (type == typeof(UcSpoorInfo))
+            {
+                (uc as UcSpoorInfo).SetSelection(_selectedTrack);
+            }
+        }
+
+        private void SelectionChanged(object sender, EventArgs e)
+        {
+            if ((sender as Track) != null)
+            {
+                _selectedTrack = (Track) sender;
+                _selectedSection = null;
             }
 
-            return uc;
+            if ((sender as Section) != null)
+            {
+                _selectedSection = (Section) sender;
+            }
         }
 
         public void CelDoubleClicked(object sender, EventArgs e)
