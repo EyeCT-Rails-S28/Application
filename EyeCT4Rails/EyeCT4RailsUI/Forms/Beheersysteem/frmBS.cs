@@ -68,7 +68,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -118,7 +119,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.ToString());
                 MessageBox.Show("Menu item not found!");
             }
         }
