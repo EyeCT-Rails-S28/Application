@@ -69,6 +69,42 @@ namespace EyeCT4RailsDatabase
             command.ExecuteNonQuery();
         }
 
+        public void RemoveTram(int sectionId)
+        {
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+                                                      "SET tram_id = NULL " +
+                                                      "WHERE id = :section_id", connection);
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.Add(new OracleParameter(":section_id", OracleDbType.Int32)).Value = sectionId;
+
+            command.ExecuteNonQuery();
+        }
+
+        public List<Tram> GetAllTrams()
+        {
+            List<Tram> trams = new List<Tram>();
+
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("SELECT t.id, t.status, t.line_id, t.forced, " +
+                                                      "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Cleanup' AND tram_id = t.id)) AS \"Schoonmaak\", " +
+                                                      "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Maintenance' AND tram_id = t.id)) AS \"Reparaties\" FROM \"tram\" t " +
+                                                      "GROUP by t.id, t.status, t.line_id, t.forced", connection);
+            command.CommandType = CommandType.Text;
+
+            OracleDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(1));
+                Tram tram = new Tram(reader.GetInt32(0), status, new Line(reader.GetInt32(2)), reader.GetInt32(3) == 1);
+
+                trams.Add(tram);
+            }
+
+            return trams;
+        } 
+
         public Depot GetDepot(string name)
         {
             OracleConnection connection = Database.Instance.Connection;
