@@ -25,7 +25,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 int tramId = Convert.ToInt32(nudTramnummer.Value);
                 Status tramStatus = (Status)Enum.Parse(typeof(Status), cbStatus.Text);
 
-                DepotManagementRepository.Instance.ChangeTramStatus(new Tram(tramId, tramStatus, new Line(0), true), tramStatus);
+                DepotManagementRepository.Instance.ChangeTramStatus(tramId, tramStatus);
             }
             catch (Exception ex)
             {
