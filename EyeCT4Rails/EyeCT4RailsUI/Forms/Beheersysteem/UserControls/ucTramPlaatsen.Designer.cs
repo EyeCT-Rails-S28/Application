@@ -78,6 +78,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.btnOk.TabIndex = 6;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 

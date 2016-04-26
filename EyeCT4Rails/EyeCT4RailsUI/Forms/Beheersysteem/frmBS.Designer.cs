@@ -28,14 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.msMenu = new System.Windows.Forms.MenuStrip();
             this.overzichtBSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tramPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tramVerwijderenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tramInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusTramWijzigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reserveringPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sporenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleBlokkadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +40,12 @@
             this.reparatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControls = new System.Windows.Forms.Panel();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tramPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tramVerwijderenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tramInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusTramWijzigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reserveringPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,41 +83,6 @@
             this.tramsToolStripMenuItem.Name = "tramsToolStripMenuItem";
             this.tramsToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.tramsToolStripMenuItem.Text = "Trams";
-            // 
-            // tramPlaatsenToolStripMenuItem
-            // 
-            this.tramPlaatsenToolStripMenuItem.Name = "tramPlaatsenToolStripMenuItem";
-            this.tramPlaatsenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.tramPlaatsenToolStripMenuItem.Text = "Tram plaatsen";
-            this.tramPlaatsenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
-            // 
-            // tramVerwijderenToolStripMenuItem
-            // 
-            this.tramVerwijderenToolStripMenuItem.Name = "tramVerwijderenToolStripMenuItem";
-            this.tramVerwijderenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.tramVerwijderenToolStripMenuItem.Text = "Tram verwijderen";
-            this.tramVerwijderenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
-            // 
-            // tramInfoToolStripMenuItem
-            // 
-            this.tramInfoToolStripMenuItem.Name = "tramInfoToolStripMenuItem";
-            this.tramInfoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.tramInfoToolStripMenuItem.Text = "Tram info";
-            this.tramInfoToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
-            // 
-            // statusTramWijzigenToolStripMenuItem
-            // 
-            this.statusTramWijzigenToolStripMenuItem.Name = "statusTramWijzigenToolStripMenuItem";
-            this.statusTramWijzigenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.statusTramWijzigenToolStripMenuItem.Text = "Status tram wijzigen";
-            this.statusTramWijzigenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
-            // 
-            // reserveringPlaatsenToolStripMenuItem
-            // 
-            this.reserveringPlaatsenToolStripMenuItem.Name = "reserveringPlaatsenToolStripMenuItem";
-            this.reserveringPlaatsenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.reserveringPlaatsenToolStripMenuItem.Text = "Reservering plaatsen";
-            this.reserveringPlaatsenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
             // sporenToolStripMenuItem
             // 
@@ -173,10 +140,51 @@
             this.panelControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControls.ContextMenuStrip = this.contextMenuStrip;
             this.panelControls.Location = new System.Drawing.Point(0, 24);
             this.panelControls.Name = "panelControls";
             this.panelControls.Size = new System.Drawing.Size(1122, 651);
             this.panelControls.TabIndex = 2;
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(61, 4);
+            // 
+            // tramPlaatsenToolStripMenuItem
+            // 
+            this.tramPlaatsenToolStripMenuItem.Name = "tramPlaatsenToolStripMenuItem";
+            this.tramPlaatsenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.tramPlaatsenToolStripMenuItem.Text = "Tram plaatsen";
+            this.tramPlaatsenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
+            // 
+            // tramVerwijderenToolStripMenuItem
+            // 
+            this.tramVerwijderenToolStripMenuItem.Name = "tramVerwijderenToolStripMenuItem";
+            this.tramVerwijderenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.tramVerwijderenToolStripMenuItem.Text = "Tram verwijderen";
+            this.tramVerwijderenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
+            // 
+            // tramInfoToolStripMenuItem
+            // 
+            this.tramInfoToolStripMenuItem.Name = "tramInfoToolStripMenuItem";
+            this.tramInfoToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.tramInfoToolStripMenuItem.Text = "Tram info";
+            this.tramInfoToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
+            // 
+            // statusTramWijzigenToolStripMenuItem
+            // 
+            this.statusTramWijzigenToolStripMenuItem.Name = "statusTramWijzigenToolStripMenuItem";
+            this.statusTramWijzigenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.statusTramWijzigenToolStripMenuItem.Text = "Status tram wijzigen";
+            this.statusTramWijzigenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
+            // 
+            // reserveringPlaatsenToolStripMenuItem
+            // 
+            this.reserveringPlaatsenToolStripMenuItem.Name = "reserveringPlaatsenToolStripMenuItem";
+            this.reserveringPlaatsenToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.reserveringPlaatsenToolStripMenuItem.Text = "Reservering plaatsen";
+            this.reserveringPlaatsenToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
             // FrmBs
             // 
@@ -198,11 +206,6 @@
 
         private System.Windows.Forms.MenuStrip msMenu;
         private System.Windows.Forms.ToolStripMenuItem tramsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tramPlaatsenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tramVerwijderenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tramInfoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem statusTramWijzigenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem reserveringPlaatsenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sporenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toggleBlokkadeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
@@ -212,6 +215,12 @@
         private System.Windows.Forms.Panel panelControls;
         private System.Windows.Forms.ToolStripMenuItem overzichtBSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inEnUitrijSysteemToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem tramPlaatsenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tramVerwijderenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tramInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statusTramWijzigenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reserveringPlaatsenToolStripMenuItem;
     }
 }
 

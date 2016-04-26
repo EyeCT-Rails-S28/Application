@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
@@ -148,21 +149,46 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             public void DrawSections(Graphics g, int x, int y)
             {
-                Pen pen = new Pen(Color.Black, 1);
-                Brush brush = new SolidBrush(Color.Black);
                 Font font = new Font(FontFamily.GenericSansSerif, 12);
 
                 Area = new Rectangle(x, y, SECTION_WIDTH, SECTION_HEIGHT * (UiSections.Count + 1));
 
-                g.DrawRectangle(pen, x, y, SECTION_WIDTH, SECTION_HEIGHT);
-                g.DrawString(Convert.ToString(Id), font, brush, x, y);
+                g.DrawRectangle(Pens.Black, x, y, SECTION_WIDTH, SECTION_HEIGHT);
+                g.DrawString(Convert.ToString(Id), font, Brushes.Black, x, y);
                 y += SECTION_HEIGHT;
 
                 for (int i = 0; i < UiSections.Count; i++)
                 {
                     _uiSections[i].Area = new Rectangle(x, y, SECTION_WIDTH, SECTION_HEIGHT);
 
-                    g.DrawRectangle(pen, _uiSections[i].Area);
+                    g.DrawRectangle(Pens.Black, _uiSections[i].Area);
+
+                    if (_uiSections[i].Blocked)
+                    {
+                        g.FillRectangle(Brushes.DimGray, x + 1, y + 1, SECTION_WIDTH - 1, SECTION_HEIGHT - 1);
+
+                        g.DrawLine(Pens.Red, x, y, x + SECTION_WIDTH, y + SECTION_HEIGHT);
+                        g.DrawLine(Pens.Red, x + SECTION_WIDTH, y, x, y + SECTION_HEIGHT);
+                    }
+                    else if (_uiSections[i].Tram != null)
+                    {
+                        Brush brush = Brushes.Black;
+                        switch (_uiSections[i].Tram.Status)
+                        {
+                            case Status.Defect:
+                                brush = Brushes.Red;
+                                break;
+                            case Status.Remise:
+                            case Status.Dienst:
+                                brush = Brushes.Black;
+                                break;
+                            case Status.Schoonmaak:
+                                brush = Brushes.Blue;
+                                break;
+                        }
+
+                        g.DrawString(Convert.ToString(_uiSections[i].Tram.Id), font, brush,  x + 5, y + (SECTION_HEIGHT / 2));
+                    }
 
                     y += SECTION_HEIGHT;
                 }

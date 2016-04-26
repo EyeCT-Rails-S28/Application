@@ -178,6 +178,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 (uc as UcTramPlaatsen).SetSelection(_selectedTrack, _selectedSection);
             }
+            else if (type == typeof (UcTramVerwijderen))
+            {
+                (uc as UcTramVerwijderen).SetSelection(_selectedSection);   
+            }
             else if (type == typeof(UcReserveringPlaatsen))
             {
                 (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack, _depot);

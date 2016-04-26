@@ -31,55 +31,58 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private void InitializeComponent()
         {
             this.btnOk = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.lblTramnummer = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.nudSectornummer = new System.Windows.Forms.NumericUpDown();
+            this.lblSectornummer = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSectornummer)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(18, 98);
+            this.btnOk.Location = new System.Drawing.Point(32, 98);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 9;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(18, 55);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 8;
-            // 
-            // lblTramnummer
-            // 
-            this.lblTramnummer.AutoSize = true;
-            this.lblTramnummer.Location = new System.Drawing.Point(15, 17);
-            this.lblTramnummer.Name = "lblTramnummer";
-            this.lblTramnummer.Size = new System.Drawing.Size(71, 13);
-            this.lblTramnummer.TabIndex = 7;
-            this.lblTramnummer.Text = "Tramnummer:";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(140, 52);
+            this.btnCancel.Location = new System.Drawing.Point(296, 98);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // ucTramVerwijderen
+            // nudSectornummer
+            // 
+            this.nudSectornummer.Location = new System.Drawing.Point(32, 64);
+            this.nudSectornummer.Name = "nudSectornummer";
+            this.nudSectornummer.Size = new System.Drawing.Size(107, 20);
+            this.nudSectornummer.TabIndex = 21;
+            // 
+            // lblSectornummer
+            // 
+            this.lblSectornummer.AutoSize = true;
+            this.lblSectornummer.Location = new System.Drawing.Point(29, 26);
+            this.lblSectornummer.Name = "lblSectornummer";
+            this.lblSectornummer.Size = new System.Drawing.Size(78, 13);
+            this.lblSectornummer.TabIndex = 18;
+            this.lblSectornummer.Text = "Sectornummer:";
+            // 
+            // UcTramVerwijderen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudSectornummer);
+            this.Controls.Add(this.lblSectornummer);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.lblTramnummer);
             this.Name = "UcTramVerwijderen";
-            this.Size = new System.Drawing.Size(236, 159);
+            this.Size = new System.Drawing.Size(420, 159);
+            ((System.ComponentModel.ISupportInitialize)(this.nudSectornummer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,8 +91,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         #endregion
 
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label lblTramnummer;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.NumericUpDown nudSectornummer;
+        private System.Windows.Forms.Label lblSectornummer;
     }
 }

@@ -62,6 +62,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Schoonmaak});
             this.dataGridView1.Location = new System.Drawing.Point(0, 35);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(751, 447);
             this.dataGridView1.TabIndex = 0;
             // 
@@ -135,7 +136,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.tbSpoor.Size = new System.Drawing.Size(78, 20);
             this.tbSpoor.TabIndex = 4;
             // 
-            // ucTramInfo
+            // UcTramInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
