@@ -39,17 +39,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 foreach (var track in _depot.Tracks)
                 {
-                    _tracks.Add(new TrackUiObj(track.Id));
-                }
-            }
-            else
-            {
-                //make test tracks
-                Random r = new Random();
+                    TrackUiObj trackUiObj = new TrackUiObj(track.Id);
+                    foreach (var section in track.Sections)
+                    {
+                        trackUiObj.AddSection(section);
+                    }
 
-                for (int i = 0; i < 40; i++)
-                {
-                    _tracks.Add(new TrackUiObj(i, r.Next(1, 5)));
+                    trackUiObj.ConvertSections();
+                    _tracks.Add(trackUiObj);
                 }
             }
         }
@@ -132,30 +129,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             private readonly List<SectionUiObj> _uiSections;
 
-            //test constructor
-            public TrackUiObj(int id, int amountOfSections) : base(id)
-            {
-                //make test sections
-                _uiSections = new List<SectionUiObj>();
-
-                for (int i = 0; i < amountOfSections; i++)
-                {
-                    AddSection(new Section(i, true));
-                }
-
-                ConvertSections();
-
-                Height = (UiSections.Count + 1) * SECTION_HEIGHT;
-            }
-
             public TrackUiObj(int id) : base(id)
             {
-                ConvertSections();
+                _uiSections = new List<SectionUiObj>();
 
-                Height = (UiSections.Count + 1)*SECTION_HEIGHT;
+                Height = (Sections.Count + 1)*SECTION_HEIGHT;
             }
 
-            private void ConvertSections()
+            public void ConvertSections()
             {
                 foreach (var section in Sections)
                 {

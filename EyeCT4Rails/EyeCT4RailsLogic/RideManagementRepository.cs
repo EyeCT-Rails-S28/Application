@@ -28,13 +28,13 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// Changes the status of a tram. Dangerous code!
         /// </summary>
-        /// <param name="tram">The tram to change the status of/</param>
+        /// <param name="tramId">The tram to change the status of/</param>
         /// <param name="status">The new status of a tram.</param>
-        public void ChangeTramStatus(Tram tram, Status status)
+        public void ChangeTramStatus(int tramId, Status status)
         {
             try
             {
-                _context.ReportStatusChange(tram, status);
+                _context.ReportStatusChange(tramId, status);
             }
             catch (Exception e)
             {

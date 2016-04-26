@@ -8,8 +8,8 @@ namespace EyeCT4RailsDatabase
         /// <summary>
         /// 
         /// </summary>
-        private const string CONNECTION_STRING =
-            "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.20.36.2)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = XE)));USER ID=PTS36;PASSWORD=PTS36";
+        private static readonly string CONNECTION_STRING =
+            $"data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = {DatabaseConfiguration.DATABASE_HOST})(PORT = {DatabaseConfiguration.DATABASE_PORT})))(CONNECT_DATA =(SERVICE_NAME = {DatabaseConfiguration.DATABASE_SERVICE})));USER ID={DatabaseConfiguration.DATABASE_USERNAME};PASSWORD={DatabaseConfiguration.DATABASE_PASSWORD}";
 
         private static Database _instance;
 
@@ -28,8 +28,6 @@ namespace EyeCT4RailsDatabase
         private bool IsConnected => Connection.State == ConnectionState.Open;
 
         public OracleConnection Connection { get; }
-
-        
 
         private Database()
         {

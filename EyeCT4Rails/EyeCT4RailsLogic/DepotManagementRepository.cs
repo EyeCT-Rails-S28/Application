@@ -25,13 +25,13 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// Sets the blocked state of a track. Changes all the sections of a track to this state. Dangerous code!
         /// </summary>
-        /// <param name="track">The track in question.</param>
+        /// <param name="trackId">The track in question.</param>
         /// <param name="blocked">The blocked state of the track.</param>
-        public void SetTrackBlocked(Track track, bool blocked)
+        public void SetTrackBlocked(int trackId, bool blocked)
         {
             try
             {
-               _context.SetTrackBlocked(track, blocked);
+               _context.SetTrackBlocked(trackId, blocked);
             }
             catch (Exception e)
             {
@@ -43,13 +43,13 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// Sets the blocked state of a section. Dangerous code!
         /// </summary>
-        /// <param name="section">The section in question.</param>
+        /// <param name="sectionId">The section in question.</param>
         /// <param name="blocked">The blocked state of the section.</param>
-        public void SetSectionBlocked(Section section, bool blocked)
+        public void SetSectionBlocked(int sectionId, bool blocked)
         {
             try
             {
-                _context.SetSectionBlocked(section, blocked);
+                _context.SetSectionBlocked(sectionId, blocked);
             }
             catch (Exception e)
             {
@@ -61,13 +61,13 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// Changes the status of a tram to the given status. Dangerous code!
         /// </summary>
-        /// <param name="tram">The tram in question.</param>
+        /// <param name="tramId">The tram in question.</param>
         /// <param name="status">The new status of the tram.</param>
-        public void ChangeTramStatus(Tram tram, Status status)
+        public void ChangeTramStatus(int tramId, Status status)
         {
             try
             {
-                _context.ChangeTramStatus(tram, status);
+                _context.ChangeTramStatus(tramId, status);
             }
             catch (Exception e)
             {
@@ -79,13 +79,13 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// Reserves a section for a tram. Dangerous code!
         /// </summary>
-        /// <param name="tram">Tram that is involved in the reservation.</param>
-        /// <param name="section">Section that is being reserved.</param>
-        public void ReserveSection(Tram tram, Section section)
+        /// <param name="tramId">Tram that is involved in the reservation.</param>
+        /// <param name="sectionId">Section that is being reserved.</param>
+        public void ReserveSection(int tramId, int sectionId)
         {
             try
             {
-                _context.ReserveSection(tram, section);
+                _context.ReserveSection(tramId, sectionId);
             }
             catch (Exception e)
             {
