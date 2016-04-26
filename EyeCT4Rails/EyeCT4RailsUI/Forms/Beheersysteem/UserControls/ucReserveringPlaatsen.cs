@@ -29,7 +29,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             try
             {
-                DepotManagementRepository.Instance.ReserveSection(new Tram(tramId, Status.Dienst, new Line(0), false), new Section(sectionId, false));
+                DepotManagementRepository.Instance.ReserveSection(tramId, sectionId);
             }
             catch (Exception ex)
             {

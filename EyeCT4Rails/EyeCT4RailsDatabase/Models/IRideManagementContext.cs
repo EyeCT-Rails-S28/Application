@@ -13,8 +13,8 @@ namespace EyeCT4RailsDatabase.Models
         /// <summary>
         /// Changes the status of a tram, for example if it needs cleaning or maintenance.
         /// </summary>
-        /// <param name="tram">The tram to change the status of/</param>
+        /// <param name="tramId">The tram to change the status of/</param>
         /// <param name="status">The new status of a tram.</param>
-        void ReportStatusChange(Tram tram, Status status);
+        void ReportStatusChange(int tramId, Status status);
     }
 }

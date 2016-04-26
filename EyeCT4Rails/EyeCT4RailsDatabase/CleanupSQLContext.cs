@@ -75,12 +75,12 @@ namespace EyeCT4RailsDatabase
             return list;
         }
 
-        public List<Cleanup> GetHistory(Tram tram)
+        public List<Cleanup> GetHistory(int tramId)
         {
             List<Cleanup> list = new List<Cleanup>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, u.id, u.name, u.email, u.role " +
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, u.id, u.name, u.email, u.role, t.status, t.line_id, t.forced " +
                                                       "FROM \"job\" j " +
                                                       "JOIN \"tram\" t ON t.id = j.tram_id " +
                                                       "JOIN \"line\" l ON t.line_id = l.id " +
@@ -88,7 +88,7 @@ namespace EyeCT4RailsDatabase
                                                       "WHERE j.finished = 0 AND t.id = :id AND j.job_type = 'Cleanup'", connection);
             command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter(":id", tram.Id));
+            command.Parameters.Add(new OracleParameter(":id", tramId));
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -103,6 +103,9 @@ namespace EyeCT4RailsDatabase
                 Role privilege = (Role)Enum.Parse(typeof(Role), reader.GetString(6));
 
                 User user = new User(userId, name, email, privilege);
+
+                Status status = (Status) Enum.Parse(typeof(Status), reader.GetString(7));
+                Tram tram = new Tram(tramId, status, new Line(reader.GetInt32(8)), reader.GetInt32(9) == 1);
 
                 list.Add(new Cleanup(id, date, false, size, tram, user));
             }
@@ -150,15 +153,15 @@ namespace EyeCT4RailsDatabase
             return list;
         }
 
-        public bool ScheduleCleanupJob(JobSize size, User user, Tram tram, DateTime date)
+        public bool ScheduleCleanupJob(JobSize size, int userId, int tramId, DateTime date)
         {
             OracleConnection connection = Database.Instance.Connection;
             OracleCommand command = new OracleCommand("INSERT INTO \"job\"(user_id, tram_id, job_type, job_size, \"date\") " +
                                                       "VALUES(:user_id, :tram_id, 'Cleanup', :job_size, TO_DATE(:job_date, 'DD/MM/YYYY HH24:MI:SS'))", connection);
             command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter(":user_id", user.Id));
-            command.Parameters.Add(new OracleParameter(":tram_id", tram.Id));
+            command.Parameters.Add(new OracleParameter(":user_id", userId));
+            command.Parameters.Add(new OracleParameter(":tram_id", tramId));
             command.Parameters.Add(new OracleParameter(":job_size", Convert.ToString(size)));
             command.Parameters.Add(new OracleParameter(":job_date", date.ToString("dd/MM/yyyy HH:mm:ss")));
 
@@ -166,19 +169,19 @@ namespace EyeCT4RailsDatabase
             return true;
         }
 
-        public bool RemoveScheduledJob(Cleanup cleanup)
+        public bool RemoveScheduledJob(int cleanupId)
         {
             OracleConnection connection = Database.Instance.Connection;
             OracleCommand command = new OracleCommand("DELETE FROM \"job\" WHERE(id = :id)", connection);
             command.CommandType = CommandType.Text;
 
-            command.Parameters.Add(new OracleParameter(":id", cleanup.Id));
+            command.Parameters.Add(new OracleParameter(":id", cleanupId));
 
             command.ExecuteNonQuery();
             return true;
         }
 
-        public bool EditJobStatus(Cleanup cleanup, bool isDone)
+        public bool EditJobStatus(int cleanupId, bool isDone)
         {
             OracleConnection connection = Database.Instance.Connection;
             OracleCommand command = new OracleCommand("UPDATE \"job\" " +
@@ -187,7 +190,7 @@ namespace EyeCT4RailsDatabase
             command.CommandType = CommandType.Text;
 
             command.Parameters.Add(new OracleParameter(":job_finished", OracleDbType.Int32)).Value = (isDone) ? 1 : 0;
-            command.Parameters.Add(new OracleParameter(":cleanup_id", OracleDbType.Int32)).Value = cleanup.Id;
+            command.Parameters.Add(new OracleParameter(":cleanup_id", OracleDbType.Int32)).Value = cleanupId;
 
             command.ExecuteNonQuery();
             return true;
