@@ -33,11 +33,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblTramnummer = new System.Windows.Forms.Label();
             this.lblSectornummer = new System.Windows.Forms.Label();
             this.lblSpoornummer = new System.Windows.Forms.Label();
-            this.tbTramnummer = new System.Windows.Forms.TextBox();
-            this.tbSpoornummer = new System.Windows.Forms.TextBox();
-            this.tbSectornummer = new System.Windows.Forms.TextBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.nudTramnummer = new System.Windows.Forms.NumericUpDown();
+            this.nudSectornummer = new System.Windows.Forms.NumericUpDown();
+            this.nudSpoornummer = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTramnummer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSectornummer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTramnummer
@@ -67,27 +70,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblSpoornummer.TabIndex = 2;
             this.lblSpoornummer.Text = "Spoornummer:";
             // 
-            // tbTramnummer
-            // 
-            this.tbTramnummer.Location = new System.Drawing.Point(16, 80);
-            this.tbTramnummer.Name = "tbTramnummer";
-            this.tbTramnummer.Size = new System.Drawing.Size(100, 20);
-            this.tbTramnummer.TabIndex = 3;
-            // 
-            // tbSpoornummer
-            // 
-            this.tbSpoornummer.Location = new System.Drawing.Point(153, 80);
-            this.tbSpoornummer.Name = "tbSpoornummer";
-            this.tbSpoornummer.Size = new System.Drawing.Size(100, 20);
-            this.tbSpoornummer.TabIndex = 4;
-            // 
-            // tbSectornummer
-            // 
-            this.tbSectornummer.Location = new System.Drawing.Point(287, 80);
-            this.tbSectornummer.Name = "tbSectornummer";
-            this.tbSectornummer.Size = new System.Drawing.Size(100, 20);
-            this.tbSectornummer.TabIndex = 5;
-            // 
             // btnOk
             // 
             this.btnOk.Location = new System.Drawing.Point(99, 135);
@@ -106,20 +88,44 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // ucTramPlaatsen
+            // nudTramnummer
+            // 
+            this.nudTramnummer.Location = new System.Drawing.Point(16, 80);
+            this.nudTramnummer.Name = "nudTramnummer";
+            this.nudTramnummer.Size = new System.Drawing.Size(107, 20);
+            this.nudTramnummer.TabIndex = 14;
+            // 
+            // nudSectornummer
+            // 
+            this.nudSectornummer.Location = new System.Drawing.Point(287, 80);
+            this.nudSectornummer.Name = "nudSectornummer";
+            this.nudSectornummer.Size = new System.Drawing.Size(107, 20);
+            this.nudSectornummer.TabIndex = 17;
+            // 
+            // nudSpoornummer
+            // 
+            this.nudSpoornummer.Location = new System.Drawing.Point(153, 80);
+            this.nudSpoornummer.Name = "nudSpoornummer";
+            this.nudSpoornummer.Size = new System.Drawing.Size(107, 20);
+            this.nudSpoornummer.TabIndex = 16;
+            // 
+            // UcTramPlaatsen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudSectornummer);
+            this.Controls.Add(this.nudSpoornummer);
+            this.Controls.Add(this.nudTramnummer);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.tbSectornummer);
-            this.Controls.Add(this.tbSpoornummer);
-            this.Controls.Add(this.tbTramnummer);
             this.Controls.Add(this.lblSpoornummer);
             this.Controls.Add(this.lblSectornummer);
             this.Controls.Add(this.lblTramnummer);
             this.Name = "UcTramPlaatsen";
             this.Size = new System.Drawing.Size(417, 200);
+            ((System.ComponentModel.ISupportInitialize)(this.nudTramnummer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSectornummer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,10 +136,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.Label lblTramnummer;
         private System.Windows.Forms.Label lblSectornummer;
         private System.Windows.Forms.Label lblSpoornummer;
-        private System.Windows.Forms.TextBox tbTramnummer;
-        private System.Windows.Forms.TextBox tbSpoornummer;
-        private System.Windows.Forms.TextBox tbSectornummer;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.NumericUpDown nudTramnummer;
+        private System.Windows.Forms.NumericUpDown nudSectornummer;
+        private System.Windows.Forms.NumericUpDown nudSpoornummer;
     }
 }

@@ -43,7 +43,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             foreach (ToolStripMenuItem item in msMenu.Items)
             {
-                item.Enabled = false;
+                item.Visible = false;
             }
         }
 
@@ -79,31 +79,31 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 case Role.Administrator:
                     foreach (ToolStripMenuItem item in msMenu.Items)
                     {
-                        item.Enabled = true;
+                        item.Visible = true;
                     }
 
                     break;
                 case Role.Mechanic:
-                    reparatieToolStripMenuItem.Enabled = true;
+                    reparatieToolStripMenuItem.Visible = true;
 
                     break;
                 case Role.Cleanup:
-                    schoonmaakToolStripMenuItem.Enabled = true;
+                    schoonmaakToolStripMenuItem.Visible = true;
 
                     break;
                 case Role.DepotMananger:
-                    overzichtBSToolStripMenuItem.Enabled = true;
-                    tramsToolStripMenuItem.Enabled = true;
-                    sporenToolStripMenuItem.Enabled = true;
+                    overzichtBSToolStripMenuItem.Visible = true;
+                    tramsToolStripMenuItem.Visible = true;
+                    sporenToolStripMenuItem.Visible = true;
 
                     break;
                 case Role.Driver:
-                    inEnUitrijSysteemToolStripMenuItem.Enabled = true;
+                    inEnUitrijSysteemToolStripMenuItem.Visible = true;
 
                     break;
             }
 
-            exitToolStripMenuItem.Enabled = true;
+            exitToolStripMenuItem.Visible = true;
         }
 
         private void UserControl_Change(object sender, EventArgs e)
@@ -179,11 +179,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             else if (type == typeof(UcReserveringPlaatsen))
             {
-                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack);
+                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack, _depot);
             }
             else if (type == typeof(UcToggleBlokkade))
             {
-                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection);
+                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection, _depot);
             }
             else if (type == typeof(UcSpoorInfo))
             {
