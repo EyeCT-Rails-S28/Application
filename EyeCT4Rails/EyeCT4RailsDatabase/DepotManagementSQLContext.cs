@@ -157,6 +157,55 @@ namespace EyeCT4RailsDatabase
             }
 
             return list;
-        } 
+        }
+
+        public void UpdateSections()
+        {
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("SELECT COUNT(id) FROM \"section\"", connection);
+            command.CommandType = CommandType.Text;
+
+            OracleDataReader reader = command.ExecuteReader();
+
+            int idCount = 0;
+
+            while (reader.Read())
+            {
+                idCount = reader.GetInt32(0);
+            }
+
+            UpdatePreviousSections(idCount);
+            UpdateNextSections(idCount);
+        }
+
+        private void UpdatePreviousSections(int idCount)
+        {
+            for (int i = 1; i <= idCount; i++)
+            {
+                OracleConnection connection = Database.Instance.Connection;
+                OracleCommand command = new OracleCommand("UPDATE \"section\"" +
+                                                          "SET previous_id = (SELECT s.id FROM \"section\" s WHERE s.id = (:id - 1) AND s.track_id = (SELECT track_id FROM \"section\" WHERE id = :id))" +
+                                                          "WHERE id = :id", connection);
+                command.CommandType = CommandType.Text;
+
+                command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = i;
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private void UpdateNextSections(int idCount)
+        {
+            for (int i = 1; i <= idCount; i++)
+            {
+                OracleConnection connection = Database.Instance.Connection;
+                OracleCommand command = new OracleCommand("UPDATE \"section\"" +
+                                                          "SET next_id = (SELECT s.id FROM \"section\" s WHERE s.id = (:id + 1) AND s.track_id = (SELECT track_id FROM \"section\" WHERE id = :id))" +
+                                                          "WHERE id = :id", connection);
+                command.CommandType = CommandType.Text;
+
+                command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = i;
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

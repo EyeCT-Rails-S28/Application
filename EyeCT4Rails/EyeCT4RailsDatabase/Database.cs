@@ -9,7 +9,7 @@ namespace EyeCT4RailsDatabase
         /// 
         /// </summary>
         private const string CONNECTION_STRING =
-            "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.20.36.2)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = XE)));USER ID=PTS36;PASSWORD=PTS36";
+            "data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.15.50)(PORT = 1521)))(CONNECT_DATA =(SERVICE_NAME = fhictora)));USER ID=dbi348434;PASSWORD=Wusvlended2";
 
         private static Database _instance;
 

@@ -111,5 +111,11 @@ namespace EyeCT4RailsLogic
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
+
+        public void UpdateSections()
+        {
+            _context.UpdateSections();
+            Console.WriteLine("SUCKING SES");
+        }
     }
 }
