@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="CleanupSQLContext.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="DatabaseConfiguration.cs" />
     <Compile Include="DepotManagementSQLContext.cs" />
     <Compile Include="MaintenanceSQLContext.cs" />
     <Compile Include="Models\ICleanupContext.cs" />
