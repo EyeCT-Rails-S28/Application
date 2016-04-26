@@ -9,7 +9,7 @@ namespace EyeCT4RailsDatabase
 {
     public class RideManagementSqlContext : IRideManagementContext
     {
-        public void ReportStatusChange(Tram tram, Status status)
+        public void ReportStatusChange(int tramId, Status status)
         {
             OracleConnection connection = Database.Instance.Connection;
             OracleCommand command = new OracleCommand("UPDATE \"tram\" " +
@@ -18,7 +18,7 @@ namespace EyeCT4RailsDatabase
             command.CommandType = CommandType.Text;
 
             command.Parameters.Add(new OracleParameter(":tram_status", OracleDbType.Varchar2)).Value = Convert.ToString(status);
-            command.Parameters.Add(new OracleParameter(":tram_id", OracleDbType.Int32)).Value = tram.Id;
+            command.Parameters.Add(new OracleParameter(":tram_id", OracleDbType.Int32)).Value = tramId;
 
             command.ExecuteNonQuery();
         }
