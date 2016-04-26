@@ -12,8 +12,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         public void SetSelection(Track track, Section section)
         {
-            tbSpoornummer.Text = track?.Id.ToString() ?? "";
-            tbSectornummer.Text = section?.Id.ToString() ?? "";
+            nudSpoornummer.Value = track?.Id ?? 0;
+            nudSectornummer.Value = section?.Id ?? 0;
         }
     }
 }
