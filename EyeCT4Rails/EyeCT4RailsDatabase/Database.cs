@@ -29,14 +29,6 @@ namespace EyeCT4RailsDatabase
 
         public OracleConnection Connection { get; }
 
-        public static string CONNECTION_STRING1
-        {
-            get
-            {
-                return CONNECTION_STRING;
-            }
-        }
-
         private Database()
         {
             Connection = new OracleConnection {ConnectionString = CONNECTION_STRING};
