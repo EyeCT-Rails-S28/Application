@@ -40,16 +40,13 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
         {
             foreach (DataGridViewRow row in dgvTrams.Rows)
             {
-                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                if (Convert.ToBoolean(row.Cells[0].Value))
                 {
-                    int cleanupId = Convert.ToInt32(row.Cells[1].Value);
-
-                    CleanupRepository.Instance.EditJobStatus(cleanupId, true);
-
-                    RefreshData();
-                    break;
+                    CleanupRepository.Instance.EditJobStatus(Convert.ToInt32(row.Cells[1].Value), true);
                 }
             }
+
+            RefreshData();
         }
     }
 }

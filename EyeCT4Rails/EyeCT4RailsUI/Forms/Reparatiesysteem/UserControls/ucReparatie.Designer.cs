@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbOpmerking = new System.Windows.Forms.TextBox();
             this.btnReparatieAfronden = new System.Windows.Forms.Button();
             this.dgvTrams = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -39,16 +38,6 @@
             this.Reparatie_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tbOpmerking
-            // 
-            this.tbOpmerking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbOpmerking.BackColor = System.Drawing.SystemColors.Window;
-            this.tbOpmerking.Location = new System.Drawing.Point(174, 395);
-            this.tbOpmerking.Name = "tbOpmerking";
-            this.tbOpmerking.Size = new System.Drawing.Size(485, 20);
-            this.tbOpmerking.TabIndex = 5;
             // 
             // btnReparatieAfronden
             // 
@@ -125,20 +114,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tbOpmerking);
             this.Controls.Add(this.btnReparatieAfronden);
             this.Controls.Add(this.dgvTrams);
             this.Name = "UcReparatie";
             this.Size = new System.Drawing.Size(659, 424);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox tbOpmerking;
         private System.Windows.Forms.Button btnReparatieAfronden;
         private System.Windows.Forms.DataGridView dgvTrams;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;

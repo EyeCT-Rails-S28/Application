@@ -40,16 +40,15 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
         {
             foreach (DataGridViewRow row in dgvTrams.Rows)
             {
-                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                if (Convert.ToBoolean(row.Cells[0].Value))
                 {
-                    int maintenanceId = Convert.ToInt32(row.Cells[1].Value);
-
-                    MaintenanceRepository.Instance.EditJobStatus(maintenanceId, true);
-
-                    RefreshData();
+                    MaintenanceRepository.Instance.EditJobStatus(Convert.ToInt32(row.Cells[1].Value), true);
+                    
                     break;
                 }
             }
+
+            RefreshData();
         }
     }
 }

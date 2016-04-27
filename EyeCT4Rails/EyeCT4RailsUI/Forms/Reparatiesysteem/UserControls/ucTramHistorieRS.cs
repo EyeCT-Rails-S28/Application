@@ -23,7 +23,7 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 
                 foreach (MaintenanceJob maintenanceJob in _history)
                 {
-                    dgvTramHistorie.Rows.Add(maintenanceJob.JobSize.ToString(), maintenanceJob.Date.ToString(), null, maintenanceJob.User.Name);
+                    dgvTramHistorie.Rows.Add(maintenanceJob.JobSize.ToString(), maintenanceJob.Date.ToString(), maintenanceJob.User.Name);
                 }
             }
             catch (Exception ex)

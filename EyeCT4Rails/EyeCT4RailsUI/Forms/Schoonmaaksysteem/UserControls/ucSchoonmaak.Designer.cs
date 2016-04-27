@@ -37,7 +37,6 @@
             this.Type_Beurt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Schoonmaak_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSchoonmaakbeurtAfronden = new System.Windows.Forms.Button();
-            this.tbOpmerking = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,27 +118,16 @@
             this.btnSchoonmaakbeurtAfronden.UseVisualStyleBackColor = true;
             this.btnSchoonmaakbeurtAfronden.Click += new System.EventHandler(this.btnSchoonmaakbeurtAfronden_Click);
             // 
-            // tbOpmerking
-            // 
-            this.tbOpmerking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbOpmerking.Location = new System.Drawing.Point(183, 395);
-            this.tbOpmerking.Name = "tbOpmerking";
-            this.tbOpmerking.Size = new System.Drawing.Size(559, 20);
-            this.tbOpmerking.TabIndex = 2;
-            // 
             // UcSchoonmaak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tbOpmerking);
             this.Controls.Add(this.btnSchoonmaakbeurtAfronden);
             this.Controls.Add(this.dgvTrams);
             this.Name = "UcSchoonmaak";
             this.Size = new System.Drawing.Size(745, 425);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -147,7 +135,6 @@
 
         private System.Windows.Forms.DataGridView dgvTrams;
         private System.Windows.Forms.Button btnSchoonmaakbeurtAfronden;
-        private System.Windows.Forms.TextBox tbOpmerking;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tramnummer;
