@@ -15,10 +15,15 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
         {
             InitializeComponent();
 
-            //_history = CleanupRepository.Instance.
-            //Tram tram = new Tram(Convert.ToInt32(tramnummer), EyeCT4RailsLib.Enums.Status.Dienst, new Line(0), false); 
+            _history = CleanupRepository.Instance.GetHistory(Convert.ToInt32(tramnummer));
 
-            //lblTramNummer.Text = "Tramnummer : " + tram.Id;
+            lblTramNummer.Text = "Tramnummer : " + _history[0].Tram.Id;
+            lblSpoor.Text = "Spoor: " + _history[0].Tram.PreferredLine;
+
+            foreach (Cleanup cleanup in _history)
+            {
+                dgvTramHistorie.Rows.Add(cleanup.JobSize.ToString(), cleanup.Date.ToString(), null, cleanup.User.Name);
+            }
         }
     }
 }
