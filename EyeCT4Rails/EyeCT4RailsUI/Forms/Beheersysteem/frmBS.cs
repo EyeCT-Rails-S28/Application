@@ -158,11 +158,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         {
             if (type == typeof(UcSchoonmaak))
             {
-                (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClicked;
+                (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClickedCleanUp;
             }
             else if (type == typeof(UcReparatie))
             {
-                (uc as UcReparatie).CelDoubleClicked += CelDoubleClicked;
+                (uc as UcReparatie).CelDoubleClicked += CelDoubleClickedCleanUp;
             }
             else if (type == typeof(UcOverzichtBs))
             {
@@ -190,7 +190,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
         }
 
-        public void CelDoubleClicked(object sender, EventArgs e)
+        public void CelDoubleClickedCleanUp(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
             if (data == null)
@@ -206,6 +206,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             string tramId = Convert.ToString(selected.Cells[2].Value);
             UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
+            AddControl(uc);
+            UpdateTitle("Historie");
+        }
+
+        public void CelDoubleClickedMaintenance(object sender, EventArgs e)
+        {
+            DataGridView data = sender as DataGridView;
+            if (data == null)
+            {
+                return;
+            }
+
+            DataGridViewRow selected = data.SelectedRows[0];
+            if (selected == null)
+            {
+                return;
+            }
+
+            string tramId = Convert.ToString(selected.Cells[2].Value);
+            UcTramHistorieRs uc = new UcTramHistorieRs(tramId);
             AddControl(uc);
             UpdateTitle("Historie");
         }

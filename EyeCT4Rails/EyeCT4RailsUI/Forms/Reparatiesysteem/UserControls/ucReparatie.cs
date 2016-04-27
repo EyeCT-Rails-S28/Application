@@ -35,9 +35,9 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
             {
                 if (Convert.ToBoolean(row.Cells[0].Value) == true)
                 {
-                    int cleanupId = Convert.ToInt32(row.Cells[1].Value);
+                    int maintenanceId = Convert.ToInt32(row.Cells[1].Value);
 
-                    MaintenanceRepository.Instance.EditJobStatus(cleanupId, true);
+                    MaintenanceRepository.Instance.EditJobStatus(maintenanceId, true);
 
                     break;
                 }
