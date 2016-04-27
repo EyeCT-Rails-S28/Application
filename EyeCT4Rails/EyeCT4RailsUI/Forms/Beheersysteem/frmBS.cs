@@ -91,7 +91,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                     schoonmaakToolStripMenuItem.Visible = true;
 
                     break;
-                case Role.DepotMananger:
+                case Role.DepotManager:
                     overzichtBSToolStripMenuItem.Visible = true;
                     tramsToolStripMenuItem.Visible = true;
 
