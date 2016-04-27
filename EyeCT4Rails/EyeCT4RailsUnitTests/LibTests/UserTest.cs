@@ -31,7 +31,7 @@ namespace EyeCT4RailsUnitTests.LibTests
         public void HasPrivilegeTest()
         {
             var enums = new List<Role> {
-                Role.Administrator, Role.Cleanup, Role.DepotMananger, Role.Driver,
+                Role.Administrator, Role.Cleanup, Role.DepotManager, Role.Driver,
                 Role.Mechanic
             };
             

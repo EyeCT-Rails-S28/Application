@@ -24,13 +24,13 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
                 foreach (Cleanup cleanup in _history)
                 {
-                    dgvTramHistorie.Rows.Add(cleanup.JobSize.ToString(), cleanup.Date.ToString(), null, cleanup.User.Name);
+                    dgvTramHistorie.Rows.Add(cleanup.JobSize.ToString(), cleanup.Date.ToString("dd/MM/yyyy"), cleanup.User.Name);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Fout bij het laden van het overzicht voor tram met ID: {tramnummer}, {ex.Message}");
             }
             
         }

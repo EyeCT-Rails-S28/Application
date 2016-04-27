@@ -58,7 +58,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Fout bij toevoegen van gebruiker: {ex.Message}");
             }
         }
 

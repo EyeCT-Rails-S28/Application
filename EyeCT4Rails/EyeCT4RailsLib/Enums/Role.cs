@@ -8,7 +8,7 @@
         Administrator,
         Mechanic,
         Cleanup,
-        DepotMananger,
+        DepotManager,
         Driver
     }
 }

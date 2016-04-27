@@ -34,7 +34,6 @@
             this.dgvTramHistorie = new System.Windows.Forms.DataGridView();
             this.Type_Beurt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Schoonmaak_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Opmerkingen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Uitgevoerd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTramHistorie)).BeginInit();
             this.SuspendLayout();
@@ -68,6 +67,8 @@
             // 
             // dgvTramHistorie
             // 
+            this.dgvTramHistorie.AllowUserToAddRows = false;
+            this.dgvTramHistorie.AllowUserToDeleteRows = false;
             this.dgvTramHistorie.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -75,12 +76,10 @@
             this.dgvTramHistorie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Type_Beurt,
             this.Schoonmaak_Datum,
-            this.Opmerkingen,
             this.Uitgevoerd});
             this.dgvTramHistorie.Location = new System.Drawing.Point(0, 28);
             this.dgvTramHistorie.MultiSelect = false;
             this.dgvTramHistorie.Name = "dgvTramHistorie";
-            this.dgvTramHistorie.ReadOnly = true;
             this.dgvTramHistorie.RowHeadersVisible = false;
             this.dgvTramHistorie.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTramHistorie.Size = new System.Drawing.Size(449, 470);
@@ -90,25 +89,16 @@
             // 
             this.Type_Beurt.HeaderText = "Type Beurt";
             this.Type_Beurt.Name = "Type_Beurt";
-            this.Type_Beurt.ReadOnly = true;
             // 
             // Schoonmaak_Datum
             // 
             this.Schoonmaak_Datum.HeaderText = "Schoonmaak datum";
             this.Schoonmaak_Datum.Name = "Schoonmaak_Datum";
-            this.Schoonmaak_Datum.ReadOnly = true;
-            // 
-            // Opmerkingen
-            // 
-            this.Opmerkingen.HeaderText = "Opmerkingen";
-            this.Opmerkingen.Name = "Opmerkingen";
-            this.Opmerkingen.ReadOnly = true;
             // 
             // Uitgevoerd
             // 
             this.Uitgevoerd.HeaderText = "Uitgevoerd door";
             this.Uitgevoerd.Name = "Uitgevoerd";
-            this.Uitgevoerd.ReadOnly = true;
             // 
             // UcTramHistorieSch
             // 
@@ -134,7 +124,6 @@
         private System.Windows.Forms.DataGridView dgvTramHistorie;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Beurt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Schoonmaak_Datum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Opmerkingen;
         private System.Windows.Forms.DataGridViewTextBoxColumn Uitgevoerd;
     }
 }

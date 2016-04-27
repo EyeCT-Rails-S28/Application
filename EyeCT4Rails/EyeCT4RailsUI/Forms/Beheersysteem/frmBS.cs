@@ -19,7 +19,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private readonly UcLogIn _ucLogIn;
         private User _currentUser;
-        private Depot _depot;
         private Track _selectedTrack;
         private Section _selectedSection;
 
@@ -30,8 +29,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _namespaces = new Dictionary<ToolStripMenuItem, string>();
             _ucLogIn = new UcLogIn();
 
-            _namespaces.Add(tramsToolStripMenuItem, typeof(UcTramPlaatsen).Namespace);
-            _namespaces.Add(sporenToolStripMenuItem, typeof(UcTramPlaatsen).Namespace);
+            _namespaces.Add(tramsToolStripMenuItem, typeof(UcTramInfo).Namespace);
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(UcSchoonmaak).Namespace);
             _namespaces.Add(reparatieToolStripMenuItem, typeof(UcReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(UcOverzichtBs).Namespace);
@@ -57,21 +55,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             ShowMenuItems();
 
             UpdateTitle("");
-
-            RefreshDepot();
-        }
-
-        private void RefreshDepot()
-        {
-            try
-            {
-                _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void ShowMenuItems()
@@ -92,10 +75,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                     schoonmaakToolStripMenuItem.Visible = true;
 
                     break;
-                case Role.DepotMananger:
+                case Role.DepotManager:
                     overzichtBSToolStripMenuItem.Visible = true;
                     tramsToolStripMenuItem.Visible = true;
-                    sporenToolStripMenuItem.Visible = true;
 
                     break;
                 case Role.Driver:
@@ -131,6 +113,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private void AddControl(Control uc)
         {
+            if (panelControls.Controls.Count > 0)
+                panelControls.Controls[0].Dispose();
             panelControls.Controls.Clear();
             panelControls.Controls.Add(uc);
 
@@ -144,18 +128,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         {
             ToolStripMenuItem item = sender as ToolStripMenuItem;
 
-            string ns = "";
-
-            ns = item.OwnerItem == null ? _namespaces[item] : _namespaces[item.OwnerItem as ToolStripMenuItem];
-
+            string ns = item.OwnerItem == null ? _namespaces[item] : _namespaces[item.OwnerItem as ToolStripMenuItem];
             string strNamespace = ns + GetUcName(item.Text);
 
             Type type = Type.GetType(strNamespace);
 
             var uc = (UserControl) Activator.CreateInstance(type);
-
             SetUcSpecificChanges(type, uc);
-
             return uc;
         }
 
@@ -163,21 +142,28 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         {
             if (type == typeof(UcSchoonmaak))
             {
-                (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClicked;
+                (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClickedCleanUp;
             }
             else if (type == typeof(UcReparatie))
             {
-                (uc as UcReparatie).CelDoubleClicked += CelDoubleClicked;
+                (uc as UcReparatie).CelDoubleClicked += CelDoubleClickedMaintenance;
             }
             else if (type == typeof(UcOverzichtBs))
             {
-                RefreshDepot();
-                (uc as UcOverzichtBs).SetDepot(_depot);
                 (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
+                (uc as UcOverzichtBs).SpoorInfo += SpoorInfo;
             }
             else if (type == typeof(UcSpoorInfo))
             {
                 (uc as UcSpoorInfo).SetSelection(_selectedTrack);
+            }
+            else if (type == typeof(UcPlanSchoonmaak))
+            {
+                (uc as UcPlanSchoonmaak).SetUser(_currentUser);
+            }
+            else if (type == typeof(UcPlanReparatie))
+            {
+                (uc as UcPlanReparatie).SetUser(_currentUser);
             }
         }
 
@@ -195,7 +181,20 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
         }
 
-        public void CelDoubleClicked(object sender, EventArgs e)
+        private void SpoorInfo(object sender, EventArgs e)
+        {
+            if (sender == null)
+            {
+                return;
+            }
+
+            Track track = sender as Track;
+            UcSpoorInfo info = Activator.CreateInstance(typeof (UcSpoorInfo)) as UcSpoorInfo;
+            info.SetSelection(track);
+            AddControl(info);
+        }
+
+        public void CelDoubleClickedCleanUp(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
             if (data == null)
@@ -211,6 +210,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             string tramId = Convert.ToString(selected.Cells[2].Value);
             UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
+            AddControl(uc);
+            UpdateTitle("Historie");
+        }
+
+        public void CelDoubleClickedMaintenance(object sender, EventArgs e)
+        {
+            DataGridView data = sender as DataGridView;
+            if (data == null)
+            {
+                return;
+            }
+
+            DataGridViewRow selected = data.SelectedRows[0];
+            if (selected == null)
+            {
+                return;
+            }
+
+            string tramId = Convert.ToString(selected.Cells[2].Value);
+            UcTramHistorieRs uc = new UcTramHistorieRs(tramId);
             AddControl(uc);
             UpdateTitle("Historie");
         }

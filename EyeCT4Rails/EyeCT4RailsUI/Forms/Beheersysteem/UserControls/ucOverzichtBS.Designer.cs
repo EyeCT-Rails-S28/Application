@@ -39,18 +39,27 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.pnlTracks = new System.Windows.Forms.Panel();
             this.lblSeletedTrack = new System.Windows.Forms.Label();
             this.lblSelectedSection = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reserveringPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusTramWijzigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dienstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.schoonmaakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dienstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramVerwijderenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.toggleBlokkadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1.SuspendLayout();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.spoorInformatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.lblRemise = new System.Windows.Forms.Label();
+            this.lblSchoonmaak = new System.Windows.Forms.Label();
+            this.lblReparatie = new System.Windows.Forms.Label();
+            this.lblGereserveerd = new System.Windows.Forms.Label();
+            this.lblDienst = new System.Windows.Forms.Label();
+            this.btnBevestig = new System.Windows.Forms.Button();
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTram
@@ -65,7 +74,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // lblSpoor
             // 
             this.lblSpoor.AutoSize = true;
-            this.lblSpoor.Location = new System.Drawing.Point(13, 103);
+            this.lblSpoor.Location = new System.Drawing.Point(13, 97);
             this.lblSpoor.Name = "lblSpoor";
             this.lblSpoor.Size = new System.Drawing.Size(38, 13);
             this.lblSpoor.TabIndex = 2;
@@ -80,7 +89,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // tbSpoor
             // 
-            this.tbSpoor.Location = new System.Drawing.Point(16, 136);
+            this.tbSpoor.Location = new System.Drawing.Point(16, 122);
             this.tbSpoor.Name = "tbSpoor";
             this.tbSpoor.Size = new System.Drawing.Size(120, 20);
             this.tbSpoor.TabIndex = 4;
@@ -88,7 +97,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // lblReserveringen
             // 
             this.lblReserveringen.AutoSize = true;
-            this.lblReserveringen.Location = new System.Drawing.Point(16, 178);
+            this.lblReserveringen.Location = new System.Drawing.Point(13, 155);
             this.lblReserveringen.Name = "lblReserveringen";
             this.lblReserveringen.Size = new System.Drawing.Size(79, 13);
             this.lblReserveringen.TabIndex = 5;
@@ -97,10 +106,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // lbReserveringen
             // 
             this.lbReserveringen.FormattingEnabled = true;
-            this.lbReserveringen.Location = new System.Drawing.Point(16, 208);
+            this.lbReserveringen.Location = new System.Drawing.Point(16, 180);
             this.lbReserveringen.Name = "lbReserveringen";
-            this.lbReserveringen.Size = new System.Drawing.Size(120, 160);
+            this.lbReserveringen.Size = new System.Drawing.Size(120, 147);
             this.lbReserveringen.TabIndex = 6;
+            this.lbReserveringen.SelectedIndexChanged += new System.EventHandler(this.lbReserveringen_SelectedIndexChanged);
             // 
             // pnlTracks
             // 
@@ -132,18 +142,20 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblSelectedSection.TabIndex = 9;
             this.lblSelectedSection.Text = "Selected section:";
             // 
-            // contextMenuStrip1
+            // contextMenuStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reserveringPlaatsenToolStripMenuItem,
             this.statusTramWijzigenToolStripMenuItem,
             this.tramVerwijderenToolStripMenuItem,
             this.tramPlaatsenToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.toggleBlokkadeToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 142);
-            this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
+            this.toggleBlokkadeToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.spoorInformatieToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip1";
+            this.contextMenuStrip.Size = new System.Drawing.Size(183, 148);
+            this.contextMenuStrip.Opened += new System.EventHandler(this.contextMenuStrip_Opened);
             // 
             // reserveringPlaatsenToolStripMenuItem
             // 
@@ -167,30 +179,30 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // defectToolStripMenuItem
             // 
             this.defectToolStripMenuItem.Name = "defectToolStripMenuItem";
-            this.defectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.defectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.defectToolStripMenuItem.Text = "Defect";
             this.defectToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
-            // 
-            // dienstToolStripMenuItem
-            // 
-            this.dienstToolStripMenuItem.Name = "dienstToolStripMenuItem";
-            this.dienstToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dienstToolStripMenuItem.Text = "Dienst";
-            this.dienstToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
-            // 
-            // remiseToolStripMenuItem
-            // 
-            this.remiseToolStripMenuItem.Name = "remiseToolStripMenuItem";
-            this.remiseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.remiseToolStripMenuItem.Text = "Remise";
-            this.remiseToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
             // 
             // schoonmaakToolStripMenuItem
             // 
             this.schoonmaakToolStripMenuItem.Name = "schoonmaakToolStripMenuItem";
-            this.schoonmaakToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.schoonmaakToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.schoonmaakToolStripMenuItem.Text = "Schoonmaak";
             this.schoonmaakToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
+            // 
+            // remiseToolStripMenuItem
+            // 
+            this.remiseToolStripMenuItem.Name = "remiseToolStripMenuItem";
+            this.remiseToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.remiseToolStripMenuItem.Text = "Remise";
+            this.remiseToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
+            // 
+            // dienstToolStripMenuItem
+            // 
+            this.dienstToolStripMenuItem.Name = "dienstToolStripMenuItem";
+            this.dienstToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.dienstToolStripMenuItem.Text = "Dienst";
+            this.dienstToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
             // 
             // tramVerwijderenToolStripMenuItem
             // 
@@ -218,11 +230,96 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.toggleBlokkadeToolStripMenuItem.Text = "Toggle Blokkade";
             this.toggleBlokkadeToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 6);
+            // 
+            // spoorInformatieToolStripMenuItem
+            // 
+            this.spoorInformatieToolStripMenuItem.Name = "spoorInformatieToolStripMenuItem";
+            this.spoorInformatieToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.spoorInformatieToolStripMenuItem.Text = "Spoor Informatie";
+            this.spoorInformatieToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 5000;
+            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
+            // lblRemise
+            // 
+            this.lblRemise.AutoSize = true;
+            this.lblRemise.ForeColor = System.Drawing.Color.Black;
+            this.lblRemise.Location = new System.Drawing.Point(16, 384);
+            this.lblRemise.Name = "lblRemise";
+            this.lblRemise.Size = new System.Drawing.Size(42, 13);
+            this.lblRemise.TabIndex = 10;
+            this.lblRemise.Text = "Remise";
+            // 
+            // lblSchoonmaak
+            // 
+            this.lblSchoonmaak.AutoSize = true;
+            this.lblSchoonmaak.ForeColor = System.Drawing.Color.Blue;
+            this.lblSchoonmaak.Location = new System.Drawing.Point(16, 406);
+            this.lblSchoonmaak.Name = "lblSchoonmaak";
+            this.lblSchoonmaak.Size = new System.Drawing.Size(70, 13);
+            this.lblSchoonmaak.TabIndex = 11;
+            this.lblSchoonmaak.Text = "Schoonmaak";
+            // 
+            // lblReparatie
+            // 
+            this.lblReparatie.AutoSize = true;
+            this.lblReparatie.ForeColor = System.Drawing.Color.Red;
+            this.lblReparatie.Location = new System.Drawing.Point(16, 428);
+            this.lblReparatie.Name = "lblReparatie";
+            this.lblReparatie.Size = new System.Drawing.Size(53, 13);
+            this.lblReparatie.TabIndex = 12;
+            this.lblReparatie.Text = "Reparatie";
+            // 
+            // lblGereserveerd
+            // 
+            this.lblGereserveerd.AutoSize = true;
+            this.lblGereserveerd.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblGereserveerd.Location = new System.Drawing.Point(16, 450);
+            this.lblGereserveerd.Name = "lblGereserveerd";
+            this.lblGereserveerd.Size = new System.Drawing.Size(71, 13);
+            this.lblGereserveerd.TabIndex = 13;
+            this.lblGereserveerd.Text = "Gereserveerd";
+            // 
+            // lblDienst
+            // 
+            this.lblDienst.AutoSize = true;
+            this.lblDienst.ForeColor = System.Drawing.Color.Purple;
+            this.lblDienst.Location = new System.Drawing.Point(16, 472);
+            this.lblDienst.Name = "lblDienst";
+            this.lblDienst.Size = new System.Drawing.Size(37, 13);
+            this.lblDienst.TabIndex = 14;
+            this.lblDienst.Text = "Dienst";
+            // 
+            // btnBevestig
+            // 
+            this.btnBevestig.Enabled = false;
+            this.btnBevestig.Location = new System.Drawing.Point(16, 333);
+            this.btnBevestig.Name = "btnBevestig";
+            this.btnBevestig.Size = new System.Drawing.Size(119, 24);
+            this.btnBevestig.TabIndex = 15;
+            this.btnBevestig.Text = "Bevestig";
+            this.btnBevestig.UseVisualStyleBackColor = true;
+            this.btnBevestig.Click += new System.EventHandler(this.btnBevestig_Click);
+            // 
             // UcOverzichtBs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ContextMenuStrip = this.contextMenuStrip1;
+            this.ContextMenuStrip = this.contextMenuStrip;
+            this.Controls.Add(this.btnBevestig);
+            this.Controls.Add(this.lblDienst);
+            this.Controls.Add(this.lblGereserveerd);
+            this.Controls.Add(this.lblReparatie);
+            this.Controls.Add(this.lblSchoonmaak);
+            this.Controls.Add(this.lblRemise);
             this.Controls.Add(this.lblSelectedSection);
             this.Controls.Add(this.lblSeletedTrack);
             this.Controls.Add(this.pnlTracks);
@@ -235,7 +332,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Name = "UcOverzichtBs";
             this.Size = new System.Drawing.Size(796, 508);
             this.Resize += new System.EventHandler(this.ucOverzichtBS_Resize);
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,7 +348,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.Panel pnlTracks;
         private System.Windows.Forms.Label lblSeletedTrack;
         private System.Windows.Forms.Label lblSelectedSection;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem reserveringPlaatsenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statusTramWijzigenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tramVerwijderenToolStripMenuItem;
@@ -262,5 +359,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.ToolStripMenuItem schoonmaakToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toggleBlokkadeToolStripMenuItem;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem spoorInformatieToolStripMenuItem;
+        private System.Windows.Forms.Label lblRemise;
+        private System.Windows.Forms.Label lblSchoonmaak;
+        private System.Windows.Forms.Label lblReparatie;
+        private System.Windows.Forms.Label lblGereserveerd;
+        private System.Windows.Forms.Label lblDienst;
+        private System.Windows.Forms.Button btnBevestig;
     }
 }

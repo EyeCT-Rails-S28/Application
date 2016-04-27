@@ -65,7 +65,18 @@
     <Compile Include="Forms\Login\ucLogIn.Designer.cs">
       <DependentUpon>ucLogIn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Prompt.cs" />
+    <Compile Include="Forms\Prompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Prompt.Designer.cs">
+      <DependentUpon>Prompt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\UcPlanSchoonmaak.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\UcPlanSchoonmaak.Designer.cs">
+      <DependentUpon>UcPlanSchoonmaak.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucReparatie.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,41 +101,17 @@
     <Compile Include="Forms\Beheersysteem\UserControls\UcOverzichtBS.Designer.cs">
       <DependentUpon>UcOverzichtBS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.Designer.cs">
-      <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.Designer.cs">
-      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.Designer.cs">
-      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucTramInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucTramInfo.Designer.cs">
       <DependentUpon>ucTramInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.cs">
+    <Compile Include="Forms\Reparatiesysteem\UserControls\UcPlanReparatie.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.Designer.cs">
-      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.Designer.cs">
-      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
+    <Compile Include="Forms\Reparatiesysteem\UserControls\UcPlanReparatie.Designer.cs">
+      <DependentUpon>UcPlanReparatie.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.cs">
       <SubType>UserControl</SubType>
@@ -155,29 +142,23 @@
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\UcOverzichtBS.resx">
       <DependentUpon>UcOverzichtBS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.resx">
-      <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.resx">
-      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.resx">
-      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramInfo.resx">
       <DependentUpon>ucTramInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.resx">
-      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.resx">
-      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InUitSysteem\ucInEnUitRijSysteem.resx">
       <DependentUpon>ucInEnUitRijSysteem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login\ucLogIn.resx">
       <DependentUpon>ucLogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Prompt.resx">
+      <DependentUpon>Prompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\UcPlanReparatie.resx">
+      <DependentUpon>UcPlanReparatie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\UcPlanSchoonmaak.resx">
+      <DependentUpon>UcPlanSchoonmaak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucReparatie.resx">
       <DependentUpon>ucReparatie.cs</DependentUpon>
@@ -203,16 +184,6 @@
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\UcMaakGebruiker.resx">
       <DependentUpon>UcMaakGebruiker.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Cleanup.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Depot.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Job.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Line.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.MaintenanceJob.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Ride.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Section.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Track.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Tram.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

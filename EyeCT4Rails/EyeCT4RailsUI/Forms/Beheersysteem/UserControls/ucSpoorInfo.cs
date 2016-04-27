@@ -8,29 +8,21 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     public partial class UcSpoorInfo : UserControl
     {
-        private List<Tram> _trams;
 
         public UcSpoorInfo()
         {
             InitializeComponent();
-
-            _trams = DepotManagementRepository.Instance.GetAllTrams();
         }
 
         public void SetSelection(Track track)
         {
-            nudSpoornummer.Value = track?.Id ?? 0;
-        }
+            lblSpoornummer.Text += $" {track.Id}";
 
-        private void btnShow_Click(object sender, System.EventArgs e)
-        {
             try
             {
-                Tram tram = _trams.Find(t => t.Id == Convert.ToInt32(nudSpoornummer.Value));
-
-                if (tram != null)
+                foreach (Section section in track.Sections)
                 {
-                    rtbTramInfo.Text = $"Id: {tram.Id} Status: {tram.Status} Line: {tram.PreferredLine}";
+                    dataGridView.Rows.Add(track.Id, section.Id, section.Blocked ? "Ja" : "Nee", section.Tram?.Id ?? 0);
                 }
             }
             catch (Exception ex)

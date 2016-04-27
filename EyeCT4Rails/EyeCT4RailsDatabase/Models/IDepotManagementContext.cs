@@ -50,11 +50,17 @@ namespace EyeCT4RailsDatabase.Models
         /// <returns>A list of all trams.</returns>
         List<Tram> GetAllTrams();
 
-            /// <summary>
+        /// <summary>
         /// Gets the information of the depot.
         /// </summary>
         /// <param name="name">Name of the depot.</param>
         /// <returns>The depot object.</returns>
         Depot GetDepot(string name);
+
+        /// <summary>
+        /// Gets all the trams that need manual assistance from the depot manager.
+        /// </summary>
+        /// <returns>A list of tram that need manual assistance.</returns>
+        List<Tram> GetTramsWithReservedFlag();
     }
 }

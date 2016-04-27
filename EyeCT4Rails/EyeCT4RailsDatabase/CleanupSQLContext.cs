@@ -57,17 +57,17 @@ namespace EyeCT4RailsDatabase
                 JobSize size = (JobSize) Enum.Parse(typeof (JobSize), reader.GetString(2));
 
                 int tramId = reader.GetInt32(3);
-                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(4));
+                TramType type = (TramType) Enum.Parse(typeof(TramType), reader.GetString(4));
                 Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(5));
                 Line line = new Line(reader.GetInt32(6));
                 bool forced = reader.GetByte(7) == 1;
 
                 Tram tram = new Tram(tramId, type, status, line, forced);
 
-                int userId = reader.GetInt32(7);
-                string name = reader.GetString(8);
-                string email = reader.GetString(9);
-                Role privilege = (Role) Enum.Parse(typeof (Role), reader.GetString(10));
+                int userId = reader.GetInt32(8);
+                string name = reader.GetString(9);
+                string email = reader.GetString(10);
+                Role privilege = (Role) Enum.Parse(typeof (Role), reader.GetString(11));
 
                 User user = new User(userId, name, email, privilege);
 

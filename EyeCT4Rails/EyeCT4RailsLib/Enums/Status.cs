@@ -8,6 +8,7 @@
         Remise,
         Dienst,
         Defect,
-        Schoonmaak
+        Schoonmaak,
+        Gereserveerd
     }
 }
