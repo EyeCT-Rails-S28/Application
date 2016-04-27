@@ -59,6 +59,7 @@
             this.btnReparatieAfronden.TabIndex = 4;
             this.btnReparatieAfronden.Text = "Reparatiebeurt afronden";
             this.btnReparatieAfronden.UseVisualStyleBackColor = true;
+            this.btnReparatieAfronden.Click += new System.EventHandler(this.btnReparatieAfronden_Click);
             // 
             // dgvTrams
             // 
@@ -110,7 +111,7 @@
             this.Reparatie_Datum.HeaderText = "Reparatie Datum";
             this.Reparatie_Datum.Name = "Reparatie_Datum";
             // 
-            // ucReparatie
+            // UcReparatie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

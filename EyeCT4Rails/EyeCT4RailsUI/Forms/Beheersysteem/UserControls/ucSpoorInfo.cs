@@ -8,13 +8,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     public partial class UcSpoorInfo : UserControl
     {
-        private List<Tram> _trams;
+        private Depot _depot;
 
         public UcSpoorInfo()
         {
             InitializeComponent();
 
-            _trams = DepotManagementRepository.Instance.GetAllTrams();
+            _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
         }
 
         public void SetSelection(Track track)
@@ -26,11 +26,16 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         {
             try
             {
-                Tram tram = _trams.Find(t => t.Id == Convert.ToInt32(nudSpoornummer.Value));
+                Track track = _depot.Tracks.Find(t => t.Id == Convert.ToInt32(nudSpoornummer.Value));
 
-                if (tram != null)
+                if (track != null)
                 {
-                    rtbTramInfo.Text = $"Id: {tram.Id} Status: {tram.Status} Line: {tram.PreferredLine}";
+                    rtbTramInfo.Text = $"Spoor ID: {track.Id}";
+
+                    foreach (Section section in track.Sections)
+                    {
+                        rtbTramInfo.Text += Environment.NewLine + $"Section ID: {section.Id} IsBlocked: {section.Blocked} Tram ID: {section.Tram.Id}";
+                    }
                 }
             }
             catch (Exception ex)

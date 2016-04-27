@@ -31,7 +31,6 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
         private void btnSchoonmaakbeurtAfronden_Click(object sender, EventArgs e)
         {
-
             foreach (DataGridViewRow row in dgvTrams.Rows)
             {
                 if (Convert.ToBoolean(row.Cells[0].Value) == true)
@@ -43,8 +42,6 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
                     break;
                 }
             }
-
-
         }
     }
 }
