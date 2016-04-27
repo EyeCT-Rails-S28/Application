@@ -24,7 +24,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
                 foreach (Cleanup cleanup in _history)
                 {
-                    dgvTramHistorie.Rows.Add(cleanup.JobSize.ToString(), cleanup.Date.ToString("dd/MM/yyyy HH:mm:ss"), cleanup.User.Name);
+                    dgvTramHistorie.Rows.Add(cleanup.JobSize.ToString(), cleanup.Date.ToString("dd/MM/yyyy"), cleanup.User.Name);
                 }
             }
             catch (Exception ex)
