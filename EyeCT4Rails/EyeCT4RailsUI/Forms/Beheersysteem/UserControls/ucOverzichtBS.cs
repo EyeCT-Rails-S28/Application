@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
+using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
@@ -35,6 +37,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         public void SetDepot(Depot depot)
         {
             _depot = depot;
+            _tracks.Clear();
 
             if (depot != null)
             {
@@ -52,6 +55,20 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             }
         }
 
+        private void RefreshDepot()
+        {
+            try
+            {
+                SetDepot(DepotManagementRepository.Instance.GetDepot("Havenstraat"));
+                pnlTracks.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void DrawSections(Graphics g)
         {
             int x = LEFT_MARGIN;
@@ -60,7 +77,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             foreach (TrackUiObj track in _tracks)
             {
-                track.DrawSections(g, x, y);
+                track.DrawSections(g, x, y, _selectedSection?.Id ?? -1);
 
                 if (maxHeight < track.Height)
                 {
@@ -69,7 +86,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                 x += SECTION_WIDTH;
 
-                if (x + SECTION_WIDTH + NEWLINE_MARGIN > pnlTracks.Width)
+                int newLine = x + SECTION_WIDTH + NEWLINE_MARGIN;
+                if (newLine > pnlTracks.Width)
                 {
                     x = LEFT_MARGIN;
                     y += maxHeight + NEWLINE_MARGIN;
@@ -78,26 +96,33 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void pnlTracks_Paint(object sender, PaintEventArgs e)
         {
             DrawSections(e.Graphics);
         }
 
         private void pnlTracks_MouseClick(object sender, MouseEventArgs e)
         {
+            SelectSection(e.Location);
+        }
+
+        private void SelectSection(Point p)
+        {
             try
             {
-                var track = _tracks.Find(x => x.Area.Contains(e.Location));
-                var section = track.UiSections.Find(x => x.Area.Contains(e.Location));
-                
+                var track = _tracks.Find(x => x.Area.Contains(p));
+                var section = track.UiSections.Find(x => x.Area.Contains(p));
+
                 _selectedTrack = track;
                 _selectedSection = section;
 
-                SelectionChanged?.Invoke(_selectedTrack, e);
+                SelectionChanged?.Invoke(_selectedTrack, new EventArgs());
 
-                if (section != null) SelectionChanged?.Invoke(_selectedSection, e);
-                
+                if (section != null)
+                    SelectionChanged?.Invoke(_selectedSection, new EventArgs());
+
                 RefreshUi();
+                Refresh();
             }
             catch(NullReferenceException ex)
             {
@@ -124,7 +149,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         {
             public List<SectionUiObj> UiSections => new List<SectionUiObj>(_uiSections);
 
-            public int Height { get; }
+            public int Height { get; private set; }
 
             public Rectangle Area { get; private set; }
 
@@ -133,8 +158,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             public TrackUiObj(int id) : base(id)
             {
                 _uiSections = new List<SectionUiObj>();
-
-                Height = (Sections.Count + 1)*SECTION_HEIGHT;
             }
 
             public void ConvertSections()
@@ -145,9 +168,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                         ? new SectionUiObj(section.Id, section.Blocked)
                         : new SectionUiObj(section.Id, section.Blocked, section.Tram));
                 }
+
+                Height = (Sections.Count + 1) * SECTION_HEIGHT;
             }
 
-            public void DrawSections(Graphics g, int x, int y)
+            public void DrawSections(Graphics g, int x, int y, int selectedSectionId)
             {
                 Font font = new Font(FontFamily.GenericSansSerif, 12);
 
@@ -162,6 +187,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     _uiSections[i].Area = new Rectangle(x, y, SECTION_WIDTH, SECTION_HEIGHT);
 
                     g.DrawRectangle(Pens.Black, _uiSections[i].Area);
+                    if (_uiSections[i].Id == selectedSectionId)
+                    {
+                        g.FillRectangle(Brushes.LightBlue, x + 1, y + 1, SECTION_WIDTH - 1, SECTION_HEIGHT - 1);
+                    }
 
                     if (_uiSections[i].Blocked)
                     {
@@ -179,8 +208,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                                 brush = Brushes.Red;
                                 break;
                             case Status.Remise:
-                            case Status.Dienst:
                                 brush = Brushes.Black;
+                                break;
+                            case Status.Dienst:
+                                brush = Brushes.Purple;
                                 break;
                             case Status.Schoonmaak:
                                 brush = Brushes.Blue;
@@ -208,6 +239,79 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 
             }
+        }
+
+        private void menu_Click(object sender, EventArgs e)
+        {
+            if (sender == tramPlaatsenToolStripMenuItem || sender == reserveringPlaatsenToolStripMenuItem)
+            {
+                string input = Prompt.ShowDialog("Welke tram wilt u plaatsen?", "Tram plaatsen");
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(input))
+                    {
+                        int tramId = Convert.ToInt32(input);
+                        DepotManagementRepository.Instance.ReserveSection(tramId, _selectedSection.Id);
+
+                        RefreshDepot();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    MessageBox.Show("Fout met tram plaatsen!");
+                }
+            }
+            else if (sender == tramVerwijderenToolStripMenuItem)
+            {
+                if (_selectedSection != null && _selectedSection.Tram != null)
+                {
+                    DepotManagementRepository.Instance.RemoveTram(_selectedSection.Id);
+
+                    RefreshDepot();
+                }
+            }
+            else if (sender == defectToolStripMenuItem || sender == remiseToolStripMenuItem ||
+                     sender == dienstToolStripMenuItem || sender == schoonmaakToolStripMenuItem)
+            {
+                if (_selectedSection != null && _selectedSection.Tram != null)
+                {
+                    Status status = (Status) Enum.Parse(typeof (Status), (sender as ToolStripMenuItem).Text);
+                    DepotManagementRepository.Instance.ChangeTramStatus(_selectedSection.Tram.Id, status);
+
+                    RefreshDepot();
+                }
+            }
+            else if (sender == toggleBlokkadeToolStripMenuItem)
+            {
+                if (_selectedSection != null || _selectedTrack != null)
+                {
+                    try
+                    {
+                        if (_selectedTrack != null && _selectedSection == null)
+                        {
+                            bool allBlocked = _depot.Tracks.Find(t => t.Id == _selectedTrack.Id).Sections.TrueForAll(s => s.Blocked);
+                            DepotManagementRepository.Instance.SetTrackBlocked(_selectedTrack.Id, !allBlocked);
+                        }
+                        else if (_selectedSection != null && _selectedTrack != null)
+                        {
+                            DepotManagementRepository.Instance.SetSectionBlocked(_selectedSection.Id, !_selectedSection.Blocked);
+                        }
+
+                        RefreshDepot();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void contextMenuStrip1_Opened(object sender, EventArgs e)
+        {
+            Point p = pnlTracks.PointToClient(Cursor.Position);
+            SelectSection(p);
         }
     }
 }

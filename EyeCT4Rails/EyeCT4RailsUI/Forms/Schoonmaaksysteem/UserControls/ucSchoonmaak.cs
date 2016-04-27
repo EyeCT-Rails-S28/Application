@@ -18,13 +18,9 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
             _trams = CleanupRepository.Instance.GetDirtyTrams();
 
-            DataGridViewRow row = (DataGridViewRow)dgvTrams.Rows[0].Clone();
-
             foreach (var tram in _trams)
             {
-                row.Cells[0].Value = false;
-                row.Cells[1].Value = tram.Id.ToString();
-                dgvTrams.Rows.Add(row);
+                dgvTrams.Rows.Add(false, tram.Id);
             }
         }
 

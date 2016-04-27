@@ -171,24 +171,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             else if (type == typeof(UcOverzichtBs))
             {
+                RefreshDepot();
                 (uc as UcOverzichtBs).SetDepot(_depot);
                 (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
-            }
-            else if (type == typeof(UcTramPlaatsen))
-            {
-                (uc as UcTramPlaatsen).SetSelection(_selectedTrack, _selectedSection);
-            }
-            else if (type == typeof (UcTramVerwijderen))
-            {
-                (uc as UcTramVerwijderen).SetSelection(_selectedSection);   
-            }
-            else if (type == typeof(UcReserveringPlaatsen))
-            {
-                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack, _depot);
-            }
-            else if (type == typeof(UcToggleBlokkade))
-            {
-                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection, _depot);
             }
             else if (type == typeof(UcSpoorInfo))
             {

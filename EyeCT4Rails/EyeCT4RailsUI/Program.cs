@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using EyeCT4RailsLogic;
 using EyeCT4RailsUI.Forms.Beheersysteem;
 
 namespace EyeCT4RailsUI
