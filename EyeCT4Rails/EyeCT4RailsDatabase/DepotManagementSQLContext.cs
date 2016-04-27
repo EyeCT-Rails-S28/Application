@@ -159,13 +159,13 @@ namespace EyeCT4RailsDatabase
             {
                 foreach (var current in track.Sections)
                 {
-                    Section next = sections.Find(s => s.Id == current.Id + 1);
+                    Section next = track.Sections.Find(s => s.Id == current.Id + 1);
                     if (next != null)
                     {
                         sections.Find(x => x.Id == current.Id).AddNextSection(sections.Find(y => y.Id == next.Id));
                     }
 
-                    Section previous = sections.Find(s => s.Id == current.Id - 1);
+                    Section previous = track.Sections.Find(s => s.Id == current.Id - 1);
                     if (previous != null)
                     {
                         sections.Find(x => x.Id == current.Id).AddPreviousSection(sections.Find(y => y.Id == previous.Id));
