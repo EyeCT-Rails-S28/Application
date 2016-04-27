@@ -19,11 +19,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void AddTrams()
         {
-            Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
-            List<Tram> trams = depot.Trams;
-
             try
             {
+                Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+                List<Tram> trams = depot.Trams;
+
                 foreach (Tram tram in trams)
                 {
                     int lineId = tram.PreferredLine.Id;
@@ -33,6 +33,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                MessageBox.Show(e.Message);
             }
         }
 

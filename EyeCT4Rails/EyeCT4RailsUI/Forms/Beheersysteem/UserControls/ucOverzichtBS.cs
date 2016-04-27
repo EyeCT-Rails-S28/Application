@@ -39,7 +39,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             _tracks = new List<TrackUiObj>();
             _needyTrams = new List<Tram>();
 
-            RefreshDepot();
+            RefreshControl();
         }
 
         private void RefreshControl()
@@ -155,12 +155,16 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 ? "Selected section:"
                 : $"Selected section: {_selectedSection.Id}";
 
+            int index = lbReserveringen.SelectedIndex;
             lbReserveringen.Items.Clear();
 
             foreach (var tram in _needyTrams)
             {
                 lbReserveringen.Items.Add(tram);
             }
+
+            if(index > 0)
+                lbReserveringen.SelectedIndex = index;
         }
 
         private void ucOverzichtBS_Resize(object sender, EventArgs e)
@@ -449,6 +453,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 Tram tram = (Tram) lbReserveringen.SelectedItem;
                 DepotManagementRepository.Instance.ChangeTramStatus(tram.Id, Status.Defect);
+
+                _tracks.Find(x => x.Sections.Find(y => y.Tram?.Id == tram.Id) != null).UiSections.Find(x => x.Tram?.Id == tram.Id).Tram.Status = Status.Defect;
+                pnlTracks.Refresh();
+
+                btnBevestig.Enabled = false;
             }
             catch (Exception ex)
             {

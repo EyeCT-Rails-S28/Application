@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -141,10 +142,28 @@ namespace EyeCT4RailsDatabase
             int id = Convert.ToInt32(command.ExecuteScalar());
             Depot depot = new Depot(id, name);
 
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
             List<Track> tracks = GetTracks(depot);
+            Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to get all the tracks from the db");
+
+            watch.Restart();
+
+            List<Tram> trams = GetAllTrams();
+            trams.ForEach(t => depot.AddTram(t));
+
+            Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to get all the trams from the db");
+
+            watch.Restart();
+
             foreach (Track track in tracks)
             {
+                Stopwatch watch2 = new Stopwatch();
+                watch2.Start();
                 List<Section> sections = GetSections(track);
+                Console.WriteLine($"It took {watch2.ElapsedMilliseconds} ms to get a section from the db");
+
                 foreach (Section section in sections)
                 {
                     Section next = sections.Find(s => s.Id == section.Id + 1);
@@ -164,9 +183,7 @@ namespace EyeCT4RailsDatabase
 
                 depot.AddTrack(track);
             }
-
-            List<Tram> trams = GetAllTrams();
-            trams.ForEach(t => depot.AddTram(t));
+            Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to get all the sections from the db");
 
             return depot;
         }
@@ -224,6 +241,36 @@ namespace EyeCT4RailsDatabase
             }
 
             return list;
-        }    
+        }
+
+        private List<Section> GetSections(List<Tram> trams)
+        {
+            List<Section> list = new List<Section>();
+
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("SELECT id, blocked, tram_id " +
+                                                      "FROM \"section\" ", connection);
+            command.CommandType = CommandType.Text;
+
+            OracleDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                int sectionId = reader.GetInt32(0);
+                bool blocked = reader.GetInt32(1) == 1;
+                if (reader.IsDBNull(2))
+                {
+                    Section section = new Section(sectionId, blocked);
+                    list.Add(section);
+                }
+                else
+                {
+                    Tram tram = trams.Find(t => t.Id == reader.GetInt32(2));
+                    Section section = new Section(sectionId, blocked, tram);
+                    list.Add(section);
+                }
+            }
+
+            return list;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -24,7 +25,10 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
         {
             try
             {
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
                 _schedule = CleanupRepository.Instance.GetSchedule();
+                Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to fetch the schedule.");
 
                 dgvTrams.Rows.Clear();
 

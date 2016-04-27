@@ -300,6 +300,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // btnBevestig
             // 
+            this.btnBevestig.Enabled = false;
             this.btnBevestig.Location = new System.Drawing.Point(16, 333);
             this.btnBevestig.Name = "btnBevestig";
             this.btnBevestig.Size = new System.Drawing.Size(119, 24);

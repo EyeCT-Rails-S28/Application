@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -33,7 +34,12 @@ namespace EyeCT4RailsUI.Forms.InUitSysteem
                     return;
                 }
 
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
+
                 Section section = RideManagementRepository.Instance.GetFreeSection(depot);
+                Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to find a free section.");
+
                 Track track = depot.Tracks.Find(t => t.Sections.Find(s => s.Id == section.Id) != null);
 
                 if (track == null)
@@ -42,8 +48,13 @@ namespace EyeCT4RailsUI.Forms.InUitSysteem
                     return;
                 }
 
+                watch.Restart();
                 DepotManagementRepository.Instance.ReserveSection(tramId, section.Id);
+                Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to reserve a section.");
+
+                watch.Restart();
                 RideManagementRepository.Instance.ChangeTramStatus(tramId, rbGeen.Checked ? Status.Remise : rbDefect.Checked ? Status.Gereserveerd : Status.Schoonmaak);
+                Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to change a trams status.");
 
                 tbSpoornummer.Text = Convert.ToString(track.Id);
                 tbSectienummer.Text = Convert.ToString(section.Id);
