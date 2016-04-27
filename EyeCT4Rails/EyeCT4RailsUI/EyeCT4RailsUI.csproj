@@ -131,6 +131,12 @@
     <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.Designer.cs">
       <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\UcPlanSchoonmaak.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Schoonmaaksysteem\UserControls\UcPlanSchoonmaak.Designer.cs">
+      <DependentUpon>UcPlanSchoonmaak.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -192,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucTramHistorieRS.resx">
       <DependentUpon>ucTramHistorieRS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\UcPlanSchoonmaak.resx">
+      <DependentUpon>UcPlanSchoonmaak.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.resx">
       <DependentUpon>ucSchoonmaak.cs</DependentUpon>
