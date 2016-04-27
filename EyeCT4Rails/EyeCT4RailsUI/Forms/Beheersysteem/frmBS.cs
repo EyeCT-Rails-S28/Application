@@ -113,6 +113,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private void AddControl(Control uc)
         {
+            if (panelControls.Controls.Count > 0)
+                panelControls.Controls[0].Dispose();
             panelControls.Controls.Clear();
             panelControls.Controls.Add(uc);
 

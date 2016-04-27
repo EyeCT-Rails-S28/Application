@@ -82,6 +82,31 @@ namespace EyeCT4RailsDatabase
             command.ExecuteNonQuery();
         }
 
+        public List<Tram> GetTramsWithReservedFlag()
+        {
+            List<Tram> trams = new List<Tram>();
+
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("SELECT id, tramtype, status, line_id, forced " +
+                                                      "FROM \"tram\" " +
+                                                      "WHERE (status = :status)", connection);
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.Add(new OracleParameter(":status", OracleDbType.Varchar2)).Value = "Gereserveerd";
+
+            OracleDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(1));
+                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(2));
+                Tram tram = new Tram(reader.GetInt32(0), type, status, new Line(reader.GetInt32(3)), reader.GetInt32(4) == 1);
+
+                trams.Add(tram);
+            }
+
+            return trams;
+        } 
+
         public List<Tram> GetAllTrams()
         {
             List<Tram> trams = new List<Tram>();
