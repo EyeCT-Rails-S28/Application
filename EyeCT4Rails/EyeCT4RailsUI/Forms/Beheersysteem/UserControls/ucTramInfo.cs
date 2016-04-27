@@ -13,6 +13,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         public UcTramInfo()
         {
             InitializeComponent();
+
+            AddTrams();
         }
 
         private void AddTrams()
