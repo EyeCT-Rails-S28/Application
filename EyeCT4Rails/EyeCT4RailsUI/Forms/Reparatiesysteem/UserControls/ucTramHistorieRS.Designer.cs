@@ -41,6 +41,8 @@
             // 
             // dgvTramHistorie
             // 
+            this.dgvTramHistorie.AllowUserToAddRows = false;
+            this.dgvTramHistorie.AllowUserToDeleteRows = false;
             this.dgvTramHistorie.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -51,7 +53,11 @@
             this.Opmerkingen,
             this.Uitgevoerd});
             this.dgvTramHistorie.Location = new System.Drawing.Point(0, 17);
+            this.dgvTramHistorie.MultiSelect = false;
             this.dgvTramHistorie.Name = "dgvTramHistorie";
+            this.dgvTramHistorie.ReadOnly = true;
+            this.dgvTramHistorie.RowHeadersVisible = false;
+            this.dgvTramHistorie.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTramHistorie.Size = new System.Drawing.Size(450, 469);
             this.dgvTramHistorie.TabIndex = 7;
             // 
@@ -59,21 +65,25 @@
             // 
             this.Type_Beurt.HeaderText = "Type Beurt";
             this.Type_Beurt.Name = "Type_Beurt";
+            this.Type_Beurt.ReadOnly = true;
             // 
             // Raparatie_Datum
             // 
             this.Raparatie_Datum.HeaderText = "Reparatie datum";
             this.Raparatie_Datum.Name = "Raparatie_Datum";
+            this.Raparatie_Datum.ReadOnly = true;
             // 
             // Opmerkingen
             // 
             this.Opmerkingen.HeaderText = "Opmerkingen";
             this.Opmerkingen.Name = "Opmerkingen";
+            this.Opmerkingen.ReadOnly = true;
             // 
             // Uitgevoerd
             // 
             this.Uitgevoerd.HeaderText = "Uitgevoerd door";
             this.Uitgevoerd.Name = "Uitgevoerd";
+            this.Uitgevoerd.ReadOnly = true;
             // 
             // lblSpoor
             // 
@@ -102,7 +112,7 @@
             this.lblTramNummer.TabIndex = 4;
             this.lblTramNummer.Text = "Tram nummer:";
             // 
-            // ucTramHistorieRS
+            // UcTramHistorieRs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
