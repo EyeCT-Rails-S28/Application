@@ -173,7 +173,15 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 (uc as UcSpoorInfo).SetSelection(_depot, _selectedTrack);
             }
-            else if (type == typeof (UcTramInfo))
+            else if (type == typeof(UcPlanSchoonmaak))
+            {
+                (uc as UcPlanSchoonmaak).SetUser(_currentUser);
+            }
+            else if (type == typeof(UcPlanReparatie))
+            {
+                (uc as UcPlanReparatie).SetUser(_currentUser);
+            }
+            else if (type == typeof(UcTramInfo))
             {
                 (uc as UcTramInfo).AddFromDepot(_depot);
             }

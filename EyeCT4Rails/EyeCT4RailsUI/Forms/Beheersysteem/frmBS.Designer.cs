@@ -39,6 +39,8 @@
             this.reparatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControls = new System.Windows.Forms.Panel();
+            this.planSchoonmaakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.planReparatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.msMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,7 +93,7 @@
             // tramInfoToolStripMenuItem
             // 
             this.tramInfoToolStripMenuItem.Name = "tramInfoToolStripMenuItem";
-            this.tramInfoToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.tramInfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tramInfoToolStripMenuItem.Text = "Tram info";
             this.tramInfoToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
@@ -104,6 +106,8 @@
             // 
             // schoonmaakToolStripMenuItem
             // 
+            this.schoonmaakToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.planSchoonmaakToolStripMenuItem});
             this.schoonmaakToolStripMenuItem.Name = "schoonmaakToolStripMenuItem";
             this.schoonmaakToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.schoonmaakToolStripMenuItem.Text = "Schoonmaak";
@@ -111,6 +115,8 @@
             // 
             // reparatieToolStripMenuItem
             // 
+            this.reparatieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.planReparatieToolStripMenuItem});
             this.reparatieToolStripMenuItem.Name = "reparatieToolStripMenuItem";
             this.reparatieToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.reparatieToolStripMenuItem.Text = "Reparatie";
@@ -132,6 +138,20 @@
             this.panelControls.Name = "panelControls";
             this.panelControls.Size = new System.Drawing.Size(1122, 651);
             this.panelControls.TabIndex = 2;
+            // 
+            // planSchoonmaakToolStripMenuItem
+            // 
+            this.planSchoonmaakToolStripMenuItem.Name = "planSchoonmaakToolStripMenuItem";
+            this.planSchoonmaakToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.planSchoonmaakToolStripMenuItem.Text = "Plan schoonmaak";
+            this.planSchoonmaakToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
+            // 
+            // planReparatieToolStripMenuItem
+            // 
+            this.planReparatieToolStripMenuItem.Name = "planReparatieToolStripMenuItem";
+            this.planReparatieToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.planReparatieToolStripMenuItem.Text = "Plan reparatie";
+            this.planReparatieToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
             // FrmBs
             // 
@@ -162,6 +182,8 @@
         private System.Windows.Forms.ToolStripMenuItem tramInfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gebruikerBeheerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maakGebruikerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem planSchoonmaakToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem planReparatieToolStripMenuItem;
     }
 }
 
