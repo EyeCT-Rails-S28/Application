@@ -32,7 +32,7 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
                 {
                     dgvTrams.Rows.Add(false, maintenanceJob.Id, maintenanceJob.Tram.Id,
                         maintenanceJob.Tram.TramType.GetDescription(), maintenanceJob.Tram.PreferredLine.Id,
-                        maintenanceJob.JobSize, maintenanceJob.Date.ToString("dd/MM/yyyy HH:mm:ss"));
+                        maintenanceJob.JobSize, maintenanceJob.Date.ToString("dd/MM/yyyy"));
                 }
             }
             catch (Exception e)

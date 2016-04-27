@@ -31,7 +31,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
                 foreach (Cleanup cleanup in _schedule)
                 {
                     dgvTrams.Rows.Add(false, cleanup.Id, cleanup.Tram.Id, cleanup.Tram.TramType.GetDescription(),
-                        cleanup.Tram.PreferredLine.Id, cleanup.JobSize, cleanup.Date.ToString("dd/MM/yyyy HH:mm:ss"));
+                        cleanup.Tram.PreferredLine.Id, cleanup.JobSize, cleanup.Date.ToString("dd/MM/yyyy"));
                 }
             }
             catch (Exception e)
