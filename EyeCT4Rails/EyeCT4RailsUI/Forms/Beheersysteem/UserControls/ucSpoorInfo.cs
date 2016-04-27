@@ -8,16 +8,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     public partial class UcSpoorInfo : UserControl
     {
-        private Depot _depot;
 
         public UcSpoorInfo()
         {
             InitializeComponent();
-
-            _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
         }
 
-        public void SetSelection(Track track)
+        public void SetSelection(Depot depot, Track track)
         {
             lblSpoornummer.Text += $" {track.Id}";
 

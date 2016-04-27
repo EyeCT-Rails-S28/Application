@@ -22,13 +22,22 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
         private void RefreshData()
         {
-            _schedule = CleanupRepository.Instance.GetSchedule();
-
-            dgvTrams.Rows.Clear();
-
-            foreach (Cleanup cleanup in _schedule)
+            try
             {
-                dgvTrams.Rows.Add(false, cleanup.Id, cleanup.Tram.Id, cleanup.Tram.TramType.GetDescription(), cleanup.Tram.PreferredLine.Id, cleanup.JobSize, Convert.ToString(cleanup.Date));
+                _schedule = CleanupRepository.Instance.GetSchedule();
+
+                dgvTrams.Rows.Clear();
+
+                foreach (Cleanup cleanup in _schedule)
+                {
+                    dgvTrams.Rows.Add(false, cleanup.Id, cleanup.Tram.Id, cleanup.Tram.TramType.GetDescription(),
+                        cleanup.Tram.PreferredLine.Id, cleanup.JobSize, cleanup.Date.ToString("dd/MM/yyyy HH:mm:ss"));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                MessageBox.Show($"Fout bij het herladen van data: {e.Message}");
             }
         }
 
@@ -43,7 +52,15 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
             {
                 if (Convert.ToBoolean(row.Cells[0].Value))
                 {
-                    CleanupRepository.Instance.EditJobStatus(Convert.ToInt32(row.Cells[1].Value), true);
+                    try
+                    {
+                        CleanupRepository.Instance.EditJobStatus(Convert.ToInt32(row.Cells[1].Value), true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show($"Fout bij het afronden van schoonmaakbeurt met ID: {row.Cells[1]}, {ex.Message}");
+                    }
                 }
             }
 

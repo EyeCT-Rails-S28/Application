@@ -27,7 +27,7 @@ namespace EyeCT4RailsUI.Forms.Login
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.ToString());
 
                 string message = ex.InnerException.Message == "Connection request timed out"
                     ? "No database connection"

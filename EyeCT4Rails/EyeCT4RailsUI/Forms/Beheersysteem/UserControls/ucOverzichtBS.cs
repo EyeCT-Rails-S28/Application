@@ -65,7 +65,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Fout bij herladen van de Depot: {ex.Message}");
             }
         }
 
@@ -168,7 +168,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 string input = Prompt.ShowDialog("Welke tram wilt u plaatsen?", "Tram plaatsen");
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    Console.WriteLine("D");
                     return;
                 }
 
@@ -188,15 +187,22 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
-                    MessageBox.Show("Fout met tram plaatsen!");
+                    MessageBox.Show($"Fout bij tram plaatsen: {ex.Message}");
                 }
             }
             else if (sender == tramVerwijderenToolStripMenuItem)
             {
                 if (_selectedSection != null && _selectedSection.Tram != null)
                 {
-                    DepotManagementRepository.Instance.RemoveTram(_selectedSection.Id);
-
+                    try
+                    {
+                        DepotManagementRepository.Instance.RemoveTram(_selectedSection.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show($"Fout bij tram verwijderen: {ex.Message}");
+                    }
                     RefreshDepot();
                 }
             }
@@ -206,7 +212,16 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 if (_selectedSection != null && _selectedSection.Tram != null)
                 {
                     Status status = (Status)Enum.Parse(typeof(Status), (sender as ToolStripMenuItem).Text);
-                    DepotManagementRepository.Instance.ChangeTramStatus(_selectedSection.Tram.Id, status);
+
+                    try
+                    {
+                        DepotManagementRepository.Instance.ChangeTramStatus(_selectedSection.Tram.Id, status);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show($"Fout bij veranderen van status: {ex.Message}");
+                    }
 
                     RefreshDepot();
                 }
@@ -231,7 +246,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show($"Fout bij blokkade: {ex.Message}");
                     }
                 }
             } else if (sender == spoorInformatieToolStripMenuItem)

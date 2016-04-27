@@ -69,7 +69,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Fout bij het herladen van de Depot: {ex.Message}");
             }
         }
 
@@ -171,7 +171,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             else if (type == typeof(UcSpoorInfo))
             {
-                (uc as UcSpoorInfo).SetSelection(_selectedTrack);
+                (uc as UcSpoorInfo).SetSelection(_depot, _selectedTrack);
             }
             else if (type == typeof (UcTramInfo))
             {
@@ -202,7 +202,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             Track track = sender as Track;
             UcSpoorInfo info = Activator.CreateInstance(typeof (UcSpoorInfo)) as UcSpoorInfo;
-            info.SetSelection(track);
+            info.SetSelection(_depot, track);
             AddControl(info);
         }
 

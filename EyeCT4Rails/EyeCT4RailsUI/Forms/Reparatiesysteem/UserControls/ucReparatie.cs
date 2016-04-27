@@ -22,13 +22,23 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 
         private void RefreshData()
         {
-            _schedule = MaintenanceRepository.Instance.GetSchedule();
-
-            dgvTrams.Rows.Clear();
-
-            foreach (MaintenanceJob maintenanceJob in _schedule)
+            try
             {
-                dgvTrams.Rows.Add(false, maintenanceJob.Id, maintenanceJob.Tram.Id, maintenanceJob.Tram.TramType.GetDescription(), maintenanceJob.Tram.PreferredLine.Id, maintenanceJob.JobSize, Convert.ToString(maintenanceJob.Date));
+                _schedule = MaintenanceRepository.Instance.GetSchedule();
+
+                dgvTrams.Rows.Clear();
+
+                foreach (MaintenanceJob maintenanceJob in _schedule)
+                {
+                    dgvTrams.Rows.Add(false, maintenanceJob.Id, maintenanceJob.Tram.Id,
+                        maintenanceJob.Tram.TramType.GetDescription(), maintenanceJob.Tram.PreferredLine.Id,
+                        maintenanceJob.JobSize, maintenanceJob.Date.ToString("dd/MM/yyyy HH:mm:ss"));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                MessageBox.Show($"Fout bij herladen van data: {e.Message}");
             }
         }
 
@@ -43,7 +53,15 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
             {
                 if (Convert.ToBoolean(row.Cells[0].Value))
                 {
-                    MaintenanceRepository.Instance.EditJobStatus(Convert.ToInt32(row.Cells[1].Value), true);
+                    try
+                    {
+                        MaintenanceRepository.Instance.EditJobStatus(Convert.ToInt32(row.Cells[1].Value), true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show($"Fout bij het bewerken van status voor ID: {row.Cells[1].Value}, {ex.Message}");
+                    } 
                 }
             }
 

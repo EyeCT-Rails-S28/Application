@@ -23,13 +23,13 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 
                 foreach (MaintenanceJob maintenanceJob in _history)
                 {
-                    dgvTramHistorie.Rows.Add(maintenanceJob.JobSize.ToString(), maintenanceJob.Date.ToString(), maintenanceJob.User.Name);
+                    dgvTramHistorie.Rows.Add(maintenanceJob.JobSize.ToString(), maintenanceJob.Date.ToString("dd/MM/yyyy HH:mm:ss"), maintenanceJob.User.Name);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Fout bij het toevoegen van items: {ex.Message}");
             }
 
         }
