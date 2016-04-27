@@ -63,6 +63,8 @@
             // 
             // dgvTrams
             // 
+            this.dgvTrams.AllowUserToAddRows = false;
+            this.dgvTrams.AllowUserToDeleteRows = false;
             this.dgvTrams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -75,8 +77,11 @@
             this.Type_Beurt,
             this.Reparatie_Datum});
             this.dgvTrams.Location = new System.Drawing.Point(0, 0);
+            this.dgvTrams.MultiSelect = false;
             this.dgvTrams.Name = "dgvTrams";
+            this.dgvTrams.RowHeadersVisible = false;
             this.dgvTrams.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvTrams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTrams.Size = new System.Drawing.Size(659, 386);
             this.dgvTrams.TabIndex = 3;
             this.dgvTrams.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrams_CellDoubleClick);
@@ -90,26 +95,31 @@
             // 
             this.Tramnummer.HeaderText = "Tramnummer";
             this.Tramnummer.Name = "Tramnummer";
+            this.Tramnummer.ReadOnly = true;
             // 
             // Soort
             // 
             this.Soort.HeaderText = "Soort";
             this.Soort.Name = "Soort";
+            this.Soort.ReadOnly = true;
             // 
             // Spoor
             // 
             this.Spoor.HeaderText = "Spoor";
             this.Spoor.Name = "Spoor";
+            this.Spoor.ReadOnly = true;
             // 
             // Type_Beurt
             // 
             this.Type_Beurt.HeaderText = "Type Beurt";
             this.Type_Beurt.Name = "Type_Beurt";
+            this.Type_Beurt.ReadOnly = true;
             // 
             // Reparatie_Datum
             // 
             this.Reparatie_Datum.HeaderText = "Reparatie Datum";
             this.Reparatie_Datum.Name = "Reparatie_Datum";
+            this.Reparatie_Datum.ReadOnly = true;
             // 
             // UcReparatie
             // 
