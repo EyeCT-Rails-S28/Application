@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
@@ -27,7 +28,7 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 
             foreach (MaintenanceJob maintenanceJob in _schedule)
             {
-                dgvTrams.Rows.Add(false, maintenanceJob.Id, maintenanceJob.Tram.Id, null, maintenanceJob.Tram.PreferredLine.Id, maintenanceJob.JobSize, Convert.ToString(maintenanceJob.Date));
+                dgvTrams.Rows.Add(false, maintenanceJob.Id, maintenanceJob.Tram.Id, maintenanceJob.Tram.TramType.GetDescription(), maintenanceJob.Tram.PreferredLine.Id, maintenanceJob.JobSize, Convert.ToString(maintenanceJob.Date));
             }
         }
 
