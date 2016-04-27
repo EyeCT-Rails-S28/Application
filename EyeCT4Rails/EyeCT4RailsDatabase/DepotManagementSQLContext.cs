@@ -125,6 +125,18 @@ namespace EyeCT4RailsDatabase
                 List<Section> sections = GetSections(track);
                 foreach (Section section in sections)
                 {
+                    Section next = sections.Find(s => s.Id == section.Id + 1);
+                    if (next != null)
+                    {
+                        section.AddNextSection(next);
+                    }
+
+                    Section previous = sections.Find(s => s.Id == section.Id - 1);
+                    if (previous != null)
+                    {
+                        section.AddPreviousSection(previous);
+                    }
+
                     track.AddSection(section);
                 }
 

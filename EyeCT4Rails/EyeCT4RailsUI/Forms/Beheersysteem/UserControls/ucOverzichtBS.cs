@@ -159,16 +159,16 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     return;
                 }
 
-                if (!RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, false) &&
-                    !RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, true))
-                {
-                    MessageBox.Show("Op deze sectie kan geen tram geplaatst worden!");
-                    return;
-                }
-
                 if (_selectedSection.Tram != null)
                 {
                     MessageBox.Show("Deze sectie bevat al een tram!");
+                    return;
+                }
+
+                if (!(RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, false) ||
+                    RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, true)))
+                {
+                    MessageBox.Show("Op deze sectie kan geen tram geplaatst worden!");
                     return;
                 }
 
@@ -291,9 +291,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 foreach (var section in Sections)
                 {
-                    _uiSections.Add(section.Tram == null
+                    SectionUiObj sectionUiObj = section.Tram == null
                         ? new SectionUiObj(section.Id, section.Blocked)
-                        : new SectionUiObj(section.Id, section.Blocked, section.Tram));
+                        : new SectionUiObj(section.Id, section.Blocked, section.Tram);
+                    sectionUiObj.AddNextSection(section.NextSection);
+                    sectionUiObj.AddPreviousSection(section.PreviousSection);
+                    
+                    _uiSections.Add(sectionUiObj);
                 }
 
                 Height = (Sections.Count + 1) * SECTION_HEIGHT;
