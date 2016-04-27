@@ -208,7 +208,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 return;
             }
 
-            string tramId = Convert.ToString(selected.Cells[2].Value);
+            int tramId = Convert.ToInt32(selected.Cells[2].Value);
             UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
             AddControl(uc);
             UpdateTitle("Historie");
@@ -228,7 +228,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 return;
             }
 
-            string tramId = Convert.ToString(selected.Cells[2].Value);
+            int tramId = Convert.ToInt32(selected.Cells[2].Value);
             UcTramHistorieRs uc = new UcTramHistorieRs(tramId);
             AddControl(uc);
             UpdateTitle("Historie");
@@ -270,6 +270,40 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void zoekSchoonmaakToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int tramId = Convert.ToInt32(Prompt.ShowDialog("Voor welk tramnummer wilt u de historie opzoeken?", "Zoek schoonmaak historie"));
+
+                UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
+                AddControl(uc);
+                UpdateTitle("Historie");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void zoekReparatieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int tramId = Convert.ToInt32(Prompt.ShowDialog("Voor welk tramnummer wilt u de historie opzoeken?", "Zoek reparatie historie"));
+
+                UcTramHistorieRs uc = new UcTramHistorieRs(tramId);
+                AddControl(uc);
+                UpdateTitle("Historie");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

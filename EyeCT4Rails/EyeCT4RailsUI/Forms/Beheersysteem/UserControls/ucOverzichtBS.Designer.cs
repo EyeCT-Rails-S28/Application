@@ -55,6 +55,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblGereserveerd = new System.Windows.Forms.Label();
             this.lblDienst = new System.Windows.Forms.Label();
             this.btnBevestig = new System.Windows.Forms.Button();
+            this.btnSimulate = new System.Windows.Forms.Button();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -224,7 +225,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblRemise.Size = new System.Drawing.Size(42, 13);
             this.lblRemise.TabIndex = 10;
             this.lblRemise.Text = "Remise";
-            this.lblRemise.Click += new System.EventHandler(this.lblRemise_Click);
             // 
             // lblSchoonmaak
             // 
@@ -258,7 +258,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblGereserveerd.Size = new System.Drawing.Size(71, 13);
             this.lblGereserveerd.TabIndex = 13;
             this.lblGereserveerd.Text = "Gereserveerd";
-            this.lblGereserveerd.Click += new System.EventHandler(this.lblGereserveerd_Click);
             // 
             // lblDienst
             // 
@@ -270,7 +269,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblDienst.Size = new System.Drawing.Size(37, 13);
             this.lblDienst.TabIndex = 14;
             this.lblDienst.Text = "Dienst";
-            this.lblDienst.Click += new System.EventHandler(this.lblDienst_Click);
             // 
             // btnBevestig
             // 
@@ -284,11 +282,22 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.btnBevestig.UseVisualStyleBackColor = true;
             this.btnBevestig.Click += new System.EventHandler(this.btnBevestig_Click);
             // 
+            // btnSimulate
+            // 
+            this.btnSimulate.Location = new System.Drawing.Point(684, 4);
+            this.btnSimulate.Name = "btnSimulate";
+            this.btnSimulate.Size = new System.Drawing.Size(109, 23);
+            this.btnSimulate.TabIndex = 16;
+            this.btnSimulate.Text = "Simuleer Data";
+            this.btnSimulate.UseVisualStyleBackColor = true;
+            this.btnSimulate.Click += new System.EventHandler(this.btnSimulate_Click);
+            // 
             // UcOverzichtBs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.contextMenuStrip;
+            this.Controls.Add(this.btnSimulate);
             this.Controls.Add(this.btnBevestig);
             this.Controls.Add(this.lblDienst);
             this.Controls.Add(this.lblGereserveerd);
@@ -335,5 +344,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.Label lblGereserveerd;
         private System.Windows.Forms.Label lblDienst;
         private System.Windows.Forms.Button btnBevestig;
+        private System.Windows.Forms.Button btnSimulate;
     }
 }

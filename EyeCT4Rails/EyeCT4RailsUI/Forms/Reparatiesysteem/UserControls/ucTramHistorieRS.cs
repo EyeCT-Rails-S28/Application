@@ -2,28 +2,36 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
     public partial class UcTramHistorieRs : UserControl
     {
-        private List<MaintenanceJob> _history;
-
-        public UcTramHistorieRs(string tramnummer)
+        public UcTramHistorieRs(int tramnummer)
         {
             InitializeComponent();
 
             try
             {
-                _history = MaintenanceRepository.Instance.GetHistory(Convert.ToInt32(tramnummer));
+                List<MaintenanceJob> history = MaintenanceRepository.Instance.GetHistory(tramnummer);
 
-                lblTramNummer.Text = "Tramnummer : " + _history[0].Tram.Id;
-                lblSpoor.Text = "Spoor: " + _history[0].Tram.PreferredLine;
-
-                foreach (MaintenanceJob maintenanceJob in _history)
+                if (history.Count > 0)
                 {
-                    dgvTramHistorie.Rows.Add(maintenanceJob.JobSize.ToString(), maintenanceJob.Date.ToString("dd/MM/yyyy"), maintenanceJob.User.Name);
+                    lblTramNummer.Text = "Tramnummer: " + history[0].Tram.Id;
+                    lblSpoor.Text = "Spoor: " + history[0].Tram.PreferredLine;
+                    lblSoort.Text = "Soort: " + history[0].Tram.TramType.GetDescription();
+
+                    foreach (MaintenanceJob maintenanceJob in history)
+                    {
+                        dgvTramHistorie.Rows.Add(maintenanceJob.JobSize.ToString(),
+                            maintenanceJob.Date.ToString("dd/MM/yyyy"), maintenanceJob.User.Name);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Er zijn geen resultaten gevonden voor tramnummer: {tramnummer}");
                 }
             }
             catch (Exception ex)

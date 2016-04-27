@@ -85,7 +85,7 @@ namespace EyeCT4RailsDatabase
                                                       "JOIN \"tram\" t ON t.id = j.tram_id " +
                                                       "JOIN \"line\" l ON t.line_id = l.id " +
                                                       "JOIN \"user\" u ON u.id = j.user_id " +
-                                                      "WHERE j.finished = 0 AND t.id = :id AND j.job_type = 'Maintenance'", connection);
+                                                      "WHERE j.finished = 1 AND t.id = :id AND j.job_type = 'Maintenance'", connection);
             command.CommandType = CommandType.Text;
 
             command.Parameters.Add(new OracleParameter(":id", tramId));

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -479,19 +480,33 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             btnBevestig.Enabled = lbReserveringen.SelectedItem != null && _selectedSection != null;
         }
 
-        private void lblGereserveerd_Click(object sender, EventArgs e)
+        private void btnSimulate_Click(object sender, EventArgs e)
         {
+            RefreshDepot();
 
-        }
+            List<Section> sections = new List<Section>();
+            _depot.Tracks.ForEach(t => sections.AddRange(t.Sections));
 
-        private void lblDienst_Click(object sender, EventArgs e)
-        {
+            List<Tram> parkedTrams = new List<Tram>();
+            sections.FindAll(s => s.Tram != null).ForEach(s => parkedTrams.Add(s.Tram));
 
-        }
+            List<Tram> unparkedTrams = new List<Tram>(_depot.Trams);
+            unparkedTrams.RemoveAll(t => parkedTrams.Contains(t));
 
-        private void lblRemise_Click(object sender, EventArgs e)
-        {
+            int count = unparkedTrams.Count;
+            Random random = new Random();
+            for (int i = 0; i < count; i++)
+            {
+                Tram tram = unparkedTrams[random.Next(unparkedTrams.Count)];
+                Section section = RideManagementRepository.Instance.GetFreeSection(_depot);
 
+                DepotManagementRepository.Instance.ReserveSection(tram.Id, section.Id);
+            
+                unparkedTrams.Remove(tram);
+
+                RefreshControl();
+                Thread.Sleep(500);
+            }
         }
     }
 }

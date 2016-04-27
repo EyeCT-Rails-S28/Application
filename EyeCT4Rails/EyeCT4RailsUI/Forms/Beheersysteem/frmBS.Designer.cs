@@ -35,8 +35,10 @@
             this.inEnUitrijSysteemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.schoonmaakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planSchoonmaakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoekSchoonmaakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reparatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planReparatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zoekReparatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControls = new System.Windows.Forms.Panel();
             this.msMenu.SuspendLayout();
@@ -89,7 +91,8 @@
             // schoonmaakToolStripMenuItem
             // 
             this.schoonmaakToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.planSchoonmaakToolStripMenuItem});
+            this.planSchoonmaakToolStripMenuItem,
+            this.zoekSchoonmaakToolStripMenuItem});
             this.schoonmaakToolStripMenuItem.Name = "schoonmaakToolStripMenuItem";
             this.schoonmaakToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.schoonmaakToolStripMenuItem.Text = "Schoonmaak";
@@ -102,10 +105,18 @@
             this.planSchoonmaakToolStripMenuItem.Text = "Plan schoonmaak";
             this.planSchoonmaakToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
+            // zoekSchoonmaakToolStripMenuItem
+            // 
+            this.zoekSchoonmaakToolStripMenuItem.Name = "zoekSchoonmaakToolStripMenuItem";
+            this.zoekSchoonmaakToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.zoekSchoonmaakToolStripMenuItem.Text = "Zoek";
+            this.zoekSchoonmaakToolStripMenuItem.Click += new System.EventHandler(this.zoekSchoonmaakToolStripMenuItem_Click);
+            // 
             // reparatieToolStripMenuItem
             // 
             this.reparatieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.planReparatieToolStripMenuItem});
+            this.planReparatieToolStripMenuItem,
+            this.zoekReparatieToolStripMenuItem});
             this.reparatieToolStripMenuItem.Name = "reparatieToolStripMenuItem";
             this.reparatieToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.reparatieToolStripMenuItem.Text = "Reparatie";
@@ -114,9 +125,16 @@
             // planReparatieToolStripMenuItem
             // 
             this.planReparatieToolStripMenuItem.Name = "planReparatieToolStripMenuItem";
-            this.planReparatieToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.planReparatieToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.planReparatieToolStripMenuItem.Text = "Plan reparatie";
             this.planReparatieToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
+            // 
+            // zoekReparatieToolStripMenuItem
+            // 
+            this.zoekReparatieToolStripMenuItem.Name = "zoekReparatieToolStripMenuItem";
+            this.zoekReparatieToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.zoekReparatieToolStripMenuItem.Text = "Zoek";
+            this.zoekReparatieToolStripMenuItem.Click += new System.EventHandler(this.zoekReparatieToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -164,6 +182,8 @@
         private System.Windows.Forms.ToolStripMenuItem gebruikerBeheerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem planSchoonmaakToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem planReparatieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoekSchoonmaakToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zoekReparatieToolStripMenuItem;
     }
 }
 
