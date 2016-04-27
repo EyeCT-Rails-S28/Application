@@ -70,5 +70,26 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
             RefreshData();
         }
+
+        private void btnSchoonmaakVerwijderen_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvTrams.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value))
+                {
+                    try
+                    {
+                        CleanupRepository.Instance.RemoveScheduledJob(Convert.ToInt32(row.Cells[1].Value));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show($"Fout bij het afronden van schoonmaakbeurt met ID: {row.Cells[1].Value}, {ex.Message}");
+                    }
+                }
+            }
+
+            RefreshData();
+        }
     }
 }

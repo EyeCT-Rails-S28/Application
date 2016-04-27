@@ -37,6 +37,7 @@
             this.Spoor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type_Beurt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reparatie_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnReparatieVerwijderen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,10 +119,22 @@
             this.Reparatie_Datum.Name = "Reparatie_Datum";
             this.Reparatie_Datum.ReadOnly = true;
             // 
+            // btnReparatieVerwijderen
+            // 
+            this.btnReparatieVerwijderen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReparatieVerwijderen.Location = new System.Drawing.Point(174, 392);
+            this.btnReparatieVerwijderen.Name = "btnReparatieVerwijderen";
+            this.btnReparatieVerwijderen.Size = new System.Drawing.Size(162, 23);
+            this.btnReparatieVerwijderen.TabIndex = 5;
+            this.btnReparatieVerwijderen.Text = "Reparatiebeurt verwijderen";
+            this.btnReparatieVerwijderen.UseVisualStyleBackColor = true;
+            this.btnReparatieVerwijderen.Click += new System.EventHandler(this.btnReparatieVerwijderen_Click);
+            // 
             // UcReparatie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnReparatieVerwijderen);
             this.Controls.Add(this.btnReparatieAfronden);
             this.Controls.Add(this.dgvTrams);
             this.Name = "UcReparatie";
@@ -141,5 +154,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Spoor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Beurt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Reparatie_Datum;
+        private System.Windows.Forms.Button btnReparatieVerwijderen;
     }
 }
