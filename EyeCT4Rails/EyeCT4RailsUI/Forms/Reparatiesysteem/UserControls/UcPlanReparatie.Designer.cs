@@ -32,7 +32,7 @@
             this.gbReJob = new System.Windows.Forms.GroupBox();
             this.btnMeerdere = new System.Windows.Forms.Button();
             this.lblEindDatum = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.nudInterval = new System.Windows.Forms.NumericUpDown();
             this.dtpEindDatum = new System.Windows.Forms.DateTimePicker();
             this.lblInterval = new System.Windows.Forms.Label();
             this.dtpDatum = new System.Windows.Forms.DateTimePicker();
@@ -44,7 +44,7 @@
             this.cbGrootteBeurt = new System.Windows.Forms.ComboBox();
             this.lblGrootteBeurt = new System.Windows.Forms.Label();
             this.gbReJob.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // btnEnkel
@@ -55,12 +55,13 @@
             this.btnEnkel.TabIndex = 24;
             this.btnEnkel.Text = "Enkel";
             this.btnEnkel.UseVisualStyleBackColor = true;
+            this.btnEnkel.Click += new System.EventHandler(this.btnEnkel_Click);
             // 
             // gbReJob
             // 
             this.gbReJob.Controls.Add(this.btnMeerdere);
             this.gbReJob.Controls.Add(this.lblEindDatum);
-            this.gbReJob.Controls.Add(this.numericUpDown1);
+            this.gbReJob.Controls.Add(this.nudInterval);
             this.gbReJob.Controls.Add(this.dtpEindDatum);
             this.gbReJob.Controls.Add(this.lblInterval);
             this.gbReJob.Location = new System.Drawing.Point(304, 3);
@@ -78,6 +79,7 @@
             this.btnMeerdere.TabIndex = 15;
             this.btnMeerdere.Text = "Meerdere";
             this.btnMeerdere.UseVisualStyleBackColor = true;
+            this.btnMeerdere.Click += new System.EventHandler(this.btnMeerdere_Click);
             // 
             // lblEindDatum
             // 
@@ -88,12 +90,12 @@
             this.lblEindDatum.TabIndex = 9;
             this.lblEindDatum.Text = "Eind datum:";
             // 
-            // numericUpDown1
+            // nudInterval
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(96, 36);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(200, 20);
-            this.numericUpDown1.TabIndex = 12;
+            this.nudInterval.Location = new System.Drawing.Point(96, 36);
+            this.nudInterval.Name = "nudInterval";
+            this.nudInterval.Size = new System.Drawing.Size(200, 20);
+            this.nudInterval.TabIndex = 12;
             // 
             // dtpEindDatum
             // 
@@ -198,7 +200,7 @@
             this.Size = new System.Drawing.Size(635, 144);
             this.gbReJob.ResumeLayout(false);
             this.gbReJob.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudInterval)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,7 +212,7 @@
         private System.Windows.Forms.GroupBox gbReJob;
         private System.Windows.Forms.Button btnMeerdere;
         private System.Windows.Forms.Label lblEindDatum;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nudInterval;
         private System.Windows.Forms.DateTimePicker dtpEindDatum;
         private System.Windows.Forms.Label lblInterval;
         private System.Windows.Forms.DateTimePicker dtpDatum;
