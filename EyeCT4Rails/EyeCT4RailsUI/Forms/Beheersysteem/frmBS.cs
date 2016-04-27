@@ -162,7 +162,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             else if (type == typeof(UcReparatie))
             {
-                (uc as UcReparatie).CelDoubleClicked += CelDoubleClickedCleanUp;
+                (uc as UcReparatie).CelDoubleClicked += CelDoubleClickedMaintenance;
             }
             else if (type == typeof(UcOverzichtBs))
             {
