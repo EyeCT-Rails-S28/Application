@@ -33,34 +33,31 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
             
             _tracks = new List<TrackUiObj>();
-        }
-
-        public void SetDepot(Depot depot)
-        {
-            _depot = depot;
-            _tracks.Clear();
-
-            if (depot != null)
-            {
-                foreach (var track in _depot.Tracks)
-                {
-                    TrackUiObj trackUiObj = new TrackUiObj(track.Id);
-                    foreach (var section in track.Sections)
-                    {
-                        trackUiObj.AddSection(section);
-                    }
-
-                    trackUiObj.ConvertSections();
-                    _tracks.Add(trackUiObj);
-                }
-            }
+            RefreshDepot();
         }
 
         private void RefreshDepot()
         {
             try
             {
-                SetDepot(DepotManagementRepository.Instance.GetDepot("Havenstraat"));
+                _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+                _tracks.Clear();
+
+                if (_depot != null)
+                {
+                    foreach (var track in _depot.Tracks)
+                    {
+                        TrackUiObj trackUiObj = new TrackUiObj(track.Id);
+                        foreach (var section in track.Sections)
+                        {
+                            trackUiObj.AddSection(section);
+                        }
+
+                        trackUiObj.ConvertSections();
+                        _tracks.Add(trackUiObj);
+                    }
+                }
+
                 pnlTracks.Refresh();
             }
             catch (Exception ex)

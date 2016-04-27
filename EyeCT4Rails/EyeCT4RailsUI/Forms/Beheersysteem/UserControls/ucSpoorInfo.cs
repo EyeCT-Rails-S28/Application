@@ -14,7 +14,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             InitializeComponent();
         }
 
-        public void SetSelection(Depot depot, Track track)
+        public void SetSelection(Track track)
         {
             lblSpoornummer.Text += $" {track.Id}";
 

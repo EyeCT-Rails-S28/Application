@@ -158,24 +158,18 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 (uc as UcSchoonmaak).CelDoubleClicked += CelDoubleClickedCleanUp;
             }
-            else if (type == typeof (UcInEnUitRijSysteem))
-            {
-                (uc as UcInEnUitRijSysteem).SetDepot(_depot);
-            }
             else if (type == typeof(UcReparatie))
             {
                 (uc as UcReparatie).CelDoubleClicked += CelDoubleClickedMaintenance;
             }
             else if (type == typeof(UcOverzichtBs))
             {
-                RefreshDepot();
-                (uc as UcOverzichtBs).SetDepot(_depot);
                 (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
                 (uc as UcOverzichtBs).SpoorInfo += SpoorInfo;
             }
             else if (type == typeof(UcSpoorInfo))
             {
-                (uc as UcSpoorInfo).SetSelection(_depot, _selectedTrack);
+                (uc as UcSpoorInfo).SetSelection(_selectedTrack);
             }
             else if (type == typeof(UcPlanSchoonmaak))
             {
@@ -184,10 +178,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             else if (type == typeof(UcPlanReparatie))
             {
                 (uc as UcPlanReparatie).SetUser(_currentUser);
-            }
-            else if (type == typeof(UcTramInfo))
-            {
-                (uc as UcTramInfo).AddFromDepot(_depot);
             }
         }
 
@@ -214,7 +204,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
             Track track = sender as Track;
             UcSpoorInfo info = Activator.CreateInstance(typeof (UcSpoorInfo)) as UcSpoorInfo;
-            info.SetSelection(_depot, track);
+            info.SetSelection(track);
             AddControl(info);
         }
 
