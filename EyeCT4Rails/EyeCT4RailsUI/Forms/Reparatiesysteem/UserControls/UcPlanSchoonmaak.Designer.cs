@@ -38,6 +38,13 @@
             this.dtpDatum = new System.Windows.Forms.DateTimePicker();
             this.dtpEindDatum = new System.Windows.Forms.DateTimePicker();
             this.lblEindDatum = new System.Windows.Forms.Label();
+            this.lblInterval = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.gbReJob = new System.Windows.Forms.GroupBox();
+            this.btnEnkel = new System.Windows.Forms.Button();
+            this.btnMeerdere = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.gbReJob.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblGrootteBeurt
@@ -55,7 +62,7 @@
             this.cbGrootteBeurt.Items.AddRange(new object[] {
             "Big",
             "Small"});
-            this.cbGrootteBeurt.Location = new System.Drawing.Point(95, 19);
+            this.cbGrootteBeurt.Location = new System.Drawing.Point(107, 19);
             this.cbGrootteBeurt.Name = "cbGrootteBeurt";
             this.cbGrootteBeurt.Size = new System.Drawing.Size(200, 21);
             this.cbGrootteBeurt.TabIndex = 1;
@@ -71,7 +78,7 @@
             // 
             // tbUserID
             // 
-            this.tbUserID.Location = new System.Drawing.Point(95, 46);
+            this.tbUserID.Location = new System.Drawing.Point(107, 46);
             this.tbUserID.Name = "tbUserID";
             this.tbUserID.ReadOnly = true;
             this.tbUserID.Size = new System.Drawing.Size(200, 20);
@@ -79,7 +86,7 @@
             // 
             // tbTramID
             // 
-            this.tbTramID.Location = new System.Drawing.Point(95, 72);
+            this.tbTramID.Location = new System.Drawing.Point(107, 72);
             this.tbTramID.Name = "tbTramID";
             this.tbTramID.Size = new System.Drawing.Size(200, 20);
             this.tbTramID.TabIndex = 6;
@@ -104,14 +111,14 @@
             // 
             // dtpDatum
             // 
-            this.dtpDatum.Location = new System.Drawing.Point(95, 100);
+            this.dtpDatum.Location = new System.Drawing.Point(107, 100);
             this.dtpDatum.Name = "dtpDatum";
             this.dtpDatum.Size = new System.Drawing.Size(200, 20);
             this.dtpDatum.TabIndex = 8;
             // 
             // dtpEindDatum
             // 
-            this.dtpEindDatum.Location = new System.Drawing.Point(95, 130);
+            this.dtpEindDatum.Location = new System.Drawing.Point(96, 10);
             this.dtpEindDatum.Name = "dtpEindDatum";
             this.dtpEindDatum.Size = new System.Drawing.Size(200, 20);
             this.dtpEindDatum.TabIndex = 10;
@@ -119,18 +126,66 @@
             // lblEindDatum
             // 
             this.lblEindDatum.AutoSize = true;
-            this.lblEindDatum.Location = new System.Drawing.Point(17, 136);
+            this.lblEindDatum.Location = new System.Drawing.Point(6, 16);
             this.lblEindDatum.Name = "lblEindDatum";
             this.lblEindDatum.Size = new System.Drawing.Size(63, 13);
             this.lblEindDatum.TabIndex = 9;
             this.lblEindDatum.Text = "Eind datum:";
             // 
+            // lblInterval
+            // 
+            this.lblInterval.AutoSize = true;
+            this.lblInterval.Location = new System.Drawing.Point(6, 39);
+            this.lblInterval.Name = "lblInterval";
+            this.lblInterval.Size = new System.Drawing.Size(84, 13);
+            this.lblInterval.TabIndex = 11;
+            this.lblInterval.Text = "Interval (dagen):";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(96, 36);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(200, 20);
+            this.numericUpDown1.TabIndex = 12;
+            // 
+            // gbReJob
+            // 
+            this.gbReJob.Controls.Add(this.btnMeerdere);
+            this.gbReJob.Controls.Add(this.lblEindDatum);
+            this.gbReJob.Controls.Add(this.numericUpDown1);
+            this.gbReJob.Controls.Add(this.dtpEindDatum);
+            this.gbReJob.Controls.Add(this.lblInterval);
+            this.gbReJob.Location = new System.Drawing.Point(313, 19);
+            this.gbReJob.Name = "gbReJob";
+            this.gbReJob.Size = new System.Drawing.Size(309, 100);
+            this.gbReJob.TabIndex = 13;
+            this.gbReJob.TabStop = false;
+            this.gbReJob.Text = "Meerdere";
+            // 
+            // btnEnkel
+            // 
+            this.btnEnkel.Location = new System.Drawing.Point(107, 127);
+            this.btnEnkel.Name = "btnEnkel";
+            this.btnEnkel.Size = new System.Drawing.Size(200, 23);
+            this.btnEnkel.TabIndex = 14;
+            this.btnEnkel.Text = "Enkel";
+            this.btnEnkel.UseVisualStyleBackColor = true;
+            // 
+            // btnMeerdere
+            // 
+            this.btnMeerdere.Location = new System.Drawing.Point(96, 62);
+            this.btnMeerdere.Name = "btnMeerdere";
+            this.btnMeerdere.Size = new System.Drawing.Size(200, 23);
+            this.btnMeerdere.TabIndex = 15;
+            this.btnMeerdere.Text = "Meerdere";
+            this.btnMeerdere.UseVisualStyleBackColor = true;
+            // 
             // UcPlanSchoonmaak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dtpEindDatum);
-            this.Controls.Add(this.lblEindDatum);
+            this.Controls.Add(this.btnEnkel);
+            this.Controls.Add(this.gbReJob);
             this.Controls.Add(this.dtpDatum);
             this.Controls.Add(this.lblDatum);
             this.Controls.Add(this.tbTramID);
@@ -140,7 +195,10 @@
             this.Controls.Add(this.cbGrootteBeurt);
             this.Controls.Add(this.lblGrootteBeurt);
             this.Name = "UcPlanSchoonmaak";
-            this.Size = new System.Drawing.Size(433, 237);
+            this.Size = new System.Drawing.Size(641, 165);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.gbReJob.ResumeLayout(false);
+            this.gbReJob.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,5 +216,10 @@
         private System.Windows.Forms.DateTimePicker dtpDatum;
         private System.Windows.Forms.DateTimePicker dtpEindDatum;
         private System.Windows.Forms.Label lblEindDatum;
+        private System.Windows.Forms.Label lblInterval;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.GroupBox gbReJob;
+        private System.Windows.Forms.Button btnMeerdere;
+        private System.Windows.Forms.Button btnEnkel;
     }
 }
