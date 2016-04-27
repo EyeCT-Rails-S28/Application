@@ -78,7 +78,11 @@
             this.Opmerkingen,
             this.Uitgevoerd});
             this.dgvTramHistorie.Location = new System.Drawing.Point(0, 28);
+            this.dgvTramHistorie.MultiSelect = false;
             this.dgvTramHistorie.Name = "dgvTramHistorie";
+            this.dgvTramHistorie.ReadOnly = true;
+            this.dgvTramHistorie.RowHeadersVisible = false;
+            this.dgvTramHistorie.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTramHistorie.Size = new System.Drawing.Size(449, 470);
             this.dgvTramHistorie.TabIndex = 3;
             // 
@@ -86,23 +90,27 @@
             // 
             this.Type_Beurt.HeaderText = "Type Beurt";
             this.Type_Beurt.Name = "Type_Beurt";
+            this.Type_Beurt.ReadOnly = true;
             // 
             // Schoonmaak_Datum
             // 
             this.Schoonmaak_Datum.HeaderText = "Schoonmaak datum";
             this.Schoonmaak_Datum.Name = "Schoonmaak_Datum";
+            this.Schoonmaak_Datum.ReadOnly = true;
             // 
             // Opmerkingen
             // 
             this.Opmerkingen.HeaderText = "Opmerkingen";
             this.Opmerkingen.Name = "Opmerkingen";
+            this.Opmerkingen.ReadOnly = true;
             // 
             // Uitgevoerd
             // 
             this.Uitgevoerd.HeaderText = "Uitgevoerd door";
             this.Uitgevoerd.Name = "Uitgevoerd";
+            this.Uitgevoerd.ReadOnly = true;
             // 
-            // ucTramHistorieSCH
+            // UcTramHistorieSch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

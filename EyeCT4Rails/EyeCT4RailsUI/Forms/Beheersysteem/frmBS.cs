@@ -198,17 +198,21 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         public void CelDoubleClicked(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
-
-            if (data?.SelectedCells[0].ColumnIndex == 1)
+            if (data == null)
             {
-                string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
-
-                UcTramHistorieSch uc = new UcTramHistorieSch(tramNummer);
-
-                AddControl(uc);
-
-                UpdateTitle("Historie");
+                return;
             }
+
+            DataGridViewRow selected = data.SelectedRows[0];
+            if (selected == null)
+            {
+                return;
+            }
+
+            string tramId = Convert.ToString(selected.Cells[2].Value);
+            UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
+            AddControl(uc);
+            UpdateTitle("Historie");
         }
 
         private string UppercaseFirst(string s)
