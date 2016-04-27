@@ -59,6 +59,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // nudSectornummer
             // 
             this.nudSectornummer.Location = new System.Drawing.Point(32, 64);
+            this.nudSectornummer.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
             this.nudSectornummer.Name = "nudSectornummer";
             this.nudSectornummer.Size = new System.Drawing.Size(107, 20);
             this.nudSectornummer.TabIndex = 21;

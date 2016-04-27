@@ -80,6 +80,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // nudTramnummer
             // 
             this.nudTramnummer.Location = new System.Drawing.Point(15, 67);
+            this.nudTramnummer.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
             this.nudTramnummer.Name = "nudTramnummer";
             this.nudTramnummer.Size = new System.Drawing.Size(120, 20);
             this.nudTramnummer.TabIndex = 13;
@@ -87,6 +92,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // nudSectornummer
             // 
             this.nudSectornummer.Location = new System.Drawing.Point(147, 67);
+            this.nudSectornummer.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
             this.nudSectornummer.Name = "nudSectornummer";
             this.nudSectornummer.Size = new System.Drawing.Size(120, 20);
             this.nudSectornummer.TabIndex = 14;

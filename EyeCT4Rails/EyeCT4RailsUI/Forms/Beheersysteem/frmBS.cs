@@ -36,6 +36,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _namespaces.Add(reparatieToolStripMenuItem, typeof(UcReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(UcOverzichtBs).Namespace);
             _namespaces.Add(inEnUitrijSysteemToolStripMenuItem, typeof(UcInEnUitRijSysteem).Namespace);
+            _namespaces.Add(gebruikerBeheerToolStripMenuItem, typeof(UcMaakGebruiker).Namespace);
 
             msMenu.Visible = false;
             AddControl(_ucLogIn);
@@ -82,7 +83,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                     {
                         item.Visible = true;
                     }
-
                     break;
                 case Role.Mechanic:
                     reparatieToolStripMenuItem.Visible = true;

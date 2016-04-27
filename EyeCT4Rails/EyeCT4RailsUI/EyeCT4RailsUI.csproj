@@ -65,6 +65,12 @@
     <Compile Include="Forms\Login\ucLogIn.Designer.cs">
       <DependentUpon>ucLogIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Login\UcMaakGebruiker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Login\UcMaakGebruiker.Designer.cs">
+      <DependentUpon>UcMaakGebruiker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Prompt.cs" />
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucReparatie.cs">
       <SubType>UserControl</SubType>
@@ -172,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login\ucLogIn.resx">
       <DependentUpon>ucLogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Login\UcMaakGebruiker.resx">
+      <DependentUpon>UcMaakGebruiker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Reparatiesysteem\UserControls\ucReparatie.resx">
       <DependentUpon>ucReparatie.cs</DependentUpon>

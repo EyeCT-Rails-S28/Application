@@ -56,6 +56,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // nudSpoornummer
             // 
             this.nudSpoornummer.Location = new System.Drawing.Point(101, 32);
+            this.nudSpoornummer.Maximum = new decimal(new int[] {
+            4000,
+            0,
+            0,
+            0});
             this.nudSpoornummer.Name = "nudSpoornummer";
             this.nudSpoornummer.Size = new System.Drawing.Size(90, 20);
             this.nudSpoornummer.TabIndex = 15;
