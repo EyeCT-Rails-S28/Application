@@ -28,8 +28,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private Section _selectedSection;
         private List<Tram> _needyTrams;
 
-        private int _ticks;
-
         public UcOverzichtBs()
         {
             InitializeComponent();
@@ -44,8 +42,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void RefreshControl()
         {
-            if(_ticks%20 == 0)
-                RefreshDepot();
+            RefreshDepot();
             CheckForReservedFlag();
             RefreshUi();
         }
@@ -174,7 +171,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            _ticks++;
             RefreshControl();
         }
 
