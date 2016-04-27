@@ -87,10 +87,7 @@ namespace EyeCT4RailsDatabase
             List<Tram> trams = new List<Tram>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT t.id, t.tramtype, t.status, t.line_id, t.forced, " +
-                                                      "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Cleanup' AND tram_id = t.id)) AS \"Schoonmaak\", " +
-                                                      "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Maintenance' AND tram_id = t.id)) AS \"Reparaties\" FROM \"tram\" t " +
-                                                      "GROUP by t.id, t.tramtype, t.status, t.line_id, t.forced", connection);
+            OracleCommand command = new OracleCommand("SELECT t.id, t.tramtype, t.status, t.line_id, t.forced FROM \"tram\" t", connection);
             command.CommandType = CommandType.Text;
 
             OracleDataReader reader = command.ExecuteReader();

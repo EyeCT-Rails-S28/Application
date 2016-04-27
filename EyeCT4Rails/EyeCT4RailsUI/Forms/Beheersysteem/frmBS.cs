@@ -19,7 +19,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
 
         private readonly UcLogIn _ucLogIn;
         private User _currentUser;
-        private Depot _depot;
         private Track _selectedTrack;
         private Section _selectedSection;
 
@@ -56,21 +55,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             ShowMenuItems();
 
             UpdateTitle("");
-
-            RefreshDepot();
-        }
-
-        private void RefreshDepot()
-        {
-            try
-            {
-                _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                MessageBox.Show($"Fout bij het herladen van de Depot: {ex.Message}");
-            }
         }
 
         private void ShowMenuItems()
