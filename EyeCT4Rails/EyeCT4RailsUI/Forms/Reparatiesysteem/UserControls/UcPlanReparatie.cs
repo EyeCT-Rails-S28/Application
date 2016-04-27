@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using EyeCT4RailsLib.Enums;
 
-namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
+namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
-    public partial class UcPlanSchoonmaak : UserControl
+    public partial class UcPlanReparatie : UserControl
     {
-        public UcPlanSchoonmaak()
+        public UcPlanReparatie()
         {
             InitializeComponent();
         }
