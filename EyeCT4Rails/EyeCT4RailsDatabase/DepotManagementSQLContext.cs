@@ -130,6 +130,8 @@ namespace EyeCT4RailsDatabase
                 depot.AddTrack(track);
             }
 
+            List<Tram> trams = GetAllTrams();
+            trams.ForEach(t => depot.AddTram(t));
 
             return depot;
         }
@@ -161,10 +163,9 @@ namespace EyeCT4RailsDatabase
             List<Section> list = new List<Section>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id, t.status, t.line_id, t.forced " +
-                                                      "FROM \"section\" s, \"tram\" t " +
-                                                      "WHERE track_id = :track_id " +
-                                                      "AND(s.tram_id IS NULL OR s.tram_id = t.id)", connection);
+            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id " +
+                                                      "FROM \"section\" s " +
+                                                      "WHERE track_id = :track_id ", connection);
             command.CommandType = CommandType.Text;
 
             command.Parameters.Add(new OracleParameter(":track_id", OracleDbType.Int32)).Value = track.Id;
@@ -181,12 +182,7 @@ namespace EyeCT4RailsDatabase
                 }
                 else
                 {
-                    int tramId = reader.GetInt32(2);
-                    Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(3));
-                    Line line = new Line(reader.GetInt32(4));
-                    bool forced = reader.GetInt32(5) == 1;
-
-                    Tram tram = new Tram(tramId, status, line, forced);
+                    Tram tram = GetAllTrams().Find(t => t.Id == reader.GetInt32(2));
                     Section section = new Section(sectionId, blocked, tram);
                     list.Add(section);
                 }
