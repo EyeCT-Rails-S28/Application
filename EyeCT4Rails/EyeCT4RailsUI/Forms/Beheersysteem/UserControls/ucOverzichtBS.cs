@@ -28,6 +28,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private Section _selectedSection;
         private List<Tram> _needyTrams;
 
+        private int _ticks;
+
         public UcOverzichtBs()
         {
             InitializeComponent();
@@ -42,7 +44,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void RefreshControl()
         {
-            RefreshDepot();
+            if(_ticks%20 == 0)
+                RefreshDepot();
             CheckForReservedFlag();
             RefreshUi();
         }
@@ -167,6 +170,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            _ticks++;
             RefreshControl();
         }
 
@@ -177,7 +181,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 List<Tram> trams = DepotManagementRepository.Instance.GetTramsWithReservedFlag();
 
                 if (trams.Exists(x => !_needyTrams.Exists(y => x.Id == y.Id)))
+                {
                     MessageBox.Show("Er is een tram die een handmatige invoer vereist.");
+                    RefreshDepot();
+                }
 
                 _needyTrams.Clear();
                 _needyTrams.AddRange(trams);
