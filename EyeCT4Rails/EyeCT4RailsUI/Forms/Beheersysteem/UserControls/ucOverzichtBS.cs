@@ -159,6 +159,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     return;
                 }
 
+                if (!RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, false) &&
+                    !RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, true))
+                {
+                    MessageBox.Show("Op deze sectie kan geen tram geplaatst worden!");
+                    return;
+                }
+
                 if (_selectedSection.Tram != null)
                 {
                     MessageBox.Show("Deze sectie bevat al een tram!");
