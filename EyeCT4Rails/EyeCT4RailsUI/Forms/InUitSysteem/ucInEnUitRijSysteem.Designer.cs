@@ -39,17 +39,20 @@
             this.tbTramnummer = new System.Windows.Forms.TextBox();
             this.lblSpoornummer = new System.Windows.Forms.Label();
             this.lblTramnummer = new System.Windows.Forms.Label();
+            this.tbSectienummer = new System.Windows.Forms.TextBox();
+            this.lblSectienummer = new System.Windows.Forms.Label();
             this.gbTA.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnBevestig
             // 
-            this.btnBevestig.Location = new System.Drawing.Point(269, 88);
+            this.btnBevestig.Location = new System.Drawing.Point(269, 51);
             this.btnBevestig.Name = "btnBevestig";
             this.btnBevestig.Size = new System.Drawing.Size(112, 46);
             this.btnBevestig.TabIndex = 22;
             this.btnBevestig.Text = "Bevestig";
             this.btnBevestig.UseVisualStyleBackColor = true;
+            this.btnBevestig.Click += new System.EventHandler(this.btnBevestig_Click);
             // 
             // cbSchoonmaak
             // 
@@ -113,14 +116,15 @@
             // 
             // tbSpoornummer
             // 
-            this.tbSpoornummer.Location = new System.Drawing.Point(60, 47);
+            this.tbSpoornummer.Location = new System.Drawing.Point(60, 25);
             this.tbSpoornummer.Name = "tbSpoornummer";
+            this.tbSpoornummer.ReadOnly = true;
             this.tbSpoornummer.Size = new System.Drawing.Size(100, 20);
             this.tbSpoornummer.TabIndex = 17;
             // 
             // tbTramnummer
             // 
-            this.tbTramnummer.Location = new System.Drawing.Point(269, 47);
+            this.tbTramnummer.Location = new System.Drawing.Point(269, 25);
             this.tbTramnummer.Name = "tbTramnummer";
             this.tbTramnummer.Size = new System.Drawing.Size(112, 20);
             this.tbTramnummer.TabIndex = 16;
@@ -143,10 +147,29 @@
             this.lblTramnummer.TabIndex = 14;
             this.lblTramnummer.Text = "Tramnummer:";
             // 
+            // tbSectienummer
+            // 
+            this.tbSectienummer.Location = new System.Drawing.Point(60, 67);
+            this.tbSectienummer.Name = "tbSectienummer";
+            this.tbSectienummer.ReadOnly = true;
+            this.tbSectienummer.Size = new System.Drawing.Size(100, 20);
+            this.tbSectienummer.TabIndex = 24;
+            // 
+            // lblSectienummer
+            // 
+            this.lblSectienummer.AutoSize = true;
+            this.lblSectienummer.Location = new System.Drawing.Point(57, 51);
+            this.lblSectienummer.Name = "lblSectienummer";
+            this.lblSectienummer.Size = new System.Drawing.Size(79, 13);
+            this.lblSectienummer.TabIndex = 23;
+            this.lblSectienummer.Text = "Ga naar sectie:";
+            // 
             // UcInEnUitRijSysteem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tbSectienummer);
+            this.Controls.Add(this.lblSectienummer);
             this.Controls.Add(this.btnBevestig);
             this.Controls.Add(this.cbSchoonmaak);
             this.Controls.Add(this.gbTA);
@@ -178,5 +201,7 @@
         private System.Windows.Forms.TextBox tbTramnummer;
         private System.Windows.Forms.Label lblSpoornummer;
         private System.Windows.Forms.Label lblTramnummer;
+        private System.Windows.Forms.TextBox tbSectienummer;
+        private System.Windows.Forms.Label lblSectienummer;
     }
 }
