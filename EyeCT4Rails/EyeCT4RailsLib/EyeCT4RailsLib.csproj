@@ -45,6 +45,7 @@
     <Compile Include="Enums\JobSize.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\TramType.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="MaintenanceJob.cs" />

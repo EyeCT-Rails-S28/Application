@@ -65,6 +65,7 @@
     <Compile Include="Forms\Login\ucLogIn.Designer.cs">
       <DependentUpon>ucLogIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Prompt.cs" />
     <Compile Include="Forms\Reparatiesysteem\UserControls\ucReparatie.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -139,6 +140,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms\Beheersysteem\UserControls\UcMaakGebruiker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Beheersysteem\UserControls\UcMaakGebruiker.designer.cs">
+      <DependentUpon>UcMaakGebruiker.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Forms\Beheersysteem\frmBS.resx">
       <DependentUpon>frmBS.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,6 +200,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\UcMaakGebruiker.resx">
+      <DependentUpon>UcMaakGebruiker.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Cleanup.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Depot.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Job.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Line.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.MaintenanceJob.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Ride.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Section.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Track.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.Tram.datasource" />
+    <None Include="Properties\DataSources\EyeCT4RailsLib.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

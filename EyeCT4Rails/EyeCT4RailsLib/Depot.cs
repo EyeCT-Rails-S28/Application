@@ -6,6 +6,8 @@ namespace EyeCT4RailsLib
     {
         private readonly List<Track> _tracks;
 
+        private readonly List<Tram> _trams; 
+
         /// <summary>
         /// The id in the database of the depot.
         /// </summary>
@@ -20,6 +22,10 @@ namespace EyeCT4RailsLib
         public List<Track> Tracks => new List<Track>(_tracks);
 
         /// <summary>
+        /// The trams the depot has.
+        /// </summary>
+        public List<Tram> Trams => new List<Tram>(_trams); 
+        /// <summary>
         /// Creates a depot with an id and name.
         /// </summary>
         /// <param name="id">Id of the depot in the database.</param>
@@ -29,6 +35,7 @@ namespace EyeCT4RailsLib
             Id = id;
             Name = name;
             _tracks = new List<Track>();
+            _trams = new List<Tram>();
         }
 
         /// <summary>
@@ -39,6 +46,14 @@ namespace EyeCT4RailsLib
         {
             if (!_tracks.Contains(track))
                 _tracks.Add(track);
+        }
+
+        public void AddTram(Tram tram)
+        {
+            if (!_trams.Contains(tram))
+            {
+                _trams.Add(tram);
+            }
         }
 
         public override string ToString()

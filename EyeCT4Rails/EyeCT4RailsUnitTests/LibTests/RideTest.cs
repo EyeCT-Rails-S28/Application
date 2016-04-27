@@ -12,7 +12,7 @@ namespace EyeCT4RailsUnitTests.LibTests
         [TestInitialize]
         public void RideInit()
         {
-            _ride = new Ride(1, new Line(1), new User(1, "Piet", "", Role.Driver), new Tram(1, Status.Dienst, new Line(1), false));
+            _ride = new Ride(1, new Line(1), new User(1, "Piet", "", Role.Driver), new Tram(1, TramType.Combino,  Status.Dienst, new Line(1), false));
         }
 
         [TestMethod]

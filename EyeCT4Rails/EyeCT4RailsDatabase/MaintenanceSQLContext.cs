@@ -15,18 +15,19 @@ namespace EyeCT4RailsDatabase
             List<Tram> list = new List<Tram>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT id, line_id, forced FROM \"tram\" WHERE status = 'Defect'", connection);
+            OracleCommand command = new OracleCommand("SELECT id, tramtype, line_id, forced FROM \"tram\" WHERE status = 'Defect'", connection);
             command.CommandType = CommandType.Text;
 
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 int id = reader.GetInt32(0);
+                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(1));
                 Status status = Status.Schoonmaak;
-                Line line = new Line(reader.GetInt32(1));
-                bool forced = reader.GetInt32(2) == 1;
+                Line line = new Line(reader.GetInt32(2));
+                bool forced = reader.GetInt32(3) == 1;
 
-                list.Add(new Tram(id, status, line, forced));
+                list.Add(new Tram(id, type, status, line, forced));
             }
 
             return list;
@@ -37,7 +38,7 @@ namespace EyeCT4RailsDatabase
             List<MaintenanceJob> list = new List<MaintenanceJob>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
                                                       "FROM \"job\" j " +
                                                       "JOIN \"tram\" t ON t.id = j.tram_id " +
                                                       "JOIN \"line\" l ON t.line_id = l.id " +
@@ -54,16 +55,17 @@ namespace EyeCT4RailsDatabase
                 JobSize size = (JobSize)Enum.Parse(typeof(JobSize), reader.GetString(2));
 
                 int tramId = reader.GetInt32(3);
-                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(4));
-                Line line = new Line(reader.GetInt32(5));
-                bool forced = reader.GetByte(6) == 1;
+                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(4));
+                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(5));
+                Line line = new Line(reader.GetInt32(6));
+                bool forced = reader.GetByte(7) == 1;
 
-                Tram tram = new Tram(tramId, status, line, forced);
+                Tram tram = new Tram(tramId, type, status, line, forced);
 
-                int userId = reader.GetInt32(7);
-                string name = reader.GetString(8);
-                string email = reader.GetString(9);
-                Role privilege = (Role)Enum.Parse(typeof(Role), reader.GetString(10));
+                int userId = reader.GetInt32(8);
+                string name = reader.GetString(9);
+                string email = reader.GetString(10);
+                Role privilege = (Role)Enum.Parse(typeof(Role), reader.GetString(11));
 
                 User user = new User(userId, name, email, privilege);
 
@@ -78,7 +80,7 @@ namespace EyeCT4RailsDatabase
             List<MaintenanceJob> list = new List<MaintenanceJob>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, u.id, u.name, u.email, u.role, t.status, t.line_id, t.forced " +
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, u.id, u.name, u.email, u.role, t.tramtype, t.status, t.line_id, t.forced " +
                                                       "FROM \"job\" j " +
                                                       "JOIN \"tram\" t ON t.id = j.tram_id " +
                                                       "JOIN \"line\" l ON t.line_id = l.id " +
@@ -102,8 +104,9 @@ namespace EyeCT4RailsDatabase
 
                 User user = new User(userId, name, email, privilege);
 
-                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(7));
-                Tram tram = new Tram(tramId, status, new Line(reader.GetInt32(8)), reader.GetInt32(9) == 1);
+                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(7));
+                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(8));
+                Tram tram = new Tram(tramId, type, status, new Line(reader.GetInt32(9)), reader.GetInt32(10) == 1);
 
                 list.Add(new MaintenanceJob(id, date, false, size, tram, user));
             }
@@ -116,7 +119,7 @@ namespace EyeCT4RailsDatabase
             List<MaintenanceJob> list = new List<MaintenanceJob>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.status, l.id, t.tramtype, t.forced, u.id, u.name, u.email, u.role " +
                                                       "FROM\"job\" j " +
                                                       "JOIN \"tram\" t ON t.id = j.tram_id " +
                                                       "JOIN \"line\" l ON t.line_id = l.id " +
@@ -132,16 +135,17 @@ namespace EyeCT4RailsDatabase
                 JobSize size = (JobSize)Enum.Parse(typeof(JobSize), reader.GetString(2));
 
                 int tramId = reader.GetInt32(3);
-                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(4));
-                Line line = new Line(reader.GetInt32(5));
-                bool forced = reader.GetByte(6) == 1;
+                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(4));
+                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(5));
+                Line line = new Line(reader.GetInt32(6));
+                bool forced = reader.GetByte(7) == 1;
 
-                Tram tram = new Tram(tramId, status, line, forced);
+                Tram tram = new Tram(tramId, type, status, line, forced);
 
-                int userId = reader.GetInt32(7);
-                string name = reader.GetString(8);
-                string email = reader.GetString(9);
-                Role privilege = (Role)Enum.Parse(typeof(Role), reader.GetString(10));
+                int userId = reader.GetInt32(8);
+                string name = reader.GetString(9);
+                string email = reader.GetString(10);
+                Role privilege = (Role)Enum.Parse(typeof(Role), reader.GetString(11));
 
                 User user = new User(userId, name, email, privilege);
 

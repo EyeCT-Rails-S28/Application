@@ -36,6 +36,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _namespaces.Add(reparatieToolStripMenuItem, typeof(UcReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(UcOverzichtBs).Namespace);
             _namespaces.Add(inEnUitrijSysteemToolStripMenuItem, typeof(UcInEnUitRijSysteem).Namespace);
+            _namespaces.Add(gebruikerBeheerToolStripMenuItem, typeof(UcMaakGebruiker).Namespace);
 
             msMenu.Visible = false;
             AddControl(_ucLogIn);
@@ -82,7 +83,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                     {
                         item.Visible = true;
                     }
-
                     break;
                 case Role.Mechanic:
                     reparatieToolStripMenuItem.Visible = true;
@@ -171,20 +171,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
             else if (type == typeof(UcOverzichtBs))
             {
+                RefreshDepot();
                 (uc as UcOverzichtBs).SetDepot(_depot);
                 (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
-            }
-            else if (type == typeof(UcTramPlaatsen))
-            {
-                (uc as UcTramPlaatsen).SetSelection(_selectedTrack, _selectedSection);
-            }
-            else if (type == typeof(UcReserveringPlaatsen))
-            {
-                (uc as UcReserveringPlaatsen).SetSelection(_selectedTrack, _depot);
-            }
-            else if (type == typeof(UcToggleBlokkade))
-            {
-                (uc as UcToggleBlokkade).SetSelection(_selectedTrack, _selectedSection, _depot);
             }
             else if (type == typeof(UcSpoorInfo))
             {
@@ -209,17 +198,21 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         public void CelDoubleClicked(object sender, EventArgs e)
         {
             DataGridView data = sender as DataGridView;
-
-            if (data?.SelectedCells[0].ColumnIndex == 1)
+            if (data == null)
             {
-                string tramNummer = data.SelectedCells[0].EditedFormattedValue.ToString();
-
-                UcTramHistorieSch uc = new UcTramHistorieSch(tramNummer);
-
-                AddControl(uc);
-
-                UpdateTitle("Historie");
+                return;
             }
+
+            DataGridViewRow selected = data.SelectedRows[0];
+            if (selected == null)
+            {
+                return;
+            }
+
+            string tramId = Convert.ToString(selected.Cells[2].Value);
+            UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
+            AddControl(uc);
+            UpdateTitle("Historie");
         }
 
         private string UppercaseFirst(string s)

@@ -10,27 +10,41 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
     {
         public event EventHandler CelDoubleClicked;
 
-        private List<Tram> _trams;
+        private List<Cleanup> _schedule;
 
         public UcSchoonmaak()
         {
             InitializeComponent();
 
-            _trams = CleanupRepository.Instance.GetDirtyTrams();
+            _schedule = CleanupRepository.Instance.GetSchedule();
 
-            DataGridViewRow row = (DataGridViewRow)dgvTrams.Rows[0].Clone();
-
-            foreach (var tram in _trams)
+            foreach (Cleanup cleanup in _schedule)
             {
-                row.Cells[0].Value = false;
-                row.Cells[1].Value = tram.Id.ToString();
-                dgvTrams.Rows.Add(row);
+                dgvTrams.Rows.Add(false, cleanup.Id, cleanup.Tram.Id, null, cleanup.Tram.PreferredLine.Id, cleanup.JobSize, Convert.ToString(cleanup.Date));
             }
         }
 
         private void dgvTrams_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             CelDoubleClicked?.Invoke(dgvTrams, new EventArgs());
+        }
+
+        private void btnSchoonmaakbeurtAfronden_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow row in dgvTrams.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    int cleanupId = Convert.ToInt32(row.Cells[1].Value);
+
+                    CleanupRepository.Instance.EditJobStatus(cleanupId, true);
+
+                    break;
+                }
+            }
+
+
         }
     }
 }

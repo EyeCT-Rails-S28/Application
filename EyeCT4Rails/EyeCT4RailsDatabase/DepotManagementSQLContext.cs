@@ -69,6 +69,43 @@ namespace EyeCT4RailsDatabase
             command.ExecuteNonQuery();
         }
 
+        public void RemoveTram(int sectionId)
+        {
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+                                                      "SET tram_id = NULL " +
+                                                      "WHERE id = :section_id", connection);
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.Add(new OracleParameter(":section_id", OracleDbType.Int32)).Value = sectionId;
+
+            command.ExecuteNonQuery();
+        }
+
+        public List<Tram> GetAllTrams()
+        {
+            List<Tram> trams = new List<Tram>();
+
+            OracleConnection connection = Database.Instance.Connection;
+            OracleCommand command = new OracleCommand("SELECT t.id, t.tramtype, t.status, t.line_id, t.forced, " +
+                                                      "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Cleanup' AND tram_id = t.id)) AS \"Schoonmaak\", " +
+                                                      "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Maintenance' AND tram_id = t.id)) AS \"Reparaties\" FROM \"tram\" t " +
+                                                      "GROUP by t.id, t.status, t.line_id, t.forced", connection);
+            command.CommandType = CommandType.Text;
+
+            OracleDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(1));
+                Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(2));
+                Tram tram = new Tram(reader.GetInt32(0), type, status, new Line(reader.GetInt32(3)), reader.GetInt32(4) == 1);
+
+                trams.Add(tram);
+            }
+
+            return trams;
+        } 
+
         public Depot GetDepot(string name)
         {
             OracleConnection connection = Database.Instance.Connection;
@@ -94,6 +131,8 @@ namespace EyeCT4RailsDatabase
                 depot.AddTrack(track);
             }
 
+            List<Tram> trams = GetAllTrams();
+            trams.ForEach(t => depot.AddTram(t));
 
             return depot;
         }
@@ -125,10 +164,9 @@ namespace EyeCT4RailsDatabase
             List<Section> list = new List<Section>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id, t.status, t.line_id, t.forced " +
-                                                      "FROM \"section\" s, \"tram\" t " +
-                                                      "WHERE track_id = :track_id " +
-                                                      "AND(s.tram_id IS NULL OR s.tram_id = t.id)", connection);
+            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id " +
+                                                      "FROM \"section\" s " +
+                                                      "WHERE track_id = :track_id ", connection);
             command.CommandType = CommandType.Text;
 
             command.Parameters.Add(new OracleParameter(":track_id", OracleDbType.Int32)).Value = track.Id;
@@ -145,67 +183,13 @@ namespace EyeCT4RailsDatabase
                 }
                 else
                 {
-                    int tramId = reader.GetInt32(2);
-                    Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(3));
-                    Line line = new Line(reader.GetInt32(4));
-                    bool forced = reader.GetInt32(5) == 1;
-
-                    Tram tram = new Tram(tramId, status, line, forced);
+                    Tram tram = GetAllTrams().Find(t => t.Id == reader.GetInt32(2));
                     Section section = new Section(sectionId, blocked, tram);
                     list.Add(section);
                 }
             }
 
             return list;
-        }
-
-        public void UpdateSections()
-        {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT COUNT(id) FROM \"section\"", connection);
-            command.CommandType = CommandType.Text;
-
-            OracleDataReader reader = command.ExecuteReader();
-
-            int idCount = 0;
-
-            while (reader.Read())
-            {
-                idCount = reader.GetInt32(0);
-            }
-
-            UpdatePreviousSections(idCount);
-            UpdateNextSections(idCount);
-        }
-
-        private void UpdatePreviousSections(int idCount)
-        {
-            for (int i = 1; i <= idCount; i++)
-            {
-                OracleConnection connection = Database.Instance.Connection;
-                OracleCommand command = new OracleCommand("UPDATE \"section\"" +
-                                                          "SET previous_id = (SELECT s.id FROM \"section\" s WHERE s.id = (:id - 1) AND s.track_id = (SELECT track_id FROM \"section\" WHERE id = :id))" +
-                                                          "WHERE id = :id", connection);
-                command.CommandType = CommandType.Text;
-
-                command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = i;
-                command.ExecuteNonQuery();
-            }
-        }
-
-        private void UpdateNextSections(int idCount)
-        {
-            for (int i = 1; i <= idCount; i++)
-            {
-                OracleConnection connection = Database.Instance.Connection;
-                OracleCommand command = new OracleCommand("UPDATE \"section\"" +
-                                                          "SET next_id = (SELECT s.id FROM \"section\" s WHERE s.id = (:id + 1) AND s.track_id = (SELECT track_id FROM \"section\" WHERE id = :id))" +
-                                                          "WHERE id = :id", connection);
-                command.CommandType = CommandType.Text;
-
-                command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = i;
-                command.ExecuteNonQuery();
-            }
-        }
+        }    
     }
 }

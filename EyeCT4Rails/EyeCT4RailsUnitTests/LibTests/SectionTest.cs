@@ -14,7 +14,7 @@ namespace EyeCT4RailsUnitTests.LibTests
         public void SectionInit()
         {
             _section1 = new Section(1, false);
-            _section2 = new Section(2, true, new Tram(1, Status.Remise, new Line(1), false));
+            _section2 = new Section(2, true, new Tram(1, TramType.Combino,  Status.Remise, new Line(1), false));
         }
 
         [TestMethod]

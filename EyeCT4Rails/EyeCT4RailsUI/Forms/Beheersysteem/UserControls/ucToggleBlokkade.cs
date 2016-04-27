@@ -31,10 +31,14 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             try
             {
-                DepotManagementRepository.Instance.SetTrackBlocked(trackId, !_depot.Tracks[trackId].Sections.Any(x => x.Blocked));
-
-                if (sectionId >= 0)
+                if (sectionId == 0)
+                {
+                    DepotManagementRepository.Instance.SetTrackBlocked(trackId, !_depot.Tracks[trackId].Sections.Any(x => x.Blocked));
+                }
+                else
+                { 
                     DepotManagementRepository.Instance.SetSectionBlocked(sectionId, !_depot.Tracks[trackId].Sections[sectionId].Blocked);
+                }
             }
             catch (Exception ex)
             {

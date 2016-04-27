@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
@@ -95,6 +96,40 @@ namespace EyeCT4RailsLogic
         }
 
         /// <summary>
+        /// Removes a tram from a section. Dangerous code!
+        /// </summary>
+        /// <param name="sectionId">The id to remove a tram from.</param>
+        public void RemoveTram(int sectionId)
+        {
+            try
+            {
+                _context.RemoveTram(sectionId);
+            }
+            catch (Exception e)
+            {
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
+        }
+
+        /// <summary>
+        /// Gets all trams in the system. Dangerous code!
+        /// </summary>
+        /// <returns>A list of all trams.</returns>
+        public List<Tram> GetAllTrams()
+        {
+            try
+            {
+                return _context.GetAllTrams();
+            }
+            catch (Exception e)
+            {
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
+        } 
+
+        /// <summary>
         /// Gets the information of the depot. Dangerous code!
         /// </summary>
         /// <param name="name">Name of the depot.</param>
@@ -110,12 +145,6 @@ namespace EyeCT4RailsLogic
                 LogicExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
-        }
-
-        public void UpdateSections()
-        {
-            _context.UpdateSections();
-            Console.WriteLine("SUCKING SES");
         }
     }
 }

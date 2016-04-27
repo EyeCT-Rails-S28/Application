@@ -39,12 +39,22 @@ namespace EyeCT4RailsDatabase.Models
         void ReserveSection(int tramId, int sectionId);
 
         /// <summary>
+        /// Removes a tram on a section.
+        /// </summary>
+        /// <param name="sectionId">The section id to remove the tram from.</param>
+        void RemoveTram(int sectionId);
+
+        /// <summary>
+        /// Gets a list of all current trams in the system.
+        /// </summary>
+        /// <returns>A list of all trams.</returns>
+        List<Tram> GetAllTrams();
+
+            /// <summary>
         /// Gets the information of the depot.
         /// </summary>
         /// <param name="name">Name of the depot.</param>
         /// <returns>The depot object.</returns>
         Depot GetDepot(string name);
-
-        void UpdateSections();
     }
 }
