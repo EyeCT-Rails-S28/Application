@@ -245,16 +245,29 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         {
             if (sender == tramPlaatsenToolStripMenuItem || sender == reserveringPlaatsenToolStripMenuItem)
             {
+                if (_selectedSection == null)
+                {
+                    return;
+                }
+
+                if (_selectedSection.Tram != null)
+                {
+                    MessageBox.Show("Deze sectie bevat al een tram!");
+                    return;
+                }
+
                 string input = Prompt.ShowDialog("Welke tram wilt u plaatsen?", "Tram plaatsen");
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    return;
+                }
+
                 try
                 {
-                    if (!string.IsNullOrWhiteSpace(input))
-                    {
-                        int tramId = Convert.ToInt32(input);
-                        DepotManagementRepository.Instance.ReserveSection(tramId, _selectedSection.Id);
+                    int tramId = Convert.ToInt32(input);
+                    DepotManagementRepository.Instance.ReserveSection(tramId, _selectedSection.Id);
 
-                        RefreshDepot();
-                    }
+                    RefreshDepot();
                 }
                 catch (Exception ex)
                 {
