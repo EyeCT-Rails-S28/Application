@@ -9,6 +9,10 @@ namespace EyeCT4RailsLib
         /// </summary>
         public int Id { get; }
         /// <summary>
+        /// The type of the tram.
+        /// </summary>
+        public TramType TramType { get; }
+        /// <summary>
         /// Current status of the tram.
         /// </summary>
         public Status Status { get; set; }
@@ -28,9 +32,10 @@ namespace EyeCT4RailsLib
         /// <param name="status">The status of the tram.</param>
         /// <param name="preferredLine">Preferred line of the tram.</param>
         /// <param name="hasForcedLine">Bool indicating wheter the line is forced.</param>
-        public Tram(int id, Status status, Line preferredLine, bool hasForcedLine)
+        public Tram(int id, TramType type, Status status, Line preferredLine, bool hasForcedLine)
         {
             Id = id;
+            TramType = type;
             Status = status;
             PreferredLine = preferredLine;
             HasForcedLine = hasForcedLine;

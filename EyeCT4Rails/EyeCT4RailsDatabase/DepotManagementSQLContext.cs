@@ -87,7 +87,7 @@ namespace EyeCT4RailsDatabase
             List<Tram> trams = new List<Tram>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT t.id, t.status, t.line_id, t.forced, " +
+            OracleCommand command = new OracleCommand("SELECT t.id, t.tramtype, t.status, t.line_id, t.forced, " +
                                                       "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Cleanup' AND tram_id = t.id)) AS \"Schoonmaak\", " +
                                                       "COUNT((SELECT id FROM \"job\" WHERE job_type = 'Maintenance' AND tram_id = t.id)) AS \"Reparaties\" FROM \"tram\" t " +
                                                       "GROUP by t.id, t.status, t.line_id, t.forced", connection);
@@ -96,8 +96,9 @@ namespace EyeCT4RailsDatabase
             OracleDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(1));
-                Tram tram = new Tram(reader.GetInt32(0), status, new Line(reader.GetInt32(2)), reader.GetInt32(3) == 1);
+                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(1));
+                Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(2));
+                Tram tram = new Tram(reader.GetInt32(0), type, status, new Line(reader.GetInt32(3)), reader.GetInt32(4) == 1);
 
                 trams.Add(tram);
             }

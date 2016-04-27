@@ -12,7 +12,7 @@ namespace EyeCT4RailsUnitTests.LibTests
         [TestInitialize]
         public void TramInit()
         {
-            _tram = new Tram(1, Status.Remise, new Line(1), false);
+            _tram = new Tram(1, TramType.Combino, Status.Remise, new Line(1), false);
         }
 
         [TestMethod]
