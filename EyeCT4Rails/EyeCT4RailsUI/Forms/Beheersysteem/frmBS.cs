@@ -181,6 +181,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 (uc as UcPlanReparatie).SetUser(_currentUser);
             }
+            else if (type == typeof(UcTramInfo))
+            {
+                (uc as UcTramInfo).AddFromDepot(_depot);
+            }
         }
 
         private void SelectionChanged(object sender, EventArgs e)
