@@ -30,8 +30,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private void InitializeComponent()
         {
             this.lblSpoornummer = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbTramInfo = new System.Windows.Forms.RichTextBox();
             this.nudSpoornummer = new System.Windows.Forms.NumericUpDown();
+            this.btnShow = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,13 +45,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblSpoornummer.TabIndex = 5;
             this.lblSpoornummer.Text = "Spoornummer:";
             // 
-            // richTextBox1
+            // rtbTramInfo
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(3, 71);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(296, 206);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
+            this.rtbTramInfo.Location = new System.Drawing.Point(3, 89);
+            this.rtbTramInfo.Name = "rtbTramInfo";
+            this.rtbTramInfo.Size = new System.Drawing.Size(296, 232);
+            this.rtbTramInfo.TabIndex = 7;
+            this.rtbTramInfo.Text = "";
             // 
             // nudSpoornummer
             // 
@@ -59,15 +60,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.nudSpoornummer.Size = new System.Drawing.Size(90, 20);
             this.nudSpoornummer.TabIndex = 15;
             // 
+            // btnShow
+            // 
+            this.btnShow.Location = new System.Drawing.Point(101, 60);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(90, 23);
+            this.btnShow.TabIndex = 16;
+            this.btnShow.Text = "Show info";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            // 
             // UcSpoorInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnShow);
             this.Controls.Add(this.nudSpoornummer);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtbTramInfo);
             this.Controls.Add(this.lblSpoornummer);
             this.Name = "UcSpoorInfo";
-            this.Size = new System.Drawing.Size(307, 287);
+            this.Size = new System.Drawing.Size(307, 324);
             ((System.ComponentModel.ISupportInitialize)(this.nudSpoornummer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -76,7 +88,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         #endregion
         private System.Windows.Forms.Label lblSpoornummer;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtbTramInfo;
         private System.Windows.Forms.NumericUpDown nudSpoornummer;
+        private System.Windows.Forms.Button btnShow;
     }
 }
