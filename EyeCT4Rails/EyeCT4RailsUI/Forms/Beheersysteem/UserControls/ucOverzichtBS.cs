@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
@@ -145,6 +144,103 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             Refresh();
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            RefreshDepot();
+        }
+
+        private void menu_Click(object sender, EventArgs e)
+        {
+            if (sender == tramPlaatsenToolStripMenuItem || sender == reserveringPlaatsenToolStripMenuItem)
+            {
+                if (_selectedSection == null)
+                {
+                    return;
+                }
+
+                if (_selectedSection.Tram != null)
+                {
+                    MessageBox.Show("Deze sectie bevat al een tram!");
+                    return;
+                }
+
+                string input = Prompt.ShowDialog("Welke tram wilt u plaatsen?", "Tram plaatsen");
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    return;
+                }
+
+                try
+                {
+                    int tramId = Convert.ToInt32(input);
+                    DepotManagementRepository.Instance.ReserveSection(tramId, _selectedSection.Id);
+
+                    Tram tram = _depot.Trams.Find(t => t.Id == tramId);
+                    if (tram.Status != Status.Defect && tram.Status != Status.Schoonmaak)
+                    {
+                        DepotManagementRepository.Instance.ChangeTramStatus(tramId, sender == reserveringPlaatsenToolStripMenuItem ? Status.Dienst : Status.Remise);
+                    }
+
+                    RefreshDepot();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    MessageBox.Show("Fout met tram plaatsen!");
+                }
+            }
+            else if (sender == tramVerwijderenToolStripMenuItem)
+            {
+                if (_selectedSection != null && _selectedSection.Tram != null)
+                {
+                    DepotManagementRepository.Instance.RemoveTram(_selectedSection.Id);
+
+                    RefreshDepot();
+                }
+            }
+            else if (sender == defectToolStripMenuItem || sender == remiseToolStripMenuItem ||
+                     sender == dienstToolStripMenuItem || sender == schoonmaakToolStripMenuItem)
+            {
+                if (_selectedSection != null && _selectedSection.Tram != null)
+                {
+                    Status status = (Status)Enum.Parse(typeof(Status), (sender as ToolStripMenuItem).Text);
+                    DepotManagementRepository.Instance.ChangeTramStatus(_selectedSection.Tram.Id, status);
+
+                    RefreshDepot();
+                }
+            }
+            else if (sender == toggleBlokkadeToolStripMenuItem)
+            {
+                if (_selectedSection != null || _selectedTrack != null)
+                {
+                    try
+                    {
+                        if (_selectedTrack != null && _selectedSection == null)
+                        {
+                            bool allBlocked = _depot.Tracks.Find(t => t.Id == _selectedTrack.Id).Sections.TrueForAll(s => s.Blocked);
+                            DepotManagementRepository.Instance.SetTrackBlocked(_selectedTrack.Id, !allBlocked);
+                        }
+                        else if (_selectedSection != null && _selectedTrack != null)
+                        {
+                            DepotManagementRepository.Instance.SetSectionBlocked(_selectedSection.Id, !_selectedSection.Blocked);
+                        }
+
+                        RefreshDepot();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void contextMenuStrip_Opened(object sender, EventArgs e)
+        {
+            Point p = pnlTracks.PointToClient(Cursor.Position);
+            SelectSection(p);
+        }
+
         private class TrackUiObj : Track
         {
             public List<SectionUiObj> UiSections => new List<SectionUiObj>(_uiSections);
@@ -239,92 +335,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 
             }
-        }
-
-        private void menu_Click(object sender, EventArgs e)
-        {
-            if (sender == tramPlaatsenToolStripMenuItem || sender == reserveringPlaatsenToolStripMenuItem)
-            {
-                if (_selectedSection == null)
-                {
-                    return;
-                }
-
-                if (_selectedSection.Tram != null)
-                {
-                    MessageBox.Show("Deze sectie bevat al een tram!");
-                    return;
-                }
-
-                string input = Prompt.ShowDialog("Welke tram wilt u plaatsen?", "Tram plaatsen");
-                if (string.IsNullOrWhiteSpace(input))
-                {
-                    return;
-                }
-
-                try
-                {
-                    int tramId = Convert.ToInt32(input);
-                    DepotManagementRepository.Instance.ReserveSection(tramId, _selectedSection.Id);
-
-                    RefreshDepot();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                    MessageBox.Show("Fout met tram plaatsen!");
-                }
-            }
-            else if (sender == tramVerwijderenToolStripMenuItem)
-            {
-                if (_selectedSection != null && _selectedSection.Tram != null)
-                {
-                    DepotManagementRepository.Instance.RemoveTram(_selectedSection.Id);
-
-                    RefreshDepot();
-                }
-            }
-            else if (sender == defectToolStripMenuItem || sender == remiseToolStripMenuItem ||
-                     sender == dienstToolStripMenuItem || sender == schoonmaakToolStripMenuItem)
-            {
-                if (_selectedSection != null && _selectedSection.Tram != null)
-                {
-                    Status status = (Status) Enum.Parse(typeof (Status), (sender as ToolStripMenuItem).Text);
-                    DepotManagementRepository.Instance.ChangeTramStatus(_selectedSection.Tram.Id, status);
-
-                    RefreshDepot();
-                }
-            }
-            else if (sender == toggleBlokkadeToolStripMenuItem)
-            {
-                if (_selectedSection != null || _selectedTrack != null)
-                {
-                    try
-                    {
-                        if (_selectedTrack != null && _selectedSection == null)
-                        {
-                            bool allBlocked = _depot.Tracks.Find(t => t.Id == _selectedTrack.Id).Sections.TrueForAll(s => s.Blocked);
-                            DepotManagementRepository.Instance.SetTrackBlocked(_selectedTrack.Id, !allBlocked);
-                        }
-                        else if (_selectedSection != null && _selectedTrack != null)
-                        {
-                            DepotManagementRepository.Instance.SetSectionBlocked(_selectedSection.Id, !_selectedSection.Blocked);
-                        }
-
-                        RefreshDepot();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
-            }
-        }
-
-        private void contextMenuStrip1_Opened(object sender, EventArgs e)
-        {
-            Point p = pnlTracks.PointToClient(Cursor.Position);
-            SelectSection(p);
         }
     }
 }

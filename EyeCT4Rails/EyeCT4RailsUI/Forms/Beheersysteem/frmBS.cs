@@ -144,18 +144,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         {
             ToolStripMenuItem item = sender as ToolStripMenuItem;
 
-            string ns = "";
-
-            ns = item.OwnerItem == null ? _namespaces[item] : _namespaces[item.OwnerItem as ToolStripMenuItem];
-
+            string ns = item.OwnerItem == null ? _namespaces[item] : _namespaces[item.OwnerItem as ToolStripMenuItem];
             string strNamespace = ns + GetUcName(item.Text);
 
             Type type = Type.GetType(strNamespace);
 
             var uc = (UserControl) Activator.CreateInstance(type);
-
             SetUcSpecificChanges(type, uc);
-
             return uc;
         }
 

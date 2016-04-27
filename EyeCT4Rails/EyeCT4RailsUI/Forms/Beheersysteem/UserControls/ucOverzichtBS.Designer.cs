@@ -39,18 +39,19 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.pnlTracks = new System.Windows.Forms.Panel();
             this.lblSeletedTrack = new System.Windows.Forms.Label();
             this.lblSelectedSection = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.reserveringPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusTramWijzigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dienstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.remiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.schoonmaakToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dienstToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramVerwijderenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tramPlaatsenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.toggleBlokkadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1.SuspendLayout();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTram
@@ -132,18 +133,18 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblSelectedSection.TabIndex = 9;
             this.lblSelectedSection.Text = "Selected section:";
             // 
-            // contextMenuStrip1
+            // contextMenuStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reserveringPlaatsenToolStripMenuItem,
             this.statusTramWijzigenToolStripMenuItem,
             this.tramVerwijderenToolStripMenuItem,
             this.tramPlaatsenToolStripMenuItem,
             this.toolStripMenuItem1,
             this.toggleBlokkadeToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 142);
-            this.contextMenuStrip1.Opened += new System.EventHandler(this.contextMenuStrip1_Opened);
+            this.contextMenuStrip.Name = "contextMenuStrip1";
+            this.contextMenuStrip.Size = new System.Drawing.Size(183, 120);
+            this.contextMenuStrip.Opened += new System.EventHandler(this.contextMenuStrip_Opened);
             // 
             // reserveringPlaatsenToolStripMenuItem
             // 
@@ -167,30 +168,30 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // defectToolStripMenuItem
             // 
             this.defectToolStripMenuItem.Name = "defectToolStripMenuItem";
-            this.defectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.defectToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.defectToolStripMenuItem.Text = "Defect";
             this.defectToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
-            // 
-            // dienstToolStripMenuItem
-            // 
-            this.dienstToolStripMenuItem.Name = "dienstToolStripMenuItem";
-            this.dienstToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dienstToolStripMenuItem.Text = "Dienst";
-            this.dienstToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
-            // 
-            // remiseToolStripMenuItem
-            // 
-            this.remiseToolStripMenuItem.Name = "remiseToolStripMenuItem";
-            this.remiseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.remiseToolStripMenuItem.Text = "Remise";
-            this.remiseToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
             // 
             // schoonmaakToolStripMenuItem
             // 
             this.schoonmaakToolStripMenuItem.Name = "schoonmaakToolStripMenuItem";
-            this.schoonmaakToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.schoonmaakToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.schoonmaakToolStripMenuItem.Text = "Schoonmaak";
             this.schoonmaakToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
+            // 
+            // remiseToolStripMenuItem
+            // 
+            this.remiseToolStripMenuItem.Name = "remiseToolStripMenuItem";
+            this.remiseToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.remiseToolStripMenuItem.Text = "Remise";
+            this.remiseToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
+            // 
+            // dienstToolStripMenuItem
+            // 
+            this.dienstToolStripMenuItem.Name = "dienstToolStripMenuItem";
+            this.dienstToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.dienstToolStripMenuItem.Text = "Dienst";
+            this.dienstToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
             // 
             // tramVerwijderenToolStripMenuItem
             // 
@@ -218,11 +219,16 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.toggleBlokkadeToolStripMenuItem.Text = "Toggle Blokkade";
             this.toggleBlokkadeToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
             // 
+            // timer
+            // 
+            this.timer.Interval = 5000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // UcOverzichtBs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ContextMenuStrip = this.contextMenuStrip1;
+            this.ContextMenuStrip = this.contextMenuStrip;
             this.Controls.Add(this.lblSelectedSection);
             this.Controls.Add(this.lblSeletedTrack);
             this.Controls.Add(this.pnlTracks);
@@ -235,7 +241,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Name = "UcOverzichtBs";
             this.Size = new System.Drawing.Size(796, 508);
             this.Resize += new System.EventHandler(this.ucOverzichtBS_Resize);
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,7 +257,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.Panel pnlTracks;
         private System.Windows.Forms.Label lblSeletedTrack;
         private System.Windows.Forms.Label lblSelectedSection;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem reserveringPlaatsenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statusTramWijzigenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tramVerwijderenToolStripMenuItem;
@@ -262,5 +268,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.ToolStripMenuItem schoonmaakToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toggleBlokkadeToolStripMenuItem;
+        private System.Windows.Forms.Timer timer;
     }
 }
