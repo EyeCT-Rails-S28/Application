@@ -128,6 +128,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                 _selectedTrack = track;
                 _selectedSection = section;
+                btnBevestig.Enabled = lbReserveringen.SelectedItem != null && _selectedSection != null;
 
                 SelectionChanged?.Invoke(_selectedTrack, new EventArgs());
 
@@ -160,7 +161,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 lbReserveringen.Items.Add(tram);
             }
 
-            if(index > 0)
+            if (index > -1 && lbReserveringen.Items.Count > index) 
                 lbReserveringen.SelectedIndex = index;
         }
 
@@ -445,15 +446,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void btnBevestig_Click(object sender, EventArgs e)
         {
+            if (_selectedSection == null)
+            {
+                return;
+            }
+
+            if (!RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, true) &&
+                !RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, false))
+            {
+                MessageBox.Show("Het is niet mogelijk om de geselecteerde tram op de geselecteerde sectie te plaatsen.");
+                return;
+            }
+
             try
             {
                 Tram tram = (Tram) lbReserveringen.SelectedItem;
+
+                DepotManagementRepository.Instance.ReserveSection(tram.Id, _selectedSection.Id);
                 DepotManagementRepository.Instance.ChangeTramStatus(tram.Id, Status.Defect);
 
-                _tracks.Find(x => x.Sections.Find(y => y.Tram?.Id == tram.Id) != null).UiSections.Find(x => x.Tram?.Id == tram.Id).Tram.Status = Status.Defect;
-                pnlTracks.Refresh();
-
-                btnBevestig.Enabled = false;
+                RefreshDepot();
             }
             catch (Exception ex)
             {
@@ -464,7 +476,22 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void lbReserveringen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnBevestig.Enabled = lbReserveringen.SelectedItem != null;
+            btnBevestig.Enabled = lbReserveringen.SelectedItem != null && _selectedSection != null;
+        }
+
+        private void lblGereserveerd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDienst_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRemise_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

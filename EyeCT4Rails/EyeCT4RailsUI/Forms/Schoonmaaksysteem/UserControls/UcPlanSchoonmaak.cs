@@ -19,7 +19,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
         {
             _user = user;
 
-            tbUserID.Text = _user.Id.ToString();
+            tbUser.Text = user.Name;
         }
 
         private void btnEnkel_Click(object sender, EventArgs e)
@@ -27,16 +27,19 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
             try
             {
                 JobSize jobSize = (JobSize)Enum.Parse(typeof(JobSize), cbGrootteBeurt.Text);
-                int userID = _user.Id;
-                int tramID = Convert.ToInt32(tbTramID.Text);
+                int userId = _user.Id;
+                int tramId = Convert.ToInt32(tbTramID.Text);
                 DateTime date = dtpDatum.Value;
 
-                CleanupRepository.Instance.ScheduleJob(jobSize, userID, tramID, date);
+                if (CleanupRepository.Instance.ScheduleJob(jobSize, userId, tramId, date))
+                {
+                    MessageBox.Show("De opgegeven schoonmaakbeurt is succesvol ingepland.");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show($"Er is een fout opgetreden bij het toevoegen van een schoonmaakbeurt: {ex.Message}");
             }
         }
 
@@ -45,24 +48,26 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
             try
             {
                 JobSize jobSize = (JobSize)Enum.Parse(typeof(JobSize), cbGrootteBeurt.Text);
-                int userID = _user.Id;
-                int tramID = Convert.ToInt32(tbTramID.Text);
+                int userId = _user.Id;
+                int tramId = Convert.ToInt32(tbTramID.Text);
                 DateTime date = dtpDatum.Value;
                 DateTime endDate = dtpEindDatum.Value;
                 int interval = Convert.ToInt32(nudInterval.Value);
 
-                CleanupRepository.Instance.ScheduleRecurringJob(jobSize, userID, tramID, date, interval, endDate);
+                if (CleanupRepository.Instance.ScheduleRecurringJob(jobSize, userId, tramId, date, interval, endDate))
+                {
+                    MessageBox.Show("Alle opgegeven schoonmaakbeurten zijn succesvol ingepland.");
+                }
+                else
+                {
+                    MessageBox.Show("Éen of meer opgegeven schoonmaakbeurt(en) is/zijn niet succesvol ingepland.");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show($"Er is een fout opgetreden bij het toevoegen van een schoonmaakbeurt: {ex.Message}");
             }
-        }
-
-        private void UcPlanSchoonmaak_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

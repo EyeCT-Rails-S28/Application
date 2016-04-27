@@ -19,7 +19,7 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
         {
             _user = user;
 
-            tbUserID.Text = _user.Id.ToString();
+            tbUser.Text = user.Name;
         }
 
         private void btnEnkel_Click(object sender, EventArgs e)
@@ -31,12 +31,15 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
                 int tramID = Convert.ToInt32(tbTramID.Text);
                 DateTime date = dtpDatum.Value;
 
-                MaintenanceRepository.Instance.ScheduleJob(jobSize, userID, tramID, date);
+                if (MaintenanceRepository.Instance.ScheduleJob(jobSize, userID, tramID, date))
+                {
+                    MessageBox.Show("De opgegeven reparatie is succesvol ingepland.");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show($"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}");
             }
         }
 
@@ -51,12 +54,19 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
                 DateTime endDate = dtpEindDatum.Value;
                 int interval = Convert.ToInt32(nudInterval.Value);
 
-                MaintenanceRepository.Instance.ScheduleRecurringJob(jobSize, userID, tramID, date, interval, endDate);
+                if (MaintenanceRepository.Instance.ScheduleRecurringJob(jobSize, userID, tramID, date, interval, endDate))
+                {
+                    MessageBox.Show("Alle opgegeven reparaties zijn succesvol ingepland.");
+                }
+                else
+                {
+                    MessageBox.Show("Éen of meer opgegeven reparatie(s) is/zijn niet succesvol ingepland.");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
-                MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show($"Er is een fout opgetreden bij het inplannen van de reparaties: {ex.Message}");
             }
         }
     }
