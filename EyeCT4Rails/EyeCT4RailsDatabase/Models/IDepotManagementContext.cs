@@ -56,7 +56,5 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="name">Name of the depot.</param>
         /// <returns>The depot object.</returns>
         Depot GetDepot(string name);
-
-        void UpdateSections();
     }
 }
