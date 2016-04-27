@@ -16,7 +16,14 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
         {
             InitializeComponent();
 
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
             _schedule = CleanupRepository.Instance.GetSchedule();
+
+            dgvTrams.Rows.Clear();
 
             foreach (Cleanup cleanup in _schedule)
             {
@@ -39,6 +46,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
                     CleanupRepository.Instance.EditJobStatus(cleanupId, true);
 
+                    RefreshData();
                     break;
                 }
             }

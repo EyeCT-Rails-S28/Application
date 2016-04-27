@@ -16,7 +16,14 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
         {
             InitializeComponent();
 
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
             _schedule = MaintenanceRepository.Instance.GetSchedule();
+
+            dgvTrams.Rows.Clear();
 
             foreach (MaintenanceJob maintenanceJob in _schedule)
             {
@@ -39,6 +46,7 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 
                     MaintenanceRepository.Instance.EditJobStatus(maintenanceId, true);
 
+                    RefreshData();
                     break;
                 }
             }
