@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -25,6 +26,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private readonly List<TrackUiObj> _tracks;
         private Track _selectedTrack;
         private Section _selectedSection;
+        private List<Tram> _needyTrams;
 
         public UcOverzichtBs()
         {
@@ -33,14 +35,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic, null, pnlTracks, new object[] { true });
             
             _tracks = new List<TrackUiObj>();
+            _needyTrams = new List<Tram>();
+
             RefreshDepot();
+        }
+
+        private void RefreshControl()
+        {
+            RefreshDepot();
+            CheckForReservedFlag();
+            RefreshUi();
         }
 
         private void RefreshDepot()
         {
             try
             {
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
                 _depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+                Console.Write($"It took {watch.ElapsedMilliseconds} ms to load from the database ");
                 _tracks.Clear();
 
                 if (_depot != null)
@@ -59,6 +73,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 }
 
                 pnlTracks.Refresh();
+                Console.WriteLine($"and a total of {watch.ElapsedMilliseconds} ms to refresh the depot.");
             }
             catch (Exception ex)
             {
@@ -136,6 +151,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             lblSelectedSection.Text = _selectedSection == null
                 ? "Selected section:"
                 : $"Selected section: {_selectedSection.Id}";
+
+            lbReserveringen.Items.Clear();
+
+            foreach (var tram in _needyTrams)
+            {
+                lbReserveringen.Items.Add(tram);
+            }
         }
 
         private void ucOverzichtBS_Resize(object sender, EventArgs e)
@@ -143,9 +165,30 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             Refresh();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
-            RefreshDepot();
+            RefreshControl();
+        }
+
+        private void CheckForReservedFlag()
+        {
+            try
+            {
+                List<Tram> trams = DepotManagementRepository.Instance.GetTramsWithReservedFlag();
+
+                if (trams.Exists(x => !_needyTrams.Exists(y => x.Id == y.Id)))
+                    MessageBox.Show("Er is een tram die een handmatige invoer vereist.");
+
+                _needyTrams.Clear();
+                _needyTrams.AddRange(trams);
+
+                RefreshUi();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show($"Er is een fout opgetreden bij het ophalen van de gegevens: {ex.Message}");
+            }
         }
 
         private void menu_Click(object sender, EventArgs e)
@@ -365,6 +408,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                             case Status.Schoonmaak:
                                 brush = Brushes.Blue;
                                 break;
+                            case Status.Gereserveerd:
+                                brush = Brushes.DarkOrange;
+                                break;
                         }
 
                         g.DrawString(Convert.ToString(_uiSections[i].Tram.Id), font, brush,  x + 5, y + (SECTION_HEIGHT / 2));
@@ -388,6 +434,25 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 
             }
+        }
+
+        private void btnBevestig_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Tram tram = (Tram) lbReserveringen.SelectedItem;
+                DepotManagementRepository.Instance.ChangeTramStatus(tram.Id, Status.Defect);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void lbReserveringen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnBevestig.Enabled = lbReserveringen.SelectedItem != null;
         }
     }
 }

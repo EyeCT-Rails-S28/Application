@@ -146,5 +146,22 @@ namespace EyeCT4RailsLogic
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
+
+        /// <summary>
+        /// Gets all trams that currently have the status Reserved.
+        /// </summary>
+        /// <returns>A list of all the trams with the status Reserved.</returns>
+        public List<Tram> GetTramsWithReservedFlag()
+        {
+            try
+            {
+                return _context.GetTramsWithReservedFlag();
+            }
+            catch (Exception e)
+            {
+                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
+        } 
     }
 }

@@ -13,7 +13,7 @@ namespace EyeCT4RailsUI.Forms.InUitSysteem
             InitializeComponent();
         }
 
-        private void btnBevestig_Click(object sender, System.EventArgs e)
+        private void btnBevestig_Click(object sender, EventArgs e)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace EyeCT4RailsUI.Forms.InUitSysteem
                 }
 
                 DepotManagementRepository.Instance.ReserveSection(tramId, section.Id);
-                RideManagementRepository.Instance.ChangeTramStatus(tramId, rbGeen.Checked ? Status.Remise : rbDefect.Checked ? Status.Defect : Status.Schoonmaak);
+                RideManagementRepository.Instance.ChangeTramStatus(tramId, rbGeen.Checked ? Status.Remise : rbDefect.Checked ? Status.Gereserveerd : Status.Schoonmaak);
 
                 tbSpoornummer.Text = Convert.ToString(track.Id);
                 tbSectienummer.Text = Convert.ToString(section.Id);
