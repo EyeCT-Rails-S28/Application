@@ -144,44 +144,33 @@ namespace EyeCT4RailsDatabase
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
-
             List<Track> tracks = GetTracks(depot);
+            tracks.ForEach(t => depot.AddTrack(t));
             Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to get all the tracks from the db");
 
             watch.Restart();
-
             List<Tram> trams = GetAllTrams();
             trams.ForEach(t => depot.AddTram(t));
-
             Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to get all the trams from the db");
 
             watch.Restart();
-
-            foreach (Track track in tracks)
+            List<Section> sections = GetSections(trams, tracks);
+            foreach (var track in tracks)
             {
-                Stopwatch watch2 = new Stopwatch();
-                watch2.Start();
-                List<Section> sections = GetSections(track);
-                Console.WriteLine($"It took {watch2.ElapsedMilliseconds} ms to get a section from the db");
-
-                foreach (Section section in sections)
+                foreach (var current in track.Sections)
                 {
-                    Section next = sections.Find(s => s.Id == section.Id + 1);
+                    Section next = sections.Find(s => s.Id == current.Id + 1);
                     if (next != null)
                     {
-                        section.AddNextSection(next);
+                        sections.Find(x => x.Id == current.Id).AddNextSection(sections.Find(y => y.Id == next.Id));
                     }
 
-                    Section previous = sections.Find(s => s.Id == section.Id - 1);
+                    Section previous = sections.Find(s => s.Id == current.Id - 1);
                     if (previous != null)
                     {
-                        section.AddPreviousSection(previous);
+                        sections.Find(x => x.Id == current.Id).AddPreviousSection(sections.Find(y => y.Id == previous.Id));
                     }
-
-                    track.AddSection(section);
                 }
-
-                depot.AddTrack(track);
             }
             Console.WriteLine($"It took {watch.ElapsedMilliseconds} ms to get all the sections from the db");
 
@@ -243,13 +232,18 @@ namespace EyeCT4RailsDatabase
             return list;
         }
 
-        private List<Section> GetSections(List<Tram> trams)
+        /// <summary>
+        /// Gets all the sections in the database and adds them to the track that exists in the given list of tracks.
+        /// </summary>
+        /// <param name="trams">The trams that could be parked on the sections.</param>
+        /// <param name="tracks">The tracks the section can be part of.</param>
+        /// <returns>All the sections in the database.</returns>
+        private List<Section> GetSections(List<Tram> trams, List<Track> tracks)
         {
             List<Section> list = new List<Section>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT id, blocked, tram_id " +
-                                                      "FROM \"section\" ", connection);
+            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id, s.track_id FROM \"section\" s", connection);
             command.CommandType = CommandType.Text;
 
             OracleDataReader reader = command.ExecuteReader();
@@ -257,17 +251,21 @@ namespace EyeCT4RailsDatabase
             {
                 int sectionId = reader.GetInt32(0);
                 bool blocked = reader.GetInt32(1) == 1;
+                Section section;
                 if (reader.IsDBNull(2))
                 {
-                    Section section = new Section(sectionId, blocked);
-                    list.Add(section);
+                    section = new Section(sectionId, blocked);                   
                 }
                 else
                 {
+                    //Finds the tram that is parked on this section.
                     Tram tram = trams.Find(t => t.Id == reader.GetInt32(2));
-                    Section section = new Section(sectionId, blocked, tram);
-                    list.Add(section);
+                    section = new Section(sectionId, blocked, tram);                   
                 }
+
+                list.Add(section);
+                //Adds the section to the track.
+                tracks.Find(x => x.Id == reader.GetInt32(3)).AddSection(section);
             }
 
             return list;
