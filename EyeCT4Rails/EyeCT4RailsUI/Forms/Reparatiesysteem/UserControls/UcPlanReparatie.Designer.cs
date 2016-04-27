@@ -1,4 +1,6 @@
-﻿namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
+﻿using EyeCT4RailsLib;
+
+namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
     partial class UcPlanReparatie
     {

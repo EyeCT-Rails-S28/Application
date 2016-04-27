@@ -63,6 +63,7 @@
             this.gebruikerBeheerToolStripMenuItem.Name = "gebruikerBeheerToolStripMenuItem";
             this.gebruikerBeheerToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
             this.gebruikerBeheerToolStripMenuItem.Text = "Maak gebruiker";
+            this.gebruikerBeheerToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
             // overzichtBSToolStripMenuItem
             // 

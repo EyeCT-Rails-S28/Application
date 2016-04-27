@@ -15,8 +15,9 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             InitializeComponent();
         }
 
-        public void AddFromDepot(Depot depot)
+        private void AddTrams()
         {
+            Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
             List<Tram> trams = depot.Trams;
 
             try
