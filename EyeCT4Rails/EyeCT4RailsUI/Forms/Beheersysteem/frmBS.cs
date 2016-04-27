@@ -30,7 +30,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _namespaces = new Dictionary<ToolStripMenuItem, string>();
             _ucLogIn = new UcLogIn();
 
-            _namespaces.Add(tramsToolStripMenuItem, typeof(UcTramPlaatsen).Namespace);
+            _namespaces.Add(tramsToolStripMenuItem, typeof(UcTramInfo).Namespace);
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(UcSchoonmaak).Namespace);
             _namespaces.Add(reparatieToolStripMenuItem, typeof(UcReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(UcOverzichtBs).Namespace);

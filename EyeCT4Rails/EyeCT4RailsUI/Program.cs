@@ -13,6 +13,8 @@ namespace EyeCT4RailsUI
         [STAThread]
         static void Main()
         {
+            DepotManagementRepository.Instance.UpdateSections();
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmBs());
