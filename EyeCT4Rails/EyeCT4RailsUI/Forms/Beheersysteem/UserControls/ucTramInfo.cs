@@ -23,7 +23,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             {
                 foreach (Tram tram in trams)
                 {
-                    dataGridView.Rows.Add(tram.Id, tram.PreferredLine.Id, tram.TramType.GetDescription(), Convert.ToString(tram.Status), GetTrackForTram(depot, tram)?.Id ?? 0);
+                    int lineId = tram.PreferredLine.Id;
+                    dataGridView.Rows.Add(tram.Id, lineId == -1 ? "ocv" : Convert.ToString(lineId), tram.TramType.GetDescription(), Convert.ToString(tram.Status), GetTrackForTram(depot, tram)?.Id ?? 0);
                 }
             }
             catch (Exception e)
