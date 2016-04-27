@@ -173,6 +173,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 (uc as UcSpoorInfo).SetSelection(_selectedTrack);
             }
+            else if (type == typeof (UcTramInfo))
+            {
+                (uc as UcTramInfo).AddFromDepot(_depot);
+            }
         }
 
         private void SelectionChanged(object sender, EventArgs e)

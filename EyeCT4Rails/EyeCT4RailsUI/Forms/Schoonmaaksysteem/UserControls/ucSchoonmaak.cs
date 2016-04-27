@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
@@ -27,7 +28,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
             foreach (Cleanup cleanup in _schedule)
             {
-                dgvTrams.Rows.Add(false, cleanup.Id, cleanup.Tram.Id, null, cleanup.Tram.PreferredLine.Id, cleanup.JobSize, Convert.ToString(cleanup.Date));
+                dgvTrams.Rows.Add(false, cleanup.Id, cleanup.Tram.Id, cleanup.Tram.TramType.GetDescription(), cleanup.Tram.PreferredLine.Id, cleanup.JobSize, Convert.ToString(cleanup.Date));
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace EyeCT4RailsUI.Forms
 {
@@ -11,18 +12,22 @@ namespace EyeCT4RailsUI.Forms
 
         private void btnSubmit_Click(object sender, System.EventArgs e)
         {
-            Dispose();
+            Close();
         }
 
         public static string ShowDialog(string text, string caption)
         {
             Prompt prompt = new Prompt();
-            prompt.Text = text;
+            prompt.Text = caption;
             prompt.lblText.Text = text + ": ";
+            prompt.AcceptButton = prompt.btnSubmit;
 
-            prompt.ShowDialog();
+            if (prompt.ShowDialog() == DialogResult.OK)
+            {
+                return prompt.txtBox.Text;
+            }
 
-            return prompt.txtBox.Text;
+            return null;
         }
     }
 }

@@ -168,6 +168,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 string input = Prompt.ShowDialog("Welke tram wilt u plaatsen?", "Tram plaatsen");
                 if (string.IsNullOrWhiteSpace(input))
                 {
+                    Console.WriteLine("D");
                     return;
                 }
 
