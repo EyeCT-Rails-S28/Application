@@ -18,6 +18,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private const int NEWLINE_MARGIN = 20;
 
         public event EventHandler SelectionChanged;
+        public event EventHandler SpoorInfo;
 
         private Depot _depot;
         private readonly List<TrackUiObj> _tracks;
@@ -231,6 +232,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     {
                         Console.WriteLine(ex.Message);
                     }
+                }
+            } else if (sender == spoorInformatieToolStripMenuItem)
+            {
+                if (_selectedTrack != null)
+                {
+                    SpoorInfo?.Invoke(_selectedTrack, new EventArgs());
                 }
             }
         }

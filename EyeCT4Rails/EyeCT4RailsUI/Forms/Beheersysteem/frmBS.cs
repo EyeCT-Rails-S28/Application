@@ -31,7 +31,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             _ucLogIn = new UcLogIn();
 
             _namespaces.Add(tramsToolStripMenuItem, typeof(UcTramPlaatsen).Namespace);
-            _namespaces.Add(sporenToolStripMenuItem, typeof(UcTramPlaatsen).Namespace);
             _namespaces.Add(schoonmaakToolStripMenuItem, typeof(UcSchoonmaak).Namespace);
             _namespaces.Add(reparatieToolStripMenuItem, typeof(UcReparatie).Namespace);
             _namespaces.Add(overzichtBSToolStripMenuItem, typeof(UcOverzichtBs).Namespace);
@@ -95,7 +94,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 case Role.DepotMananger:
                     overzichtBSToolStripMenuItem.Visible = true;
                     tramsToolStripMenuItem.Visible = true;
-                    sporenToolStripMenuItem.Visible = true;
 
                     break;
                 case Role.Driver:
@@ -169,6 +167,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 RefreshDepot();
                 (uc as UcOverzichtBs).SetDepot(_depot);
                 (uc as UcOverzichtBs).SelectionChanged += SelectionChanged;
+                (uc as UcOverzichtBs).SpoorInfo += SpoorInfo;
             }
             else if (type == typeof(UcSpoorInfo))
             {
@@ -188,6 +187,19 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             {
                 _selectedSection = (Section) sender;
             }
+        }
+
+        private void SpoorInfo(object sender, EventArgs e)
+        {
+            if (sender == null)
+            {
+                return;
+            }
+
+            Track track = sender as Track;
+            UcSpoorInfo info = Activator.CreateInstance(typeof (UcSpoorInfo)) as UcSpoorInfo;
+            info.SetSelection(track);
+            AddControl(info);
         }
 
         public void CelDoubleClickedCleanUp(object sender, EventArgs e)

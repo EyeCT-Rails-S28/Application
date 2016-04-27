@@ -203,16 +203,6 @@
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\UcMaakGebruiker.resx">
       <DependentUpon>UcMaakGebruiker.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Cleanup.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Depot.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Job.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Line.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.MaintenanceJob.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Ride.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Section.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Track.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.Tram.datasource" />
-    <None Include="Properties\DataSources\EyeCT4RailsLib.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

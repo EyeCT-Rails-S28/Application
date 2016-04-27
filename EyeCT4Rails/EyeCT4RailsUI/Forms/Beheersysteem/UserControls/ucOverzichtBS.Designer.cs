@@ -51,6 +51,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.toggleBlokkadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.spoorInformatieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -141,9 +143,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.tramVerwijderenToolStripMenuItem,
             this.tramPlaatsenToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.toggleBlokkadeToolStripMenuItem});
+            this.toggleBlokkadeToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.spoorInformatieToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip1";
-            this.contextMenuStrip.Size = new System.Drawing.Size(183, 120);
+            this.contextMenuStrip.Size = new System.Drawing.Size(183, 170);
             this.contextMenuStrip.Opened += new System.EventHandler(this.contextMenuStrip_Opened);
             // 
             // reserveringPlaatsenToolStripMenuItem
@@ -224,6 +228,18 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.timer.Interval = 5000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 6);
+            // 
+            // spoorInformatieToolStripMenuItem
+            // 
+            this.spoorInformatieToolStripMenuItem.Name = "spoorInformatieToolStripMenuItem";
+            this.spoorInformatieToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.spoorInformatieToolStripMenuItem.Text = "Spoor Informatie";
+            this.spoorInformatieToolStripMenuItem.Click += new System.EventHandler(this.menu_Click);
+            // 
             // UcOverzichtBs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,5 +285,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toggleBlokkadeToolStripMenuItem;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem spoorInformatieToolStripMenuItem;
     }
 }
