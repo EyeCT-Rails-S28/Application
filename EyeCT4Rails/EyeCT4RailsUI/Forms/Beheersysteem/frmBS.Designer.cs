@@ -77,6 +77,7 @@
             this.tramsToolStripMenuItem.Name = "tramsToolStripMenuItem";
             this.tramsToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.tramsToolStripMenuItem.Text = "Tram info";
+            this.tramsToolStripMenuItem.Click += new System.EventHandler(this.UserControl_Change);
             // 
             // inEnUitrijSysteemToolStripMenuItem
             // 
