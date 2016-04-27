@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
@@ -181,6 +182,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 try
                 {
                     int tramId = Convert.ToInt32(input);
+                    if (_depot.Tracks.Any(t => t.Sections.Find(s => s.Tram != null && s.Tram.Id == tramId) != null))
+                    {
+                        MessageBox.Show($"De tram met nummer {tramId} is al geplaatst.");
+                        return;
+                    }
+
                     DepotManagementRepository.Instance.ReserveSection(tramId, _selectedSection.Id);
 
                     Tram tram = _depot.Trams.Find(t => t.Id == tramId);
