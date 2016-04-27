@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.dgvTrams = new System.Windows.Forms.DataGridView();
+            this.btnSchoonmaakbeurtAfronden = new System.Windows.Forms.Button();
+            this.tbOpmerking = new System.Windows.Forms.TextBox();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tramnummer = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,8 +38,6 @@
             this.Spoor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type_Beurt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Schoonmaak_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSchoonmaakbeurtAfronden = new System.Windows.Forms.Button();
-            this.tbOpmerking = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +60,6 @@
             this.dgvTrams.Location = new System.Drawing.Point(0, 0);
             this.dgvTrams.MultiSelect = false;
             this.dgvTrams.Name = "dgvTrams";
-            this.dgvTrams.ReadOnly = true;
             this.dgvTrams.RowHeadersVisible = false;
             this.dgvTrams.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvTrams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -68,11 +67,30 @@
             this.dgvTrams.TabIndex = 0;
             this.dgvTrams.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrams_CellDoubleClick);
             // 
+            // btnSchoonmaakbeurtAfronden
+            // 
+            this.btnSchoonmaakbeurtAfronden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSchoonmaakbeurtAfronden.Location = new System.Drawing.Point(3, 392);
+            this.btnSchoonmaakbeurtAfronden.Name = "btnSchoonmaakbeurtAfronden";
+            this.btnSchoonmaakbeurtAfronden.Size = new System.Drawing.Size(162, 23);
+            this.btnSchoonmaakbeurtAfronden.TabIndex = 1;
+            this.btnSchoonmaakbeurtAfronden.Text = "Schoonmaakbeurt afronden";
+            this.btnSchoonmaakbeurtAfronden.UseVisualStyleBackColor = true;
+            this.btnSchoonmaakbeurtAfronden.Click += new System.EventHandler(this.btnSchoonmaakbeurtAfronden_Click);
+            // 
+            // tbOpmerking
+            // 
+            this.tbOpmerking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbOpmerking.Location = new System.Drawing.Point(183, 395);
+            this.tbOpmerking.Name = "tbOpmerking";
+            this.tbOpmerking.Size = new System.Drawing.Size(559, 20);
+            this.tbOpmerking.TabIndex = 2;
+            // 
             // Select
             // 
             this.Select.HeaderText = "Select";
             this.Select.Name = "Select";
-            this.Select.ReadOnly = true;
             // 
             // ID
             // 
@@ -109,26 +127,6 @@
             this.Schoonmaak_Datum.HeaderText = "Schoonmaak Datum";
             this.Schoonmaak_Datum.Name = "Schoonmaak_Datum";
             this.Schoonmaak_Datum.ReadOnly = true;
-            // 
-            // btnSchoonmaakbeurtAfronden
-            // 
-            this.btnSchoonmaakbeurtAfronden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSchoonmaakbeurtAfronden.Location = new System.Drawing.Point(3, 392);
-            this.btnSchoonmaakbeurtAfronden.Name = "btnSchoonmaakbeurtAfronden";
-            this.btnSchoonmaakbeurtAfronden.Size = new System.Drawing.Size(162, 23);
-            this.btnSchoonmaakbeurtAfronden.TabIndex = 1;
-            this.btnSchoonmaakbeurtAfronden.Text = "Schoonmaakbeurt afronden";
-            this.btnSchoonmaakbeurtAfronden.UseVisualStyleBackColor = true;
-            this.btnSchoonmaakbeurtAfronden.Click += new System.EventHandler(this.btnSchoonmaakbeurtAfronden_Click);
-            // 
-            // tbOpmerking
-            // 
-            this.tbOpmerking.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbOpmerking.Location = new System.Drawing.Point(183, 395);
-            this.tbOpmerking.Name = "tbOpmerking";
-            this.tbOpmerking.Size = new System.Drawing.Size(559, 20);
-            this.tbOpmerking.TabIndex = 2;
             // 
             // UcSchoonmaak
             // 
