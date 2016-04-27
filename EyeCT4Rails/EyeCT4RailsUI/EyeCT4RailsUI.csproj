@@ -95,41 +95,11 @@
     <Compile Include="Forms\Beheersysteem\UserControls\UcOverzichtBS.Designer.cs">
       <DependentUpon>UcOverzichtBS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.Designer.cs">
-      <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.Designer.cs">
-      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.Designer.cs">
-      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucTramInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Beheersysteem\UserControls\ucTramInfo.Designer.cs">
       <DependentUpon>ucTramInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.Designer.cs">
-      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.Designer.cs">
-      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Schoonmaaksysteem\UserControls\ucSchoonmaak.cs">
       <SubType>UserControl</SubType>
@@ -160,23 +130,8 @@
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\UcOverzichtBS.resx">
       <DependentUpon>UcOverzichtBS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucReserveringPlaatsen.resx">
-      <DependentUpon>ucReserveringPlaatsen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucStatusTramWijzigen.resx">
-      <DependentUpon>ucStatusTramWijzigen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucToggleBlokkade.resx">
-      <DependentUpon>ucToggleBlokkade.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramInfo.resx">
       <DependentUpon>ucTramInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramPlaatsen.resx">
-      <DependentUpon>ucTramPlaatsen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Beheersysteem\UserControls\ucTramVerwijderen.resx">
-      <DependentUpon>ucTramVerwijderen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InUitSysteem\ucInEnUitRijSysteem.resx">
       <DependentUpon>ucInEnUitRijSysteem.cs</DependentUpon>

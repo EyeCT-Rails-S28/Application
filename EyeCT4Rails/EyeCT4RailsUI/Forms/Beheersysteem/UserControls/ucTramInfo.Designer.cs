@@ -38,19 +38,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Spoor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reparaties = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Schoonmaak = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbTramnummer = new System.Windows.Forms.TextBox();
-            this.tbStatus = new System.Windows.Forms.TextBox();
-            this.tbLijn = new System.Windows.Forms.TextBox();
-            this.tbSoort = new System.Windows.Forms.TextBox();
-            this.tbSpoor = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Tramnummer,
@@ -60,10 +52,11 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Spoor,
             this.Reparaties,
             this.Schoonmaak});
-            this.dataGridView1.Location = new System.Drawing.Point(0, 35);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(751, 447);
+            this.dataGridView1.Size = new System.Drawing.Size(754, 485);
             this.dataGridView1.TabIndex = 0;
             // 
             // Tramnummer
@@ -101,56 +94,15 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Schoonmaak.HeaderText = "Schoonmaak";
             this.Schoonmaak.Name = "Schoonmaak";
             // 
-            // tbTramnummer
-            // 
-            this.tbTramnummer.Location = new System.Drawing.Point(56, 9);
-            this.tbTramnummer.Name = "tbTramnummer";
-            this.tbTramnummer.Size = new System.Drawing.Size(78, 20);
-            this.tbTramnummer.TabIndex = 1;
-            // 
-            // tbStatus
-            // 
-            this.tbStatus.Location = new System.Drawing.Point(353, 9);
-            this.tbStatus.Name = "tbStatus";
-            this.tbStatus.Size = new System.Drawing.Size(78, 20);
-            this.tbStatus.TabIndex = 2;
-            // 
-            // tbLijn
-            // 
-            this.tbLijn.Location = new System.Drawing.Point(154, 9);
-            this.tbLijn.Name = "tbLijn";
-            this.tbLijn.Size = new System.Drawing.Size(78, 20);
-            this.tbLijn.TabIndex = 2;
-            // 
-            // tbSoort
-            // 
-            this.tbSoort.Location = new System.Drawing.Point(258, 9);
-            this.tbSoort.Name = "tbSoort";
-            this.tbSoort.Size = new System.Drawing.Size(78, 20);
-            this.tbSoort.TabIndex = 3;
-            // 
-            // tbSpoor
-            // 
-            this.tbSpoor.Location = new System.Drawing.Point(456, 9);
-            this.tbSpoor.Name = "tbSpoor";
-            this.tbSpoor.Size = new System.Drawing.Size(78, 20);
-            this.tbSpoor.TabIndex = 4;
-            // 
             // UcTramInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tbSpoor);
-            this.Controls.Add(this.tbSoort);
-            this.Controls.Add(this.tbLijn);
-            this.Controls.Add(this.tbStatus);
-            this.Controls.Add(this.tbTramnummer);
             this.Controls.Add(this.dataGridView1);
             this.Name = "UcTramInfo";
             this.Size = new System.Drawing.Size(754, 485);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -164,10 +116,5 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.DataGridViewTextBoxColumn Spoor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Reparaties;
         private System.Windows.Forms.DataGridViewTextBoxColumn Schoonmaak;
-        private System.Windows.Forms.TextBox tbTramnummer;
-        private System.Windows.Forms.TextBox tbStatus;
-        private System.Windows.Forms.TextBox tbLijn;
-        private System.Windows.Forms.TextBox tbSoort;
-        private System.Windows.Forms.TextBox tbSpoor;
     }
 }

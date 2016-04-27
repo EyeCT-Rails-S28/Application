@@ -31,6 +31,7 @@
             this.btnReparatieAfronden = new System.Windows.Forms.Button();
             this.dgvTrams = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.clmId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tramnummer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Soort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Spoor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,6 +61,7 @@
             this.dgvTrams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTrams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Select,
+            this.clmId,
             this.Tramnummer,
             this.Soort,
             this.Spoor,
@@ -79,6 +81,12 @@
             // 
             this.Select.HeaderText = "Select";
             this.Select.Name = "Select";
+            // 
+            // clmId
+            // 
+            this.clmId.HeaderText = "ID";
+            this.clmId.Name = "clmId";
+            this.clmId.ReadOnly = true;
             // 
             // Tramnummer
             // 
@@ -127,6 +135,7 @@
         private System.Windows.Forms.Button btnReparatieAfronden;
         private System.Windows.Forms.DataGridView dgvTrams;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tramnummer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Soort;
         private System.Windows.Forms.DataGridViewTextBoxColumn Spoor;
