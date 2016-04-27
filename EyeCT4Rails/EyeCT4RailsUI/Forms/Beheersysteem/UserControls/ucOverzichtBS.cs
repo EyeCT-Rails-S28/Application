@@ -248,11 +248,25 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                     {
                         if (_selectedTrack != null && _selectedSection == null)
                         {
+                            bool allFree = _depot.Tracks.Find(t => t.Id == _selectedTrack.Id)
+                                                 .Sections.TrueForAll(s => s.Tram == null);
+                            if (!allFree)
+                            {
+                                MessageBox.Show("Een of meerdere secties binnen deze track kunnen niet geblokkeerd worden.");
+                                return;
+                            }
+
                             bool allBlocked = _depot.Tracks.Find(t => t.Id == _selectedTrack.Id).Sections.TrueForAll(s => s.Blocked);
                             DepotManagementRepository.Instance.SetTrackBlocked(_selectedTrack.Id, !allBlocked);
                         }
                         else if (_selectedSection != null && _selectedTrack != null)
                         {
+                            if (!(RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, false) ||
+                                  RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, true)) && _selectedSection.Tram != null)
+                            {
+                                MessageBox.Show("Deze sectie kan niet geblokkeerd worden!");
+                                return;
+                            }
                             DepotManagementRepository.Instance.SetSectionBlocked(_selectedSection.Id, !_selectedSection.Blocked);
                         }
 
