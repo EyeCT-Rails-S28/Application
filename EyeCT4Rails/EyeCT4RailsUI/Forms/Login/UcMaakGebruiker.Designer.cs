@@ -38,6 +38,7 @@
             this.tbNaam = new System.Windows.Forms.TextBox();
             this.btnCreateUser = new System.Windows.Forms.Button();
             this.cbRole = new System.Windows.Forms.ComboBox();
+            this.lblRol = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbEmail
@@ -134,10 +135,20 @@
             this.cbRole.Size = new System.Drawing.Size(174, 21);
             this.cbRole.TabIndex = 11;
             // 
+            // lblRol
+            // 
+            this.lblRol.AutoSize = true;
+            this.lblRol.Location = new System.Drawing.Point(13, 120);
+            this.lblRol.Name = "lblRol";
+            this.lblRol.Size = new System.Drawing.Size(26, 13);
+            this.lblRol.TabIndex = 12;
+            this.lblRol.Text = "Rol:";
+            // 
             // UcMaakGebruiker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblRol);
             this.Controls.Add(this.cbRole);
             this.Controls.Add(this.btnCreateUser);
             this.Controls.Add(this.tbNaam);
@@ -166,5 +177,6 @@
         private System.Windows.Forms.TextBox tbNaam;
         private System.Windows.Forms.Button btnCreateUser;
         private System.Windows.Forms.ComboBox cbRole;
+        private System.Windows.Forms.Label lblRol;
     }
 }
