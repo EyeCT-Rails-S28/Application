@@ -505,17 +505,27 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             int count = unparkedTrams.Count;
             Random random = new Random();
-            for (int i = 0; i < count; i++)
+
+            try
             {
-                Tram tram = unparkedTrams[random.Next(unparkedTrams.Count)];
-                Section section = RideManagementRepository.Instance.GetFreeSection(_depot, tram.TramType);
+                for (int i = 0; i < count; i++)
+                {
+                    Tram tram = unparkedTrams[random.Next(unparkedTrams.Count)];
+                    Section section = RideManagementRepository.Instance.GetFreeSection(_depot, tram.TramType);
 
-                DepotManagementRepository.Instance.ReserveSection(tram.Id, section.Id);
-            
-                unparkedTrams.Remove(tram);
+                    DepotManagementRepository.Instance.ReserveSection(tram.Id, section.Id);
 
-                RefreshControl();
-                Thread.Sleep(500);
+                    unparkedTrams.Remove(tram);
+
+                    RefreshControl();
+                    Thread.Sleep(500);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
     }
