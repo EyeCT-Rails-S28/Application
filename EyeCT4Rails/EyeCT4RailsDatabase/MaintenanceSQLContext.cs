@@ -119,12 +119,12 @@ namespace EyeCT4RailsDatabase
             List<MaintenanceJob> list = new List<MaintenanceJob>();
 
             OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.status, l.id, t.tramtype, t.forced, u.id, u.name, u.email, u.role " +
+            OracleCommand command = new OracleCommand("SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
                                                       "FROM\"job\" j " +
                                                       "JOIN \"tram\" t ON t.id = j.tram_id " +
                                                       "JOIN \"line\" l ON t.line_id = l.id " +
                                                       "JOIN \"user\" u ON u.id = j.user_id " +
-                                                      "WHERE j.finished = 1 AND j.job_type = 'Cleanup'", connection);
+                                                      "WHERE j.finished = 1 AND j.job_type = 'Maintenance'", connection);
             command.CommandType = CommandType.Text;
 
             OracleDataReader reader = command.ExecuteReader();

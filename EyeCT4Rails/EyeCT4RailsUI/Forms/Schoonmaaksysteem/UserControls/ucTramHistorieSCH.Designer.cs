@@ -28,100 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTramNummer = new System.Windows.Forms.Label();
-            this.lblSoort = new System.Windows.Forms.Label();
-            this.lblSpoor = new System.Windows.Forms.Label();
             this.dgvTramHistorie = new System.Windows.Forms.DataGridView();
+            this.clmTram = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmTramSoort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type_Beurt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Schoonmaak_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Uitgevoerd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTramHistorie)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblTramNummer
-            // 
-            this.lblTramNummer.AutoSize = true;
-            this.lblTramNummer.Location = new System.Drawing.Point(-3, 12);
-            this.lblTramNummer.Name = "lblTramNummer";
-            this.lblTramNummer.Size = new System.Drawing.Size(74, 13);
-            this.lblTramNummer.TabIndex = 0;
-            this.lblTramNummer.Text = "Tram nummer:";
-            // 
-            // lblSoort
-            // 
-            this.lblSoort.AutoSize = true;
-            this.lblSoort.Location = new System.Drawing.Point(131, 12);
-            this.lblSoort.Name = "lblSoort";
-            this.lblSoort.Size = new System.Drawing.Size(35, 13);
-            this.lblSoort.TabIndex = 1;
-            this.lblSoort.Text = "Soort:";
-            // 
-            // lblSpoor
-            // 
-            this.lblSpoor.AutoSize = true;
-            this.lblSpoor.Location = new System.Drawing.Point(240, 12);
-            this.lblSpoor.Name = "lblSpoor";
-            this.lblSpoor.Size = new System.Drawing.Size(38, 13);
-            this.lblSpoor.TabIndex = 2;
-            this.lblSpoor.Text = "Spoor:";
-            // 
             // dgvTramHistorie
             // 
             this.dgvTramHistorie.AllowUserToAddRows = false;
             this.dgvTramHistorie.AllowUserToDeleteRows = false;
-            this.dgvTramHistorie.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTramHistorie.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTramHistorie.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmTram,
+            this.clmTramSoort,
             this.Type_Beurt,
             this.Schoonmaak_Datum,
             this.Uitgevoerd});
-            this.dgvTramHistorie.Location = new System.Drawing.Point(0, 28);
+            this.dgvTramHistorie.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTramHistorie.Location = new System.Drawing.Point(0, 0);
             this.dgvTramHistorie.MultiSelect = false;
             this.dgvTramHistorie.Name = "dgvTramHistorie";
+            this.dgvTramHistorie.ReadOnly = true;
             this.dgvTramHistorie.RowHeadersVisible = false;
             this.dgvTramHistorie.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTramHistorie.Size = new System.Drawing.Size(449, 470);
+            this.dgvTramHistorie.Size = new System.Drawing.Size(449, 498);
             this.dgvTramHistorie.TabIndex = 3;
+            // 
+            // clmTram
+            // 
+            this.clmTram.HeaderText = "Tram Id";
+            this.clmTram.Name = "clmTram";
+            this.clmTram.ReadOnly = true;
+            // 
+            // clmTramSoort
+            // 
+            this.clmTramSoort.HeaderText = "Tram Soort";
+            this.clmTramSoort.Name = "clmTramSoort";
+            this.clmTramSoort.ReadOnly = true;
             // 
             // Type_Beurt
             // 
             this.Type_Beurt.HeaderText = "Type Beurt";
             this.Type_Beurt.Name = "Type_Beurt";
+            this.Type_Beurt.ReadOnly = true;
             // 
             // Schoonmaak_Datum
             // 
             this.Schoonmaak_Datum.HeaderText = "Schoonmaak datum";
             this.Schoonmaak_Datum.Name = "Schoonmaak_Datum";
+            this.Schoonmaak_Datum.ReadOnly = true;
             // 
             // Uitgevoerd
             // 
             this.Uitgevoerd.HeaderText = "Uitgevoerd door";
             this.Uitgevoerd.Name = "Uitgevoerd";
+            this.Uitgevoerd.ReadOnly = true;
             // 
             // UcTramHistorieSch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvTramHistorie);
-            this.Controls.Add(this.lblSpoor);
-            this.Controls.Add(this.lblSoort);
-            this.Controls.Add(this.lblTramNummer);
             this.Name = "UcTramHistorieSch";
             this.Size = new System.Drawing.Size(449, 498);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTramHistorie)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblTramNummer;
-        private System.Windows.Forms.Label lblSoort;
-        private System.Windows.Forms.Label lblSpoor;
         private System.Windows.Forms.DataGridView dgvTramHistorie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmTram;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmTramSoort;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Beurt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Schoonmaak_Datum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Uitgevoerd;

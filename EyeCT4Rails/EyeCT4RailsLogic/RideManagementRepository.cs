@@ -88,10 +88,12 @@ namespace EyeCT4RailsLogic
         /// Checks wheter a section is accessible from the outside.
         /// </summary>
         /// <param name="section">The section to check for.</param>
-        /// <param name="direction">The direction in which to look.</param>
+        /// <param name="direction">The direction in which to look. True is next.</param>
         /// <returns>A bool that is true, if and only if it can reach the outside.</returns>
         public bool CheckSectionFreedom(Section section, bool direction)
         {
+            if (section == null)
+                return true;
             if (section.Blocked || section.Tram != null)
                 return false;
             if (section.NextSection == null || section.PreviousSection == null)

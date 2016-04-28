@@ -52,7 +52,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblRemise = new System.Windows.Forms.Label();
             this.lblSchoonmaak = new System.Windows.Forms.Label();
             this.lblReparatie = new System.Windows.Forms.Label();
-            this.lblGereserveerd = new System.Windows.Forms.Label();
             this.lblDienst = new System.Windows.Forms.Label();
             this.btnBevestig = new System.Windows.Forms.Button();
             this.btnSimulate = new System.Windows.Forms.Button();
@@ -248,23 +247,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblReparatie.TabIndex = 12;
             this.lblReparatie.Text = "Reparatie";
             // 
-            // lblGereserveerd
-            // 
-            this.lblGereserveerd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblGereserveerd.AutoSize = true;
-            this.lblGereserveerd.ForeColor = System.Drawing.Color.DarkOrange;
-            this.lblGereserveerd.Location = new System.Drawing.Point(16, 450);
-            this.lblGereserveerd.Name = "lblGereserveerd";
-            this.lblGereserveerd.Size = new System.Drawing.Size(71, 13);
-            this.lblGereserveerd.TabIndex = 13;
-            this.lblGereserveerd.Text = "Gereserveerd";
-            // 
             // lblDienst
             // 
             this.lblDienst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDienst.AutoSize = true;
             this.lblDienst.ForeColor = System.Drawing.Color.Purple;
-            this.lblDienst.Location = new System.Drawing.Point(16, 472);
+            this.lblDienst.Location = new System.Drawing.Point(16, 450);
             this.lblDienst.Name = "lblDienst";
             this.lblDienst.Size = new System.Drawing.Size(37, 13);
             this.lblDienst.TabIndex = 14;
@@ -284,6 +272,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // btnSimulate
             // 
+            this.btnSimulate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSimulate.Location = new System.Drawing.Point(684, 4);
             this.btnSimulate.Name = "btnSimulate";
             this.btnSimulate.Size = new System.Drawing.Size(109, 23);
@@ -300,7 +289,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Controls.Add(this.btnSimulate);
             this.Controls.Add(this.btnBevestig);
             this.Controls.Add(this.lblDienst);
-            this.Controls.Add(this.lblGereserveerd);
             this.Controls.Add(this.lblReparatie);
             this.Controls.Add(this.lblSchoonmaak);
             this.Controls.Add(this.lblRemise);
@@ -341,7 +329,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.Label lblRemise;
         private System.Windows.Forms.Label lblSchoonmaak;
         private System.Windows.Forms.Label lblReparatie;
-        private System.Windows.Forms.Label lblGereserveerd;
         private System.Windows.Forms.Label lblDienst;
         private System.Windows.Forms.Button btnBevestig;
         private System.Windows.Forms.Button btnSimulate;

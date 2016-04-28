@@ -9,37 +9,54 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 {
     public partial class UcTramHistorieRs : UserControl
     {
-        public UcTramHistorieRs(int tramnummer)
+        private List<MaintenanceJob> _history;
+         
+        public UcTramHistorieRs()
         {
             InitializeComponent();
 
             try
             {
-                List<MaintenanceJob> history = MaintenanceRepository.Instance.GetHistory(tramnummer);
-
-                if (history.Count > 0)
-                {
-                    lblTramNummer.Text = "Tramnummer: " + history[0].Tram.Id;
-                    lblSpoor.Text = "Spoor: " + history[0].Tram.PreferredLine;
-                    lblSoort.Text = "Soort: " + history[0].Tram.TramType.GetDescription();
-
-                    foreach (MaintenanceJob maintenanceJob in history)
-                    {
-                        dgvTramHistorie.Rows.Add(maintenanceJob.JobSize.ToString(),
-                            maintenanceJob.Date.ToString("dd/MM/yyyy"), maintenanceJob.User.Name);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Er zijn geen resultaten gevonden voor tramnummer: {tramnummer}");
-                }
+                _history = MaintenanceRepository.Instance.GetHistory();
+                ShowHistory();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 MessageBox.Show($"Fout bij het toevoegen van items: {ex.Message}");
             }
+        }
 
+        public UcTramHistorieRs(int tramnummer)
+        {
+            InitializeComponent();
+
+            try
+            {
+                _history = MaintenanceRepository.Instance.GetHistory(tramnummer);
+                ShowHistory();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show($"Fout bij het toevoegen van items: {ex.Message}");
+            }
+        }
+
+        private void ShowHistory()
+        {
+            if (_history.Count > 0)
+            {
+                foreach (MaintenanceJob maintenanceJob in _history)
+                {
+                    dgvTramHistorie.Rows.Add(maintenanceJob.Tram.Id, maintenanceJob.Tram.TramType.GetDescription(), maintenanceJob.JobSize.ToString(),
+                        maintenanceJob.Date.ToString("dd/MM/yyyy"), maintenanceJob.User.Name);
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Er zijn geen resultaten gevonden");
+            }
         }
     }
 }

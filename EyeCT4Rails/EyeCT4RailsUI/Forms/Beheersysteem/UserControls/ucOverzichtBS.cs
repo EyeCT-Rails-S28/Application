@@ -14,8 +14,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     public partial class UcOverzichtBs : UserControl
     {
-        private const int SECTION_WIDTH = 50;
-        private const int SECTION_HEIGHT = 50;
+        private const int SECTION_WIDTH = 45;
+        private const int SECTION_HEIGHT = 45;
         private const int LEFT_MARGIN = 5;
         private const int ABOVE_MARGIN = 5;
         private const int NEWLINE_MARGIN = 20;
@@ -184,7 +184,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                 if (trams.Exists(x => !_needyTrams.Exists(y => x.Id == y.Id)))
                 {
+                    timer.Enabled = false;
                     MessageBox.Show("Er is een tram die een handmatige invoer vereist.");
+                    timer.Enabled = true;
+
                     RefreshDepot();
                 }
 
@@ -259,6 +262,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 {
                     try
                     {
+                        if (!(RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection.NextSection, true) ||
+                              RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection.PreviousSection, false)))
+                        {
+                            MessageBox.Show("Deze tram kan niet verwijderd worden.");
+                            return;
+                        }
+
                         DepotManagementRepository.Instance.RemoveTram(_selectedSection.Id);
                     }
                     catch (Exception ex)
@@ -375,7 +385,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             public void DrawSections(Graphics g, int x, int y, int selectedSectionId)
             {
-                Font font = new Font(FontFamily.GenericSansSerif, 12);
+                Font font = new Font(FontFamily.GenericSansSerif, 11);
 
                 Area = new Rectangle(x, y, SECTION_WIDTH, SECTION_HEIGHT * (UiSections.Count + 1));
 

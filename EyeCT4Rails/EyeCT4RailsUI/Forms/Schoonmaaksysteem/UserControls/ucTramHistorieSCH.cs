@@ -9,6 +9,23 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 {
     public partial class UcTramHistorieSch : UserControl
     {
+        private List<Cleanup> _history;
+         
+        public UcTramHistorieSch()
+        {
+            InitializeComponent();
+
+            try
+            {
+                _history = CleanupRepository.Instance.GetHistory();
+                ShowHistory();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show($"Fout bij het laden van het overzicht: {ex.Message}");
+            }
+        }
 
         public UcTramHistorieSch(int tramnummer)
         {
@@ -16,30 +33,29 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
             try
             {
-                List<Cleanup> history = CleanupRepository.Instance.GetHistory(tramnummer);
-                if (history.Count > 0)
-                {
-                    lblTramNummer.Text = "Tramnummer: " + history[0].Tram.Id;
-                    lblSpoor.Text = "Spoor: " + history[0].Tram.PreferredLine;
-                    lblSoort.Text = "Soort: " + history[0].Tram.TramType.GetDescription();
-
-                    foreach (Cleanup cleanup in history)
-                    {
-                        dgvTramHistorie.Rows.Add(cleanup.JobSize.ToString(), cleanup.Date.ToString("dd/MM/yyyy"),
-                            cleanup.User.Name);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Er zijn geen resultaten gevonden voor tramnummer: {tramnummer}");
-                }
+                _history = CleanupRepository.Instance.GetHistory(tramnummer);
+                ShowHistory();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 MessageBox.Show($"Fout bij het laden van het overzicht voor tram met ID: {tramnummer}, {ex.Message}");
             }
-            
+        }
+
+        private void ShowHistory()
+        {
+            if (_history.Count > 0)
+            {
+                foreach (Cleanup cleanup in _history)
+                {
+                    dgvTramHistorie.Rows.Add(cleanup.Tram.Id, cleanup.Tram.TramType.GetDescription(), cleanup.JobSize.ToString(), cleanup.Date.ToString("dd/MM/yyyy"), cleanup.User.Name);
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Er zijn geen resultaten gevonden");
+            }
         }
     }
 }
