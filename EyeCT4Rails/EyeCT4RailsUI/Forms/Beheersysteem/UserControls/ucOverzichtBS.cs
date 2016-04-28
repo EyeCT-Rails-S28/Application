@@ -508,7 +508,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             for (int i = 0; i < count; i++)
             {
                 Tram tram = unparkedTrams[random.Next(unparkedTrams.Count)];
-                Section section = RideManagementRepository.Instance.GetFreeSection(_depot);
+                Section section = RideManagementRepository.Instance.GetFreeSection(_depot, tram.TramType);
 
                 DepotManagementRepository.Instance.ReserveSection(tram.Id, section.Id);
             

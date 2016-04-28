@@ -52,7 +52,7 @@ namespace EyeCT4RailsUI.Forms.InUitSysteem
                 }
                 else
                 {
-                    section = RideManagementRepository.Instance.GetFreeSection(depot);
+                    section = RideManagementRepository.Instance.GetFreeSection(depot, depot.Trams.Find(t => t.Id == tramId).TramType);
                     track = depot.Tracks.Find(t => t.Sections.Find(s => s.Id == section.Id) != null);
 
                     if (track == null)
