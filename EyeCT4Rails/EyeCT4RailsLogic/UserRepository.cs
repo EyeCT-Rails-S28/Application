@@ -59,11 +59,11 @@ namespace EyeCT4RailsLogic
         /// <param name="email">Email of the user.</param>
         /// <param name="role">Role of the user.</param>
         /// <returns>The user that was created.</returns>
-        public User CreateUser(string name, string password, string email, Role role)
+        public void CreateUser(string name, string password, string email, Role role)
         {
             try
             {
-                return _context.CreateUser(name, password, email, role);
+                 _context.CreateUser(name, password, email, role);
             }
             catch (Exception e)
             {

@@ -98,11 +98,11 @@ namespace EyeCT4RailsLogic
         /// </summary>
         /// <param name="cleanupId">The scheduled cleanup that should be removed.</param>
         /// <returns>A bool indicating wheter it was successfully removed.</returns>
-        public bool RemoveScheduledJob(int cleanupId)
+        public void RemoveScheduledJob(int cleanupId)
         {
             try
             {
-                return _context.RemoveScheduledJob(cleanupId);
+                _context.RemoveScheduledJob(cleanupId);
             }
             catch (Exception e)
             {
@@ -183,11 +183,11 @@ namespace EyeCT4RailsLogic
         /// <param name="cleanupId">The job in question.</param>
         /// <param name="isDone">The new status of the job.</param>
         /// <returns>A bool that is true, if and only if, the status was successfully changed.</returns>
-        public bool EditJobStatus(int cleanupId, bool isDone)
+        public void EditJobStatus(int cleanupId, bool isDone)
         {
             try
             {
-                return _context.EditJobStatus(cleanupId, isDone);
+                _context.EditJobStatus(cleanupId, isDone);
             }
             catch (Exception e)
             {

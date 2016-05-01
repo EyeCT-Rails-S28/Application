@@ -40,14 +40,14 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="tramId">The tram which the job will be done for.</param>
         /// <param name="date">The time when the job will start.</param>
         /// <returns>true if, and only if, this job was succesfully added.</returns>
-        bool ScheduleJob(JobSize size, int userId, int tramId, DateTime date);
+        void ScheduleJob(JobSize size, int userId, int tramId, DateTime date);
 
         /// <summary>
         /// Removes a recurring job.
         /// </summary>
         /// <param name="jobId">The job to be removed from the schedule.</param>
         /// <returns>true if, and only if, this job was succesfully removed.</returns>
-        bool RemoveScheduledJob(int jobId);
+        void RemoveScheduledJob(int jobId);
 
         /// <summary>
         /// Edits the status of job.
@@ -55,7 +55,7 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="jobId">The job to be edited.</param>
         /// <param name="isDone">Whether the job is finished or not. True should imply that the job is finished.</param>
         /// <returns>true if, and only if, the job was succesfully edited.</returns>
-        bool EditJobStatus(int jobId, bool isDone);
+        void EditJobStatus(int jobId, bool isDone);
 
         /// <summary>
         /// Checks whether there's a free spot for a maintenance job to be done on a specific date.

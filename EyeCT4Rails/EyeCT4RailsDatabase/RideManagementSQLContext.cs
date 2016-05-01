@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
 using EyeCT4RailsDatabase.Models;
-using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
-using Oracle.ManagedDataAccess.Client;
 
 namespace EyeCT4RailsDatabase
 {
@@ -11,16 +9,16 @@ namespace EyeCT4RailsDatabase
     {
         public void ReportStatusChange(int tramId, Status status)
         {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("UPDATE \"tram\" " +
-                                                      "SET status = :tram_status " +
-                                                      "WHERE id = :tram_id", connection);
-            command.CommandType = CommandType.Text;
+            string query = "UPDATE \"tram\" " +
+                           "SET status = :tram_status " +
+                           "WHERE id = :tram_id";
 
-            command.Parameters.Add(new OracleParameter(":tram_status", OracleDbType.Varchar2)).Value = Convert.ToString(status);
-            command.Parameters.Add(new OracleParameter(":tram_id", OracleDbType.Int32)).Value = tramId;
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
 
-            command.ExecuteNonQuery();
+            Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
+
+            parameters.Add(":tram_status", Convert.ToString(status));
+            parameters.Add(":tram_id", tramId);
         }
     }
 }
