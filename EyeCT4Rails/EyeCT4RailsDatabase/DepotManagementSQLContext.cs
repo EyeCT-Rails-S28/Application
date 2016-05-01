@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -16,131 +12,139 @@ namespace EyeCT4RailsDatabase
     {
         public void ChangeTramStatus(int tramId, Status status)
         {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("UPDATE \"tram\" " +
-                                                      "SET status = :status " +
-                                                      "WHERE id = :id", connection);
-            command.CommandType = CommandType.Text;
+            string query = "UPDATE \"tram\" " +
+                           "SET status = :status " +
+                           "WHERE id = :id";
 
-            command.Parameters.Add(new OracleParameter(":status", OracleDbType.Varchar2)).Value = Convert.ToString(status);
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = tramId;
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {":status", Convert.ToString(status)},
+                {":id", tramId}
+            };
 
-            command.ExecuteNonQuery();
+            Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
         }
 
         public void SetTrackBlocked(int trackId, bool blocked)
         {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+            string query = "UPDATE \"section\" " +
                                                       "SET blocked = :blocked " +
-                                                      "WHERE track_id = :id", connection);
-            command.CommandType = CommandType.Text;
+                                                      "WHERE track_id = :id";
 
-            command.Parameters.Add(new OracleParameter(":blocked", OracleDbType.Int32)).Value = blocked ? 1 : 0;
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = trackId;
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {":blocked", blocked ? 1 : 0},
+                {":id", trackId}
+            };
 
-            command.ExecuteNonQuery();
+            Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
         }
 
         public void SetSectionBlocked(int sectionId, bool blocked)
         {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+            string query = "UPDATE \"section\" " +
                                                       "SET blocked = :blocked " +
-                                                      "WHERE id = :id", connection);
-            command.CommandType = CommandType.Text;
+                                                      "WHERE id = :id";
 
-            command.Parameters.Add(new OracleParameter(":blocked", OracleDbType.Int32)).Value = blocked ? 1 : 0;
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = sectionId;
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {":blocked", blocked ? 1 : 0},
+                {":id", sectionId}
+            };
 
-            command.ExecuteNonQuery();
+            Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
         }
 
         public void ReserveSection(int tramId, int sectionId)
         {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+            string query = "UPDATE \"section\" " +
                                                       "SET tram_id = :tram_id " +
-                                                      "WHERE id = :section_id", connection);
-            command.CommandType = CommandType.Text;
+                                                      "WHERE id = :section_id";
 
-            command.Parameters.Add(new OracleParameter(":tram_id", OracleDbType.Int32)).Value = tramId;
-            command.Parameters.Add(new OracleParameter(":section_id", OracleDbType.Int32)).Value = sectionId;
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {":tram_id", tramId},
+                {":section_id", sectionId}
+            };
 
-            command.ExecuteNonQuery();
+            Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
         }
 
         public void RemoveTram(int sectionId)
         {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("UPDATE \"section\" " +
+            string query = "UPDATE \"section\" " +
                                                       "SET tram_id = NULL " +
-                                                      "WHERE id = :section_id", connection);
-            command.CommandType = CommandType.Text;
+                                                      "WHERE id = :section_id";
 
-            command.Parameters.Add(new OracleParameter(":section_id", OracleDbType.Int32)).Value = sectionId;
+            Dictionary<string, object> parameters = new Dictionary<string, object> {{":section_id", sectionId}};
 
-            command.ExecuteNonQuery();
+            Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
         }
 
         public List<Tram> GetTramsWithReservedFlag()
         {
-            List<Tram> trams = new List<Tram>();
-
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT id, tramtype, status, line_id, forced " +
+            string query = "SELECT id, tramtype, status, line_id, forced " +
                                                       "FROM \"tram\" " +
-                                                      "WHERE (status = :status)", connection);
-            command.CommandType = CommandType.Text;
+                                                      "WHERE (status = :status)";
 
-            command.Parameters.Add(new OracleParameter(":status", OracleDbType.Varchar2)).Value = "Gereserveerd";
+            Dictionary<string, object> parameters = new Dictionary<string, object> {{":status", "Gereserveerd"}};
 
-            OracleDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
             {
-                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(1));
-                Status status = (Status)Enum.Parse(typeof(Status), reader.GetString(2));
-                Tram tram = new Tram(reader.GetInt32(0), type, status, new Line(reader.GetInt32(3)), reader.GetInt32(4) == 1);
+                List<Tram> trams = new List<Tram>();
+                while (reader.Read())
+                {
+                    TramType type = (TramType) Enum.Parse(typeof (TramType), reader.GetString(1));
+                    Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(2));
+                    Tram tram = new Tram(reader.GetInt32(0), type, status, new Line(reader.GetInt32(3)),
+                        reader.GetInt32(4) == 1);
 
-                trams.Add(tram);
+                    trams.Add(tram);
+                }
+
+                return trams;
             }
-
-            return trams;
         } 
 
         public List<Tram> GetAllTrams()
         {
-            List<Tram> trams = new List<Tram>();
+            string query = "SELECT t.id, t.tramtype, t.status, t.line_id, t.forced FROM \"tram\" t";
 
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT t.id, t.tramtype, t.status, t.line_id, t.forced FROM \"tram\" t", connection);
-            command.CommandType = CommandType.Text;
-
-            OracleDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, QueryType.Query))
             {
-                TramType type = (TramType)Enum.Parse(typeof(TramType), reader.GetString(1));
-                Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(2));
-                Tram tram = new Tram(reader.GetInt32(0), type, status, new Line(reader.GetInt32(3)), reader.GetInt32(4) == 1);
+                List<Tram> trams = new List<Tram>();
+                while (reader.Read())
+                {
+                    TramType type = (TramType) Enum.Parse(typeof (TramType), reader.GetString(1));
+                    Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(2));
+                    Tram tram = new Tram(reader.GetInt32(0), type, status, new Line(reader.GetInt32(3)),
+                        reader.GetInt32(4) == 1);
 
-                trams.Add(tram);
+                    trams.Add(tram);
+                }
+
+                return trams;
             }
-
-            return trams;
         } 
 
         public Depot GetDepot(string name)
         {
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT id " +
+            Depot depot;
+            string query = "SELECT id " +
                                                       "FROM \"depot\" " +
-                                                      "WHERE name = :name", connection);
-            command.CommandType = CommandType.Text;
+                                                      "WHERE name = :name";
 
-            command.Parameters.Add(new OracleParameter(":name", OracleDbType.Varchar2)).Value = name;
+            Dictionary<string, object> parameters = new Dictionary<string, object> {{":name", name}};
 
-            int id = Convert.ToInt32(command.ExecuteScalar());
-            Depot depot = new Depot(id, name);
+            using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
+            {
+                int id = -1;
+                while (reader.Read())
+                {
+                    id = Convert.ToInt32(reader[0]);
+                }
+                depot = new Depot(id, name);
+            }
 
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -179,57 +183,23 @@ namespace EyeCT4RailsDatabase
 
         private List<Track> GetTracks(Depot depot)
         {
-            List<Track> list = new List<Track>();
-
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT id " +
+            string query = "SELECT id " +
                                                       "FROM \"track\" " +
-                                                      "WHERE depot_id = :depot_id", connection);
-            command.CommandType = CommandType.Text;
+                                                      "WHERE depot_id = :depot_id";
 
-            command.Parameters.Add(new OracleParameter(":depot_id", OracleDbType.Int32)).Value = depot.Id;
+            Dictionary<string, object> parameters = new Dictionary<string, object> {{":depot_id", depot.Id}};
 
-            OracleDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
             {
-                Track track = new Track(reader.GetInt32(0));
-                list.Add(track);
-            }
-
-            return list;
-        }
-
-        private List<Section> GetSections(Track track)
-        {
-            List<Section> list = new List<Section>();
-
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id " +
-                                                      "FROM \"section\" s " +
-                                                      "WHERE track_id = :track_id ", connection);
-            command.CommandType = CommandType.Text;
-
-            command.Parameters.Add(new OracleParameter(":track_id", OracleDbType.Int32)).Value = track.Id;
-
-            OracleDataReader reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                int sectionId = reader.GetInt32(0);
-                bool blocked = reader.GetInt32(1) == 1;
-                if (reader.IsDBNull(2))
+                List<Track> list = new List<Track>();
+                while (reader.Read())
                 {
-                    Section section = new Section(sectionId, blocked);
-                    list.Add(section);
+                    Track track = new Track(reader.GetInt32(0));
+                    list.Add(track);
                 }
-                else
-                {
-                    Tram tram = GetAllTrams().Find(t => t.Id == reader.GetInt32(2));
-                    Section section = new Section(sectionId, blocked, tram);
-                    list.Add(section);
-                }
-            }
 
-            return list;
+                return list;
+            }
         }
 
         /// <summary>
@@ -240,35 +210,34 @@ namespace EyeCT4RailsDatabase
         /// <returns>All the sections in the database.</returns>
         private List<Section> GetSections(List<Tram> trams, List<Track> tracks)
         {
-            List<Section> list = new List<Section>();
+            string query = "SELECT s.id, s.blocked, s.tram_id, s.track_id FROM \"section\" s";
 
-            OracleConnection connection = Database.Instance.Connection;
-            OracleCommand command = new OracleCommand("SELECT s.id, s.blocked, s.tram_id, s.track_id FROM \"section\" s", connection);
-            command.CommandType = CommandType.Text;
-
-            OracleDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, QueryType.Query))
             {
-                int sectionId = reader.GetInt32(0);
-                bool blocked = reader.GetInt32(1) == 1;
-                Section section;
-                if (reader.IsDBNull(2))
+                List<Section> list = new List<Section>();
+                while (reader.Read())
                 {
-                    section = new Section(sectionId, blocked);                   
-                }
-                else
-                {
-                    //Finds the tram that is parked on this section.
-                    Tram tram = trams.Find(t => t.Id == reader.GetInt32(2));
-                    section = new Section(sectionId, blocked, tram);                   
+                    int sectionId = reader.GetInt32(0);
+                    bool blocked = reader.GetInt32(1) == 1;
+                    Section section;
+                    if (reader.IsDBNull(2))
+                    {
+                        section = new Section(sectionId, blocked);
+                    }
+                    else
+                    {
+                        //Finds the tram that is parked on this section.
+                        Tram tram = trams.Find(t => t.Id == reader.GetInt32(2));
+                        section = new Section(sectionId, blocked, tram);
+                    }
+
+                    list.Add(section);
+                    //Adds the section to the track.
+                    tracks.Find(x => x.Id == reader.GetInt32(3)).AddSection(section);
                 }
 
-                list.Add(section);
-                //Adds the section to the track.
-                tracks.Find(x => x.Id == reader.GetInt32(3)).AddSection(section);
+                return list;
             }
-
-            return list;
         }
     }
 }
