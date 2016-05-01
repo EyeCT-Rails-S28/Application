@@ -153,7 +153,7 @@ namespace EyeCT4RailsDatabase
             }
         }
 
-        public bool ScheduleJob(JobSize size, int userId, int tramId, DateTime date)
+        public void ScheduleJob(JobSize size, int userId, int tramId, DateTime date)
         {
             string query = "INSERT INTO \"job\"(user_id, tram_id, job_type, job_size, \"date\") " +
                            "VALUES(:user_id, :tram_id, 'Maintenance', :job_size, TO_DATE(:job_date, 'DD/MM/YYYY HH24:MI:SS'))";
@@ -167,20 +167,18 @@ namespace EyeCT4RailsDatabase
             };
 
             Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
-            return true;
         }
 
-        public bool RemoveScheduledJob(int jobId)
+        public void RemoveScheduledJob(int jobId)
         {
             string query = "DELETE FROM \"job\" WHERE(id = :id)";
 
             Dictionary<string, object> parameters = new Dictionary<string, object> {{":id", jobId}};
 
             Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
-            return true;
         }
 
-        public bool EditJobStatus(int jobId, bool isDone)
+        public void EditJobStatus(int jobId, bool isDone)
         {
             string query = "UPDATE \"job\" " +
                            "SET finished = :job_finished " +
@@ -193,7 +191,6 @@ namespace EyeCT4RailsDatabase
             };
 
             Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
-            return true;
         }
 
         public bool CheckJobLimit(DateTime date, JobSize size)

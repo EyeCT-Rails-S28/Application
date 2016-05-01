@@ -98,11 +98,11 @@ namespace EyeCT4RailsLogic
         /// </summary>
         /// <param name="jobId">The job to be removed from the schedule.</param>
         /// <returns>true if, and only if, this job was succesfully removed.</returns>
-        public bool RemoveScheduledJob(int jobId)
+        public void RemoveScheduledJob(int jobId)
         {
             try
             {
-                return _context.RemoveScheduledJob(jobId);
+                _context.RemoveScheduledJob(jobId);
             }
             catch (Exception e)
             {
@@ -183,11 +183,11 @@ namespace EyeCT4RailsLogic
         /// <param name="jobId">The job to be edited.</param>
         /// <param name="isDone">Whether the job is finished or not. True should imply that the job is finished.</param>
         /// <returns>true if, and only if, the job was succesfully edited.</returns>
-        public bool EditJobStatus(int jobId, bool isDone)
+        public void EditJobStatus(int jobId, bool isDone)
         {
             try
             {
-                return _context.EditJobStatus(jobId, isDone);
+                _context.EditJobStatus(jobId, isDone);
             }
             catch (Exception e)
             {

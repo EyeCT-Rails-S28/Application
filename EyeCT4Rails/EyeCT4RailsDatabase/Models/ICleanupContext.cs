@@ -40,14 +40,14 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="tramId">The tram the job will be performed on.</param>
         /// <param name="date">The date the job will be performed on.</param>
         /// <returns>True if, and only if, this job was succesfully added.</returns>
-        bool ScheduleCleanupJob(JobSize size, int userId, int tramId, DateTime date);
+        void ScheduleCleanupJob(JobSize size, int userId, int tramId, DateTime date);
 
         /// <summary>
         /// Removes a clean up job.
         /// </summary>
         /// <param name="cleanupId">The job to be removed.</param>
         /// <returns>True if, and only if, this job was succesfully removed.</returns>
-        bool RemoveScheduledJob(int cleanupId);
+        void RemoveScheduledJob(int cleanupId);
 
         /// <summary>
         /// Edits a status of a job.
@@ -55,7 +55,7 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="cleanupId">The cleanup to edit.</param>
         /// <param name="isDone">Whether the job is finished or not, true for finished.</param>
         /// <returns>True if, and only if, this job status was succesfully edited.</returns>
-        bool EditJobStatus(int cleanupId, bool isDone);
+        void EditJobStatus(int cleanupId, bool isDone);
 
         /// <summary>
         /// Checks whether or not a cleanup job can be done on this day.

@@ -52,6 +52,13 @@ namespace EyeCT4RailsDatabase
             Connection.Close();
         }
 
+        /// <summary>
+        /// Executes a query given as string with the given parameters and query type.
+        /// </summary>
+        /// <param name="query">The query that should be send to the database.</param>
+        /// <param name="parameters">The parameters used in the query.</param>
+        /// <param name="queryType">The type of query.</param>
+        /// <returns>A reader object if the query returns results, returns null otherwise.</returns>
         public OracleDataReader ExecuteQuery(string query, Dictionary<string, object> parameters, QueryType queryType)
         {
             OracleConnection connection = Instance.Connection;
@@ -69,6 +76,12 @@ namespace EyeCT4RailsDatabase
             }
         }
 
+        /// <summary>
+        /// Executes a query given as string with the given query type.
+        /// </summary>
+        /// <param name="query">The query that should be send to the database.</param>
+        /// <param name="queryType">The type of query.</param>
+        /// <returns>A reader object if the query returns results, returns null otherwise.</returns>
         public OracleDataReader ExecuteQuery(string query, QueryType queryType)
         {
            return ExecuteQuery(query, new Dictionary<string, object>(), queryType);
