@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnBevestig = new System.Windows.Forms.Button();
             this.gbTA = new System.Windows.Forms.GroupBox();
+            this.rbGeen = new System.Windows.Forms.RadioButton();
             this.rbDefect = new System.Windows.Forms.RadioButton();
             this.rbNee = new System.Windows.Forms.RadioButton();
             this.lbHistorie = new System.Windows.Forms.ListBox();
@@ -40,7 +42,7 @@
             this.lblTramnummer = new System.Windows.Forms.Label();
             this.tbSectienummer = new System.Windows.Forms.TextBox();
             this.lblSectienummer = new System.Windows.Forms.Label();
-            this.rbGeen = new System.Windows.Forms.RadioButton();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.gbTA.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,6 +67,18 @@
             this.gbTA.TabIndex = 20;
             this.gbTA.TabStop = false;
             this.gbTA.Text = "Technische assistentie nodig?";
+            // 
+            // rbGeen
+            // 
+            this.rbGeen.AutoSize = true;
+            this.rbGeen.Checked = true;
+            this.rbGeen.Location = new System.Drawing.Point(17, 30);
+            this.rbGeen.Name = "rbGeen";
+            this.rbGeen.Size = new System.Drawing.Size(51, 17);
+            this.rbGeen.TabIndex = 14;
+            this.rbGeen.TabStop = true;
+            this.rbGeen.Text = "Geen";
+            this.rbGeen.UseVisualStyleBackColor = true;
             // 
             // rbDefect
             // 
@@ -156,17 +170,10 @@
             this.lblSectienummer.TabIndex = 23;
             this.lblSectienummer.Text = "Ga naar sectie:";
             // 
-            // rbGeen
+            // timer
             // 
-            this.rbGeen.AutoSize = true;
-            this.rbGeen.Checked = true;
-            this.rbGeen.Location = new System.Drawing.Point(17, 30);
-            this.rbGeen.Name = "rbGeen";
-            this.rbGeen.Size = new System.Drawing.Size(51, 17);
-            this.rbGeen.TabIndex = 14;
-            this.rbGeen.TabStop = true;
-            this.rbGeen.Text = "Geen";
-            this.rbGeen.UseVisualStyleBackColor = true;
+            this.timer.Interval = 3000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // UcInEnUitRijSysteem
             // 
@@ -206,5 +213,6 @@
         private System.Windows.Forms.TextBox tbSectienummer;
         private System.Windows.Forms.Label lblSectienummer;
         private System.Windows.Forms.RadioButton rbGeen;
+        private System.Windows.Forms.Timer timer;
     }
 }

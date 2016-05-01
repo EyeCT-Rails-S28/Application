@@ -32,8 +32,8 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
         {
             this.lblGrootteBeurt = new System.Windows.Forms.Label();
             this.cbGrootteBeurt = new System.Windows.Forms.ComboBox();
-            this.lblUserId = new System.Windows.Forms.Label();
-            this.tbUserID = new System.Windows.Forms.TextBox();
+            this.lblUser = new System.Windows.Forms.Label();
+            this.tbUser = new System.Windows.Forms.TextBox();
             this.tbTramID = new System.Windows.Forms.TextBox();
             this.lblTramID = new System.Windows.Forms.Label();
             this.lblDatum = new System.Windows.Forms.Label();
@@ -60,6 +60,7 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
             // 
             // cbGrootteBeurt
             // 
+            this.cbGrootteBeurt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbGrootteBeurt.FormattingEnabled = true;
             this.cbGrootteBeurt.Items.AddRange(new object[] {
             "Big",
@@ -69,22 +70,22 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
             this.cbGrootteBeurt.Size = new System.Drawing.Size(200, 21);
             this.cbGrootteBeurt.TabIndex = 1;
             // 
-            // lblUserId
+            // lblUser
             // 
-            this.lblUserId.AutoSize = true;
-            this.lblUserId.Location = new System.Drawing.Point(3, 36);
-            this.lblUserId.Name = "lblUserId";
-            this.lblUserId.Size = new System.Drawing.Size(46, 13);
-            this.lblUserId.TabIndex = 3;
-            this.lblUserId.Text = "User ID:";
+            this.lblUser.AutoSize = true;
+            this.lblUser.Location = new System.Drawing.Point(3, 36);
+            this.lblUser.Name = "lblUser";
+            this.lblUser.Size = new System.Drawing.Size(32, 13);
+            this.lblUser.TabIndex = 3;
+            this.lblUser.Text = "User:";
             // 
-            // tbUserID
+            // tbUser
             // 
-            this.tbUserID.Location = new System.Drawing.Point(93, 33);
-            this.tbUserID.Name = "tbUserID";
-            this.tbUserID.ReadOnly = true;
-            this.tbUserID.Size = new System.Drawing.Size(200, 20);
-            this.tbUserID.TabIndex = 4;
+            this.tbUser.Location = new System.Drawing.Point(93, 33);
+            this.tbUser.Name = "tbUser";
+            this.tbUser.ReadOnly = true;
+            this.tbUser.Size = new System.Drawing.Size(200, 20);
+            this.tbUser.TabIndex = 4;
             // 
             // tbTramID
             // 
@@ -199,13 +200,12 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
             this.Controls.Add(this.lblDatum);
             this.Controls.Add(this.tbTramID);
             this.Controls.Add(this.lblTramID);
-            this.Controls.Add(this.tbUserID);
-            this.Controls.Add(this.lblUserId);
+            this.Controls.Add(this.tbUser);
+            this.Controls.Add(this.lblUser);
             this.Controls.Add(this.cbGrootteBeurt);
             this.Controls.Add(this.lblGrootteBeurt);
             this.Name = "UcPlanSchoonmaak";
-            this.Size = new System.Drawing.Size(641, 141);
-            this.Load += new System.EventHandler(this.UcPlanSchoonmaak_Load);
+            this.Size = new System.Drawing.Size(615, 141);
             ((System.ComponentModel.ISupportInitialize)(this.nudInterval)).EndInit();
             this.gbReJob.ResumeLayout(false);
             this.gbReJob.PerformLayout();
@@ -218,8 +218,8 @@ namespace EyeCT4RailsUI.Forms.Schoonmaaksysteem.UserControls
 
         private System.Windows.Forms.Label lblGrootteBeurt;
         private System.Windows.Forms.ComboBox cbGrootteBeurt;
-        private System.Windows.Forms.Label lblUserId;
-        private System.Windows.Forms.TextBox tbUserID;
+        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.TextBox tbUser;
         private System.Windows.Forms.TextBox tbTramID;
         private System.Windows.Forms.Label lblTramID;
         private System.Windows.Forms.Label lblDatum;

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
@@ -13,8 +14,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 {
     public partial class UcOverzichtBs : UserControl
     {
-        private const int SECTION_WIDTH = 50;
-        private const int SECTION_HEIGHT = 50;
+        private const int SECTION_WIDTH = 45;
+        private const int SECTION_HEIGHT = 45;
         private const int LEFT_MARGIN = 5;
         private const int ABOVE_MARGIN = 5;
         private const int NEWLINE_MARGIN = 20;
@@ -27,8 +28,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private Track _selectedTrack;
         private Section _selectedSection;
         private List<Tram> _needyTrams;
-
-        private int _ticks;
 
         public UcOverzichtBs()
         {
@@ -44,8 +43,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void RefreshControl()
         {
-            if(_ticks%20 == 0)
-                RefreshDepot();
+            RefreshDepot();
             CheckForReservedFlag();
             RefreshUi();
         }
@@ -131,6 +129,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                 _selectedTrack = track;
                 _selectedSection = section;
+                btnBevestig.Enabled = lbReserveringen.SelectedItem != null && _selectedSection != null;
 
                 SelectionChanged?.Invoke(_selectedTrack, new EventArgs());
 
@@ -163,7 +162,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 lbReserveringen.Items.Add(tram);
             }
 
-            if(index > 0)
+            if (index > -1 && lbReserveringen.Items.Count > index) 
                 lbReserveringen.SelectedIndex = index;
         }
 
@@ -174,7 +173,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            _ticks++;
             RefreshControl();
         }
 
@@ -186,7 +184,10 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
                 if (trams.Exists(x => !_needyTrams.Exists(y => x.Id == y.Id)))
                 {
+                    timer.Enabled = false;
                     MessageBox.Show("Er is een tram die een handmatige invoer vereist.");
+                    timer.Enabled = true;
+
                     RefreshDepot();
                 }
 
@@ -261,6 +262,13 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
                 {
                     try
                     {
+                        if (!(RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection.NextSection, true) ||
+                              RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection.PreviousSection, false)))
+                        {
+                            MessageBox.Show("Deze tram kan niet verwijderd worden.");
+                            return;
+                        }
+
                         DepotManagementRepository.Instance.RemoveTram(_selectedSection.Id);
                     }
                     catch (Exception ex)
@@ -377,7 +385,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
             public void DrawSections(Graphics g, int x, int y, int selectedSectionId)
             {
-                Font font = new Font(FontFamily.GenericSansSerif, 12);
+                Font font = new Font(FontFamily.GenericSansSerif, 11);
 
                 Area = new Rectangle(x, y, SECTION_WIDTH, SECTION_HEIGHT * (UiSections.Count + 1));
 
@@ -449,15 +457,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void btnBevestig_Click(object sender, EventArgs e)
         {
+            if (_selectedSection == null)
+            {
+                return;
+            }
+
+            if (!RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, true) &&
+                !RideManagementRepository.Instance.CheckSectionFreedom(_selectedSection, false))
+            {
+                MessageBox.Show("Het is niet mogelijk om de geselecteerde tram op de geselecteerde sectie te plaatsen.");
+                return;
+            }
+
             try
             {
                 Tram tram = (Tram) lbReserveringen.SelectedItem;
+
+                DepotManagementRepository.Instance.ReserveSection(tram.Id, _selectedSection.Id);
                 DepotManagementRepository.Instance.ChangeTramStatus(tram.Id, Status.Defect);
 
-                _tracks.Find(x => x.Sections.Find(y => y.Tram?.Id == tram.Id) != null).UiSections.Find(x => x.Tram?.Id == tram.Id).Tram.Status = Status.Defect;
-                pnlTracks.Refresh();
-
-                btnBevestig.Enabled = false;
+                RefreshDepot();
             }
             catch (Exception ex)
             {
@@ -468,7 +487,46 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
 
         private void lbReserveringen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnBevestig.Enabled = lbReserveringen.SelectedItem != null;
+            btnBevestig.Enabled = lbReserveringen.SelectedItem != null && _selectedSection != null;
+        }
+
+        private void btnSimulate_Click(object sender, EventArgs e)
+        {
+            RefreshDepot();
+
+            List<Section> sections = new List<Section>();
+            _depot.Tracks.ForEach(t => sections.AddRange(t.Sections));
+
+            List<Tram> parkedTrams = new List<Tram>();
+            sections.FindAll(s => s.Tram != null).ForEach(s => parkedTrams.Add(s.Tram));
+
+            List<Tram> unparkedTrams = new List<Tram>(_depot.Trams);
+            unparkedTrams.RemoveAll(t => parkedTrams.Contains(t));
+
+            int count = unparkedTrams.Count;
+            Random random = new Random();
+
+            try
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    Tram tram = unparkedTrams[random.Next(unparkedTrams.Count)];
+                    Section section = RideManagementRepository.Instance.GetFreeSection(_depot, tram.TramType);
+
+                    DepotManagementRepository.Instance.ReserveSection(tram.Id, section.Id);
+
+                    unparkedTrams.Remove(tram);
+
+                    RefreshControl();
+                    Thread.Sleep(500);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

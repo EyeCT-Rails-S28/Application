@@ -53,6 +53,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             msMenu.Visible = true;
 
             ShowMenuItems();
+            SetDefaultControl();
 
             UpdateTitle("");
         }
@@ -87,6 +88,26 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
             }
 
             exitToolStripMenuItem.Visible = true;
+        }
+
+        private void SetDefaultControl()
+        {
+            switch (_currentUser.Role)
+            {
+                case Role.DepotManager:
+                case Role.Administrator:
+                    UserControl_Change(overzichtBSToolStripMenuItem, new EventArgs());
+                    break;
+                case Role.Mechanic:
+                    UserControl_Change(reparatieToolStripMenuItem, new EventArgs());
+                    break;
+                case Role.Cleanup:
+                    UserControl_Change(schoonmaakToolStripMenuItem, new EventArgs());
+                    break;
+                case Role.Driver:
+                    UserControl_Change(inEnUitrijSysteemToolStripMenuItem, new EventArgs());
+                    break;
+            }
         }
 
         private void UserControl_Change(object sender, EventArgs e)
@@ -208,7 +229,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 return;
             }
 
-            string tramId = Convert.ToString(selected.Cells[2].Value);
+            int tramId = Convert.ToInt32(selected.Cells[2].Value);
             UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
             AddControl(uc);
             UpdateTitle("Historie");
@@ -228,7 +249,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
                 return;
             }
 
-            string tramId = Convert.ToString(selected.Cells[2].Value);
+            int tramId = Convert.ToInt32(selected.Cells[2].Value);
             UcTramHistorieRs uc = new UcTramHistorieRs(tramId);
             AddControl(uc);
             UpdateTitle("Historie");
@@ -270,6 +291,70 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void zoekSchoonmaakToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int tramId = Convert.ToInt32(Prompt.ShowDialog("Voor welk tramnummer wilt u de historie opzoeken?", "Zoek schoonmaak historie"));
+
+                UcTramHistorieSch uc = new UcTramHistorieSch(tramId);
+                AddControl(uc);
+                UpdateTitle("Historie");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void zoekReparatieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int tramId = Convert.ToInt32(Prompt.ShowDialog("Voor welk tramnummer wilt u de historie opzoeken?", "Zoek reparatie historie"));
+
+                UcTramHistorieRs uc = new UcTramHistorieRs(tramId);
+                AddControl(uc);
+                UpdateTitle("Historie");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void historieSchoonmaakToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UcTramHistorieSch uc = new UcTramHistorieSch();
+                AddControl(uc);
+                UpdateTitle("Historie");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void historieReparatieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UcTramHistorieRs uc = new UcTramHistorieRs();
+                AddControl(uc);
+                UpdateTitle("Historie");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

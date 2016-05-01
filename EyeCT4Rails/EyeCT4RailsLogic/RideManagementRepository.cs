@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
@@ -48,14 +49,36 @@ namespace EyeCT4RailsLogic
         /// </summary>
         /// <param name="depot">The depot in question.</param>
         /// <returns>The first free section it finds.</returns>
-        public Section GetFreeSection(Depot depot)
+        public Section GetFreeSection(Depot depot, TramType type)
         {
-            foreach (Section ret in depot.Tracks.Select(GetFreeSection).Where(ret => ret != null))
+            var tracks = depot.Tracks;
+
+            switch (type)
+            {
+                case TramType.DCombino:
+                case TramType.Trainer:
+                    var track57 = tracks.Find(t => t.Id == 57);
+                    tracks.Remove(track57);
+                    tracks.Add(track57);
+                    break;
+            }
+
+            var track40 = tracks.Find(t => t.Id == 40);
+            tracks.Remove(track40);
+            tracks.Add(track40);
+
+            var track58 = tracks.Find(t => t.Id == 58);
+            tracks.Remove(track58);
+            tracks.Add(track58);
+
+
+            foreach (Section ret in tracks.Select(GetFreeSection).Where(ret => ret != null))
             {
                 return ret;
             }
 
             throw new NoFreeSectionException("No section is free");
+
         }
 
         /// <summary>
@@ -88,10 +111,12 @@ namespace EyeCT4RailsLogic
         /// Checks wheter a section is accessible from the outside.
         /// </summary>
         /// <param name="section">The section to check for.</param>
-        /// <param name="direction">The direction in which to look.</param>
+        /// <param name="direction">The direction in which to look. True is next.</param>
         /// <returns>A bool that is true, if and only if it can reach the outside.</returns>
         public bool CheckSectionFreedom(Section section, bool direction)
         {
+            if (section == null)
+                return true;
             if (section.Blocked || section.Tram != null)
                 return false;
             if (section.NextSection == null || section.PreviousSection == null)

@@ -12,9 +12,6 @@ namespace EyeCT4RailsUI.Forms.Login
         public UcLogIn()
         {
             InitializeComponent();
-
-            tbEmail.Text = "marc-de-regter@gmail.com";
-            tbPassword.Text = "marcishomo";
         }
 
         private void btnLogIn_Click(object sender, EventArgs e)

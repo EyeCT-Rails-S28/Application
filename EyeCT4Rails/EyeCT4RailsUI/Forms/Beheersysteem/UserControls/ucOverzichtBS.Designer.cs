@@ -30,10 +30,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.lblTram = new System.Windows.Forms.Label();
-            this.lblSpoor = new System.Windows.Forms.Label();
-            this.tbTram = new System.Windows.Forms.TextBox();
-            this.tbSpoor = new System.Windows.Forms.TextBox();
             this.lblReserveringen = new System.Windows.Forms.Label();
             this.lbReserveringen = new System.Windows.Forms.ListBox();
             this.pnlTracks = new System.Windows.Forms.Panel();
@@ -56,48 +52,16 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblRemise = new System.Windows.Forms.Label();
             this.lblSchoonmaak = new System.Windows.Forms.Label();
             this.lblReparatie = new System.Windows.Forms.Label();
-            this.lblGereserveerd = new System.Windows.Forms.Label();
             this.lblDienst = new System.Windows.Forms.Label();
             this.btnBevestig = new System.Windows.Forms.Button();
+            this.btnSimulate = new System.Windows.Forms.Button();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lblTram
-            // 
-            this.lblTram.AutoSize = true;
-            this.lblTram.Location = new System.Drawing.Point(13, 39);
-            this.lblTram.Name = "lblTram";
-            this.lblTram.Size = new System.Drawing.Size(34, 13);
-            this.lblTram.TabIndex = 1;
-            this.lblTram.Text = "Tram:";
-            // 
-            // lblSpoor
-            // 
-            this.lblSpoor.AutoSize = true;
-            this.lblSpoor.Location = new System.Drawing.Point(13, 97);
-            this.lblSpoor.Name = "lblSpoor";
-            this.lblSpoor.Size = new System.Drawing.Size(38, 13);
-            this.lblSpoor.TabIndex = 2;
-            this.lblSpoor.Text = "Spoor:";
-            // 
-            // tbTram
-            // 
-            this.tbTram.Location = new System.Drawing.Point(16, 65);
-            this.tbTram.Name = "tbTram";
-            this.tbTram.Size = new System.Drawing.Size(120, 20);
-            this.tbTram.TabIndex = 3;
-            // 
-            // tbSpoor
-            // 
-            this.tbSpoor.Location = new System.Drawing.Point(16, 122);
-            this.tbSpoor.Name = "tbSpoor";
-            this.tbSpoor.Size = new System.Drawing.Size(120, 20);
-            this.tbSpoor.TabIndex = 4;
             // 
             // lblReserveringen
             // 
             this.lblReserveringen.AutoSize = true;
-            this.lblReserveringen.Location = new System.Drawing.Point(13, 155);
+            this.lblReserveringen.Location = new System.Drawing.Point(12, 14);
             this.lblReserveringen.Name = "lblReserveringen";
             this.lblReserveringen.Size = new System.Drawing.Size(79, 13);
             this.lblReserveringen.TabIndex = 5;
@@ -105,10 +69,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // lbReserveringen
             // 
+            this.lbReserveringen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lbReserveringen.FormattingEnabled = true;
-            this.lbReserveringen.Location = new System.Drawing.Point(16, 180);
+            this.lbReserveringen.Location = new System.Drawing.Point(15, 39);
             this.lbReserveringen.Name = "lbReserveringen";
-            this.lbReserveringen.Size = new System.Drawing.Size(120, 147);
+            this.lbReserveringen.Size = new System.Drawing.Size(120, 290);
             this.lbReserveringen.TabIndex = 6;
             this.lbReserveringen.SelectedIndexChanged += new System.EventHandler(this.lbReserveringen_SelectedIndexChanged);
             // 
@@ -250,6 +216,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // lblRemise
             // 
+            this.lblRemise.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblRemise.AutoSize = true;
             this.lblRemise.ForeColor = System.Drawing.Color.Black;
             this.lblRemise.Location = new System.Drawing.Point(16, 384);
@@ -260,6 +227,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // lblSchoonmaak
             // 
+            this.lblSchoonmaak.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSchoonmaak.AutoSize = true;
             this.lblSchoonmaak.ForeColor = System.Drawing.Color.Blue;
             this.lblSchoonmaak.Location = new System.Drawing.Point(16, 406);
@@ -270,6 +238,7 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // lblReparatie
             // 
+            this.lblReparatie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblReparatie.AutoSize = true;
             this.lblReparatie.ForeColor = System.Drawing.Color.Red;
             this.lblReparatie.Location = new System.Drawing.Point(16, 428);
@@ -278,21 +247,12 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.lblReparatie.TabIndex = 12;
             this.lblReparatie.Text = "Reparatie";
             // 
-            // lblGereserveerd
-            // 
-            this.lblGereserveerd.AutoSize = true;
-            this.lblGereserveerd.ForeColor = System.Drawing.Color.DarkOrange;
-            this.lblGereserveerd.Location = new System.Drawing.Point(16, 450);
-            this.lblGereserveerd.Name = "lblGereserveerd";
-            this.lblGereserveerd.Size = new System.Drawing.Size(71, 13);
-            this.lblGereserveerd.TabIndex = 13;
-            this.lblGereserveerd.Text = "Gereserveerd";
-            // 
             // lblDienst
             // 
+            this.lblDienst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDienst.AutoSize = true;
             this.lblDienst.ForeColor = System.Drawing.Color.Purple;
-            this.lblDienst.Location = new System.Drawing.Point(16, 472);
+            this.lblDienst.Location = new System.Drawing.Point(16, 450);
             this.lblDienst.Name = "lblDienst";
             this.lblDienst.Size = new System.Drawing.Size(37, 13);
             this.lblDienst.TabIndex = 14;
@@ -300,23 +260,35 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             // 
             // btnBevestig
             // 
+            this.btnBevestig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBevestig.Enabled = false;
-            this.btnBevestig.Location = new System.Drawing.Point(16, 333);
+            this.btnBevestig.Location = new System.Drawing.Point(15, 335);
             this.btnBevestig.Name = "btnBevestig";
-            this.btnBevestig.Size = new System.Drawing.Size(119, 24);
+            this.btnBevestig.Size = new System.Drawing.Size(121, 24);
             this.btnBevestig.TabIndex = 15;
             this.btnBevestig.Text = "Bevestig";
             this.btnBevestig.UseVisualStyleBackColor = true;
             this.btnBevestig.Click += new System.EventHandler(this.btnBevestig_Click);
+            // 
+            // btnSimulate
+            // 
+            this.btnSimulate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSimulate.Location = new System.Drawing.Point(684, 4);
+            this.btnSimulate.Name = "btnSimulate";
+            this.btnSimulate.Size = new System.Drawing.Size(109, 23);
+            this.btnSimulate.TabIndex = 16;
+            this.btnSimulate.Text = "Simuleer Data";
+            this.btnSimulate.UseVisualStyleBackColor = true;
+            this.btnSimulate.Click += new System.EventHandler(this.btnSimulate_Click);
             // 
             // UcOverzichtBs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.contextMenuStrip;
+            this.Controls.Add(this.btnSimulate);
             this.Controls.Add(this.btnBevestig);
             this.Controls.Add(this.lblDienst);
-            this.Controls.Add(this.lblGereserveerd);
             this.Controls.Add(this.lblReparatie);
             this.Controls.Add(this.lblSchoonmaak);
             this.Controls.Add(this.lblRemise);
@@ -325,10 +297,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
             this.Controls.Add(this.pnlTracks);
             this.Controls.Add(this.lbReserveringen);
             this.Controls.Add(this.lblReserveringen);
-            this.Controls.Add(this.tbSpoor);
-            this.Controls.Add(this.tbTram);
-            this.Controls.Add(this.lblSpoor);
-            this.Controls.Add(this.lblTram);
             this.Name = "UcOverzichtBs";
             this.Size = new System.Drawing.Size(796, 508);
             this.Resize += new System.EventHandler(this.ucOverzichtBS_Resize);
@@ -339,10 +307,6 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         }
 
         #endregion
-        private System.Windows.Forms.Label lblTram;
-        private System.Windows.Forms.Label lblSpoor;
-        private System.Windows.Forms.TextBox tbTram;
-        private System.Windows.Forms.TextBox tbSpoor;
         private System.Windows.Forms.Label lblReserveringen;
         private System.Windows.Forms.ListBox lbReserveringen;
         private System.Windows.Forms.Panel pnlTracks;
@@ -365,8 +329,8 @@ namespace EyeCT4RailsUI.Forms.Beheersysteem.UserControls
         private System.Windows.Forms.Label lblRemise;
         private System.Windows.Forms.Label lblSchoonmaak;
         private System.Windows.Forms.Label lblReparatie;
-        private System.Windows.Forms.Label lblGereserveerd;
         private System.Windows.Forms.Label lblDienst;
         private System.Windows.Forms.Button btnBevestig;
+        private System.Windows.Forms.Button btnSimulate;
     }
 }

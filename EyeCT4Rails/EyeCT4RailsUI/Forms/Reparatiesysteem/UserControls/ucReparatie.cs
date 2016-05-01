@@ -71,5 +71,26 @@ namespace EyeCT4RailsUI.Forms.Reparatiesysteem.UserControls
 
             RefreshData();
         }
+
+        private void btnReparatieVerwijderen_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvTrams.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value))
+                {
+                    try
+                    {
+                        MaintenanceRepository.Instance.RemoveScheduledJob(Convert.ToInt32(row.Cells[1].Value));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show($"Fout bij het bewerken van status voor ID: {row.Cells[1].Value}, {ex.Message}");
+                    }
+                }
+            }
+
+            RefreshData();
+        }
     }
 }

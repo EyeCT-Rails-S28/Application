@@ -37,6 +37,7 @@
             this.Type_Beurt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Schoonmaak_Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSchoonmaakbeurtAfronden = new System.Windows.Forms.Button();
+            this.btnSchoonmaakVerwijderen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTrams)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,10 +119,22 @@
             this.btnSchoonmaakbeurtAfronden.UseVisualStyleBackColor = true;
             this.btnSchoonmaakbeurtAfronden.Click += new System.EventHandler(this.btnSchoonmaakbeurtAfronden_Click);
             // 
+            // btnSchoonmaakVerwijderen
+            // 
+            this.btnSchoonmaakVerwijderen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSchoonmaakVerwijderen.Location = new System.Drawing.Point(171, 392);
+            this.btnSchoonmaakVerwijderen.Name = "btnSchoonmaakVerwijderen";
+            this.btnSchoonmaakVerwijderen.Size = new System.Drawing.Size(162, 23);
+            this.btnSchoonmaakVerwijderen.TabIndex = 2;
+            this.btnSchoonmaakVerwijderen.Text = "Schoonmaakbeurt verwijderen";
+            this.btnSchoonmaakVerwijderen.UseVisualStyleBackColor = true;
+            this.btnSchoonmaakVerwijderen.Click += new System.EventHandler(this.btnSchoonmaakVerwijderen_Click);
+            // 
             // UcSchoonmaak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSchoonmaakVerwijderen);
             this.Controls.Add(this.btnSchoonmaakbeurtAfronden);
             this.Controls.Add(this.dgvTrams);
             this.Name = "UcSchoonmaak";
@@ -142,5 +155,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Spoor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type_Beurt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Schoonmaak_Datum;
+        private System.Windows.Forms.Button btnSchoonmaakVerwijderen;
     }
 }
