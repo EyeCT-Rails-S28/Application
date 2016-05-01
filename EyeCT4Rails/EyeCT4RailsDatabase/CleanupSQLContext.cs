@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 
 namespace EyeCT4RailsDatabase
 {
