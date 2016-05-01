@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using Oracle.ManagedDataAccess.Client;
 
 namespace EyeCT4RailsDatabase
@@ -50,5 +51,33 @@ namespace EyeCT4RailsDatabase
         {
             Connection.Close();
         }
+
+        public OracleDataReader ExecuteQuery(string query, Dictionary<string, object> parameters, QueryType queryType)
+        {
+            OracleConnection connection = Instance.Connection;
+            using (OracleCommand command = new OracleCommand(query, connection) {CommandType = CommandType.Text})
+            {
+                foreach (KeyValuePair<string, object> entry in parameters)
+                {
+                    command.Parameters.Add(new OracleParameter(entry.Key, entry.Value));
+                }
+
+                if (queryType == QueryType.Query)
+                    return command.ExecuteReader();
+                command.ExecuteNonQuery();
+                return null;
+            }
+        }
+
+        public OracleDataReader ExecuteQuery(string query, QueryType queryType)
+        {
+           return ExecuteQuery(query, new Dictionary<string, object>(), queryType);
+        }
+    }
+
+    public enum QueryType
+    {
+        Query = 1,
+        NonQuery = 0
     }
 }
