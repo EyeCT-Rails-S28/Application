@@ -40,15 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cleanup.cs" />
     <Compile Include="Depot.cs" />
     <Compile Include="Enums\JobSize.cs" />
+    <Compile Include="Enums\JobType.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\TramType.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Line.cs" />
-    <Compile Include="MaintenanceJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ride.cs" />
     <Compile Include="Section.cs" />

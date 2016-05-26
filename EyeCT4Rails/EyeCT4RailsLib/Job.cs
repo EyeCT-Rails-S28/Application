@@ -6,17 +6,25 @@ namespace EyeCT4RailsLib
     public abstract class Job
     {
         /// <summary>
+        /// The id of the cleanup in the database.
+        /// </summary>
+        public int Id { get; }
+        /// <summary>
         /// The date of the job.
         /// </summary>
         public DateTime Date { get; }
         /// <summary>
         /// Bool dictating wheter the job is done.
         /// </summary>
-        public bool IsDone { get; set; }
+        public bool IsDone { get; }
         /// <summary>
         /// The size of the job.
         /// </summary>
         public JobSize JobSize { get; }
+        /// <summary>
+        /// The type of job.
+        /// </summary>
+        public JobType JobType { get; }
         /// <summary>
         /// The tram that is involved in the job.
         /// </summary>
@@ -24,21 +32,27 @@ namespace EyeCT4RailsLib
         /// <summary>
         /// The user that is associated with the job.
         /// </summary>
-        public abstract User User { get; set; }
+        public User User { get;}
 
         /// <summary>
         /// Creates a job.
         /// </summary>
+        /// <param name="id">The id of the job.</param>
         /// <param name="date">Date of the job.</param>
         /// <param name="isDone">Bool dictating wheter the job is done.</param>
+        /// <param name="jobType">The type of job.</param>
         /// <param name="jobSize">The size of the job.</param>
         /// <param name="tram">The tram that is involved in the job.</param>
-        protected Job(DateTime date, bool isDone, JobSize jobSize, Tram tram)
+        /// <param name="user">The user that performed the job.</param>
+        protected Job(int id, DateTime date, bool isDone, JobType jobType, JobSize jobSize, Tram tram, User user)
         {
+            Id = id;
             Date = date;
             IsDone = isDone;
+            JobType = jobType;
             JobSize = jobSize;
             Tram = tram;
+            User = user;
         }
 
         public override string ToString()
