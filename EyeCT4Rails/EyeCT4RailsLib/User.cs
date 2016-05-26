@@ -41,7 +41,7 @@ namespace EyeCT4RailsLib
         /// </summary>
         /// <param name="role">Role to check.</param>
         /// <returns>A bool which specifies wheter the user has the Role.</returns>
-        public bool HasPrivilege(Role role)
+        public bool HasRole(Role role)
         {
             return Role == role || Role == Role.Administrator;
         }
