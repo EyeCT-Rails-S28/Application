@@ -8,12 +8,12 @@ namespace EyeCT4RailsUnitTests.LibTests
     [TestClass]
     public class CleanupTest
     {
-        private Cleanup _cleanup;
+        private Job _cleanup;
 
         [TestInitialize]
         public void CleanupInit()
         {
-            _cleanup = new Cleanup(1, DateTime.Today, false, JobSize.Big, new Tram(1, TramType.Combino, Status.Schoonmaak, new Line(1), false), new User(1, "Piet", "", Role.Cleanup));
+            _cleanup = new Job(1, DateTime.Today, false, JobType.Cleanup, JobSize.Big, new Tram(1, TramType.Combino, Status.Schoonmaak, new Line(1), false), new User(1, "Piet", "", Role.Cleanup));
         }
 
         [TestMethod]

@@ -8,12 +8,12 @@ namespace EyeCT4RailsUnitTests.LibTests
     [TestClass]
     public class MaintenanceTest
     {
-        private MaintenanceJob _maintenance;
+        private Job _maintenance;
 
         [TestInitialize]
         public void MaintenanceInit()
         {
-            _maintenance = new MaintenanceJob(1, DateTime.Today, false, JobSize.Big, new Tram(1, TramType.Combino,  Status.Schoonmaak, new Line(1), false), new User(1, "Piet", "", Role.Mechanic));
+            _maintenance = new Job(1, DateTime.Today, false, JobType.Maintenance, JobSize.Big, new Tram(1, TramType.Combino,  Status.Schoonmaak, new Line(1), false), new User(1, "Piet", "", Role.Mechanic));
         }
 
         [TestMethod]

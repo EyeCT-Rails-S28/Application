@@ -35,9 +35,9 @@ namespace EyeCT4RailsUnitTests.LibTests
                 Role.Mechanic
             };
             
-            enums.ForEach(x => Assert.AreEqual(true, _user1.HasPrivilege(x)));
-            enums.FindAll(x => x != Role.Mechanic).ToList().ForEach(y => Assert.AreNotEqual(true, _user2.HasPrivilege(y)));
-            Assert.AreEqual(true, _user2.HasPrivilege(Role.Mechanic));
+            enums.ForEach(x => Assert.AreEqual(true, _user1.HasRole(x)));
+            enums.FindAll(x => x != Role.Mechanic).ToList().ForEach(y => Assert.AreNotEqual(true, _user2.HasRole(y)));
+            Assert.AreEqual(true, _user2.HasRole(Role.Mechanic));
         }
 
         [TestMethod]

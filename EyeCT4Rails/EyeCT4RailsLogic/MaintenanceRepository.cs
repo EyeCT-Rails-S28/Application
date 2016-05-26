@@ -45,7 +45,7 @@ namespace EyeCT4RailsLogic
         /// Gets a list of all maintenance jobs which have not yet been finished. Dangerous code!
         /// </summary>
         /// <returns>A list of all maintenance jobs which haven't been finished yet, can return an empty list, never null.</returns>
-        public List<MaintenanceJob> GetSchedule()
+        public List<Job> GetSchedule()
         {
             try
             {
@@ -62,7 +62,7 @@ namespace EyeCT4RailsLogic
         /// Gets a list of all maintenance jobs which have been finished. Dangerous code!
         /// </summary> 
         /// <returns>A list of all finished maintenance jobs.</returns>
-        public List<MaintenanceJob> GetHistory()
+        public List<Job> GetHistory()
         {
             try
             {
@@ -80,7 +80,7 @@ namespace EyeCT4RailsLogic
         /// </summary>
         /// <param name="tramId">The to view the history from.</param>
         /// <returns>A list of maintenance jobs which have been finished</returns>
-        public List<MaintenanceJob> GetHistory(int tramId)
+        public List<Job> GetHistory(int tramId)
         {
             try
             {

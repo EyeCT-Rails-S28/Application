@@ -17,20 +17,20 @@ namespace EyeCT4RailsDatabase.Models
         /// Gets a list of all cleanups which have not yet been finished.
         /// </summary>
         /// <returns>A list of cleanups which still need to be finished.</returns>
-        List<Cleanup> GetSchedule();
+        List<Job> GetSchedule();
 
         /// <summary>
         /// Gets a list of cleanups which have been finished, for one specific tram.
         /// </summary>
         /// <param name="tramId">The tram to get all previously finished cleanups from.</param>
         /// <returns>A list of cleanups which have already been finished in the past, for one specific tram.</returns>
-        List<Cleanup> GetHistory(int tramId);
+        List<Job> GetHistory(int tramId);
 
         /// <summary>
         /// Gets a list of cleanups which have been finished.
         /// </summary>
         /// <returns>A list of all cleanups which have already been finished in the past.</returns>
-        List<Cleanup> GetHistory();
+        List<Job> GetHistory();
 
         /// <summary>
         /// Adds a clean up job.

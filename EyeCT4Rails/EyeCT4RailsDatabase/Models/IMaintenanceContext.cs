@@ -17,20 +17,20 @@ namespace EyeCT4RailsDatabase.Models
         /// Gets a list of all maintenance jobs which have not yet been finished.
         /// </summary>
         /// <returns>A list of all maintenance jobs which haven't been finished yet, can return an empty list, never null.</returns>
-        List<MaintenanceJob> GetSchedule();
+        List<Job> GetSchedule();
 
         /// <summary>
         /// Gets a list of all maintenance jobs which have been finished for one specific tram.
         /// </summary>
         /// <param name="tramId">The to view the history from.</param>
         /// <returns>A list of maintenance jobs which have been finished</returns>
-        List<MaintenanceJob> GetHistory(int tramId);
+        List<Job> GetHistory(int tramId);
 
         /// <summary>
         /// Gets a list of all maintenance jobs which have been finished.
         /// </summary>
         /// <returns>A list of all finished maintenance jobs.</returns>
-        List<MaintenanceJob> GetHistory();
+        List<Job> GetHistory();
 
         /// <summary>
         /// Adds a maintenance job.

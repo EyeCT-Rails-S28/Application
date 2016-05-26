@@ -32,7 +32,7 @@ namespace EyeCT4RailsDatabase
             }
         }
 
-        public List<Cleanup> GetSchedule()
+        public List<Job> GetSchedule()
         {
             string query =
                 "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
@@ -44,7 +44,7 @@ namespace EyeCT4RailsDatabase
 
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, QueryType.Query))
             {
-                List<Cleanup> list = new List<Cleanup>();
+                List<Job> list = new List<Job>();
                 while (reader.Read())
                 {
                     int id = reader.GetInt32(0);
@@ -66,14 +66,14 @@ namespace EyeCT4RailsDatabase
 
                     User user = new User(userId, name, email, privilege);
 
-                    list.Add(new Cleanup(id, date, false, size, tram, user));
+                    list.Add(new Job(id, date, false, JobType.Cleanup, size, tram, user));
                 }
 
                 return list;
             }
         }
 
-        public List<Cleanup> GetHistory(int tramId)
+        public List<Job> GetHistory(int tramId)
         {
             string query =
                 "SELECT j.id, j.\"date\", j.job_size, u.id, u.name, u.email, u.role, t.tramtype, t.status, t.line_id, t.forced " +
@@ -87,7 +87,7 @@ namespace EyeCT4RailsDatabase
 
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
             {
-                List<Cleanup> list = new List<Cleanup>();
+                List<Job> list = new List<Job>();
                 while (reader.Read())
                 {
                     int id = reader.GetInt32(0);
@@ -105,14 +105,14 @@ namespace EyeCT4RailsDatabase
                     Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(8));
                     Tram tram = new Tram(tramId, type, status, new Line(reader.GetInt32(9)), reader.GetInt32(10) == 1);
 
-                    list.Add(new Cleanup(id, date, false, size, tram, user));
+                    list.Add(new Job(id, date, false, JobType.Cleanup, size, tram, user));
                 }
 
                 return list;
             }
         }
 
-        public List<Cleanup> GetHistory()
+        public List<Job> GetHistory()
         {
             string query =
                 "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
@@ -124,7 +124,7 @@ namespace EyeCT4RailsDatabase
 
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, QueryType.Query))
             {
-                List<Cleanup> list = new List<Cleanup>();
+                List<Job> list = new List<Job>();
                 while (reader.Read())
                 {
                     int id = reader.GetInt32(0);
@@ -146,7 +146,7 @@ namespace EyeCT4RailsDatabase
 
                     User user = new User(userId, name, email, privilege);
 
-                    list.Add(new Cleanup(id, date, false, size, tram, user));
+                    list.Add(new Job(id, date, false, JobType.Cleanup, size, tram, user));
                 }
 
                 return list;

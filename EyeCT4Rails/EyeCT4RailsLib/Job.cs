@@ -3,7 +3,7 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsLib
 {
-    public abstract class Job
+    public class Job
     {
         /// <summary>
         /// The id of the cleanup in the database.
@@ -44,7 +44,7 @@ namespace EyeCT4RailsLib
         /// <param name="jobSize">The size of the job.</param>
         /// <param name="tram">The tram that is involved in the job.</param>
         /// <param name="user">The user that performed the job.</param>
-        protected Job(int id, DateTime date, bool isDone, JobType jobType, JobSize jobSize, Tram tram, User user)
+        public Job(int id, DateTime date, bool isDone, JobType jobType, JobSize jobSize, Tram tram, User user)
         {
             Id = id;
             Date = date;

@@ -45,7 +45,7 @@ namespace EyeCT4RailsLogic
         /// Gets all cleanups that are scheduled for the future. Dangerous code!
         /// </summary>
         /// <returns>A list of cleanups that are scheduled for the future.</returns>
-        public List<Cleanup> GetSchedule()
+        public List<Job> GetSchedule()
         {
             try
             {
@@ -62,7 +62,7 @@ namespace EyeCT4RailsLogic
         /// Gets the history of all cleanups done. Dangerous code!
         /// </summary>
         /// <returns>A list of cleanups that have been done.</returns>
-        public List<Cleanup> GetHistory()
+        public List<Job> GetHistory()
         {
             try
             {
@@ -80,7 +80,7 @@ namespace EyeCT4RailsLogic
         /// </summary>
         /// <param name="tram">The tram in question.</param>
         /// <returns>A list of cleanups that have been done.</returns>
-        public List<Cleanup> GetHistory(int tramId)
+        public List<Job> GetHistory(int tramId)
         {
             try
             {
