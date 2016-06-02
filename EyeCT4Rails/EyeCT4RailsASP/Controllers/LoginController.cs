@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
+using EyeCT4RailsASP.Models;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic;
+using EyeCT4RailsLogic.Exceptions;
 
 namespace EyeCT4RailsASP.Controllers
 {
@@ -24,27 +26,20 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.Exception = e.Message;
+                if (e is InvalidUserException)
+                    ViewBag.UserException = e.Message;
+                else
+                    ViewBag.Exception = e.Message;
+
                 return View();
             }
             
             Session["User"] = user;
 
-            switch (user.Function.Role)
-            {
-                case Role.Administrator:                
-                case Role.DepotManager:
-                    return RedirectToAction("Index", "Depot");
-                case Role.Mechanic:
-                    return RedirectToAction("Index", "Maintenance");
-                case Role.Cleanup:
-                    return RedirectToAction("Index", "Cleanup");
-                case Role.Driver:
-                    return RedirectToAction("Index", "Ride");
-                default:
-                    return Redirect("http://man-man-man.nl/");
-            }
+            string actionName = UserUtilities.GetActionName(user);
+            string controllerName = UserUtilities.GetControllerName(user);
 
+            return RedirectToAction(actionName, controllerName);
         }
     }
 }
