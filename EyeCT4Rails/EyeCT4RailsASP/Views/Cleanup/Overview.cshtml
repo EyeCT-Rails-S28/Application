@@ -1,0 +1,38 @@
+﻿@using EyeCT4RailsLib
+
+@{
+    ViewBag.Title = "Overzicht";
+}
+
+<h2>Schoonmaak overzicht</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tramnummer</th>
+                <th>Soort</th>
+                <th>Type Beurt</th>
+                <th>Reparatie Datum</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                @foreach (Job job in ViewBag.jobs)
+                {
+                    <tr>
+                        <td>@job.Id</td>
+                        <td>@job.Tram.Id</td>
+                        <td>@job.JobSize</td>
+                        <td>@job.Date</td>
+                        <td>@job.Date.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

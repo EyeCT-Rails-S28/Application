@@ -8,7 +8,8 @@ using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsASP.Controllers
 {
-    public class MaintenanceController : Controller
+    public class CleanupController : Controller
+
     {
         public ActionResult Index()
         {
@@ -19,18 +20,18 @@ namespace EyeCT4RailsASP.Controllers
         {
             Line line = new Line(1);
             Tram tram = new Tram(0, TramType.Combino, Status.Remise, line, false);
-            Job job = new Job(0, DateTime.Now, false, JobType.Maintenance, JobSize.Small, tram, null);
+            Job job = new Job(0, DateTime.Now, false, JobType.Cleanup, JobSize.Small, tram, null);
 
-
-            //List<Job> jobs = MaintenanceRepository.Instance.GetSchedule();
-
-            //test dummy jobs
+            
+            //List<Job> jobs = CleanupRepository.Instance.GetSchedule();
             List<Job> jobs = new ListStack<Job>();
             jobs.Add(job);
             jobs.Add(job);
             jobs.Add(job);
             jobs.Add(job);
             jobs.Add(job);
+
+            //test dummy jobs
 
             ViewBag.Jobs = jobs;
 
@@ -49,10 +50,10 @@ namespace EyeCT4RailsASP.Controllers
 
             if (user != null)
             {
-                MaintenanceRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+                CleanupRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
             }
 
-            return RedirectToAction("Add", "Maintenance");
+            return RedirectToAction("Add", "Cleanup");
         }
 
         [HttpPost]
@@ -62,10 +63,10 @@ namespace EyeCT4RailsASP.Controllers
 
             if (user != null)
             {
-                MaintenanceRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
+                CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
             }
 
-            return RedirectToAction("Add", "Maintenance");
+            return RedirectToAction("Add", "Cleanup");
         }
     }
 }

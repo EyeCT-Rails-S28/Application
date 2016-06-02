@@ -3,11 +3,11 @@
     ViewBag.Title = "Beurt toevoegen";
 }
 
-<h2>Reparatie beurt toevoegen</h2>
+<h2>Schoonmaak beurt toevoegen</h2>
 
 <div class="row">
     <div class="col-md-6">
-        @using (Html.BeginForm("AddOne", "Maintenance"))
+        @using (Html.BeginForm("AddOne", "Cleanup"))
         { 
         <div class="form-group">
             <label for="jobSize">Grootte beurt:</label>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="col-md-6">
-        @using (Html.BeginForm("AddMore", "Maintenance"))
+        @using (Html.BeginForm("AddMore", "Cleanup"))
         {
             <div class="form-group">
                 <label for="jobSize">Grootte beurt:</label>
