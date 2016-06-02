@@ -43,7 +43,7 @@ namespace EyeCT4RailsASP.Controllers
                 }
                 else
                 {
-                    User user = Session["user"] as User;
+                    User user = Session["User"] as User;
 
                     if (user != null)
                     {
@@ -90,7 +90,7 @@ namespace EyeCT4RailsASP.Controllers
                 }
                 else
                 {
-                    User user = Session["user"] as User;
+                    User user = Session["User"] as User;
 
                     if (user != null)
                     { 
