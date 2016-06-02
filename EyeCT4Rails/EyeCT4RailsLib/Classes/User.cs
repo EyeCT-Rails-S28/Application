@@ -1,6 +1,7 @@
-﻿using EyeCT4RailsLib.Enums;
+﻿using EyeCT4RailsLib;
+using EyeCT4RailsLib.Enums;
 
-namespace EyeCT4RailsLib
+namespace EyeCT4RailsLib.Classes
 {
     public class User
     {
@@ -19,7 +20,7 @@ namespace EyeCT4RailsLib
         /// <summary>
         /// The Role of the user.
         /// </summary>
-        public Role Role { get; }
+        public Function Function { get; }
 
         /// <summary>
         /// Creates an user.
@@ -27,28 +28,28 @@ namespace EyeCT4RailsLib
         /// <param name="id">The id of the user.</param>
         /// <param name="name">The name of the user.</param>
         /// <param name="email">The email of the user.</param>
-        /// <param name="role">The Role of the user.</param>
-        public User(int id, string name, string email, Role role)
+        /// <param name="function">The function of the user.</param>
+        public User(int id, string name, string email, Function function)
         {
             Id = id;
             Name = name;
             Email = email;
-            Role = role;
+            Function = function;
         }
 
         /// <summary>
         /// Returns wheter a user has a certain Role.
         /// </summary>
-        /// <param name="role">Role to check.</param>
+        /// <param name="right">Right to check for.</param>
         /// <returns>A bool which specifies wheter the user has the Role.</returns>
-        public bool HasRole(Role role)
+        public bool HasRight(Right right)
         {
-            return Role == role || Role == Role.Administrator;
+            return Function.Rights.Exists(x => x == right);
         }
 
         public override string ToString()
         {
-            return $"{Id} - {Name} - {Role}";
+            return $"{Id} - {Name} - {Function.Role}";
         }
     }
 }

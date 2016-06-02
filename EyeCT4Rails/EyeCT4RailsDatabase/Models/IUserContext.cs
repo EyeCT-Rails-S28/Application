@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EyeCT4RailsLib;
+﻿using EyeCT4RailsLib;
+using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsDatabase.Models
@@ -26,5 +22,12 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="password">Password of the user.</param>
         /// <returns></returns>
         User LoginUser(string email, string password);
+
+        /// <summary>
+        /// Gets an user from the database with the given id.
+        /// </summary>
+        /// <param name="id">The id of the user.</param>
+        /// <returns>The user with the given id.</returns>
+        User GetUser(int id);
     }
 }

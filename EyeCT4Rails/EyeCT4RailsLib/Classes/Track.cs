@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using EyeCT4RailsLib;
 
-namespace EyeCT4RailsLib
+namespace EyeCT4RailsLib.Classes
 {
     public class Track
     {
