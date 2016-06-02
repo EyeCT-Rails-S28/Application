@@ -4,11 +4,30 @@ using System.Linq;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLogic;
+using Newtonsoft.Json;
 
 namespace EyeCT4RailsASP.Controllers
 {
     public class DepotController : Controller
     {
+        /*
+         * 
+         * 
+         *                     foreach (Tram tram in _reservedTrams)
+                    {
+                        <a href="#reservation=@tram.Id" class="list-group-item">
+                            <h4 class="list-group-item-heading">Tram #@tram.Id</h4>
+                            <p class="list-group-item-text">
+                                Status: @tram.Status<br/>
+                                Type: @tram.TramType.GetDescription()
+                            </p>
+                        </a>
+                    }
+
+         * 
+         * 
+         */
+
         public ActionResult Index()
         {
             try
@@ -33,27 +52,27 @@ namespace EyeCT4RailsASP.Controllers
                 Track track = depot.Tracks.Find(t => t.Id == trackId);
                 if (track == null)
                 {
-                    return "Track ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Track ID niet gevonden." });
                 }
 
                 Section section = track.Sections.Find(s => s.Id == sectionId);
                 if (section == null)
                 {
-                    return "Section ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Section ID niet gevonden." });
                 }
 
                 if (!(RideManagementRepository.Instance.CheckSectionFreedom(section, false) ||
                       RideManagementRepository.Instance.CheckSectionFreedom(section, true)) && section.Tram != null)
                 {
-                    return "Deze sectie kan niet geblokkeerd worden!";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Deze track kan niet geblokkeerd worden." });
                 }
 
                 DepotManagementRepository.Instance.SetSectionBlocked(sectionId, !section.Blocked);
-                return "success";
+                return JsonConvert.SerializeObject(new { status = "success" });
             }
             catch (Exception e)
             {
-                return e.Message;
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
         }
 
@@ -66,17 +85,17 @@ namespace EyeCT4RailsASP.Controllers
                 bool allFree = depot.Tracks.Find(t => t.Id == trackId).Sections.TrueForAll(s => s.Tram == null);
                 if (!allFree)
                 {
-                    return "Een of meerdere secties binnen deze track kunnen niet geblokkeerd worden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Een of meerdere secties binnen deze track kunnen niet geblokkeerd worden." });
                 }
 
                 bool allBlocked = depot.Tracks.Find(t => t.Id == trackId).Sections.TrueForAll(s => s.Blocked);
                 DepotManagementRepository.Instance.SetTrackBlocked(trackId, !allBlocked);
 
-                return "success";
+                return JsonConvert.SerializeObject(new { status = "success" });
             }
             catch (Exception e)
             {
-                return e.Message;
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
         }
 
@@ -89,35 +108,35 @@ namespace EyeCT4RailsASP.Controllers
                 Track track = depot.Tracks.Find(t => t.Id == trackId);
                 if (track == null)
                 {
-                    return "Track ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Track ID niet gevonden." });
                 }
 
                 Section section = track.Sections.Find(s => s.Id == sectionId);
                 if (section == null)
                 {
-                    return "Section ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Sectie ID niet gevonden." });
                 }
 
                 if (section.Tram != null)
                 {
-                    return "Deze sectie bevat al een tram.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Deze sectie bevat al een tram." });
                 }
 
                 if (!(RideManagementRepository.Instance.CheckSectionFreedom(section, false) ||
                       RideManagementRepository.Instance.CheckSectionFreedom(section, true)))
                 {
-                    return "Op deze sectie kan geen tram geplaatst worden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Op deze sectie kan geen tram geplaatst worden." });
                 }
 
                 if (depot.Tracks.Any(t => t.Sections.Find(s => s.Tram != null && s.Tram.Id == tramId) != null))
                 {
-                    return $"De tram met nummer {tramId} is al geplaatst.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = $"De tram met nummer {tramId} is al geplaatst." });
                 }
 
                 Tram tram = depot.Trams.Find(t => t.Id == tramId);
                 if (tram == null)
                 {
-                    return "Tram ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Tram ID niet gevonden." });
                 }
 
                 DepotManagementRepository.Instance.ReserveSection(tramId, section.Id);
@@ -129,11 +148,11 @@ namespace EyeCT4RailsASP.Controllers
                         status = reserved ? Status.Dienst : Status.Remise);
                 }
 
-                return "success:" + status;
+                return JsonConvert.SerializeObject(new { status = "success", message = status });
             }
             catch (Exception e)
             {
-                return e.Message;
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
         }
 
@@ -145,32 +164,32 @@ namespace EyeCT4RailsASP.Controllers
                 Track track = depot.Tracks.Find(t => t.Id == trackId);
                 if (track == null)
                 {
-                    return "Track ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Track ID niet gevonden." });
                 }
 
                 Section section = track.Sections.Find(s => s.Id == sectionId);
                 if (section == null)
                 {
-                    return "Section ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Sectie ID niet gevonden." });
                 }
 
                 if (section.Tram == null)
                 {
-                    return "Op deze sectie staat geen tram.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Op deze sectie staat geen tram." });
                 }
 
                 if (!(RideManagementRepository.Instance.CheckSectionFreedom(section.NextSection, true) ||
                       RideManagementRepository.Instance.CheckSectionFreedom(section.PreviousSection, false)))
                 {
-                    return "Deze tram kan niet verwijderd worden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Deze tram kan niet verwijderd worden."});
                 }
 
                 DepotManagementRepository.Instance.RemoveTram(section.Id);
-                return "success";
+                return JsonConvert.SerializeObject(new { status = "success" });
             }
             catch (Exception e)
             {
-                return e.Message;
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
         }
 
@@ -182,31 +201,31 @@ namespace EyeCT4RailsASP.Controllers
                 Tram tram = depot.Trams.Find(t => t.Id == tramId);
                 if (tram == null)
                 {
-                    return "Tram ID niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Tram ID niet gevonden." });
                 }
 
                 if (string.IsNullOrWhiteSpace(status))
                 {
-                    return "Status niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Status niet gevonden." });
                 }
 
                 Status _status;
 
                 try
                 {
-                    _status = (Status) Enum.Parse(typeof (Status), status);
+                    _status = (Status)Enum.Parse(typeof(Status), status);
                 }
                 catch (Exception)
                 {
-                    return "Status niet gevonden.";
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Status niet gevonden." });
                 }
 
                 DepotManagementRepository.Instance.ChangeTramStatus(tram.Id, _status);
-                return "success";
+                return JsonConvert.SerializeObject(new { status = "success" });
             }
             catch (Exception e)
             {
-                return e.Message;
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
         }
     }
