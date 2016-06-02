@@ -22,15 +22,15 @@ namespace EyeCT4RailsASP.Controllers
             Job job = new Job(0, DateTime.Now, false, JobType.Maintenance, JobSize.Small, tram, null);
 
 
-            //List<Job> jobs = MaintenanceRepository.Instance.GetSchedule();
+            List<Job> jobs = MaintenanceRepository.Instance.GetSchedule();
 
             //test dummy jobs
-            List<Job> jobs = new ListStack<Job>();
-            jobs.Add(job);
-            jobs.Add(job);
-            jobs.Add(job);
-            jobs.Add(job);
-            jobs.Add(job);
+            //List<Job> jobs = new ListStack<Job>();
+            //jobs.Add(job);
+            //jobs.Add(job);
+            //jobs.Add(job);
+            //jobs.Add(job);
+            //jobs.Add(job);
 
             ViewBag.Jobs = jobs;
 
