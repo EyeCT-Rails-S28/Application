@@ -8,7 +8,6 @@ using EyeCT4RailsLogic;
 namespace EyeCT4RailsASP.Controllers
 {
     public class CleanupController : Controller
-
     {
         public ActionResult Index()
         {
@@ -30,24 +29,37 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddOne(string jobSize, string userName, string tramId, string date)
+        public ActionResult AddOne(string jobSize, string tramId, string date)
         {
             try
             {
-                User user = Session["User"] as User;
-
-                if (user != null)
+                if (string.IsNullOrWhiteSpace(tramId))
                 {
-                    bool succes = CleanupRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize),
-                        user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(date))
+                {
+                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                }
+                else
+                {
+                    User user = Session["User"] as User;
 
-                    if (!succes)
+                    if (user != null)
                     {
-                        ViewBag.Exception = "Beurt toevoegen is niet gelukt.";
+                        bool succes = CleanupRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize),
+                            user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+
+                        if (!succes)
+                        {
+                            ViewBag.Exception = "Beurt toevoegen is niet gelukt.";
+                        }
                     }
+
+                    return RedirectToAction("Overview", "Cleanup");
                 }
 
-                return RedirectToAction("Overview", "Cleanup");
+                return RedirectToAction("Add", "Cleanup");
             }
             catch (Exception ex)
             {
@@ -57,23 +69,44 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMore(string jobSize, string userName, string tramId, string date, string endDate, int interval)
+        public ActionResult AddMore(string jobSize, string userName, string tramId, string date, string endDate, string interval)
         {
             try
             {
-                User user = Session["User"] as User;
-
-                if (user != null)
+                if (string.IsNullOrWhiteSpace(tramId))
                 {
-                    bool succes = CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
+                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(date))
+                {
+                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(endDate))
+                {
+                    ViewBag.Exception = "Eind datum moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(interval))
+                {
+                    ViewBag.Exception = "Interval moet ingevuld zijn.";
+                }
+                else
+                {
+                    User user = Session["User"] as User;
 
-                    if (!succes)
+                    if (user != null)
                     {
-                        ViewBag.Exception = "Beurten toevoegen is niet gelukt.";
+                        bool succes = CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
+
+                        if (!succes)
+                        {
+                            ViewBag.Exception = "Beurten toevoegen is niet gelukt.";
+                        }
                     }
+
+                    return RedirectToAction("Overview", "Cleanup");
                 }
 
-                return RedirectToAction("Overview", "Cleanup");
+                return RedirectToAction("Add", "Cleanup");
             }
             catch (Exception ex)
             {
