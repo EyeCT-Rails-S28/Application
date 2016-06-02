@@ -32,27 +32,54 @@ namespace EyeCT4RailsASP.Controllers
         [HttpPost]
         public ActionResult AddOne(string jobSize, string userName, string tramId, string date)
         {
-            User user = Session["user"] as User;
-
-            if (user != null)
+            try
             {
-                CleanupRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
-            }
+                User user = Session["User"] as User;
 
-            return RedirectToAction("Overview", "Cleanup");
+                if (user != null)
+                {
+                    bool succes = CleanupRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize),
+                        user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+
+                    if (!succes)
+                    {
+                        ViewBag.Exception = "Beurt toevoegen is niet gelukt.";
+                    }
+                }
+
+                return RedirectToAction("Overview", "Cleanup");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een schoonmaakbeurt: {ex.Message}";
+                return RedirectToAction("Add", "Cleanup");
+            }
         }
 
         [HttpPost]
         public ActionResult AddMore(string jobSize, string userName, string tramId, string date, string endDate, int interval)
         {
-            User user = Session["user"] as User;
-
-            if (user != null)
+            try
             {
-                CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
-            }
+                User user = Session["User"] as User;
 
-            return RedirectToAction("Overview", "Cleanup");
+                if (user != null)
+                {
+                    bool succes = CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
+
+                    if (!succes)
+                    {
+                        ViewBag.Exception = "Beurten toevoegen is niet gelukt.";
+                    }
+                }
+
+                return RedirectToAction("Overview", "Cleanup");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een schoonmaakbeurt: {ex.Message}";
+                return RedirectToAction("Add", "Cleanup");
+            }
         }
     }
 }

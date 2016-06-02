@@ -29,29 +29,85 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddOne(string jobSize, string userName, string tramId, string date)
+        public ActionResult AddOne(string jobSize, string tramId, string date)
         {
-            User user = Session["user"] as User;
-
-            if (user != null)
+            try
             {
-                MaintenanceRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
-            }
+                if (string.IsNullOrWhiteSpace(tramId))
+                {
+                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                }else if (string.IsNullOrWhiteSpace(date))
+                {
+                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                }
+                else
+                {
+                    User user = Session["user"] as User;
 
-            return RedirectToAction("Overview", "Maintenance");
+                    if (user != null)
+                    {
+                        bool succes = MaintenanceRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+
+                        if (!succes)
+                        {
+                            ViewBag.Exception = "Beurt toevoegen is niet gelukt.";
+                        }
+                    }
+
+                    return RedirectToAction("Overview", "Maintenance");
+                }
+
+                return RedirectToAction("Add", "Maintenance");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                return RedirectToAction("Add", "Maintenance");
+            }
         }
 
         [HttpPost]
-        public ActionResult AddMore(string jobSize, string userName, string tramId, string date, string endDate, int interval)
+        public ActionResult AddMore(string jobSize, string tramId, string date, string endDate, string interval)
         {
-            User user = Session["user"] as User;
-
-            if (user != null)
+            try
             {
-                MaintenanceRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
-            }
+                if (string.IsNullOrWhiteSpace(tramId))
+                {
 
-            return RedirectToAction("Add", "Maintenance");
+                }else if (string.IsNullOrWhiteSpace(date))
+                {
+                    
+                }else if (string.IsNullOrWhiteSpace(endDate))
+                {
+                    
+                }else if (string.IsNullOrWhiteSpace(interval))
+                {
+                    
+                }
+                else
+                {
+                    User user = Session["user"] as User;
+
+                    if (user != null)
+                    {
+                        bool succes = MaintenanceRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
+
+                        if (!succes)
+                        {
+                            ViewBag.Exception = "Beurte toevoegen is niet gelukt.";
+                        }
+                    }
+
+                    return RedirectToAction("Add", "Maintenance");
+                }
+
+                return RedirectToAction("Add", "Maintenance");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                return RedirectToAction("Add", "Maintenance");
+            }
         }
     }
 }
