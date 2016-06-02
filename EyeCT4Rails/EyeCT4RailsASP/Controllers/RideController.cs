@@ -6,7 +6,7 @@ using EyeCT4RailsLogic;
 
 namespace EyeCT4RailsASP.Controllers
 {
-    public class RideManagementController : Controller
+    public class RideController : Controller
     {
         public ActionResult Index()
         {
