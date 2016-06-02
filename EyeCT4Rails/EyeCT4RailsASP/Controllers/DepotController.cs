@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EyeCT4RailsLib.Enums;
 using System.Linq;
 using System.Web.Mvc;
@@ -156,6 +157,7 @@ namespace EyeCT4RailsASP.Controllers
             }
         }
 
+        [HttpPost]
         public string RemoveTram(int trackId = -1, int sectionId = -1)
         {
             try
@@ -181,7 +183,7 @@ namespace EyeCT4RailsASP.Controllers
                 if (!(RideManagementRepository.Instance.CheckSectionFreedom(section.NextSection, true) ||
                       RideManagementRepository.Instance.CheckSectionFreedom(section.PreviousSection, false)))
                 {
-                    return JsonConvert.SerializeObject(new { status = "fail", message = "Deze tram kan niet verwijderd worden."});
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Deze tram kan niet verwijderd worden." });
                 }
 
                 DepotManagementRepository.Instance.RemoveTram(section.Id);
@@ -193,6 +195,7 @@ namespace EyeCT4RailsASP.Controllers
             }
         }
 
+        [HttpPost]
         public string ChangeStatus(int tramId = -1, string status = null)
         {
             try
@@ -227,6 +230,20 @@ namespace EyeCT4RailsASP.Controllers
             {
                 return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
+        }
+
+        [HttpPost]
+        public string GetTracks()
+        {
+            Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+
+            return JsonConvert.SerializeObject(new { status = "success", tracks = depot.Tracks }, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                Converters = new List<JsonConverter> {
+                    new Newtonsoft.Json.Converters.StringEnumConverter()
+                }
+            });
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿@using EyeCT4RailsLib.Classes
-@using EyeCT4RailsLib.Enums
-@{
+﻿@{
     ViewBag.Title = "Overzicht Remise";
 }
 
@@ -9,10 +7,10 @@
         <h2>Reserveringen</h2>
 
         <div class="list-group">
-            <span class="list-group-item">
+            <a class="list-group-item">
                 <h4 class="list-group-item-heading">Geen reserveringen</h4>
                 <p class="list-group-item-text">Er zijn op dit moment geen trams die assistentie nodig hebben.</p>
-            </span>
+            </a>
         </div>
     </div>
 
@@ -22,37 +20,8 @@
         <div id="overview-alert" class="alert alert-danger alert-dismissible" role="alert">
         </div>
 
-        @{
-            List<Track> tracks = ViewBag.Tracks;
-
-            for (int i = 0; i <= (tracks.Count / 12); i++)
-            {
-                <div class="row">
-                    @{
-                        int toDraw = tracks.Count - 12 * i;
-                        int count = toDraw >= 12 ? 12 : toDraw;
-                        for (int j = 0; j < count; j++)
-                        {
-                            int index = j + 12 * i;
-
-                            Track track = tracks[index];
-                            <div class="col-md-1">
-                                <div class="list-group overview">
-                                    <a class="list-group-item active text-center">@track.Id</a>
-
-                                    @{
-                                        foreach (Section s in track.Sections)
-                                        {
-                                            <a trackId="@track.Id" sectionId="@s.Id" class="list-group-item context@(s.Tram != null ? " " + Convert.ToString(s.Tram.Status) : "")@(s.Blocked ? " blocked" : "") text-center">@(s.Tram != null ? Convert.ToString(s.Tram.Id) : "")</a>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                                        }
-                    }
-                </div>
-                                        }
-        }
+        <div id="overview">
+        </div>
     </div>
 </div>
 

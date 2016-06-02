@@ -1,4 +1,18 @@
-﻿(function ($, window) {
+﻿$(document).ready(function () {
+    bindEvents();
+    //Means you're on the overview page of the depot.
+    if ($("#contextMenu").hasClass("dropdown")) {
+        function loop() {
+            refreshDepot();
+
+            setTimeout(loop, 2500);
+        }
+
+        loop();
+    }
+});
+
+(function ($, window) {
     $.fn.contextMenu = function (settings) {
         return this.each(function () {
 
@@ -49,165 +63,144 @@
     };
 })(jQuery, window);
 
-$(".context").contextMenu({
-    menuSelector: "#contextMenu",
-    menuSelected: function (invokedOn, selectedMenu) {
-        var option = selectedMenu.text();
+function bindEvents() {
+    $("#overview").contextMenu({
+        menuSelector: "#contextMenu",
+        menuSelected: handleOption
+    });
+}
 
-        var trackId = invokedOn.attr("trackId");
-        if (trackId.isEmpty() || trackId.isNaN) {
-            return;
-        }
+function handleOption (invokedOn, selectedMenu) {
+    var option = selectedMenu.text();
+    var trackId = invokedOn.attr("trackid");
+    if (trackId.isEmpty() || trackId.isNaN) {
+        return;
+    }
 
-        var sectionId = invokedOn.attr("sectionId");
-        if (sectionId.isEmpty() || sectionId.isNaN) {
-            return;
-        }
+    var sectionId = invokedOn.attr("sectionid");
+    if (sectionId.isEmpty() || sectionId.isNaN) {
+        return;
+    }
 
-        if (option === "Sectie (de)blokkeren") {
-            var blocked = invokedOn.hasClass("blocked");
+    if (option === "Sectie (de)blokkeren") {
+        $.post("/Depot/SetSectionBlocked", { trackId: trackId, sectionId: sectionId }, function (data) {
+            var json = JSON.parse(data);
+            if (json.status === "success") {
+                resetAlert();
+                refreshDepot();
+            } else {
+                showAlert(json.message);
+            }
+        });
+    } else if (option === "Track (de)blokkeren") {
+        $.post("/Depot/SetTrackBlocked", { trackId: trackId }, function (data) {
+            var json = JSON.parse(data);
+            if (json.status === "success") {
+                resetAlert();
+                refreshDepot();
+            } else {
+                showAlert(json.message);
+            }
+        });
+    } else {
+        var tramId;
 
-            $.post("/Depot/SetSectionBlocked", { trackId: trackId, sectionId: sectionId }, function (data) {
+        if (option === "Tram plaatsen" || option === "Tram reserveren") {
+            if (invokedOn.hasClass("blocked") || !invokedOn.text().isEmpty()) {
+                showAlert("Op deze sectie kan geen tram geplaatst worden.");
+                return;
+            }
+
+            tramId = prompt("Voeg hier a.u.b. het gewenste tramnummer in.", "");
+            if (tramId.isEmpty() || isNaN(tramId)) {
+                showAlert("Dit is geen juist gestructureerd tramnummer.");
+            } else {
+                $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function (data) {
+                    var json = JSON.parse(data);
+                    if (json.status === "success") {
+                        resetAlert();
+                        refreshDepot();
+                    } else {
+                        showAlert(json.message);
+                    }
+                });
+            }
+        } else if (option === "Tram verwijderen") {
+            $.post("/Depot/RemoveTram", { trackId: trackId, sectionId: sectionId }, function (data) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
                     resetAlert();
-
-                    if (!blocked) {
-                        invokedOn.addClass("blocked");
-                    } else {
-                        invokedOn.removeClass("blocked");
-                    }
+                    refreshDepot();
                 } else {
                     showAlert(json.message);
                 }
             });
-        } else if (option === "Track (de)blokkeren") {
-            $.post("/Depot/SetTrackBlocked", { trackId: trackId }, function (data) {
+        } else if (option.startsWith("Verander status")) {
+            tramId = invokedOn.text();
+            if (tramId.isEmpty() || tramId.isNaN) {
+                return;
+            }
+
+            var status = option.substring(18);
+            if (status.isEmpty()) {
+                return;
+            }
+
+            $.post("/Depot/ChangeStatus", { tramId: tramId, status: status }, function (data) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
                     resetAlert();
-
-                    var allBlocked = true;
-                    var list = invokedOn.parent().children();
-                    list.each(function () {
-                        var item = $(this);
-                        if (item.attr("trackId") != null && !item.attr("trackId").isEmpty() && !item.attr("trackId").isNaN && !item.hasClass("blocked")) {
-                            allBlocked = false;
-                        }
-                    });
-
-                    list.each(function () {
-                        var item = $(this);
-                        if (item.attr("trackId") != null && !item.attr("trackId").isEmpty() && !item.attr("trackId").isNaN) {
-                            if (!allBlocked) {
-                                item.addClass("blocked");
-                            } else {
-                                item.removeClass("blocked");
-                            }
-                        }
-                    });
+                    refreshDepot();
                 } else {
                     showAlert(json.message);
                 }
             });
         } else {
-            var tramId;
-
-            if (option === "Tram plaatsen" || option === "Tram reserveren") {
-                if (invokedOn.hasClass("blocked") || !invokedOn.text().isEmpty()) {
-                    showAlert("Op deze sectie kan geen tram geplaatst worden.");
-                    return;
-                }
-
-                tramId = prompt("Voeg hier a.u.b. het gewenste tramnummer in.", "");
-                if (tramId.isEmpty() || isNaN(tramId)) {
-                    showAlert("Dit is geen juist gestructureerd tramnummer.");
-                } else {
-                    $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function (data) {
-                        var json = JSON.parse(data);
-                        if (json.status === "success") {
-                            resetAlert();
-
-                            invokedOn.text(tramId);
-                        
-                            if (invokedOn.hasClass("Dienst")) {
-                                invokedOn.removeClass("Dienst");
-                            } else if (invokedOn.hasClass("Remise")) {
-                                invokedOn.removeClass("Remise");
-                            } else if (invokedOn.hasClass("Defect")) {
-                                invokedOn.removeClass("Defect");
-                            } else if (invokedOn.hasClass("Schoonmaak")) {
-                                invokedOn.removeClass("Schoonmaak");
-                            }
-
-                            invokedOn.addClass(json.status);
-                        } else {
-                            showAlert(json.message);
-                        }
-                    });
-                }
-            } else if (option === "Tram verwijderen") {
-                $.post("/Depot/RemoveTram", { trackId: trackId, sectionId: sectionId }, function (data) {
-                    var json = JSON.parse(data);
-                    if (json.status === "success") {
-                        resetAlert();
-                        invokedOn.text("");
-                    } else {
-                        showAlert(json.message);
-                    }
-                });
-            } else if (option.startsWith("Verander status")) {
-                tramId = invokedOn.text();
-                if (tramId.isEmpty() || tramId.isNaN) {
-                    return;
-                }
-
-                var status = option.substring(18);
-                if (status.isEmpty()) {
-                    return;
-                }
-
-                $.post("/Depot/ChangeStatus", { tramId: tramId, status: status }, function (data) {
-                    var json = JSON.parse(data);
-                    if (json.status === "success") {
-                        resetAlert();
-
-                        if (invokedOn.hasClass("Dienst")) {
-                            invokedOn.removeClass("Dienst");
-                        } else if (invokedOn.hasClass("Remise")) {
-                            invokedOn.removeClass("Remise");
-                        } else if (invokedOn.hasClass("Defect")) {
-                            invokedOn.removeClass("Defect");
-                        } else if (invokedOn.hasClass("Schoonmaak")) {
-                            invokedOn.removeClass("Schoonmaak");
-                        }
-
-                        invokedOn.addClass(status);
-                    } else {
-                        showAlert(json.message);
-                    }
-                });
-            } else {
-                showAlert("Onbekende optie: " + option);
-            }
+            showAlert("Onbekende optie: " + option);
         }
     }
-});
-
-$(document).ready(function () {
-    if ($("#contextMenu").hasClass("dropdown")) {
-        setTimeout(function() {
-
-        }, 5000);
-    }
-});
-
-function refreshDepot() {
-    
 }
 
-function showAlert(error)
-{
+function refreshDepot() {
+    $.post("/Depot/GetTracks", function (data) {
+        var json = JSON.parse(data);
+        if (json.status === "success") {
+            var line = "";
+            for (var i = 0; i <= (json.tracks.length / 12) ; i++) {
+                line += '<div class="row">';
+
+                var toDraw = json.tracks.length - 12 * i;
+                var count = toDraw > 12 ? 12 : toDraw;
+
+                for (var j = 0; j < count; j++) {
+                    var index = j + 12 * i;
+                    var track = json.tracks[index];
+
+                    line += '<div class="col-md-1">';
+                    line += '<div class="list-group overview">';
+
+                    line += '<a class="list-group-item active text-center">' + track.Id + '</a>';
+
+                    for (var k = 0; k < track.Sections.length; k++) {
+                        var section = track.Sections[k];
+
+                        line += '<a trackid="' + track.Id + '" sectionid="' + section.Id + '" class="list-group-item context' + (section.Tram != null ? (" " + section.Tram.Status) : "") + (section.Blocked ? (" blocked") : "") + ' text-center">' + (section.Tram != null ? section.Tram.Id : "") + '</a>';
+                    }
+
+                    line += "</div>";
+                    line += "</div>";
+                }
+
+                line += "</div>";
+                $("#overview").html(line);
+            }
+        } else {
+            showAlert(json.message);
+        }
+    });
+}
+
+function showAlert(error) {
     if (error != null && !error.isEmpty()) {
         $("#overview-alert").text(error).fadeIn("slow");
         $("html, body").animate({ scrollTop: 0 }, "slow");
