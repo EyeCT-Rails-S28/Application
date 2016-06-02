@@ -16,9 +16,52 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+/* DEPOT */
+a {
+    cursor: pointer;
+}
+
+.overview > .list-group-item{
+    width: 60px;
+    height: 42px;
+}
+
+.overview > .blocked {
+    background-color: #696969;
+}
+
+.overview > .blocked:hover {
+    background-color: #696969;
+}
+
+.overview > .Dienst {
+    color: #cc0066;
+}
+
+.overview > .Remise {
+    color: #000000;
+}
+
+.overview > .Schoonmaak {
+    color: cornflowerblue;
+}
+
+.overview > .Defect {
+    color: red;
+}
+
+#contextMenu {
+    z-index: 2;
+    position: absolute;
+    display: none;
+}
+
+#contextMenu ul {
+    display: block;
+    position: static;
+    margin-bottom: 5px;
+}
+
+#overview-alert {
+    display: none;
 }
