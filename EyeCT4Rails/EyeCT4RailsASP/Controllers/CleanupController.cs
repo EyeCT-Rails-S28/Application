@@ -39,7 +39,7 @@ namespace EyeCT4RailsASP.Controllers
                 CleanupRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
             }
 
-            return RedirectToAction("Add", "Cleanup");
+            return RedirectToAction("Overview", "Cleanup");
         }
 
         [HttpPost]
@@ -52,7 +52,7 @@ namespace EyeCT4RailsASP.Controllers
                 CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
             }
 
-            return RedirectToAction("Add", "Cleanup");
+            return RedirectToAction("Overview", "Cleanup");
         }
     }
 }

@@ -8,6 +8,10 @@
 
 <div class="row">
     <div class="col-md-12">
+        <a class="btn btn-default" href="add" role="button">Beurt toevoegen</a>
+    </div>
+    <br />
+    <div class="col-md-12">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
@@ -20,16 +24,16 @@
             </thead>
 
             <tbody>
-                @foreach (Job job in ViewBag.jobs)
-                {
-                    <tr>
-                        <td>@job.Id</td>
-                        <td>@job.Tram.Id</td>
-                        <td>@job.JobSize</td>
-                        <td>@job.Date</td>
-                        <td>@job.Date.ToString()</td>
-                    </tr>
-                }
+            @foreach (Job job in ViewBag.jobs)
+            {
+                <tr>
+                    <td>@job.Id</td>
+                    <td>@job.Tram.Id</td>
+                    <td>@job.JobSize</td>
+                    <td>@job.Date</td>
+                    <td>@job.Date.ToString()</td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>

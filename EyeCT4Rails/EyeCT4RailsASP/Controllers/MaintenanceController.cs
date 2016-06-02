@@ -31,7 +31,7 @@ namespace EyeCT4RailsASP.Controllers
         [HttpPost]
         public ActionResult AddOne(string jobSize, string userName, string tramId, string date)
         {
-            User user = UserRepository.Instance.LoginUser("jandiehendriks@gmail.com", "eindbaas");
+            User user = Session["user"] as User;
 
             if (user != null)
             {
@@ -44,7 +44,7 @@ namespace EyeCT4RailsASP.Controllers
         [HttpPost]
         public ActionResult AddMore(string jobSize, string userName, string tramId, string date, string endDate, int interval)
         {
-            User user = UserRepository.Instance.LoginUser("jandiehendriks@gmail.com", "eindbaas");
+            User user = Session["user"] as User;
 
             if (user != null)
             {
