@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>In- en uitrijsysteem</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            <p>
+                <b>
+                    Ga naar spoor: @ViewBag.TrackId
+                </b>
+            </p>
+            <p>
+                <b>
+                    Ga naar sectie: @ViewBag.SectionId
+                </b>
+            </p>
+            <div class="form-group">
+                <label for="tramnumber">Tram nummer:</label>
+                <input type="text" class="form-control" name="tramnumber" id="tramnumber">
+            </div>
+
+            <h4>Technische assistentie nodig?</h4>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="assist" value="None" checked>
+                    Niets
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="assist" value="Maintenance">
+                    Reparatie
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="assist" value="Cleanup">
+                    Schoonmaak
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Bevestig</button>
+            </div>
+        }
+    </div>
+</div>
+
