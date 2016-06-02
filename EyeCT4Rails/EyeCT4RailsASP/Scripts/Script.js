@@ -71,7 +71,7 @@ function bindEvents() {
     });
 }
 
-function handleOption (invokedOn, selectedMenu) {
+function handleOption(invokedOn, selectedMenu) {
     var option = selectedMenu.text();
     var trackId = invokedOn.attr("trackid");
     if (trackId.isEmpty() || trackId.isNaN) {
@@ -197,6 +197,54 @@ function refreshDepot() {
             showAlert(json.message);
         }
     });
+
+    $.post("/Depot/GetReservedTrams", function (data) {
+        var json = JSON.parse(data);
+        if (json.status === "success") {
+            /*
+             * 
+             *         /*
+         * 
+         * 
+         *                     foreach (Tram tram in _reservedTrams)
+                    {
+                        <a href="#reservation=@tram.Id" class="list-group-item">
+                            <h4 class="list-group-item-heading">Tram #@tram.Id</h4>
+                            <p class="list-group-item-text">
+                                Status: @tram.Status<br/>
+                                Type: @tram.TramType.GetDescription()
+                            </p>
+                        </a>
+                    }
+
+         * 
+         * 
+             * 
+             * 
+             */
+
+            var line = '';
+            if (json.trams.length == 0) {
+                line = '<a class="list-group-item"><h4 class="list-group-item-heading">Geen reserveringen</h4><p class="list-group-item-text">Er zijn op dit moment geen trams die assistentie nodig hebben.</p></a>';
+            } else {
+                for (var i = 0; i < json.trams.length; i++) {
+                    var tram = json.trams[i];
+
+                    line += '<a tramid="' + tram.Id + '" class="list-group-item">' +
+                                '<h4 class="list-group-item-heading">Tram #' + tram.Id + '</h4>' +
+                                '<p class="list-group-item-text">' +
+                                    'Status: ' + tram.Status + '<br/>' +
+                                    'Type: ' + tram.TramType +
+                                '</p>' +
+                            '</a>';
+                }
+            }
+
+            $("#reservedTrams").html(line);
+        } else {
+            showAlert(json.message);
+        }
+    })
 }
 
 function showAlert(error) {

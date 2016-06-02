@@ -11,36 +11,8 @@ namespace EyeCT4RailsASP.Controllers
 {
     public class DepotController : Controller
     {
-        /*
-         * 
-         * 
-         *                     foreach (Tram tram in _reservedTrams)
-                    {
-                        <a href="#reservation=@tram.Id" class="list-group-item">
-                            <h4 class="list-group-item-heading">Tram #@tram.Id</h4>
-                            <p class="list-group-item-text">
-                                Status: @tram.Status<br/>
-                                Type: @tram.TramType.GetDescription()
-                            </p>
-                        </a>
-                    }
-
-         * 
-         * 
-         */
-
         public ActionResult Index()
         {
-            try
-            {
-                ViewBag.ReservedTrams = DepotManagementRepository.Instance.GetTramsWithReservedFlag();
-                ViewBag.Tracks = DepotManagementRepository.Instance.GetDepot("Havenstraat").Tracks;
-            }
-            catch (Exception e)
-            {
-                ViewBag.Exception = e.Message;
-            }
-
             return View();
         }
 
@@ -235,15 +207,45 @@ namespace EyeCT4RailsASP.Controllers
         [HttpPost]
         public string GetTracks()
         {
-            Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
-
-            return JsonConvert.SerializeObject(new { status = "success", tracks = depot.Tracks }, new JsonSerializerSettings
+            try
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Converters = new List<JsonConverter> {
-                    new Newtonsoft.Json.Converters.StringEnumConverter()
-                }
-            });
+                Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+
+                return JsonConvert.SerializeObject(new { status = "success", tracks = depot.Tracks },
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                        Converters = new List<JsonConverter>
+                        {
+                            new Newtonsoft.Json.Converters.StringEnumConverter()
+                        }
+                    });
+            }
+            catch (Exception e)
+            {
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
+            }
+        }
+
+        [HttpPost]
+        public string GetReservedTrams()
+        {
+            try
+            {
+                return JsonConvert.SerializeObject(new { status = "success", trams = DepotManagementRepository.Instance.GetTramsWithReservedFlag() },
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                        Converters = new List<JsonConverter>
+                        {
+                            new Newtonsoft.Json.Converters.StringEnumConverter()
+                        }
+                    });
+            }
+            catch (Exception e)
+            {
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
+            }
         }
     }
 }
