@@ -5,9 +5,9 @@
     /// </summary>
     public enum Right
     {
-        ManageUsers,
-        ManageCleaning,
-        ManageMaintenance,
+        ManageUser,
+        ManageCleanup,
+        ManageRepair,
         ManageDepot,
         ManageRide
     }
