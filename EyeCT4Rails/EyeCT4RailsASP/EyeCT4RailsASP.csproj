@@ -120,8 +120,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CleanupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,6 +165,10 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Maintenance\Overview.cshtml" />
+    <Content Include="Views\Maintenance\Add.cshtml" />
+    <Content Include="Views\Cleanup\Overview.cshtml" />
+    <Content Include="Views\Cleanup\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -177,11 +183,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EyeCT4RailsLib\EyeCT4RailsLib.csproj">
-      <Project>{F7313DDB-A30D-4E74-992F-C4CCE8D8CBDC}</Project>
+      <Project>{f7313ddb-a30d-4e74-992f-c4cce8d8cbdc}</Project>
       <Name>EyeCT4RailsLib</Name>
     </ProjectReference>
     <ProjectReference Include="..\EyeCT4RailsLogic\EyeCT4RailsLogic.csproj">
-      <Project>{78965E2B-8332-4AE3-AF0B-66DB22D16D98}</Project>
+      <Project>{78965e2b-8332-4ae3-af0b-66db22d16d98}</Project>
       <Name>EyeCT4RailsLogic</Name>
     </ProjectReference>
   </ItemGroup>

@@ -37,7 +37,7 @@ namespace EyeCT4RailsDatabase
         {
             string query =
                 "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id" +
-                "FROM \"job\" j " +
+                " FROM \"job\" j " +
                 "JOIN \"tram\" t ON t.id = j.tram_id " +
                 "JOIN \"line\" l ON t.line_id = l.id " +
                 "JOIN \"user\" u ON u.id = j.user_id " +
