@@ -1,16 +1,13 @@
 ﻿(function ($, window) {
-
     $.fn.contextMenu = function (settings) {
-
         return this.each(function () {
 
-            // Open context menu
             $(this).on("contextmenu", function (e) {
-                // return native menu if pressing control
-                if (e.ctrlKey) return false;
+                if (e.ctrlKey) {
+                    return false;
+                }
 
-                //open menu
-                var $menu = $(settings.menuSelector)
+                var menu = $(settings.menuSelector)
                     .data("invokedOn", $(e.target))
                     .show()
                     .css({
@@ -20,19 +17,18 @@
                     })
                     .off("click")
                     .on("click", "a", function (e) {
-                        $menu.hide();
+                        menu.hide();
 
-                        var $invokedOn = $menu.data("invokedOn");
-                        var $selectedMenu = $(e.target);
+                        var invokedOn = menu.data("invokedOn");
+                        var selectedMenu = $(e.target);
 
-                        settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                        settings.menuSelected.call(this, invokedOn, selectedMenu);
                     });
 
                 return false;
             });
 
-            //make sure menu closes on any click
-            $('body').click(function () {
+            $("body").click(function () {
                 $(settings.menuSelector).hide();
             });
         });
@@ -43,9 +39,9 @@
                 menu = $(settings.menuSelector)[direction](),
                 position = mouse + scroll;
 
-            // opening menu would pass the side of the page
-            if (mouse + menu > win && menu < mouse)
+            if (mouse + menu > win && menu < mouse) {
                 position -= menu;
+            }
 
             return position;
         }
@@ -53,17 +49,10 @@
     };
 })(jQuery, window);
 
-String.prototype.isEmpty = function () {
-    return (this.length === 0 || !this.trim());
-};
-
 $(".context").contextMenu({
     menuSelector: "#contextMenu",
     menuSelected: function (invokedOn, selectedMenu) {
         var option = selectedMenu.text();
-        if (option.isEmpty()) {
-            return;
-        }
 
         var trackId = invokedOn.attr("trackId");
         if (trackId.isEmpty() || trackId.isNaN) {
@@ -80,6 +69,8 @@ $(".context").contextMenu({
 
             $.post("/Depot/SetSectionBlocked", { trackId: trackId, sectionId: sectionId }, function (data) {
                 if (data === "success") {
+                    resetAlert();
+
                     if (!blocked) {
                         invokedOn.addClass("blocked");
                     } else {
@@ -92,8 +83,9 @@ $(".context").contextMenu({
         } else if (option === "Track (de)blokkeren") {
             $.post("/Depot/SetTrackBlocked", { trackId: trackId }, function (data) {
                 if (data === "success") {
-                    var allBlocked = true;
+                    resetAlert();
 
+                    var allBlocked = true;
                     var list = invokedOn.parent().children();
                     list.each(function () {
                         var item = $(this);
@@ -131,6 +123,8 @@ $(".context").contextMenu({
                 } else {
                     $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function (data) {
                         if (data.startsWith("success")) {
+                            resetAlert();
+
                             var status = data.substring(8);
                             invokedOn.text(tramId);
                         
@@ -153,6 +147,7 @@ $(".context").contextMenu({
             } else if (option === "Tram verwijderen") {
                 $.post("/Depot/RemoveTram", { trackId: trackId, sectionId: sectionId }, function (data) {
                     if (data === "success") {
+                        resetAlert();
                         invokedOn.text("");
                     } else {
                         alert(data);
@@ -171,6 +166,8 @@ $(".context").contextMenu({
 
                 $.post("/Depot/ChangeStatus", { tramId: tramId, status: status }, function (data) {
                     if (data === "success") {
+                        resetAlert();
+
                         if (invokedOn.hasClass("Dienst")) {
                             invokedOn.removeClass("Dienst");
                         } else if (invokedOn.hasClass("Remise")) {
@@ -200,3 +197,11 @@ function alert(error)
         $("html, body").animate({ scrollTop: 0 }, "slow");
     }
 }
+
+function resetAlert() {
+    $("#overview-alert").fadeOut("slow");
+}
+
+String.prototype.isEmpty = function () {
+    return (this.length === 0 || !this.trim());
+};
