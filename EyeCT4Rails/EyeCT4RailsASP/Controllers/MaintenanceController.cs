@@ -36,7 +36,8 @@ namespace EyeCT4RailsASP.Controllers
                 if (string.IsNullOrWhiteSpace(tramId))
                 {
                     ViewBag.Exception = "Tram ID moet ingevuld zijn.";
-                }else if (string.IsNullOrWhiteSpace(date))
+                }
+                else if (string.IsNullOrWhiteSpace(date))
                 {
                     ViewBag.Exception = "Datum moet ingevuld zijn.";
                 }
@@ -73,24 +74,27 @@ namespace EyeCT4RailsASP.Controllers
             {
                 if (string.IsNullOrWhiteSpace(tramId))
                 {
-
-                }else if (string.IsNullOrWhiteSpace(date))
+                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(date))
                 {
-                    
-                }else if (string.IsNullOrWhiteSpace(endDate))
+                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(endDate))
                 {
-                    
-                }else if (string.IsNullOrWhiteSpace(interval))
+                    ViewBag.Exception = "Eind datum moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(interval))
                 {
-                    
+                    ViewBag.Exception = "Interval moet ingevuld zijn.";
                 }
                 else
                 {
                     User user = Session["user"] as User;
 
                     if (user != null)
-                    {
-                        bool succes = MaintenanceRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
+                    { 
+                        bool succes = MaintenanceRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
 
                         if (!succes)
                         {
