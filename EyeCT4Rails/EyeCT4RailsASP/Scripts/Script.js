@@ -1,7 +1,8 @@
 ﻿$(document).ready(function () {
-    bindEvents();
     //Means you're on the overview page of the depot.
     if ($("#contextMenu").hasClass("dropdown")) {
+        bindEvents();
+
         function loop() {
             refreshDepot();
 
@@ -86,7 +87,6 @@ function handleOption (invokedOn, selectedMenu) {
         $.post("/Depot/SetSectionBlocked", { trackId: trackId, sectionId: sectionId }, function (data) {
             var json = JSON.parse(data);
             if (json.status === "success") {
-                resetAlert();
                 refreshDepot();
             } else {
                 showAlert(json.message);
@@ -96,7 +96,6 @@ function handleOption (invokedOn, selectedMenu) {
         $.post("/Depot/SetTrackBlocked", { trackId: trackId }, function (data) {
             var json = JSON.parse(data);
             if (json.status === "success") {
-                resetAlert();
                 refreshDepot();
             } else {
                 showAlert(json.message);
@@ -129,7 +128,6 @@ function handleOption (invokedOn, selectedMenu) {
             $.post("/Depot/RemoveTram", { trackId: trackId, sectionId: sectionId }, function (data) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
-                    resetAlert();
                     refreshDepot();
                 } else {
                     showAlert(json.message);
@@ -149,7 +147,6 @@ function handleOption (invokedOn, selectedMenu) {
             $.post("/Depot/ChangeStatus", { tramId: tramId, status: status }, function (data) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
-                    resetAlert();
                     refreshDepot();
                 } else {
                     showAlert(json.message);
@@ -162,6 +159,8 @@ function handleOption (invokedOn, selectedMenu) {
 }
 
 function refreshDepot() {
+    resetAlert();
+
     $.post("/Depot/GetTracks", function (data) {
         var json = JSON.parse(data);
         if (json.status === "success") {
