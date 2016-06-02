@@ -180,6 +180,10 @@
       <Project>{F7313DDB-A30D-4E74-992F-C4CCE8D8CBDC}</Project>
       <Name>EyeCT4RailsLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EyeCT4RailsLogic\EyeCT4RailsLogic.csproj">
+      <Project>{78965E2B-8332-4AE3-AF0B-66DB22D16D98}</Project>
+      <Name>EyeCT4RailsLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
