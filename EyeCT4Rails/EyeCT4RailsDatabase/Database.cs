@@ -33,21 +33,10 @@ namespace EyeCT4RailsDatabase
         private Database()
         {
             Connection = new OracleConnection {ConnectionString = CONNECTION_STRING};
-
-            Open();
-        }
-
-        ~Database()
-        {
-            Close();
-        }
-
-        private void Open()
-        {
             Connection.Open();
         }
 
-        private void Close()
+        ~Database()
         {
             Connection.Close();
         }
@@ -61,8 +50,7 @@ namespace EyeCT4RailsDatabase
         /// <returns>A reader object if the query returns results, returns null otherwise.</returns>
         public OracleDataReader ExecuteQuery(string query, Dictionary<string, object> parameters, QueryType queryType)
         {
-            OracleConnection connection = Instance.Connection;
-            using (OracleCommand command = new OracleCommand(query, connection) {CommandType = CommandType.Text})
+            using (OracleCommand command = new OracleCommand(query, Connection) {CommandType = CommandType.Text})
             {
                 foreach (KeyValuePair<string, object> entry in parameters)
                 {

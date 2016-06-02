@@ -120,7 +120,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CleanupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -161,6 +163,10 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Maintenance\Overview.cshtml" />
+    <Content Include="Views\Maintenance\Add.cshtml" />
+    <Content Include="Views\Cleanup\Overview.cshtml" />
+    <Content Include="Views\Cleanup\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -172,6 +178,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EyeCT4RailsDatabase\EyeCT4RailsDatabase.csproj">
+      <Project>{3caa62d9-e5b4-4160-b224-af47da3c8461}</Project>
+      <Name>EyeCT4RailsDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EyeCT4RailsLib\EyeCT4RailsLib.csproj">
+      <Project>{f7313ddb-a30d-4e74-992f-c4cce8d8cbdc}</Project>
+      <Name>EyeCT4RailsLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EyeCT4RailsLogic\EyeCT4RailsLogic.csproj">
+      <Project>{78965e2b-8332-4ae3-af0b-66db22d16d98}</Project>
+      <Name>EyeCT4RailsLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

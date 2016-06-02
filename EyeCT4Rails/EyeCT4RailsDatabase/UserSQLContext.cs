@@ -61,18 +61,21 @@ namespace EyeCT4RailsDatabase
 
             Dictionary<string, object> parameters = new Dictionary<string, object> {{":id", userId}};
 
-            User ret;
+            User ret = null;
 
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
             {
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
-                string email = reader.GetString(2);
-                Role role = (Role) Enum.Parse(typeof (Role), reader.GetString(3));
-                List<Right> rights = GetRights(reader.GetInt32(4));
+                if (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string name = reader.GetString(1);
+                    string email = reader.GetString(2);
+                    Role role = (Role) Enum.Parse(typeof(Role), reader.GetString(3));
+                    List<Right> rights = GetRights(reader.GetInt32(4));
 
-                Function function = new Function(role, rights);
-                ret = new User(id, name, email, function);
+                    Function function = new Function(role, rights);
+                    ret = new User(id, name, email, function);
+                }
             }
 
             return ret;
