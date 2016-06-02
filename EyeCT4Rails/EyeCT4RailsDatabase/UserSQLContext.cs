@@ -28,7 +28,7 @@ namespace EyeCT4RailsDatabase
 
         public User LoginUser(string email, string password)
         {
-            string query = "SELECT id, role, name " +
+            string query = "SELECT id " +
                            "FROM \"user\" " +
                            "WHERE (email = :email AND password = :password)";
 
@@ -38,6 +38,8 @@ namespace EyeCT4RailsDatabase
                 {":password", password}
             };
 
+            User ret;
+
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
             {
                 if (!reader.Read())
@@ -46,10 +48,10 @@ namespace EyeCT4RailsDatabase
                 }
 
                 int id = reader.GetInt32(0);
-                string name = reader.GetString(2);
-                Role role = (Role) Enum.Parse(typeof (Role), reader.GetString(1));
-                return new User(id, name, email, role);
+                ret = GetUser(id);
             }
+
+            return ret;
         }
 
         public User GetUser(int userId)
@@ -58,6 +60,7 @@ namespace EyeCT4RailsDatabase
                 "SELECT u.id, u.name, u.email, r.description, r.id FROM \"user\" u, \"role\" r WHERE u.id = :id AND r.id = u.role_id";
 
             Dictionary<string, object> parameters = new Dictionary<string, object> {{":id", userId}};
+
             User ret;
 
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
@@ -71,6 +74,7 @@ namespace EyeCT4RailsDatabase
                 Function function = new Function(role, rights);
                 ret = new User(id, name, email, function);
             }
+
             return ret;
         }
 

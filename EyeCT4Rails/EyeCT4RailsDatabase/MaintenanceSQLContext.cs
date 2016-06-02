@@ -36,7 +36,7 @@ namespace EyeCT4RailsDatabase
         public List<Job> GetSchedule()
         {
             string query =
-                "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
+                "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id" +
                 "FROM \"job\" j " +
                 "JOIN \"tram\" t ON t.id = j.tram_id " +
                 "JOIN \"line\" l ON t.line_id = l.id " +
@@ -61,11 +61,7 @@ namespace EyeCT4RailsDatabase
                     Tram tram = new Tram(tramId, type, status, line, forced);
 
                     int userId = reader.GetInt32(8);
-                    string name = reader.GetString(9);
-                    string email = reader.GetString(10);
-                    Role privilege = (Role) Enum.Parse(typeof (Role), reader.GetString(11));
-
-                    User user = new User(userId, name, email, privilege);
+                    User user = new UserSqlContext().GetUser(userId);
 
                     list.Add(new Job(id, date, false, JobType.Maintenance, size, tram, user));
                 }
@@ -77,7 +73,7 @@ namespace EyeCT4RailsDatabase
         public List<Job> GetHistory(int tramId)
         {
             string query =
-                "SELECT j.id, j.\"date\", j.job_size, u.id, u.name, u.email, u.role, t.tramtype, t.status, t.line_id, t.forced " +
+                "SELECT j.id, j.\"date\", j.job_size, u.id, t.tramtype, t.status, t.line_id, t.forced " +
                 "FROM \"job\" j " +
                 "JOIN \"tram\" t ON t.id = j.tram_id " +
                 "JOIN \"line\" l ON t.line_id = l.id " +
@@ -96,15 +92,11 @@ namespace EyeCT4RailsDatabase
                     JobSize size = (JobSize) Enum.Parse(typeof (JobSize), reader.GetString(2));
 
                     int userId = reader.GetInt32(3);
-                    string name = reader.GetString(4);
-                    string email = reader.GetString(5);
-                    Role privilege = (Role) Enum.Parse(typeof (Role), reader.GetString(6));
+                    User user = new UserSqlContext().GetUser(userId);
 
-                    User user = new User(userId, name, email, privilege);
-
-                    TramType type = (TramType) Enum.Parse(typeof (TramType), reader.GetString(7));
-                    Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(8));
-                    Tram tram = new Tram(tramId, type, status, new Line(reader.GetInt32(9)), reader.GetInt32(10) == 1);
+                    TramType type = (TramType) Enum.Parse(typeof (TramType), reader.GetString(4));
+                    Status status = (Status) Enum.Parse(typeof (Status), reader.GetString(5));
+                    Tram tram = new Tram(tramId, type, status, new Line(reader.GetInt32(6)), reader.GetInt32(7) == 1);
 
                     list.Add(new Job(id, date, false, JobType.Maintenance, size, tram, user));
                 }
@@ -116,7 +108,7 @@ namespace EyeCT4RailsDatabase
         public List<Job> GetHistory()
         {
             string query =
-                "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id, u.name, u.email, u.role " +
+                "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id " +
                 "FROM\"job\" j " +
                 "JOIN \"tram\" t ON t.id = j.tram_id " +
                 "JOIN \"line\" l ON t.line_id = l.id " +
@@ -141,11 +133,7 @@ namespace EyeCT4RailsDatabase
                     Tram tram = new Tram(tramId, type, status, line, forced);
 
                     int userId = reader.GetInt32(8);
-                    string name = reader.GetString(9);
-                    string email = reader.GetString(10);
-                    Role privilege = (Role) Enum.Parse(typeof (Role), reader.GetString(11));
-
-                    User user = new User(userId, name, email, privilege);
+                    User user = new UserSqlContext().GetUser(userId);
 
                     list.Add(new Job(id, date, false, JobType.Maintenance, size, tram, user));
                 }
