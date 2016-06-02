@@ -22,7 +22,21 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// The instance of the singleton UserRepository.
         /// </summary>
-        public static UserRepository Instance => _instance ?? (_instance = new UserRepository());
+        //public static UserRepository Instance => _instance ?? (_instance = new UserRepository());
+
+        public static UserRepository Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new UserRepository();
+                }
+
+                return _instance;
+            }
+        }
+
 
         /// <summary>
         /// Tries to fetch an user that has the same email and password as specified. Throws exception when the user is invalid.
