@@ -16,8 +16,8 @@ namespace EyeCT4RailsUnitTests.LibTests
         [TestInitialize]
         public void UserInit()
         {
-            _user1 = new User(1, "Henk Stenk", "HenkyBaas@gmail.com", new Function(Role.Administrator, new List<Right> {Right.ManageUsers,Right.ManageDepot,Right.ManageCleaning,Right.ManageMaintenance,Right.ManageRide}));
-            _user2 = new User(2, "Piet Piraat", "Arrrr@gmail.com", new Function(Role.Mechanic, new List<Right> {Right.ManageMaintenance}));
+            _user1 = new User(1, "Henk Stenk", "HenkyBaas@gmail.com", new Function(Role.Administrator, new List<Right> {Right.ManageUser,Right.ManageDepot,Right.ManageCleanup,Right.ManageRepair,Right.ManageRide}));
+            _user2 = new User(2, "Piet Piraat", "Arrrr@gmail.com", new Function(Role.Mechanic, new List<Right> {Right.ManageRepair}));
         }
 
         [TestMethod]
@@ -32,12 +32,12 @@ namespace EyeCT4RailsUnitTests.LibTests
         public void HasRightTest()
         {
             var enums = new List<Right> {
-                Right.ManageCleaning, Right.ManageDepot, Right.ManageMaintenance, Right.ManageRide, Right.ManageUsers
+                Right.ManageCleanup, Right.ManageDepot, Right.ManageRepair, Right.ManageRide, Right.ManageUser
             };
             
             enums.ForEach(x => Assert.IsTrue(_user1.HasRight(x)));
-            enums.FindAll(x => x != Right.ManageMaintenance).ToList().ForEach(y => Assert.IsFalse(_user2.HasRight(y)));
-            Assert.IsTrue(_user2.HasRight(Right.ManageMaintenance));
+            enums.FindAll(x => x != Right.ManageRepair).ToList().ForEach(y => Assert.IsFalse(_user2.HasRight(y)));
+            Assert.IsTrue(_user2.HasRight(Right.ManageRepair));
         }
 
         [TestMethod]

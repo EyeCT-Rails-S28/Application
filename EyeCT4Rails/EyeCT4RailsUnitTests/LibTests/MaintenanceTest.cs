@@ -17,7 +17,7 @@ namespace EyeCT4RailsUnitTests.LibTests
         {
             _maintenance = new Job(1, DateTime.Today, false, JobType.Maintenance, JobSize.Big,
                 new Tram(1, TramType.Combino, Status.Schoonmaak, new Line(1), false),
-                new User(1, "Piet", "", new Function(Role.Mechanic, new List<Right> {Right.ManageMaintenance})));
+                new User(1, "Piet", "", new Function(Role.Mechanic, new List<Right> {Right.ManageRepair})));
         }
 
         [TestMethod]

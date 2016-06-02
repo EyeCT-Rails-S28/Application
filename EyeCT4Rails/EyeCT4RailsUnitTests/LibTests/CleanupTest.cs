@@ -17,7 +17,7 @@ namespace EyeCT4RailsUnitTests.LibTests
         {
             _cleanup = new Job(1, DateTime.Today, false, JobType.Cleanup, JobSize.Big,
                 new Tram(1, TramType.Combino, Status.Schoonmaak, new Line(1), false),
-                new User(1, "Piet", "", new Function(Role.Cleanup, new List<Right> {Right.ManageCleaning})));
+                new User(1, "Piet", "", new Function(Role.Cleanup, new List<Right> {Right.ManageCleanup})));
         }
 
         [TestMethod]
