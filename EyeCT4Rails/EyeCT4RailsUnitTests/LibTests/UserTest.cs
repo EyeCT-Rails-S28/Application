@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,29 +16,28 @@ namespace EyeCT4RailsUnitTests.LibTests
         [TestInitialize]
         public void UserInit()
         {
-            _user1 = new User(1, "Henk Stenk", "HenkyBaas@gmail.com", Role.Administrator);
-            _user2 = new User(2, "Piet Piraat", "Arrrr@gmail.com", Role.Mechanic);
+            _user1 = new User(1, "Henk Stenk", "HenkyBaas@gmail.com", new Function(Role.Administrator, new List<Right> {Right.ManageUser,Right.ManageDepot,Right.ManageCleanup,Right.ManageRepair,Right.ManageRide}));
+            _user2 = new User(2, "Piet Piraat", "Arrrr@gmail.com", new Function(Role.Mechanic, new List<Right> {Right.ManageRepair}));
         }
 
         [TestMethod]
         public void UserConstructorTest()
         {
             Assert.AreEqual(1, _user1.Id);
-            Assert.AreEqual(Role.Administrator, _user1.Role);
+            Assert.AreEqual(Role.Administrator, _user1.Function.Role);
             Assert.AreEqual("Piet Piraat", _user2.Name);
         }
 
         [TestMethod]
-        public void HasPrivilegeTest()
+        public void HasRightTest()
         {
-            var enums = new List<Role> {
-                Role.Administrator, Role.Cleanup, Role.DepotManager, Role.Driver,
-                Role.Mechanic
+            var enums = new List<Right> {
+                Right.ManageCleanup, Right.ManageDepot, Right.ManageRepair, Right.ManageRide, Right.ManageUser
             };
             
-            enums.ForEach(x => Assert.AreEqual(true, _user1.HasRole(x)));
-            enums.FindAll(x => x != Role.Mechanic).ToList().ForEach(y => Assert.AreNotEqual(true, _user2.HasRole(y)));
-            Assert.AreEqual(true, _user2.HasRole(Role.Mechanic));
+            enums.ForEach(x => Assert.IsTrue(_user1.HasRight(x)));
+            enums.FindAll(x => x != Right.ManageRepair).ToList().ForEach(y => Assert.IsFalse(_user2.HasRight(y)));
+            Assert.IsTrue(_user2.HasRight(Right.ManageRepair));
         }
 
         [TestMethod]

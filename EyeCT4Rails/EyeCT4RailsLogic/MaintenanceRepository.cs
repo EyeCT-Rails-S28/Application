@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
 // ReSharper disable UnusedParameter.Local
