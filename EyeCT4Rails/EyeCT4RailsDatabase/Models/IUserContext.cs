@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsDatabase.Models

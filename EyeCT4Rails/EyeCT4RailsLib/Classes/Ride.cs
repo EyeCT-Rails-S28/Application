@@ -1,4 +1,6 @@
-﻿namespace EyeCT4RailsLib
+﻿using EyeCT4RailsLib;
+
+namespace EyeCT4RailsLib.Classes
 {
     public class Ride
     {

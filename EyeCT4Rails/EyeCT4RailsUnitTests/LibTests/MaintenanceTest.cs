@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,7 +15,9 @@ namespace EyeCT4RailsUnitTests.LibTests
         [TestInitialize]
         public void MaintenanceInit()
         {
-            _maintenance = new Job(1, DateTime.Today, false, JobType.Maintenance, JobSize.Big, new Tram(1, TramType.Combino,  Status.Schoonmaak, new Line(1), false), new User(1, "Piet", "", Role.Mechanic));
+            _maintenance = new Job(1, DateTime.Today, false, JobType.Maintenance, JobSize.Big,
+                new Tram(1, TramType.Combino, Status.Schoonmaak, new Line(1), false),
+                new User(1, "Piet", "", new Function(Role.Mechanic, new List<Right> {Right.ManageMaintenance})));
         }
 
         [TestMethod]

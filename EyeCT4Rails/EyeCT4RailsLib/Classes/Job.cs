@@ -1,7 +1,8 @@
 ﻿using System;
+using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 
-namespace EyeCT4RailsLib
+namespace EyeCT4RailsLib.Classes
 {
     public class Job
     {

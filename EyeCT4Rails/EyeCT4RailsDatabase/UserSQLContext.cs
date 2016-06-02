@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsLib;
+using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
