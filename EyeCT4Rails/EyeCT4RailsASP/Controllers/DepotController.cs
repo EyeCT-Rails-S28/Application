@@ -247,5 +247,48 @@ namespace EyeCT4RailsASP.Controllers
                 return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
         }
+
+        [HttpPost]
+        public string ReserveTram(int trackId, int sectionId, int tramId)
+        {
+            try
+            {
+                Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+                Track track = depot.Tracks.Find(t => t.Id == trackId);
+                if (track == null)
+                {
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Track ID niet gevonden." });
+                }
+
+                Section section = track.Sections.Find(s => s.Id == sectionId);
+                if (section == null)
+                {
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Sectie ID niet gevonden." });
+                }
+
+                Tram tram = depot.Trams.Find(t => t.Id == tramId);
+                if (tram == null)
+                {
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Tram ID niet gevonden." });
+                }
+
+
+                if (!RideManagementRepository.Instance.CheckSectionFreedom(section, true) &&
+                    !RideManagementRepository.Instance.CheckSectionFreedom(section, false))
+                {
+                    return JsonConvert.SerializeObject(new { status = "fail", message = "Het is niet mogelijk om de geselecteerde tram op de geselecteerde sectie te plaatsen." });
+                }
+
+
+                DepotManagementRepository.Instance.ReserveSection(tram.Id, section.Id);
+                DepotManagementRepository.Instance.ChangeTramStatus(tram.Id, Status.Defect);
+
+                return JsonConvert.SerializeObject(new { status = "success" });
+            }
+            catch (Exception e)
+            {
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
+            }
+        }
     }
 }

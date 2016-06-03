@@ -1,15 +1,58 @@
-﻿$(document).ready(function () {
+﻿var selectedTrackId;
+var selectedSectionId;
+var selectedTramId;
+
+$(document).ready(function () {
     //Means you're on the overview page of the depot.
     if ($("#contextMenu").hasClass("dropdown")) {
         bindEvents();
 
         function loop() {
+            getReservedTrams();
             refreshDepot();
 
             setTimeout(loop, 2500);
         }
 
         loop();
+
+        $(document).on("click", "a.list-group-item.reservation", function () {
+            selectedTramId = $(this).attr("tramid");
+            getReservedTrams();
+        });
+
+
+        $(document).on("click", "a.list-group-item.context", function () {
+            if (selectedTramId != null) {
+                selectedTrackId = $(this).parent().children().first().text();
+                selectedSectionId = $(this).attr("sectionid");
+                refreshDepot();
+
+                $("#reservedButton").prop("disabled", false);
+            }
+        });
+
+        $(document).on("click", "#reservedButton", function () {
+            if (selectedSectionId != null && selectedTramId != null) {
+
+                $.post("/Depot/ReserveTram", { trackId: selectedTrackId, sectionId: selectedSectionId, tramId: selectedTramId }, function (data) {
+                    var json = JSON.parse(data);
+                    if (json.status === "success") {
+                        selectedTrackId = null;
+                        selectedSectionId = null;
+                        selectedTramId = null;
+
+                        $("#reservedButton").prop("disabled", true);
+
+                        getReservedTrams();
+                        refreshDepot();
+                    } else {
+                        showAlert(json.message);
+                    }
+                });
+            }
+        });
+
     }
 });
 
@@ -88,6 +131,7 @@ function handleOption(invokedOn, selectedMenu) {
             var json = JSON.parse(data);
             if (json.status === "success") {
                 refreshDepot();
+                resetAlert();
             } else {
                 showAlert(json.message);
             }
@@ -97,6 +141,7 @@ function handleOption(invokedOn, selectedMenu) {
             var json = JSON.parse(data);
             if (json.status === "success") {
                 refreshDepot();
+                resetAlert();
             } else {
                 showAlert(json.message);
             }
@@ -116,8 +161,8 @@ function handleOption(invokedOn, selectedMenu) {
             } else {
                 $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function (data) {
                     var json = JSON.parse(data);
-                    if (json.status === "success") {
-                        resetAlert();
+                    if (json.status === "succes" +
+                        "resetAlert();s") {
                         refreshDepot();
                     } else {
                         showAlert(json.message);
@@ -129,6 +174,7 @@ function handleOption(invokedOn, selectedMenu) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
                     refreshDepot();
+                    resetAlert();
                 } else {
                     showAlert(json.message);
                 }
@@ -148,6 +194,7 @@ function handleOption(invokedOn, selectedMenu) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
                     refreshDepot();
+                    resetAlert();
                 } else {
                     showAlert(json.message);
                 }
@@ -159,8 +206,6 @@ function handleOption(invokedOn, selectedMenu) {
 }
 
 function refreshDepot() {
-    resetAlert();
-
     $.post("/Depot/GetTracks", function (data) {
         var json = JSON.parse(data);
         if (json.status === "success") {
@@ -183,7 +228,7 @@ function refreshDepot() {
                     for (var k = 0; k < track.Sections.length; k++) {
                         var section = track.Sections[k];
 
-                        line += '<a trackid="' + track.Id + '" sectionid="' + section.Id + '" class="list-group-item context' + (section.Tram != null ? (" " + section.Tram.Status) : "") + (section.Blocked ? (" blocked") : "") + ' text-center">' + (section.Tram != null ? section.Tram.Id : "") + '</a>';
+                        line += '<a trackid="' + track.Id + '" sectionid="' + section.Id + '" class="list-group-item ' + ((section.Id == selectedSectionId && selectedTramId != null) ? ("list-group-item-info ") : "") + 'context' + (section.Tram != null ? (" " + section.Tram.Status) : "") + (section.Blocked ? (" blocked") : "") + ' text-center">' + (section.Tram != null ? section.Tram.Id : "") + '</a>';
                     }
 
                     line += "</div>";
@@ -197,46 +242,26 @@ function refreshDepot() {
             showAlert(json.message);
         }
     });
+}
 
+function getReservedTrams() {
     $.post("/Depot/GetReservedTrams", function (data) {
         var json = JSON.parse(data);
         if (json.status === "success") {
-            /*
-             * 
-             *         /*
-         * 
-         * 
-         *                     foreach (Tram tram in _reservedTrams)
-                    {
-                        <a href="#reservation=@tram.Id" class="list-group-item">
-                            <h4 class="list-group-item-heading">Tram #@tram.Id</h4>
-                            <p class="list-group-item-text">
-                                Status: @tram.Status<br/>
-                                Type: @tram.TramType.GetDescription()
-                            </p>
-                        </a>
-                    }
-
-         * 
-         * 
-             * 
-             * 
-             */
-
-            var line = '';
-            if (json.trams.length == 0) {
+            var line = "";
+            if (json.trams.length === 0) {
                 line = '<a class="list-group-item"><h4 class="list-group-item-heading">Geen reserveringen</h4><p class="list-group-item-text">Er zijn op dit moment geen trams die assistentie nodig hebben.</p></a>';
             } else {
                 for (var i = 0; i < json.trams.length; i++) {
                     var tram = json.trams[i];
 
-                    line += '<a tramid="' + tram.Id + '" class="list-group-item">' +
-                                '<h4 class="list-group-item-heading">Tram #' + tram.Id + '</h4>' +
-                                '<p class="list-group-item-text">' +
-                                    'Status: ' + tram.Status + '<br/>' +
-                                    'Type: ' + tram.TramType +
-                                '</p>' +
-                            '</a>';
+                    line += '<a tramid="' + tram.Id + '" class="list-group-item reservation' + (tram.Id == selectedTramId ? " active" : "") + '">' +
+                        '<h4 class="list-group-item-heading">Tram #' + tram.Id + '</h4>' +
+                        '<p class="list-group-item-text">' +
+                        "Status: " + tram.Status + '<br/>' +
+                        "Type: " + tram.TramType +
+                        "</p>" +
+                        "</a>";
                 }
             }
 
@@ -244,7 +269,7 @@ function refreshDepot() {
         } else {
             showAlert(json.message);
         }
-    })
+    });
 }
 
 function showAlert(error) {
