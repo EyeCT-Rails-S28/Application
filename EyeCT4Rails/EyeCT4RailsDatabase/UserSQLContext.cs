@@ -12,8 +12,8 @@ namespace EyeCT4RailsDatabase
     {
         public void CreateUser(string name, string password, string email, Role role, string salt)
         {
-            string query = "INSERT INTO \"user\" (role, name, email, password, salt) " +
-                           "VALUES(:role, :name, :email, :password, :salt)";
+            string query = "INSERT INTO \"user\" (role_id, name, email, password, salt) " +
+                           "VALUES((SELECT ID FROM \"role\" WHERE description = :role), :name, :email, :password, :salt)";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {

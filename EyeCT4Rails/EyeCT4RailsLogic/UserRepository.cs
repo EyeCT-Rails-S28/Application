@@ -68,7 +68,8 @@ namespace EyeCT4RailsLogic
             try
             {
                 var salt = Hashing.GetNewSalt();
-                 _context.CreateUser(name, password, email, role, salt);
+                var hash = Hashing.HashString(password, salt);
+                 _context.CreateUser(name, hash, email, role, salt);
             }
             catch (Exception e)
             {
