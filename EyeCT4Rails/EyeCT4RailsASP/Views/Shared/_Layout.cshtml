@@ -1,9 +1,26 @@
-﻿<!DOCTYPE html>
+﻿@using EyeCT4RailsASP.Models
+@using EyeCT4RailsLib.Classes
+@using EyeCT4RailsLib.Enums
+
+
+@{
+    User user = null;
+
+    if (Session["User"] != null)
+    {
+        user = (User) Session["User"];
+    }
+
+    string actionName = UserUtilities.GetActionName(user);
+    string controllerName = UserUtilities.GetControllerName(user);
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Tranvia</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -16,24 +33,49 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Tranvia", actionName, controllerName, new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (UserUtilities.CheckRight(Right.ManageDepot, user))
+                    {
+                        <li>@Html.ActionLink("Remise", "Index", "Depot")</li>
+                    }
+                    @if (UserUtilities.CheckRight(Right.ManageRide, user))
+                    {
+                        <li>@Html.ActionLink("Conducteur", "Index", "Ride")</li>
+                    }
+                    @if (UserUtilities.CheckRight(Right.ManageRepair, user))
+                    {
+                        <li>@Html.ActionLink("Reparatie", "Overview", "Maintenance")</li>
+                    }
+                    @if (UserUtilities.CheckRight(Right.ManageCleanup, user))
+                    {
+                        <li>@Html.ActionLink("Schoonmaak", "Overview", "Cleanup")</li>
+                    }
+                    @if (UserUtilities.CheckRight(Right.ManageUser, user))
+                    {
+                        <li>@Html.ActionLink("Gebruikers", "Index", "User")</li>
+                    }
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    
+    @if (ViewBag.Exception != null)
+    {
+        <div class="alert alert-danger">
+            <strong>@ViewBag.Exception</strong>
+        </div>
+    }
+
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Tranvia</p>
+    </footer>
+</div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

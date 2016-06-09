@@ -1,4 +1,6 @@
-﻿using System;
+﻿using static EyeCT4RailsASP.Models.UserUtilities;
+
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
@@ -9,6 +11,8 @@ namespace EyeCT4RailsASP.Controllers
 {
     public class MaintenanceController : Controller
     {
+        private const Right RIGHT = Right.ManageRepair;
+
         public ActionResult Index()
         {
             return RedirectToAction("Overview");
@@ -16,6 +20,11 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult Overview()
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             List<Job> jobs = MaintenanceRepository.Instance.GetSchedule();
 
             ViewBag.Jobs = jobs;
@@ -25,33 +34,108 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult Add()
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddOne(string jobSize, string userName, string tramId, string date)
+        public ActionResult AddOne(string jobSize, string tramId, string date)
         {
-            User user = Session["user"] as User;
-
-            if (user != null)
+            if (!CheckRight(RIGHT, Session["User"] as User))
             {
-                MaintenanceRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+                return RedirectToAction("Index", "Login");
             }
 
-            return RedirectToAction("Overview", "Maintenance");
+            try
+            {
+                if (string.IsNullOrWhiteSpace(tramId))
+                {
+                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(date))
+                {
+                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                }
+                else
+                {
+                    User user = Session["User"] as User;
+
+                    if (user != null)
+                    {
+                        bool succes = MaintenanceRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+
+                        if (!succes)
+                        {
+                            ViewBag.Exception = "Beurt toevoegen is niet gelukt.";
+                        }
+                    }
+
+                    return RedirectToAction("Overview", "Maintenance");
+                }
+
+                return RedirectToAction("Add", "Maintenance");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                return RedirectToAction("Add", "Maintenance");
+            }
         }
 
         [HttpPost]
-        public ActionResult AddMore(string jobSize, string userName, string tramId, string date, string endDate, int interval)
+        public ActionResult AddMore(string jobSize, string tramId, string date, string endDate, string interval)
         {
-            User user = Session["user"] as User;
-
-            if (user != null)
+            if (!CheckRight(RIGHT, Session["User"] as User))
             {
-                MaintenanceRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), interval, Convert.ToDateTime(endDate));
+                return RedirectToAction("Index", "Login");
             }
 
-            return RedirectToAction("Add", "Maintenance");
+            try
+            {
+                if (string.IsNullOrWhiteSpace(tramId))
+                {
+                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(date))
+                {
+                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(endDate))
+                {
+                    ViewBag.Exception = "Eind datum moet ingevuld zijn.";
+                }
+                else if (string.IsNullOrWhiteSpace(interval))
+                {
+                    ViewBag.Exception = "Interval moet ingevuld zijn.";
+                }
+                else
+                {
+                    User user = Session["User"] as User;
+
+                    if (user != null)
+                    { 
+                        bool succes = MaintenanceRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
+
+                        if (!succes)
+                        {
+                            ViewBag.Exception = "Beurte toevoegen is niet gelukt.";
+                        }
+                    }
+
+                    return RedirectToAction("Add", "Maintenance");
+                }
+
+                return RedirectToAction("Add", "Maintenance");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                return RedirectToAction("Add", "Maintenance");
+            }
         }
     }
 }
