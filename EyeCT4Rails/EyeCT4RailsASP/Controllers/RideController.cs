@@ -42,16 +42,18 @@ namespace EyeCT4RailsASP.Controllers
 
                 int tramId = Convert.ToInt32(tramnumber);
                 Track track = depot.Tracks.Find(t => t.Sections.Find(s => s.Tram?.Id == tramId) != null);
-                Section section = null;
 
                 if (!depot.Trams.Exists(t => t.Id == tramId))
                 {
                     return JsonConvert.SerializeObject(new { status = "fail", message = $"Tram met ID: {tramId} bestaat niet." });
                 }
 
+                Section section;
                 if (track != null)
                 {
                     section = track.Sections.Find(s => s.Tram?.Id == tramId);
+                    Session["TramID"] = tramId;
+                    Session["Assist"] = assist;
 
                     if (assist == "Maintenance")
                     {
@@ -69,6 +71,8 @@ namespace EyeCT4RailsASP.Controllers
                 else if (assist == "Maintenance")
                 {
                     RideManagementRepository.Instance.ChangeTramStatus(tramId, Status.Gereserveerd);
+                    Session["TramID"] = tramId;
+                    Session["Assist"] = assist;
 
                     return JsonConvert.SerializeObject(new { status = "fail", instruction = true, message = "Er is een speciale actie vereist van een beheerder, wacht op instructies." });
                 }
@@ -84,6 +88,9 @@ namespace EyeCT4RailsASP.Controllers
 
                     DepotManagementRepository.Instance.ReserveSection(tramId, section.Id);
                     RideManagementRepository.Instance.ChangeTramStatus(tramId, assist == "None" ? Status.Remise : Status.Schoonmaak);
+
+                    Session["TramID"] = tramId;
+                    Session["Assist"] = assist;
                 }
 
                 return JsonConvert.SerializeObject(new { status = "success", trackId = track?.Id, sectionId = section?.Id});
@@ -122,6 +129,21 @@ namespace EyeCT4RailsASP.Controllers
             {
                 return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
             }
+        }
+
+        public string GetPreviousTramId()
+        {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return JsonConvert.SerializeObject(new { status = "fail", message = "Gebruiker niet ingelogd!" }); ;
+            }
+
+            if (Session["TramID"] != null && Session["Assist"] != null)
+            {
+                return JsonConvert.SerializeObject(new { status = "success", tramId = Session["TramID"], assist = Session["Assist"] });
+            }
+
+            return JsonConvert.SerializeObject(new { status = "fail" });
         }
     }
 }
