@@ -47,8 +47,8 @@ namespace EyeCT4RailsASP.Controllers
                     List<Section> sectionsWithTrams = track.Sections.FindAll(s => s.Tram != null);
                     foreach (Section s in sectionsWithTrams)
                     {
-                        if (!(RideManagementRepository.Instance.CheckSectionFreedom(s, false) ||
-                              RideManagementRepository.Instance.CheckSectionFreedom(s, true)))
+                        if (!(RideManagementRepository.Instance.CheckSectionFreedom(s.NextSection, false) || RideManagementRepository.Instance.CheckSectionFreedom(s.NextSection, true))
+                            && !(RideManagementRepository.Instance.CheckSectionFreedom(s.PreviousSection, false) || RideManagementRepository.Instance.CheckSectionFreedom(s.PreviousSection, true)))
                         {
                             section.Blocked = false;
                             return JsonConvert.SerializeObject(new { status = "fail", message = "Deze sectie kan niet geblokkeerd worden (vrijheid)." });
