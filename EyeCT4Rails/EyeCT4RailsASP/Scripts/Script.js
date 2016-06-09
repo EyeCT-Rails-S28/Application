@@ -2,59 +2,124 @@
 var selectedSectionId;
 var selectedTramId;
 
-$(document).ready(function () {
-    //Means you're on the overview page of the depot.
-    if ($("#contextMenu").hasClass("dropdown")) {
-        bindEvents();
+$(document)
+    .ready(function () {
+        //Means you're on the overview page of the depot.
+        if ($("#contextMenu").hasClass("dropdown")) {
+            bindEvents();
 
-        function loop() {
-            getReservedTrams();
-            refreshDepot();
-
-            setTimeout(loop, 2500);
-        }
-
-        loop();
-
-        $(document).on("click", "a.list-group-item.reservation", function () {
-            selectedTramId = $(this).attr("tramid");
-            getReservedTrams();
-        });
-
-
-        $(document).on("click", "a.list-group-item.context", function () {
-            if (selectedTramId != null) {
-                selectedTrackId = $(this).parent().children().first().text();
-                selectedSectionId = $(this).attr("sectionid");
+            function loop() {
+                getReservedTrams();
                 refreshDepot();
 
-                $("#reservedButton").prop("disabled", false);
+                setTimeout(loop, 2500);
             }
-        });
 
-        $(document).on("click", "#reservedButton", function () {
-            if (selectedSectionId != null && selectedTramId != null) {
+            loop();
 
-                $.post("/Depot/ReserveTram", { trackId: selectedTrackId, sectionId: selectedSectionId, tramId: selectedTramId }, function (data) {
-                    var json = JSON.parse(data);
-                    if (json.status === "success") {
-                        selectedTrackId = null;
-                        selectedSectionId = null;
-                        selectedTramId = null;
-
-                        $("#reservedButton").prop("disabled", true);
-
+            $(document)
+                .on("click",
+                    "a.list-group-item.reservation",
+                    function () {
+                        selectedTramId = $(this).attr("tramid");
                         getReservedTrams();
-                        refreshDepot();
-                    } else {
+                    });
+
+
+            $(document)
+                .on("click",
+                    "a.list-group-item.context",
+                    function () {
+                        if (selectedTramId != null) {
+                            selectedTrackId = $(this).parent().children().first().text();
+                            selectedSectionId = $(this).attr("sectionid");
+                            refreshDepot();
+
+                            $("#reservedButton").prop("disabled", false);
+                        }
+                    });
+
+            $(document)
+                .on("click",
+                    "#reservedButton",
+                    function () {
+                        if (selectedSectionId != null && selectedTramId != null) {
+
+                            $.post("/Depot/ReserveTram",
+                                { trackId: selectedTrackId, sectionId: selectedSectionId, tramId: selectedTramId },
+                                function (data) {
+                                    var json = JSON.parse(data);
+                                    if (json.status === "success") {
+                                        selectedTrackId = null;
+                                        selectedSectionId = null;
+                                        selectedTramId = null;
+
+                                        $("#reservedButton").prop("disabled", true);
+
+                                        getReservedTrams();
+                                        refreshDepot();
+                                    } else {
+                                        showAlert(json.message);
+                                    }
+                                });
+                        }
+                    });
+
+        }
+
+        if ($("#ride").length !== 0) {
+            var tramId = -1;
+
+            $(document).on("click", "#rideButton", function () {
+                resetAlert();
+                var assist = $("select[name='assist'] option:selected").val();
+                tramId = parseInt($("#tramnumber").val());
+
+                $.post("/Ride/GetSection", { tramnumber: tramId, assist: assist}, function (data) {
+                    var json = JSON.parse(data);
+
+                    if (json.status === "success") {
+                        $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
+                        $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
+                    }
+                    else if (json.instruction === true) {
+                        $("#modal").modal("show");
+                        $("#tramnumber").prop("disabled", true);
+                        $("#rideButton").prop("disabled", true);
+
+                        timer();
+                    }
+                    else
+                    {
                         showAlert(json.message);
                     }
                 });
-            }
-        });
+            });
 
-    }
-});
+            function timer() {
+                if (tramId == -1) {
+                    return false;
+                }
+
+                $.post("/Ride/GetAssignedSection", { tramId: tramId }, function (data) {
+                    var json = JSON.parse(data);
+
+                    if (json.status === "success") {
+                        $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
+                        $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
+
+                        $("#modal").modal("hide");
+                        $("#tramnumber").prop("disabled", false);
+                        $("#rideButton").prop("disabled", false);
+                    }
+                });
+
+                if (tramId >= 0) {
+                    setTimeout(timer, 2500);
+                }
+            }
+        }
+    });
 
 (function ($, window) {
     $.fn.contextMenu = function (settings) {
