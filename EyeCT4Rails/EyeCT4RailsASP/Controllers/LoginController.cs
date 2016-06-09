@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using EyeCT4RailsASP.Models;
 using EyeCT4RailsLib.Classes;
-using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic;
 using EyeCT4RailsLogic.Exceptions;
 
