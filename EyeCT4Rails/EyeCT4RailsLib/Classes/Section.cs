@@ -17,7 +17,7 @@ namespace EyeCT4RailsLib.Classes
         /// <summary>
         /// Bool determining wheter the section is blocked or not.
         /// </summary>
-        public bool Blocked { get; }
+        public bool Blocked { get; set; }
 
         /// <summary>
         /// The section that comes after this section. Can be null.
