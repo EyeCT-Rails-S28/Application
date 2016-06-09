@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Overzicht Remise";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Reserveringen</h2>
+
+        <div id="reservedTrams" class="list-group">
+        </div>
+
+        <button id="reservedButton" type="button" class="btn btn-primary col-md-offset-4" disabled="disabled">Bevestig</button>
+    </div>
+
+    <div class="col-md-9">
+        <h2>Overzicht Remise</h2>
+
+        <div id="overview-alert" class="alert alert-danger alert-dismissible" role="alert">
+        </div>
+
+        <div id="overview">
+        </div>
+    </div>
+</div>
+
+<div id="contextMenu" class="dropdown clearfix">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+        <li><a tabindex="-1">Track (de)blokkeren</a></li>
+        <li><a tabindex="-1">Sectie (de)blokkeren</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a tabindex="-1">Tram plaatsen</a></li>
+        <li><a tabindex="-1">Tram reserveren</a></li>
+        <li><a tabindex="-1">Tram verwijderen</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a tabindex="-1">Verander status > Dienst</a></li>
+        <li><a tabindex="-1">Verander status > Remise</a></li>
+        <li><a tabindex="-1">Verander status > Defect</a></li>
+        <li><a tabindex="-1">Verander status > Schoonmaak</a></li>
+    </ul>
+</div>

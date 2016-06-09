@@ -121,11 +121,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CleanupController.cs" />
+    <Compile Include="Controllers\DepotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RideController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +152,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Script.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -163,14 +168,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Ride\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Maintenance\Overview.cshtml" />
     <Content Include="Views\Maintenance\Add.cshtml" />
     <Content Include="Views\Cleanup\Overview.cshtml" />
     <Content Include="Views\Cleanup\Add.cshtml" />
+    <Content Include="Views\Depot\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -180,10 +187,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EyeCT4RailsDatabase\EyeCT4RailsDatabase.csproj">
-      <Project>{3caa62d9-e5b4-4160-b224-af47da3c8461}</Project>
-      <Name>EyeCT4RailsDatabase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EyeCT4RailsLib\EyeCT4RailsLib.csproj">
       <Project>{f7313ddb-a30d-4e74-992f-c4cce8d8cbdc}</Project>
       <Name>EyeCT4RailsLib</Name>

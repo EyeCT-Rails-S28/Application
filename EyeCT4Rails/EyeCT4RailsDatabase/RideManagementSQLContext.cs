@@ -13,12 +13,13 @@ namespace EyeCT4RailsDatabase
                            "SET status = :tram_status " +
                            "WHERE id = :tram_id";
 
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {":tram_status", Convert.ToString(status)},
+                {":tram_id", tramId}
+            };
 
             Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
-
-            parameters.Add(":tram_status", Convert.ToString(status));
-            parameters.Add(":tram_id", tramId);
         }
     }
 }
