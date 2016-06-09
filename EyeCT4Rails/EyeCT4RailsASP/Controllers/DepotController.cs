@@ -1,18 +1,28 @@
-﻿using System;
+﻿using static EyeCT4RailsASP.Models.UserUtilities;
+
+using System;
 using System.Collections.Generic;
 using EyeCT4RailsLib.Enums;
 using System.Linq;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLogic;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 
 namespace EyeCT4RailsASP.Controllers
 {
     public class DepotController : Controller
     {
+        private const Right RIGHT = Right.ManageDepot;
+
         public ActionResult Index()
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
@@ -21,6 +31,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
                 Track track = depot.Tracks.Find(t => t.Id == trackId);
                 if (track == null)
@@ -54,6 +69,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
                 bool allFree = depot.Tracks.Find(t => t.Id == trackId).Sections.TrueForAll(s => s.Tram == null);
                 if (!allFree)
@@ -77,6 +97,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
                 Track track = depot.Tracks.Find(t => t.Id == trackId);
                 if (track == null)
@@ -134,6 +159,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
                 Track track = depot.Tracks.Find(t => t.Id == trackId);
                 if (track == null)
@@ -172,6 +202,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
                 Tram tram = depot.Trams.Find(t => t.Id == tramId);
                 if (tram == null)
@@ -209,6 +244,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
 
                 return JsonConvert.SerializeObject(new { status = "success", tracks = depot.Tracks },
@@ -232,6 +272,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 return JsonConvert.SerializeObject(new { status = "success", trams = DepotManagementRepository.Instance.GetTramsWithReservedFlag() },
                     new JsonSerializerSettings
                     {
@@ -253,6 +298,11 @@ namespace EyeCT4RailsASP.Controllers
         {
             try
             {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
                 Track track = depot.Tracks.Find(t => t.Id == trackId);
                 if (track == null)
