@@ -5,6 +5,7 @@ using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+using EyeCT4RailsLogic.Helpers;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
@@ -23,35 +24,23 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// The instance of the singleton UserRepository.
         /// </summary>
-        //public static UserRepository Instance => _instance ?? (_instance = new UserRepository());
-
-        public static UserRepository Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new UserRepository();
-                }
-
-                return _instance;
-            }
-        }
-
+        public static UserRepository Instance => _instance ?? (_instance = new UserRepository());
 
         /// <summary>
         /// Tries to fetch an user that has the same email and password as specified. Throws exception when the user is invalid.
         /// </summary>
         /// <param name="email">The email of the user.</param>
         /// <param name="password">Password of the user.</param>
-        /// <returns>The user object that </returns>
+        /// <returns>The user object that contains all the user information.</returns>
         public User LoginUser(string email, string password)
         {
             User user;
 
             try
             {
-                user = _context.LoginUser(email, password);
+                var salt = _context.GetSalt(email);
+                var hash = Hashing.HashString(password, salt);
+                user = _context.LoginUser(email, hash);
             }
             catch (Exception e)
             {
@@ -78,7 +67,9 @@ namespace EyeCT4RailsLogic
         {
             try
             {
-                 _context.CreateUser(name, password, email, role);
+                var salt = Hashing.GetNewSalt();
+                var hash = Hashing.HashString(password, salt);
+                 _context.CreateUser(name, hash, email, role, salt);
             }
             catch (Exception e)
             {

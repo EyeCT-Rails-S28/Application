@@ -1,4 +1,7 @@
-﻿using System.Web.ModelBinding;
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web.ModelBinding;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 
@@ -73,5 +76,6 @@ namespace EyeCT4RailsASP.Models
 
             return ret;
         }
+
     }
 }
