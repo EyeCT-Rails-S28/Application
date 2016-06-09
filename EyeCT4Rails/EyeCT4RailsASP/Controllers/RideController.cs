@@ -52,6 +52,8 @@ namespace EyeCT4RailsASP.Controllers
                 if (track != null)
                 {
                     section = track.Sections.Find(s => s.Tram?.Id == tramId);
+                    Session["TramID"] = tramId;
+                    Session["Assist"] = assist;
 
                     if (assist == "Maintenance")
                     {
@@ -86,6 +88,9 @@ namespace EyeCT4RailsASP.Controllers
 
                     DepotManagementRepository.Instance.ReserveSection(tramId, section.Id);
                     RideManagementRepository.Instance.ChangeTramStatus(tramId, assist == "None" ? Status.Remise : Status.Schoonmaak);
+
+                    Session["TramID"] = tramId;
+                    Session["Assist"] = assist;
                 }
 
                 return JsonConvert.SerializeObject(new { status = "success", trackId = track?.Id, sectionId = section?.Id});

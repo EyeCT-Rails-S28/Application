@@ -2,6 +2,9 @@
 var selectedSectionId;
 var selectedTramId;
 
+var tramId = -1;
+var assist = null;
+
 $(document).ready(function () {
         //Means you're on the overview page of the depot.
         if ($("#contextMenu").hasClass("dropdown")) {
@@ -67,86 +70,71 @@ $(document).ready(function () {
         }
 
         if ($("#ride").length !== 0) {
-            var tramId = -1;
-            var assist = null;
-
-            $.get("/Ride/GetPreviousTramId").done(function(data) {
+            $.get("/Ride/GetPreviousTramId", function(data) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
                     tramId = json.tramId;
                     assist = json.assist;
 
-                    $.post("/Ride/GetSection", { tramnumber: tramId, assist: assist }, function (data) {
-                        var json = JSON.parse(data);
-
-                        if (json.status === "success") {
-                            $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
-                            $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
-                        }
-                        else if (json.instruction === true) {
-                            $("#modal").modal("show");
-                            $("#tramnumber").prop("disabled", true);
-                            $("#rideButton").prop("disabled", true);
-
-                            timer();
-                        }
-                        else {
-                            showAlert(json.message);
-                        }
-                    });
+                    getSection(tramId, assist);
                 }
             });
 
             $(document).on("click", "#rideButton", function () {
                 resetAlert();
-                assist = $("select[name='assist'] option:selected").val();
                 tramId = parseInt($("#tramnumber").val());
+                assist = $("select[name='assist'] option:selected").val();
 
-                $.post("/Ride/GetSection", { tramnumber: tramId, assist: assist}, function (data) {
-                    var json = JSON.parse(data);
-
-                    if (json.status === "success") {
-                        $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
-                        $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
-                    }
-                    else if (json.instruction === true) {
-                        $("#modal").modal("show");
-                        $("#tramnumber").prop("disabled", true);
-                        $("#rideButton").prop("disabled", true);
-
-                        timer();
-                    }
-                    else
-                    {
-                        showAlert(json.message);
-                    }
-                });
+                getSection(tramId, assist);
             });
+        }
+});
 
-            function timer() {
-                if (tramId == -1) {
-                    return false;
-                }
+function getSection(tramnumber, assist) {
+    $.post("/Ride/GetSection", { tramnumber: tramId, assist: assist }, function (data) {
+        var json = JSON.parse(data);
 
-                $.post("/Ride/GetAssignedSection", { tramId: tramId }, function (data) {
-                    var json = JSON.parse(data);
+        if (json.status === "success") {
+            $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
+            $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
+        }
+        else if (json.instruction === true) {
+            $("#modal").modal("show");
+            $("#tramnumber").prop("disabled", true);
+            $("#rideButton").prop("disabled", true);
 
-                    if (json.status === "success") {
-                        $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
-                        $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
-
-                        $("#modal").modal("hide");
-                        $("#tramnumber").prop("disabled", false);
-                        $("#rideButton").prop("disabled", false);
-                    }
-                });
-
-                if (tramId >= 0) {
-                    setTimeout(timer, 2500);
-                }
-            }
+            timer();
+        }
+        else {
+            showAlert(json.message);
         }
     });
+}
+
+function timer() {
+    if (tramId == -1) {
+        return false;
+    }
+
+    $.post("/Ride/GetAssignedSection", { tramId: tramId }, function (data) {
+        var json = JSON.parse(data);
+
+        if (json.status === "success") {
+            $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
+            $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
+
+            $("#modal").modal("hide");
+            $("#tramnumber").prop("disabled", false);
+            $("#rideButton").prop("disabled", false);
+
+            tramId = -1;
+        }
+    });
+
+    if (tramId >= 0) {
+        setTimeout(timer, 2500);
+    }
+}
 
 (function ($, window) {
     $.fn.contextMenu = function (settings) {
