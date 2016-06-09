@@ -69,7 +69,7 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMore(string jobSize, string userName, string tramId, string date, string endDate, string interval)
+        public ActionResult AddMore(string jobSize, string tramId, string date, string endDate, string interval)
         {
             try
             {
@@ -113,6 +113,41 @@ namespace EyeCT4RailsASP.Controllers
                 ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een schoonmaakbeurt: {ex.Message}";
                 return RedirectToAction("Add", "Cleanup");
             }
+        }
+
+        public ActionResult HistoryOfJob(int tramId)
+        {
+            try
+            {
+                List<Job> history = CleanupRepository.Instance.GetHistory(tramId);
+
+                if (history == null || history.Count == 0) return RedirectToAction("Overview", "Cleanup");
+
+                ViewBag.History = history;
+                ViewBag.TramId = tramId;
+                ViewBag.TramType = history[0].Tram.TramType;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                return RedirectToAction("Overview", "Cleanup");
+            }
+        }
+
+        public ActionResult ChangeToDone(int jobId)
+        {
+            try
+            {
+                CleanupRepository.Instance.EditJobStatus(jobId, true);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het afronden van een beurt: {ex.Message}";
+            }
+
+            return RedirectToAction("Overview", "Cleanup");
         }
     }
 }
