@@ -2,8 +2,7 @@
 var selectedSectionId;
 var selectedTramId;
 
-$(document)
-    .ready(function () {
+$(document).ready(function () {
         //Means you're on the overview page of the depot.
         if ($("#contextMenu").hasClass("dropdown")) {
             bindEvents();
@@ -69,10 +68,38 @@ $(document)
 
         if ($("#ride").length !== 0) {
             var tramId = -1;
+            var assist = null;
+
+            $.get("/Ride/GetPreviousTramId").done(function(data) {
+                var json = JSON.parse(data);
+                if (json.status === "success") {
+                    tramId = json.tramId;
+                    assist = json.assist;
+
+                    $.post("/Ride/GetSection", { tramnumber: tramId, assist: assist }, function (data) {
+                        var json = JSON.parse(data);
+
+                        if (json.status === "success") {
+                            $("#trackId").html("<strong>Ga naar spoor: " + json.trackId + "</strong>");
+                            $("#sectionId").html("<strong>Ga naar sectie: " + json.sectionId + "</strong>");
+                        }
+                        else if (json.instruction === true) {
+                            $("#modal").modal("show");
+                            $("#tramnumber").prop("disabled", true);
+                            $("#rideButton").prop("disabled", true);
+
+                            timer();
+                        }
+                        else {
+                            showAlert(json.message);
+                        }
+                    });
+                }
+            });
 
             $(document).on("click", "#rideButton", function () {
                 resetAlert();
-                var assist = $("select[name='assist'] option:selected").val();
+                assist = $("select[name='assist'] option:selected").val();
                 tramId = parseInt($("#tramnumber").val());
 
                 $.post("/Ride/GetSection", { tramnumber: tramId, assist: assist}, function (data) {
