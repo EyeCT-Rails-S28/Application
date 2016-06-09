@@ -2,50 +2,56 @@
     ViewBag.Title = "Index";
 }
 
-<h2>In- en uitrijsysteem</h2>
 
-<div class="row">
-    <div class="col-md-12">
-        @using (Html.BeginForm())
-        {
-            <p>
-                <b>
-                    Ga naar spoor: @ViewBag.TrackId
-                </b>
-            </p>
-            <p>
-                <b>
-                    Ga naar sectie: @ViewBag.SectionId
-                </b>
-            </p>
-            <div class="form-group">
-                <label for="tramnumber">Tram nummer:</label>
-                <input type="text" class="form-control" name="tramnumber" id="tramnumber">
-            </div>
 
-            <h4>Technische assistentie nodig?</h4>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="assist" value="None" checked>
-                    Niets
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="assist" value="Maintenance">
-                    Reparatie
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input type="radio" name="assist" value="Cleanup">
-                    Schoonmaak
-                </label>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-default">Bevestig</button>
-            </div>
-        }
+<div class="row" id="ride">
+    <div class="col-md-4 col-md-offset-4">
+        <h2>In- en uitrijsysteem</h2>
+
+        <div id="overview-alert" class="alert alert-danger alert-dismissible" role="alert">
+        </div>
+
+        <p id="trackId">
+            <strong>
+                Ga naar spoor: @ViewBag.TrackId
+            </strong>
+        </p>
+        <p id="sectionId">
+            <strong>
+                Ga naar sectie: @ViewBag.SectionId
+            </strong>
+        </p>
+        <div class="form-group">
+            <label for="tramnumber">Tram nummer:</label>
+            <input type="text" class="form-control" name="tramnumber" id="tramnumber" autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="assist">Heeft assistentie nodig:</label>
+            <select class="form-control" name="assist" id="assist">
+                <option value="None">Geen</option>
+                <option value="Maintenance">Reparatie</option>
+                <option value="Cleanup">Schoonmaak</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" id="rideButton">Bevestig</button>
+        </div>
     </div>
 </div>
 
+<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Wachten op beheerder</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress progress-striped active" role="progressbar" style="width: 100%">
+                    <div class="progress-bar" style="width: 100%"></div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
