@@ -125,7 +125,6 @@
     <Compile Include="Controllers\RideController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,6 +172,8 @@
     <Content Include="Views\Cleanup\Add.cshtml" />
     <Content Include="Views\Depot\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Cleanup\HistoryOfJob.cshtml" />
+    <Content Include="Views\Maintenance\HistoryOfJob.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

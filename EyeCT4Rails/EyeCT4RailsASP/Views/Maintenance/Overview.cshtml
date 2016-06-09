@@ -20,6 +20,7 @@
                 <th>Soort</th>
                 <th>Type Beurt</th>
                 <th>Reparatie Datum</th>
+                <th></th>
             </tr>
             </thead>
 
@@ -27,11 +28,12 @@
             @foreach (Job job in ViewBag.jobs)
             {
                 <tr>
-                    <td>@job.Id</td>
+                    <td><a href="HistoryOfJob?tramId=@job.Tram.Id">@job.Id</a></td>
                     <td>@job.Tram.Id</td>
                     <td>@job.JobSize</td>
-                    <td>@job.Date</td>
+                    <td>@job.JobType.ToString()</td>
                     <td>@job.Date.ToString()</td>
+                    <td><a class="btn btn-primary" href="ChangeToDone?jobId=@job.Id" role="button">Afronden</a></td>
                 </tr>
             }
             </tbody>
