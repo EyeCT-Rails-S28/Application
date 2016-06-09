@@ -62,7 +62,11 @@ $(document).ready(function () {
 
             $(this).on("contextmenu", function (e) {
                 if (e.ctrlKey) {
-                    return false;
+                    return true;
+                }
+
+                if ($(e.target).attr("sectionid") == null) {
+                    return true;
                 }
 
                 var menu = $(settings.menuSelector)
