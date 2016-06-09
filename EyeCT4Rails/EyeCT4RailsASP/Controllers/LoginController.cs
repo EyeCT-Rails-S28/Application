@@ -43,7 +43,7 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult LogOut()
         {
-            Session["User"] = null;
+            Session.Clear();
 
             return RedirectToAction("Index");
         }
