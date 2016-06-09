@@ -61,12 +61,17 @@
     <Compile Include="LibTests\RideTest.cs" />
     <Compile Include="LibTests\CleanupTest.cs" />
     <Compile Include="LibTests\LineTest.cs" />
+    <Compile Include="LogicTest\HashingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EyeCT4RailsLib\EyeCT4RailsLib.csproj">
       <Project>{f7313ddb-a30d-4e74-992f-c4cce8d8cbdc}</Project>
       <Name>EyeCT4RailsLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EyeCT4RailsLogic\EyeCT4RailsLogic.csproj">
+      <Project>{78965E2B-8332-4AE3-AF0B-66DB22D16D98}</Project>
+      <Name>EyeCT4RailsLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

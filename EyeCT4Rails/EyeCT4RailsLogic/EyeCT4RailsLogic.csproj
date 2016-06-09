@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\InvalidUserException.cs" />
     <Compile Include="Exceptions\NoFreeSectionException.cs" />
     <Compile Include="Exceptions\UnknownException.cs" />
+    <Compile Include="Helpers\Hashing.cs" />
     <Compile Include="MaintenanceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RideManagementRepository.cs" />
