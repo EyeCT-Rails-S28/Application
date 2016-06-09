@@ -1,6 +1,8 @@
 ﻿@using EyeCT4RailsASP.Models
 @using EyeCT4RailsLib.Classes
 @using EyeCT4RailsLib.Enums
+
+
 @{
     User user = null;
 
@@ -18,7 +20,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Tranvia</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -35,23 +37,23 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (user?.HasRight(Right.ManageDepot) ?? false)
+                    @if (UserUtilities.CheckRight(Right.ManageDepot, user))
                     {
                         <li>@Html.ActionLink("Remise", "Index", "Depot")</li>
                     }
-                    @if (user?.HasRight(Right.ManageRide) ?? false)
+                    @if (UserUtilities.CheckRight(Right.ManageRide, user))
                     {
                         <li>@Html.ActionLink("Conducteur", "Index", "Ride")</li>
                     }
-                    @if (user?.HasRight(Right.ManageRepair) ?? false)
+                    @if (UserUtilities.CheckRight(Right.ManageRepair, user))
                     {
                         <li>@Html.ActionLink("Reparatie", "Overview", "Maintenance")</li>
                     }
-                    @if (user?.HasRight(Right.ManageCleanup) ?? false)
+                    @if (UserUtilities.CheckRight(Right.ManageCleanup, user))
                     {
                         <li>@Html.ActionLink("Schoonmaak", "Overview", "Cleanup")</li>
                     }
-                    @if (user?.HasRight(Right.ManageUser) ?? false)
+                    @if (UserUtilities.CheckRight(Right.ManageUser, user))
                     {
                         <li>@Html.ActionLink("Gebruikers", "Index", "User")</li>
                     }
@@ -71,7 +73,7 @@
     @RenderBody()
     <hr/>
     <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <p>&copy; @DateTime.Now.Year - Tranvia</p>
     </footer>
 </div>
 
