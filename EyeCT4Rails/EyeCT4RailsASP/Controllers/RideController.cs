@@ -1,4 +1,6 @@
-﻿using System;
+﻿using static EyeCT4RailsASP.Models.UserUtilities;
+
+using System;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
@@ -8,14 +10,26 @@ namespace EyeCT4RailsASP.Controllers
 {
     public class RideController : Controller
     {
+        private const Right RIGHT = Right.ManageRide;
+
         public ActionResult Index()
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(string tramnumber, string assist)
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");

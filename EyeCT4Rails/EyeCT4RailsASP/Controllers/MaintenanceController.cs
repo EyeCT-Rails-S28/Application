@@ -1,4 +1,6 @@
-﻿using System;
+﻿using static EyeCT4RailsASP.Models.UserUtilities;
+
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
@@ -9,6 +11,8 @@ namespace EyeCT4RailsASP.Controllers
 {
     public class MaintenanceController : Controller
     {
+        private const Right RIGHT = Right.ManageRepair;
+
         public ActionResult Index()
         {
             return RedirectToAction("Overview");
@@ -16,6 +20,11 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult Overview()
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             List<Job> jobs = MaintenanceRepository.Instance.GetSchedule();
 
             ViewBag.Jobs = jobs;
@@ -25,12 +34,22 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult Add()
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
         [HttpPost]
         public ActionResult AddOne(string jobSize, string tramId, string date)
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 if (string.IsNullOrWhiteSpace(tramId))
@@ -70,6 +89,11 @@ namespace EyeCT4RailsASP.Controllers
         [HttpPost]
         public ActionResult AddMore(string jobSize, string tramId, string date, string endDate, string interval)
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 if (string.IsNullOrWhiteSpace(tramId))
