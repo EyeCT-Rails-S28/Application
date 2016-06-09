@@ -154,7 +154,11 @@ $(document).ready(function () {
 
             $(this).on("contextmenu", function (e) {
                 if (e.ctrlKey) {
-                    return false;
+                    return true;
+                }
+
+                if ($(e.target).attr("sectionid") == null) {
+                    return true;
                 }
 
                 var menu = $(settings.menuSelector)
@@ -320,7 +324,7 @@ function refreshDepot() {
                     for (var k = 0; k < track.Sections.length; k++) {
                         var section = track.Sections[k];
 
-                        line += '<a trackid="' + track.Id + '" sectionid="' + section.Id + '" class="list-group-item ' + ((section.Id == selectedSectionId && selectedTramId != null) ? ("list-group-item-info ") : "") + 'context' + (section.Tram != null ? (" " + section.Tram.Status) : "") + (section.Blocked ? (" blocked") : "") + ' text-center">' + (section.Tram != null ? section.Tram.Id : "") + '</a>';
+                        line += '<a trackid="' + track.Id + '" sectionid="' + section.Id + '" class="list-group-item ' + ((parseInt(section.Id) === parseInt(selectedSectionId) && selectedTramId != null) ? ("list-group-item-info ") : "") + 'context' + (section.Tram != null ? (" " + section.Tram.Status) : "") + (section.Blocked ? (" blocked") : "") + ' text-center">' + (section.Tram != null ? section.Tram.Id : "") + '</a>';
                     }
 
                     line += "</div>";
@@ -344,10 +348,16 @@ function getReservedTrams() {
             if (json.trams.length === 0) {
                 line = '<a class="list-group-item"><h4 class="list-group-item-heading">Geen reserveringen</h4><p class="list-group-item-text">Er zijn op dit moment geen trams die assistentie nodig hebben.</p></a>';
             } else {
+                var modalShown = false;
                 for (var i = 0; i < json.trams.length; i++) {
                     var tram = json.trams[i];
 
-                    line += '<a tramid="' + tram.Id + '" class="list-group-item reservation' + (tram.Id == selectedTramId ? " active" : "") + '">' +
+                    if ($("a.list-group-item.reservation[tramid='" + parseInt(tram.Id) + "']").length === 0 && !modalShown) {
+                        $("#modal").modal("show");
+                        modalShown = true;
+                    }
+
+                    line += '<a tramid="' + tram.Id + '" class="list-group-item reservation' + (parseInt(tram.Id) === parseInt(selectedTramId) ? " active" : "") + '">' +
                         '<h4 class="list-group-item-heading">Tram #' + tram.Id + '</h4>' +
                         '<p class="list-group-item-text">' +
                         "Status: " + tram.Status + '<br/>' +

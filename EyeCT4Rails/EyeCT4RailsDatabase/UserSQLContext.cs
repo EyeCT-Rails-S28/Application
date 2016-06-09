@@ -10,17 +10,18 @@ namespace EyeCT4RailsDatabase
 {
     public class UserSqlContext : IUserContext
     {
-        public void CreateUser(string name, string password, string email, Role role)
+        public void CreateUser(string name, string password, string email, Role role, string salt)
         {
-            string query = "INSERT INTO \"user\" (role, name, email, password) " +
-                           "VALUES(:role, :name, :email, :password)";
+            string query = "INSERT INTO \"user\" (role_id, name, email, password, salt) " +
+                           "VALUES((SELECT ID FROM \"role\" WHERE description = :role), :name, :email, :password, :salt)";
 
             Dictionary<string, object> parameters = new Dictionary<string, object>
             {
                 {":role", role.ToString()},
                 {":name", name},
                 {":email", email},
-                {":password", password}
+                {":password", password},
+                {":salt", salt }
             };
 
             Database.Instance.ExecuteQuery(query, parameters, QueryType.NonQuery);
@@ -52,6 +53,31 @@ namespace EyeCT4RailsDatabase
             }
 
             return ret;
+        }
+
+        public string GetSalt(string email)
+        {
+            const string query = "SELECT salt FROM \"user\" WHERE email = :email";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>
+            {
+                {":email", email }
+            };
+
+            string salt = "";
+
+            using (var reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
+            {
+                while (reader.Read())
+                {
+                    salt = reader.GetString(0);
+                }
+            }
+
+            if(salt == "")
+                throw new OracleTypeException("Not salty enough");
+
+            return salt;
         }
 
         public User GetUser(int userId)

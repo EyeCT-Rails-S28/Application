@@ -58,6 +58,13 @@
                         <li>@Html.ActionLink("Gebruikers", "Index", "User")</li>
                     }
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (user != null)
+                    {
+                        <li>@Html.ActionLink("Log Uit", "LogOut", "Login")</li>
+                    }
+                </ul>
+
             </div>
         </div>
     </div>

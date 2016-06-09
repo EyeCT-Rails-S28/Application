@@ -137,5 +137,40 @@ namespace EyeCT4RailsASP.Controllers
                 return RedirectToAction("Add", "Maintenance");
             }
         }
+
+        public ActionResult HistoryOfJob(int tramId)
+        {
+            try
+            {
+                List<Job> history = MaintenanceRepository.Instance.GetHistory(tramId);
+
+                if (history == null || history.Count == 0) return RedirectToAction("Overview", "Maintenance");
+
+                ViewBag.History = history;
+                ViewBag.TramId = tramId;
+                ViewBag.TramType = history[0].Tram.TramType;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                return RedirectToAction("Overview", "Maintenance");
+            }
+        }
+
+        public ActionResult ChangeToDone(int jobId)
+        {
+            try
+            {
+                MaintenanceRepository.Instance.EditJobStatus(jobId, true);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het afronden van een beurt: {ex.Message}";
+            }
+
+            return RedirectToAction("Overview", "Maintenance");
+        }
     }
 }
