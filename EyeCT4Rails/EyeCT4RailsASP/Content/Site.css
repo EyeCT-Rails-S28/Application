@@ -66,6 +66,11 @@ a {
     display: none;
 }
 
+.list-group-item-info {
+    color: #31708f !important;
+    background-color: #d9edf7 !important;
+}
+
 /* ----------------------LOGIN----------------------- */
 .form-signin {
   max-width: 330px;
