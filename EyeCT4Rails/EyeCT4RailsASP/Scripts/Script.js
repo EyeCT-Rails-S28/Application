@@ -161,9 +161,9 @@ function handleOption(invokedOn, selectedMenu) {
             } else {
                 $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function (data) {
                     var json = JSON.parse(data);
-                    if (json.status === "succes" +
-                        "resetAlert();s") {
+                    if (json.status === "success") {
                         refreshDepot();
+                        resetAlert();
                     } else {
                         showAlert(json.message);
                     }
