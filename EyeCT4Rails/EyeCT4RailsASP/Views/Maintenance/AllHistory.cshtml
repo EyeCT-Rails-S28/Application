@@ -2,19 +2,12 @@
 @using EyeCT4RailsLib.Classes
 
 @{
-    ViewBag.Title = "Geschiedenis";
+    ViewBag.Title = "Alle geschiedenis";
 
     List<Job> history = ViewBag.History as List<Job>;
 }
 
-<h2>Geschiedenis</h2>
-
-<div class="row">
-    <div class="col-md-12">
-        <p><b>Tramnummer:</b> @ViewBag.TramId</p>
-        <p><b>Tram type:</b> @ViewBag.TramType</p>
-    </div>
-</div>
+<h2>Alle geschiedenis</h2>
 
 <div class="row">
     <div class="col-md-12">
@@ -30,19 +23,19 @@
             </thead>
 
             <tbody>
-            @if (ViewBag.History != null && (ViewBag.History as List<Job>).Count > 0)
-            {
+                @if (ViewBag.History != null && (ViewBag.History as List<Job>).Count > 0)
+                {
                 foreach (Job job in ViewBag.History)
                 {
-                    <tr>
-                        <td>@job.Id</td>
-                        <td>@job.Tram.Id</td>
-                        <td>@job.JobSize</td>
-                        <td>@job.Date</td>
-                        <td>@job.Date.ToString()</td>
-                    </tr>
+                        <tr>
+                            <td>@job.Id</td>
+                            <td>@job.Tram.Id</td>
+                            <td>@job.JobSize</td>
+                            <td>@job.Date</td>
+                            <td>@job.Date.ToString()</td>
+                        </tr>
+                    }
                 }
-            }
             </tbody>
         </table>
     </div>

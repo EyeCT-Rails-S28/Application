@@ -140,14 +140,45 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult HistoryOfJob(int tramId)
         {
+            if (tramId == -1) return RedirectToAction("Overview", "Maintenance");
             try
             {
                 List<Job> history = MaintenanceRepository.Instance.GetHistory(tramId);
 
-                if (history == null || history.Count == 0) return RedirectToAction("Overview", "Maintenance");
+                if (history == null || history.Count == 0)
+                {
+                    ViewBag.Exception = $"Geen geschiedenis gevonden voor tramnummer {tramId}.";
+
+                    return View();
+                }
 
                 ViewBag.History = history;
                 ViewBag.TramId = tramId;
+                ViewBag.TramType = history[0].Tram.TramType;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                return RedirectToAction("Overview", "Maintenance");
+            }
+        }
+
+        public ActionResult AllHistory()
+        {
+            try
+            {
+                List<Job> history = MaintenanceRepository.Instance.GetHistory();
+
+                if (history == null || history.Count == 0)
+                {
+                    ViewBag.Exception = "Er is geen geschiedenis gevonden.";
+
+                    return View();
+                }
+
+                ViewBag.History = history;
                 ViewBag.TramType = history[0].Tram.TramType;
 
                 return View();
