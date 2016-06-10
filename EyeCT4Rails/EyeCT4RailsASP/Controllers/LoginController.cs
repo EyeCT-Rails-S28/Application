@@ -40,5 +40,12 @@ namespace EyeCT4RailsASP.Controllers
 
             return RedirectToAction(actionName, controllerName);
         }
+
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+
+            return RedirectToAction("Index");
+        }
     }
 }
