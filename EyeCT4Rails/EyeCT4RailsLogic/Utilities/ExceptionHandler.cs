@@ -1,13 +1,15 @@
 ﻿using System;
+using EyeCT4RailsLib;
+using EyeCT4RailsLogic.Exceptions;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
-namespace EyeCT4RailsLogic.Exceptions
+namespace EyeCT4RailsLogic.Utilities
 {
     /// <summary>
     /// General static class for some exception handling methods that are shared between repositories.
     /// </summary>
-    public static class LogicExceptionHandler
+    public static class ExceptionHandler
     {
         /// <summary>
         /// Catches all oracle database exceptions from an exception and turns it into a general database error if it is a oracle exception.
@@ -28,6 +30,11 @@ namespace EyeCT4RailsLogic.Exceptions
 
             if (interval < 1)
                 throw new InvalidDateException("Interval has to be greater than 1.");
+        }
+
+        public static void FilterCustomException(Exception e)
+        {
+            
         }
 
     }

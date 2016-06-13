@@ -2,7 +2,7 @@
 
 namespace EyeCT4RailsLogic.Exceptions
 {
-    public class NoFreeSectionException : Exception
+    public class NoFreeSectionException : CustomException
     {
         public NoFreeSectionException(string message) : base(message)
         {
