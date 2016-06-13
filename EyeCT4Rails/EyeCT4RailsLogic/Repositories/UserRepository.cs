@@ -9,7 +9,7 @@ using EyeCT4RailsLogic.Helpers;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
-namespace EyeCT4RailsLogic
+namespace EyeCT4RailsLogic.Repositories
 {
     public class UserRepository
     {

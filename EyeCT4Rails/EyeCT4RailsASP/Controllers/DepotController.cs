@@ -6,8 +6,7 @@ using EyeCT4RailsLib.Enums;
 using System.Linq;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
-using EyeCT4RailsLogic;
-using Microsoft.Ajax.Utilities;
+using EyeCT4RailsLogic.Repositories;
 using Newtonsoft.Json;
 
 namespace EyeCT4RailsASP.Controllers

@@ -6,9 +6,10 @@ using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+
 // ReSharper disable UnusedParameter.Local
 
-namespace EyeCT4RailsLogic
+namespace EyeCT4RailsLogic.Repositories
 {
     public class MaintenanceRepository
     {

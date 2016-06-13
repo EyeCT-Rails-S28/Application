@@ -1,5 +1,4 @@
-﻿using System;
-using EyeCT4RailsLogic.Helpers;
+﻿using EyeCT4RailsLogic.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EyeCT4RailsUnitTests.LogicTest

@@ -2,8 +2,8 @@
 using System.Web.Mvc;
 using EyeCT4RailsASP.Models;
 using EyeCT4RailsLib.Classes;
-using EyeCT4RailsLogic;
 using EyeCT4RailsLogic.Exceptions;
+using EyeCT4RailsLogic.Repositories;
 
 namespace EyeCT4RailsASP.Controllers
 {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
-using EyeCT4RailsLogic;
+using EyeCT4RailsLogic.Repositories;
 
 namespace EyeCT4RailsASP.Controllers
 {

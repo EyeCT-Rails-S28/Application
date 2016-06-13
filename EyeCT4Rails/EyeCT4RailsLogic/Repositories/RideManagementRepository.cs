@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
@@ -8,9 +7,10 @@ using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+
 // ReSharper disable MemberCanBeMadeStatic.Local
 
-namespace EyeCT4RailsLogic
+namespace EyeCT4RailsLogic.Repositories
 {
     public class RideManagementRepository
     {

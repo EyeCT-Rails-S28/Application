@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using EyeCT4RailsDatabase;
 using EyeCT4RailsDatabase.Models;
-using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+
 // ReSharper disable UnusedParameter.Local
 
-namespace EyeCT4RailsLogic
+namespace EyeCT4RailsLogic.Repositories
 {
     public class CleanupRepository
     {
@@ -79,7 +79,7 @@ namespace EyeCT4RailsLogic
         /// <summary>
         /// Gets the history of all cleanups done for a specific tram. Dangerous code!
         /// </summary>
-        /// <param name="tram">The tram in question.</param>
+        /// <param name="tramId">The tram in question.</param>
         /// <returns>A list of cleanups that have been done.</returns>
         public List<Job> GetHistory(int tramId)
         {

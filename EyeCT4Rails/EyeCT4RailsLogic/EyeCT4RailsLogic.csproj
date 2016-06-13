@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CleanupRepository.cs" />
-    <Compile Include="DepotManagementRepository.cs" />
+    <Compile Include="Repositories\CleanupRepository.cs" />
+    <Compile Include="Repositories\DepotManagementRepository.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="Exceptions\LogicExceptionHandler.cs" />
     <Compile Include="Exceptions\InvalidDateException.cs" />
@@ -53,10 +53,10 @@
     <Compile Include="Exceptions\NoFreeSectionException.cs" />
     <Compile Include="Exceptions\UnknownException.cs" />
     <Compile Include="Helpers\Hashing.cs" />
-    <Compile Include="MaintenanceRepository.cs" />
+    <Compile Include="Repositories\MaintenanceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RideManagementRepository.cs" />
-    <Compile Include="UserRepository.cs" />
+    <Compile Include="Repositories\RideManagementRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EyeCT4RailsDatabase\EyeCT4RailsDatabase.csproj">

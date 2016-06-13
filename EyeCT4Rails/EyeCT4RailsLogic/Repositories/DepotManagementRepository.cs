@@ -7,7 +7,7 @@ using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
 
-namespace EyeCT4RailsLogic
+namespace EyeCT4RailsLogic.Repositories
 {
     public class DepotManagementRepository
     {
