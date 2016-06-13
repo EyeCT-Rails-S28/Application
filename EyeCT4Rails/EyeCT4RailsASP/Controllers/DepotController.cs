@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using EyeCT4RailsLib.Enums;
 using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLogic;
@@ -14,6 +15,8 @@ namespace EyeCT4RailsASP.Controllers
 {
     public class DepotController : Controller
     {
+        private static bool cancelled;
+
         private const Right RIGHT = Right.ManageDepot;
 
         public ActionResult Index()
@@ -375,6 +378,76 @@ namespace EyeCT4RailsASP.Controllers
             catch (Exception e)
             {
                 return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
+            }
+        }
+
+        public ActionResult Simulate()
+        {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            cancelled = false;
+
+            Thread thread = new Thread(DoWork);
+            thread.Start();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Cancel()
+        {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            cancelled = true;
+
+            return RedirectToAction("Index");
+        }
+
+        private void DoWork()
+        {
+            Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+
+            List<Section> sections = new List<Section>();
+            depot.Tracks.ForEach(t => sections.AddRange(t.Sections));
+
+            List<Tram> parkedTrams = new List<Tram>();
+            sections.FindAll(s => s.Tram != null).ForEach(s => parkedTrams.Add(s.Tram));
+
+            List<Tram> unparkedTrams = new List<Tram>(depot.Trams);
+            unparkedTrams.RemoveAll(t => parkedTrams.Contains(t));
+
+            int count = unparkedTrams.Count;
+            Random random = new Random();
+
+            try
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    if (cancelled)
+                    {
+                        break;
+                    }
+
+                    Tram tram = unparkedTrams[random.Next(unparkedTrams.Count)];
+                    Section section = RideManagementRepository.Instance.GetFreeSection(depot, tram.TramType);
+                    section.Tram = tram;
+
+                    DepotManagementRepository.Instance.ReserveSection(tram.Id, section.Id);
+
+                    unparkedTrams.Remove(tram);
+
+                    Thread.Sleep(500);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
     }

@@ -9,7 +9,17 @@
         <div id="reservedTrams" class="list-group">
         </div>
 
-        <button id="reservedButton" type="button" class="btn btn-primary col-md-offset-4" disabled="disabled">Bevestig</button>
+        <button id="reservedButton" type="button" class="btn btn-primary" disabled="disabled">Bevestig</button>
+        <!-- Single button -->
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Simulatie <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="/Depot/Simulate">Start Simulatie</a></li>
+                <li><a href="/Depot/Cancel">Annuleer Simulatie</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="col-md-9">

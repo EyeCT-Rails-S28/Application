@@ -12,7 +12,7 @@ namespace EyeCT4RailsLib.Classes
         /// <summary>
         /// Tram that is parked on this section. Can be null.
         /// </summary>
-        public Tram Tram { get; }
+        public Tram Tram { get; set; }
 
         /// <summary>
         /// Bool determining wheter the section is blocked or not.
