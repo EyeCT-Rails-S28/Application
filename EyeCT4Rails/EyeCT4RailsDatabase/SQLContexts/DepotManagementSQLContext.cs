@@ -7,7 +7,7 @@ using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using Oracle.ManagedDataAccess.Client;
 
-namespace EyeCT4RailsDatabase
+namespace EyeCT4RailsDatabase.SQLContexts
 {
     public class DepotManagementSqlContext : IDepotManagementContext
     {

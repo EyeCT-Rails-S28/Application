@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace EyeCT4RailsLogic.Exceptions
+﻿namespace EyeCT4RailsLogic.Exceptions
 {
-    public class InvalidDateException : Exception
+    public class InvalidDateException : CustomException
     {
         public InvalidDateException(string message) : base(message)
         {
