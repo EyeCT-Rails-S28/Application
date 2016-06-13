@@ -5,6 +5,7 @@ using EyeCT4RailsDatabase.SQLContexts;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
+using EyeCT4RailsLogic.Utilities;
 
 // ReSharper disable UnusedParameter.Local
 
@@ -37,7 +38,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -54,7 +55,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -71,7 +72,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -89,7 +90,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -107,7 +108,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -134,7 +135,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
@@ -152,7 +153,7 @@ namespace EyeCT4RailsLogic.Repositories
         public bool ScheduleRecurringJob(JobSize size, int userId, int tramId, DateTime date, int interval,
             DateTime endDate)
         {
-            LogicExceptionHandler.CheckForInvalidDateException(date, endDate, interval);
+            ExceptionHandler.CheckForInvalidDateException(date, endDate, interval);
 
             //bool used to determine wheter every job could be scheduled.
             bool success = true;
@@ -192,7 +193,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }

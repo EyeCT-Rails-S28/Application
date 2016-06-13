@@ -36,5 +36,9 @@ namespace EyeCT4RailsLogic.Utilities
             rng.GetBytes(ret);
             return Convert.ToBase64String(ret);
         }
+
+        private HashingUtil()
+        {
+        }
     }
 }

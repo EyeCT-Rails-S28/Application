@@ -72,7 +72,7 @@ namespace EyeCT4RailsLogic.Repositories
             }
             catch (Exception e)
             {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
+                ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
