@@ -168,13 +168,13 @@
     <Content Include="Views\Ride\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Maintenance\Overview.cshtml" />
-    <Content Include="Views\Maintenance\Add.cshtml" />
     <Content Include="Views\Cleanup\Overview.cshtml" />
-    <Content Include="Views\Cleanup\Add.cshtml" />
     <Content Include="Views\Depot\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Cleanup\HistoryOfJob.cshtml" />
     <Content Include="Views\Maintenance\HistoryOfJob.cshtml" />
+    <Content Include="Views\Cleanup\AllHistory.cshtml" />
+    <Content Include="Views\Maintenance\AllHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
