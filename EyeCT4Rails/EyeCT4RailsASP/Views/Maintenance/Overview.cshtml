@@ -8,26 +8,18 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form class="form" action="HistoryOfJob" method="POST">
-            <div class="form-group">
-                <label for="tramId">Tram nummer:</label>
-                <input type="text" class="form-control" id="tramId" name="tramId" required>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Bekijk geschiedenis</button>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
         <div class="form-group">
-            <a class="btn btn-primary" href="add" role="button">Beurt toevoegen</a>
-        </div>
-    </div>
-    <div class="col-md-2 col-md-offset-6">
-        <div class="form-group">
-            <a class="btn btn-primary" href="AllHistory" role="button">Geschiedenis</a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Acties <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" data-toggle="modal" data-target="#addModal">Beurt toevoegen</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="AllHistory">Alle geschiedenis</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#searchModal">Geschiedenis van tram</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -54,7 +46,7 @@
                     <td>@job.Tram.Id</td>
                     <td>@job.JobSize</td>
                     <td>@job.JobType.ToString()</td>
-                    <td>@job.Date.ToString()</td>
+                    <td>@job.Date.ToShortDateString()</td>
                     <td><a class="btn btn-primary" href="ChangeToDone?jobId=@job.Id" role="button">Afronden</a></td>
                 </tr>
             }
@@ -63,4 +55,102 @@
     </div>
 </div>
 
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Beurt toevoegen</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        @using (Html.BeginForm("AddOne", "Maintenance"))
+                        {
+                            <div class="form-group">
+                                <label for="jobSize">Grootte beurt:</label>
+                                <select class="form-control" name="jobSize" id="jobSize">
+                                    <option value="Big">Groot</option>
+                                    <option value="Small">Klein</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tramId">Tram ID: </label>
+                                <input type="text" class="form-control" name="tramId" id="tramId" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Datum: </label>
+                                <input type="date" class="form-control" name="date" id="date" required>
+                            </div>
 
+                            <button type="submit" class="btn btn-default">Enkel</button>
+                        }
+                    </div>
+
+                    <div class="col-md-6 ">
+                        @using (Html.BeginForm("AddMore", "Maintenance"))
+                        {
+                            <div class="form-group">
+                                <label for="jobSize">Grootte beurt:</label>
+                                <select class="form-control" name="jobSize" id="jobSize">
+                                    <option value="Big">Groot</option>
+                                    <option value="Small">Klein</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tramId">Tram ID: </label>
+                                <input type="text" class="form-control" name="tramId" id="tramId" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Datum: </label>
+                                <input type="date" class="form-control" name="date" id="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">Eind datum: </label>
+                                <input type="date" class="form-control" name="endDate" id="endDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="interval">Interval (Dagen): </label>
+                                <input type="text" class="form-control" name="interval" id="interval" required>
+                            </div>
+                            <button type="submit" class="btn btn-default">Meerdere</button>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Geschiedenis van tram</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form class="form" action="HistoryOfJob" method="POST">
+                            <div class="form-group">
+                                <label for="tramId">Tram nummer:</label>
+                                <input type="text" class="form-control" id="tramId" name="tramId" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Bekijk geschiedenis</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

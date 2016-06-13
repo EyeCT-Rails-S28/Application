@@ -25,14 +25,14 @@
             <tbody>
                 @if (ViewBag.History != null && (ViewBag.History as List<Job>).Count > 0)
                 {
-                foreach (Job job in ViewBag.History)
-                {
+                    foreach (Job job in ViewBag.History)
+                    {
                         <tr>
                             <td>@job.Id</td>
                             <td>@job.Tram.Id</td>
                             <td>@job.JobSize</td>
-                            <td>@job.Date</td>
-                            <td>@job.Date.ToString()</td>
+                            <td>@job.JobType</td>
+                            <td>@job.Date.ToShortDateString()</td>
                         </tr>
                     }
                 }

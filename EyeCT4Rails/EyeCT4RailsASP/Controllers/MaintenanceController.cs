@@ -77,12 +77,12 @@ namespace EyeCT4RailsASP.Controllers
                     return RedirectToAction("Overview", "Maintenance");
                 }
 
-                return RedirectToAction("Add", "Maintenance");
+                return RedirectToAction("Overview", "Maintenance");
             }
             catch (Exception ex)
             {
                 ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
-                return RedirectToAction("Add", "Maintenance");
+                return RedirectToAction("Overview", "Maintenance");
             }
         }
 
@@ -126,15 +126,15 @@ namespace EyeCT4RailsASP.Controllers
                         }
                     }
 
-                    return RedirectToAction("Add", "Maintenance");
+                    return RedirectToAction("Overview", "Maintenance");
                 }
 
-                return RedirectToAction("Add", "Maintenance");
+                return RedirectToAction("Overview", "Maintenance");
             }
             catch (Exception ex)
             {
                 ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
-                return RedirectToAction("Add", "Maintenance");
+                return RedirectToAction("Overview", "Maintenance");
             }
         }
 
