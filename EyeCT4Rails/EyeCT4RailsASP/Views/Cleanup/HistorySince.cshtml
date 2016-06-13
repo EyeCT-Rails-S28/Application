@@ -2,12 +2,12 @@
 @using EyeCT4RailsLib.Classes
 
 @{
-    ViewBag.Title = "Alle geschiedenis";
+    ViewBag.Title = $"Alle geschiedenis vanaf {ViewBag.DateSince}";
 
     List<Job> history = ViewBag.History as List<Job>;
 }
 
-<h2>Alle geschiedenis</h2>
+<h2>@ViewBag.Title</h2>
 
 <div class="row">
     <div class="col-md-12">
@@ -23,9 +23,9 @@
             </thead>
 
             <tbody>
-                @if (ViewBag.History != null && (ViewBag.History as List<Job>).Count > 0)
+                @if (history != null && history.Count > 0)
                 {
-                    foreach (Job job in ViewBag.History)
+                    foreach (Job job in history)
                     {
                         <tr class="clickable-row" data-href="HistoryOfJob/?tramId=@job.Tram.Id">
                             <td>@job.Id</td>

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
@@ -28,16 +29,6 @@ namespace EyeCT4RailsASP.Controllers
             List<Job> jobs = MaintenanceRepository.Instance.GetSchedule();
 
             ViewBag.Jobs = jobs;
-
-            return View();
-        }
-
-        public ActionResult Add()
-        {
-            if (!CheckRight(RIGHT, Session["User"] as User))
-            {
-                return RedirectToAction("Index", "Login");
-            }
 
             return View();
         }
@@ -140,6 +131,11 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult HistoryOfJob(int tramId)
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             if (tramId == -1) return RedirectToAction("Overview", "Maintenance");
             try
             {
@@ -167,6 +163,11 @@ namespace EyeCT4RailsASP.Controllers
 
         public ActionResult AllHistory()
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 List<Job> history = MaintenanceRepository.Instance.GetHistory();
@@ -190,8 +191,44 @@ namespace EyeCT4RailsASP.Controllers
             }
         }
 
+        public ActionResult HistorySince(string dateSince = "01-01-2000")
+        {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            try
+            {
+                List<Job> history = MaintenanceRepository.Instance.GetHistory();
+
+                if (history == null || history.Count == 0)
+                {
+                    ViewBag.Exception = "Er is geen geschiedenis gevonden.";
+
+                    return View();
+                }
+
+                ViewBag.History = history.FindAll(h => h.Date > Convert.ToDateTime(dateSince));
+                ViewBag.DateSince = dateSince;
+                ViewBag.TramType = history[0].Tram.TramType;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Exception = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                return RedirectToAction("Overview", "Maintenance");
+            }
+        }
+
         public ActionResult ChangeToDone(int jobId)
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 MaintenanceRepository.Instance.EditJobStatus(jobId, true);

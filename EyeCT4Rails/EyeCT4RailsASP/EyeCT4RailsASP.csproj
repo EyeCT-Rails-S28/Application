@@ -175,6 +175,8 @@
     <Content Include="Views\Maintenance\HistoryOfJob.cshtml" />
     <Content Include="Views\Cleanup\AllHistory.cshtml" />
     <Content Include="Views\Maintenance\AllHistory.cshtml" />
+    <Content Include="Views\Maintenance\HistorySince.cshtml" />
+    <Content Include="Views\Cleanup\HistorySince.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

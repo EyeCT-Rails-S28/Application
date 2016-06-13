@@ -30,9 +30,9 @@
             </thead>
 
             <tbody>
-            @if (ViewBag.History != null && (ViewBag.History as List<Job>).Count > 0)
+            @if (history != null && history.Count > 0)
             {
-                foreach (Job job in ViewBag.History)
+                foreach (Job job in history)
                 {
                     <tr>
                         <td>@job.Id</td>
