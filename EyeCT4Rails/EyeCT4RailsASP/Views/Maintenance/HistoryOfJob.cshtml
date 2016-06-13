@@ -31,11 +31,11 @@
             </thead>
 
             <tbody>
-                @if (ViewBag.History != null && (ViewBag.History as List<Job>).Count > 0)
+                @if (history != null && history.Count > 0)
                 {
-                    foreach (Job job in ViewBag.History)
+                    foreach (Job job in history)
                     {
-                        <tr class="clickable-row" data-href="HistoryOfJob/?tramId=@job.Tram.Id">
+                        <tr class="clickable-row" data-href="?tramId=@job.Tram.Id">
                             <td>@job.Id</td>
                             <td>@job.Tram.Id</td>
                             <td>@TranslationUtilities.TranslateJobSize(job.JobSize)</td>
