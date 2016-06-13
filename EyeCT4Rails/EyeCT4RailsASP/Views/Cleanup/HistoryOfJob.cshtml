@@ -1,4 +1,6 @@
-﻿@using EyeCT4RailsLib.Classes
+﻿@using System.Web.UI.WebControls
+@using EyeCT4RailsASP.Models
+@using EyeCT4RailsLib.Classes
 
 @{
     ViewBag.Title = "Geschiedenis";
@@ -17,7 +19,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -29,15 +31,18 @@
             </thead>
 
             <tbody>
-                @foreach (Job job in ViewBag.History)
+                @if (history != null && history.Count > 0)
             {
-                    <tr>
-                        <td>@job.Id</td>
-                        <td>@job.Tram.Id</td>
-                        <td>@job.JobSize</td>
-                        <td>@job.Date</td>
-                        <td>@job.Date.ToString()</td>
-                    </tr>
+                foreach (Job job in history)
+                {
+                        <tr class="clickable-row" data-href="?tramId=@job.Tram.Id">
+                            <td>@job.Id</td>
+                            <td>@job.Tram.Id</td>
+                            <td>@TranslationUtilities.TranslateJobSize(job.JobSize)</td>
+                            <td>@TranslationUtilities.TranslateJobType(job.JobType)</td>
+                            <td>@job.Date.ToShortDateString()</td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

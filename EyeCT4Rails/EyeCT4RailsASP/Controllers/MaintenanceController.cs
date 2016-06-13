@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
@@ -29,14 +30,10 @@ namespace EyeCT4RailsASP.Controllers
 
             ViewBag.Jobs = jobs;
 
-            return View();
-        }
-
-        public ActionResult Add()
-        {
-            if (!CheckRight(RIGHT, Session["User"] as User))
+            if (TempData["exception"] != null)
             {
-                return RedirectToAction("Index", "Login");
+                ViewBag.Exception = TempData["exception"].ToString();
+                TempData.Remove("exception");
             }
 
             return View();
@@ -54,11 +51,11 @@ namespace EyeCT4RailsASP.Controllers
             {
                 if (string.IsNullOrWhiteSpace(tramId))
                 {
-                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                    TempData["exception"] = "Tram ID moet ingevuld zijn.";
                 }
                 else if (string.IsNullOrWhiteSpace(date))
                 {
-                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                    TempData["exception"] = "Datum moet ingevuld zijn.";
                 }
                 else
                 {
@@ -70,19 +67,19 @@ namespace EyeCT4RailsASP.Controllers
 
                         if (!succes)
                         {
-                            ViewBag.Exception = "Beurt toevoegen is niet gelukt.";
+                            TempData["exception"] = "Beurt toevoegen is niet gelukt.";
                         }
                     }
 
                     return RedirectToAction("Overview", "Maintenance");
                 }
 
-                return RedirectToAction("Add", "Maintenance");
+                return RedirectToAction("Overview", "Maintenance");
             }
             catch (Exception ex)
             {
-                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
-                return RedirectToAction("Add", "Maintenance");
+                TempData["exception"] = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                return RedirectToAction("Overview", "Maintenance");
             }
         }
 
@@ -98,19 +95,19 @@ namespace EyeCT4RailsASP.Controllers
             {
                 if (string.IsNullOrWhiteSpace(tramId))
                 {
-                    ViewBag.Exception = "Tram ID moet ingevuld zijn.";
+                    TempData["exception"] = "Tram ID moet ingevuld zijn.";
                 }
                 else if (string.IsNullOrWhiteSpace(date))
                 {
-                    ViewBag.Exception = "Datum moet ingevuld zijn.";
+                    TempData["exception"] = "Datum moet ingevuld zijn.";
                 }
                 else if (string.IsNullOrWhiteSpace(endDate))
                 {
-                    ViewBag.Exception = "Eind datum moet ingevuld zijn.";
+                    TempData["exception"] = "Eind datum moet ingevuld zijn.";
                 }
                 else if (string.IsNullOrWhiteSpace(interval))
                 {
-                    ViewBag.Exception = "Interval moet ingevuld zijn.";
+                    TempData["exception"] = "Interval moet ingevuld zijn.";
                 }
                 else
                 {
@@ -122,29 +119,40 @@ namespace EyeCT4RailsASP.Controllers
 
                         if (!succes)
                         {
-                            ViewBag.Exception = "Beurte toevoegen is niet gelukt.";
+                            TempData["exception"] = "Beurte toevoegen is niet gelukt.";
                         }
                     }
 
-                    return RedirectToAction("Add", "Maintenance");
+                    return RedirectToAction("Overview", "Maintenance");
                 }
 
-                return RedirectToAction("Add", "Maintenance");
+                return RedirectToAction("Overview", "Maintenance");
             }
             catch (Exception ex)
             {
-                ViewBag.Exception = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
-                return RedirectToAction("Add", "Maintenance");
+                TempData["exception"] = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                return RedirectToAction("Overview", "Maintenance");
             }
         }
 
         public ActionResult HistoryOfJob(int tramId)
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            if (tramId == -1) return RedirectToAction("Overview", "Maintenance");
             try
             {
                 List<Job> history = MaintenanceRepository.Instance.GetHistory(tramId);
 
-                if (history == null || history.Count == 0) return RedirectToAction("Overview", "Maintenance");
+                if (history == null || history.Count == 0)
+                {
+                    TempData["exception"] = $"Geen geschiedenis gevonden voor tramnummer {tramId}.";
+
+                    return RedirectToAction("Overview", "Maintenance");
+                }
 
                 ViewBag.History = history;
                 ViewBag.TramId = tramId;
@@ -154,20 +162,86 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Exception = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                TempData["exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                return RedirectToAction("Overview", "Maintenance");
+            }
+        }
+
+        public ActionResult AllHistory()
+        {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            try
+            {
+                List<Job> history = MaintenanceRepository.Instance.GetHistory();
+
+                if (history == null || history.Count == 0)
+                {
+                    ViewBag.Exception = "Er is geen geschiedenis gevonden.";
+
+                    return View();
+                }
+
+                ViewBag.History = history;
+                ViewBag.TramType = history[0].Tram.TramType;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                return RedirectToAction("Overview", "Maintenance");
+            }
+        }
+
+        public ActionResult HistorySince(string dateSince = "01-01-2000")
+        {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            try
+            {
+                List<Job> history = MaintenanceRepository.Instance.GetHistory();
+
+                if (history == null || history.Count == 0)
+                {
+                    ViewBag.Exception = "Er is geen geschiedenis gevonden.";
+
+                    return View();
+                }
+
+                ViewBag.History = history.FindAll(h => h.Date > Convert.ToDateTime(dateSince));
+                ViewBag.DateSince = dateSince;
+                ViewBag.TramType = history[0].Tram.TramType;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
                 return RedirectToAction("Overview", "Maintenance");
             }
         }
 
         public ActionResult ChangeToDone(int jobId)
         {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             try
             {
                 MaintenanceRepository.Instance.EditJobStatus(jobId, true);
             }
             catch (Exception ex)
             {
-                ViewBag.Exception = $"Er is een fout opgetreden bij het afronden van een beurt: {ex.Message}";
+                TempData["exception"] = $"Er is een fout opgetreden bij het afronden van een beurt: {ex.Message}";
             }
 
             return RedirectToAction("Overview", "Maintenance");

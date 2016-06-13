@@ -3,19 +3,12 @@
 @using EyeCT4RailsLib.Classes
 
 @{
-    ViewBag.Title = "Geschiedenis";
+    ViewBag.Title = "Alle geschiedenis";
 
     List<Job> history = ViewBag.History as List<Job>;
 }
 
-<h2>Geschiedenis</h2>
-
-<div class="row">
-    <div class="col-md-12">
-        <p><b>Tramnummer:</b> @ViewBag.TramId</p>
-        <p><b>Tram type:</b> @ViewBag.TramType</p>
-    </div>
-</div>
+<h2>Alle geschiedenis</h2>
 
 <div class="row">
     <div class="col-md-12">
@@ -35,7 +28,7 @@
                 {
                     foreach (Job job in history)
                     {
-                        <tr class="clickable-row" data-href="?tramId=@job.Tram.Id">
+                        <tr class="clickable-row" data-href="HistoryOfJob/?tramId=@job.Tram.Id">
                             <td>@job.Id</td>
                             <td>@job.Tram.Id</td>
                             <td>@TranslationUtilities.TranslateJobSize(job.JobSize)</td>

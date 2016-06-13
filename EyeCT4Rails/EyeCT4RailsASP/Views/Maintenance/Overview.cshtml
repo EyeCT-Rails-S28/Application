@@ -1,4 +1,5 @@
-﻿@using EyeCT4RailsLib.Classes
+﻿@using EyeCT4RailsASP.Models
+@using EyeCT4RailsLib.Classes
 
 @{
     ViewBag.Title = "Reparatie Overzicht";
@@ -7,38 +8,194 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="row">
-    <div class="col-md-12">
-        <a class="btn btn-default" href="Add" role="button">Beurt toevoegen</a>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Acties <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="" data-toggle="modal" data-target="#addModal">Beurt toevoegen</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="AllHistory">Alle geschiedenis</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#dateSinceModal">Geschiedenis vanaf</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#searchModal">Geschiedenis van tram</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <br />
+</div>
+
+<div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-hover">
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tramnummer</th>
-                <th>Soort</th>
-                <th>Type Beurt</th>
-                <th>Reparatie Datum</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Tramnummer</th>
+                    <th>Soort</th>
+                    <th>Type Beurt</th>
+                    <th>Reparatie Datum</th>
+                    <th></th>
+                </tr>
             </thead>
 
             <tbody>
-            @foreach (Job job in ViewBag.jobs)
+                @foreach (Job job in ViewBag.jobs)
             {
-                <tr>
-                    <td><a href="HistoryOfJob?tramId=@job.Tram.Id">@job.Id</a></td>
-                    <td>@job.Tram.Id</td>
-                    <td>@job.JobSize</td>
-                    <td>@job.JobType.ToString()</td>
-                    <td>@job.Date.ToString()</td>
-                    <td><a class="btn btn-primary" href="ChangeToDone?jobId=@job.Id" role="button">Afronden</a></td>
-                </tr>
-            }
+                    <tr class="clickable-row" data-href="HistoryOfJob/?tramId=@job.Tram.Id">
+                        <td>@job.Id</td>
+                        <td>@job.Tram.Id</td>
+                        <td>@TranslationUtilities.TranslateJobSize(job.JobSize)</td>
+                        <td>@TranslationUtilities.TranslateJobType(job.JobType)</td>
+                        <td>@job.Date.ToShortDateString()</td>
+                        <td><a class="btn btn-primary" href="ChangeToDone?jobId=@job.Id" role="button">Afronden</a></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
 </div>
 
+<<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Beurt toevoegen</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#one" aria-controls="home" role="tab" data-toggle="tab">Enkel</a></li>
+                                <li role="presentation"><a href="#more" aria-controls="profile" role="tab" data-toggle="tab">Meerdere</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="one">
+                                    @using (Html.BeginForm("AddOne", "Maintenance"))
+                                    {
+                                        <div class="form-group">
+                                            <label for="jobSize">Grootte beurt:</label>
+                                            <select class="form-control" name="jobSize" id="jobSize">
+                                                <option value="Big">Groot</option>
+                                                <option value="Small">Klein</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tramId">Tram ID: </label>
+                                            <input type="text" class="form-control" name="tramId" id="tramId" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">Datum: </label>
+                                            <input type="date" class="form-control" name="date" id="date" required>
+                                        </div>
 
+                                        <button type="submit" class="btn btn-primary">Enkel</button>
+                                    }
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="more">
+                                    @using (Html.BeginForm("AddMore", "Maintenance"))
+                                    {
+                                        <div class="form-group">
+                                            <label for="jobSize">Grootte beurt:</label>
+                                            <select class="form-control" name="jobSize" id="jobSize">
+                                                <option value="Big">Groot</option>
+                                                <option value="Small">Klein</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tramId">Tram ID: </label>
+                                            <input type="text" class="form-control" name="tramId" id="tramId" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">Datum: </label>
+                                            <input type="date" class="form-control" name="date" id="date" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="endDate">Eind datum: </label>
+                                            <input type="date" class="form-control" name="endDate" id="endDate" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="interval">Interval (Dagen): </label>
+                                            <input type="text" class="form-control" name="interval" id="interval" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Meerdere</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Geschiedenis van tram</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form class="form" action="HistoryOfJob" method="POST">
+                            <div class="form-group">
+                                <label for="tramId">Tram nummer:</label>
+                                <input type="text" class="form-control" id="tramId" name="tramId" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Bekijk geschiedenis</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dateSinceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Geschiedenis van tram</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <form class="form" action="HistorySince" method="POST">
+                            <div class="form-group">
+                                <label for="dateSince">Tram nummer:</label>
+                                <input type="date" class="form-control" id="dateSince" name="dateSince" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Bekijk geschiedenis</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

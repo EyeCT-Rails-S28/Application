@@ -35,12 +35,13 @@ namespace EyeCT4RailsDatabase.SQLContexts
         public List<Job> GetSchedule()
         {
             string query =
-                "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id" +
-                " FROM \"job\" j " +
+                "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id " +
+                "FROM \"job\" j " +
                 "JOIN \"tram\" t ON t.id = j.tram_id " +
                 "JOIN \"line\" l ON t.line_id = l.id " +
                 "JOIN \"user\" u ON u.id = j.user_id " +
-                "WHERE j.finished = 0 AND j.job_type = 'Cleanup'";
+                "WHERE j.finished = 0 AND j.job_type = 'Cleanup' " +
+                "ORDER BY j.\"date\" ASC";
 
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, QueryType.Query))
             {
@@ -77,7 +78,8 @@ namespace EyeCT4RailsDatabase.SQLContexts
                 "JOIN \"tram\" t ON t.id = j.tram_id " +
                 "JOIN \"line\" l ON t.line_id = l.id " +
                 "JOIN \"user\" u ON u.id = j.user_id " +
-                "WHERE j.finished = 1 AND t.id = :id AND j.job_type = 'Cleanup'";
+                "WHERE j.finished = 1 AND t.id = :id AND j.job_type = 'Cleanup' " +
+                "ORDER BY j.\"date\" ASC";
 
             Dictionary<string, object> parameters = new Dictionary<string, object> {{":id", tramId}};
 
@@ -108,11 +110,12 @@ namespace EyeCT4RailsDatabase.SQLContexts
         {
             string query =
                 "SELECT j.id, j.\"date\", j.job_size, t.id, t.tramtype, t.status, l.id, t.forced, u.id" +
-                "FROM\"job\" j " +
+                " FROM\"job\" j " +
                 "JOIN \"tram\" t ON t.id = j.tram_id " +
                 "JOIN \"line\" l ON t.line_id = l.id " +
                 "JOIN \"user\" u ON u.id = j.user_id " +
-                "WHERE j.finished = 1 AND j.job_type = 'Cleanup'";
+                "WHERE j.finished = 1 AND j.job_type = 'Cleanup' " +
+                "ORDER BY j.\"date\" ASC";
 
             using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, QueryType.Query))
             {
