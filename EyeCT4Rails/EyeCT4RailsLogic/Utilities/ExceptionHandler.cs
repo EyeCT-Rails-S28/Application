@@ -23,6 +23,16 @@ namespace EyeCT4RailsLogic.Utilities
                 throw new DatabaseException("A database error has occured.", e);
         }
 
+        /// <summary>
+        /// Filters out all the custom exceptions and rethrows them.
+        /// </summary>
+        /// <param name="e">The exception to check for.</param>
+        public static void FilterCustomException(Exception e)
+        {
+            if (e.GetBaseException() is CustomException)
+                throw new CustomException(e.Message);
+        }
+
         public static void CheckForInvalidDateException(DateTime startDate, DateTime endDate, int interval)
         {
             if (endDate < startDate)
@@ -31,11 +41,5 @@ namespace EyeCT4RailsLogic.Utilities
             if (interval < 1)
                 throw new InvalidDateException("Interval has to be greater than 1.");
         }
-
-        public static void FilterCustomException(Exception e)
-        {
-            
-        }
-
     }
 }
