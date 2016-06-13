@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using EyeCT4RailsDatabase.Models;
-using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using Oracle.ManagedDataAccess.Client;
 
-namespace EyeCT4RailsDatabase
+namespace EyeCT4RailsDatabase.SQLContexts
 {
     public class CleanupSqlContext : ICleanupContext
     {
