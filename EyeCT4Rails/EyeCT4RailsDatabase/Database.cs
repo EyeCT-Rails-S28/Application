@@ -6,11 +6,9 @@ namespace EyeCT4RailsDatabase
 {
     public class Database
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private static readonly string CONNECTION_STRING =
-            $"data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = {DatabaseConfiguration.DATABASE_HOST})(PORT = {DatabaseConfiguration.DATABASE_PORT})))(CONNECT_DATA =(SERVICE_NAME = {DatabaseConfiguration.DATABASE_SERVICE})));USER ID={DatabaseConfiguration.DATABASE_USERNAME};PASSWORD={DatabaseConfiguration.DATABASE_PASSWORD}";
+            $"data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = {DatabaseConfig.Default.Host})(PORT = {DatabaseConfig.Default.Port})))" +
+            $"(CONNECT_DATA =(SERVICE_NAME = {DatabaseConfig.Default.Service})));USER ID={DatabaseConfig.Default.Username};PASSWORD={DatabaseConfig.Default.Password}";
 
         private static Database _instance;
 
@@ -72,7 +70,7 @@ namespace EyeCT4RailsDatabase
         /// <returns>A reader object if the query returns results, returns null otherwise.</returns>
         public OracleDataReader ExecuteQuery(string query, QueryType queryType)
         {
-           return ExecuteQuery(query, new Dictionary<string, object>(), queryType);
+            return ExecuteQuery(query, new Dictionary<string, object>(), queryType);
         }
     }
 

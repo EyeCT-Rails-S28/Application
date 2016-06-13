@@ -44,9 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>DatabaseConfig.settings</DependentUpon>
+    </Compile>
     <Compile Include="SQLContexts\CleanupSQLContext.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="DatabaseConfiguration.cs" />
     <Compile Include="SQLContexts\DepotManagementSQLContext.cs" />
     <Compile Include="SQLContexts\MaintenanceSQLContext.cs" />
     <Compile Include="Models\ICleanupContext.cs" />
@@ -66,6 +70,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="DatabaseConfig.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>DatabaseConfig.Designer.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
