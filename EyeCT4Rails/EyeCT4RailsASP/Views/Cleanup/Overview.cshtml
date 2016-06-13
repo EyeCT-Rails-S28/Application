@@ -67,58 +67,68 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        @using (Html.BeginForm("AddOne", "Cleanup"))
-                        {
-                            <div class="form-group">
-                                <label for="jobSize">Grootte beurt:</label>
-                                <select class="form-control" name="jobSize" id="jobSize">
-                                    <option value="Big">Groot</option>
-                                    <option value="Small">Klein</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="tramId">Tram ID: </label>
-                                <input type="text" class="form-control" name="tramId" id="tramId" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="date">Datum: </label>
-                                <input type="date" class="form-control" name="date" id="date" required>
-                            </div>
+                    <div class="col-md-12">
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#one" aria-controls="home" role="tab" data-toggle="tab">Enkel</a></li>
+                                <li role="presentation"><a href="#more" aria-controls="profile" role="tab" data-toggle="tab">Meerdere</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="one">
+                                    @using (Html.BeginForm("AddOne", "Cleanup"))
+                                    {
+                                        <div class="form-group">
+                                            <label for="jobSize">Grootte beurt:</label>
+                                            <select class="form-control" name="jobSize" id="jobSize">
+                                                <option value="Big">Groot</option>
+                                                <option value="Small">Klein</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tramId">Tram ID: </label>
+                                            <input type="text" class="form-control" name="tramId" id="tramId" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">Datum: </label>
+                                            <input type="date" class="form-control" name="date" id="date" required>
+                                        </div>
 
-                            <button type="submit" class="btn btn-default">Enkel</button>
-                        }
-                    </div>
-
-                    <div class="col-md-6 ">
-                        @using (Html.BeginForm("AddMore", "Cleanup"))
-                        {
-                            <div class="form-group">
-                                <label for="jobSize">Grootte beurt:</label>
-                                <select class="form-control" name="jobSize" id="jobSize">
-                                    <option value="Big">Groot</option>
-                                    <option value="Small">Klein</option>
-                                </select>
+                                        <button type="submit" class="btn btn-default">Enkel</button>
+                                    }
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="more">
+                                    @using (Html.BeginForm("AddMore", "Cleanup"))
+                                    {
+                                        <div class="form-group">
+                                            <label for="jobSize">Grootte beurt:</label>
+                                            <select class="form-control" name="jobSize" id="jobSize">
+                                                <option value="Big">Groot</option>
+                                                <option value="Small">Klein</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tramId">Tram ID: </label>
+                                            <input type="text" class="form-control" name="tramId" id="tramId" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="date">Datum: </label>
+                                            <input type="date" class="form-control" name="date" id="date" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="endDate">Eind datum: </label>
+                                            <input type="date" class="form-control" name="endDate" id="endDate" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="interval">Interval (Dagen): </label>
+                                            <input type="text" class="form-control" name="interval" id="interval" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-default">Meerdere</button>
+                                    }
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="tramId">Tram ID: </label>
-                                <input type="text" class="form-control" name="tramId" id="tramId" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="date">Datum: </label>
-                                <input type="date" class="form-control" name="date" id="date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="endDate">Eind datum: </label>
-                                <input type="date" class="form-control" name="endDate" id="endDate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="interval">Interval (Dagen): </label>
-                                <input type="text" class="form-control" name="interval" id="interval" required>
-                            </div>
-                            <button type="submit" class="btn btn-default">Meerdere</button>
-                        }
-
+                        </div>
                     </div>
                 </div>
             </div>
