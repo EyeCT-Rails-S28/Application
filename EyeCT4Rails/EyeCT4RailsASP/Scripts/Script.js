@@ -88,6 +88,10 @@ $(document).ready(function () {
                 getSection(tramId, assist);
             });
         }
+
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
 });
 
 function getSection(tramnumber, assist) {

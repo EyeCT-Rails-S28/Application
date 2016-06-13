@@ -27,7 +27,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
                 <th>ID</th>
@@ -42,7 +42,7 @@
             <tbody>
             @foreach (Job job in ViewBag.jobs)
             {
-                <tr>
+                <tr class="clickable-row" data-href="HistoryOfJob/?tramId=@job.Tram.Id">
                     <td>@job.Id</td>
                     <td>@job.Tram.Id</td>
                     <td>@job.JobSize</td>

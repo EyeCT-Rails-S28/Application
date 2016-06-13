@@ -138,7 +138,6 @@ namespace EyeCT4RailsASP.Controllers
             }
         }
 
-        [HttpPost]
         public ActionResult HistoryOfJob(int tramId = -1)
         {
             if (tramId == -1) return RedirectToAction("Overview", "Cleanup");
