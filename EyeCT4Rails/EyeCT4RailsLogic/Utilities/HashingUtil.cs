@@ -2,16 +2,16 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EyeCT4RailsLogic.Helpers
+namespace EyeCT4RailsLogic.Utilities
 {
-    public class Hashing
+    public class HashingUtil
     {
         /// <summary>
         /// Hashes a password with a given salt using SHA256.
         /// </summary>
-        /// <param name="password"></param>
-        /// <param name="salt"></param>
-        /// <returns></returns>
+        /// <param name="password">Password that should be hashed.</param>
+        /// <param name="salt">Salt that should be added to the hash.</param>
+        /// <returns>The hashed string of the users password.</returns>
         public static string HashString(string password, string salt)
         {
             string ret;
@@ -31,7 +31,7 @@ namespace EyeCT4RailsLogic.Helpers
         /// <returns>A new salty string.</returns>
         public static string GetNewSalt()
         {
-            var rng = RNGCryptoServiceProvider.Create();
+            var rng = RandomNumberGenerator.Create();
             var ret = new byte[64];
             rng.GetBytes(ret);
             return Convert.ToBase64String(ret);

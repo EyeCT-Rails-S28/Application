@@ -4,7 +4,7 @@ using EyeCT4RailsDatabase.SQLContexts;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
-using EyeCT4RailsLogic.Helpers;
+using EyeCT4RailsLogic.Utilities;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 
@@ -38,7 +38,7 @@ namespace EyeCT4RailsLogic.Repositories
             try
             {
                 var salt = _context.GetSalt(email);
-                var hash = Hashing.HashString(password, salt);
+                var hash = HashingUtil.HashString(password, salt);
                 user = _context.LoginUser(email, hash);
             }
             catch (Exception e)
@@ -66,8 +66,8 @@ namespace EyeCT4RailsLogic.Repositories
         {
             try
             {
-                var salt = Hashing.GetNewSalt();
-                var hash = Hashing.HashString(password, salt);
+                var salt = HashingUtil.GetNewSalt();
+                var hash = HashingUtil.HashString(password, salt);
                  _context.CreateUser(name, hash, email, role, salt);
             }
             catch (Exception e)
