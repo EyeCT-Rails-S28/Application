@@ -47,6 +47,7 @@
     <Compile Include="Exceptions\CustomException.cs" />
     <Compile Include="Exceptions\InvalidIdException.cs" />
     <Compile Include="Exceptions\InvalidUserOperationException.cs" />
+    <Compile Include="Exceptions\SpecialActionException.cs" />
     <Compile Include="Repositories\CleanupRepository.cs" />
     <Compile Include="Repositories\DepotManagementRepository.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
