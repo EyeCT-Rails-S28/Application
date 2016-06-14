@@ -26,7 +26,12 @@ namespace EyeCT4RailsLogic.Repositories
         /// </summary>
         public static RideManagementRepository Instance => _instance ?? (_instance = new RideManagementRepository());
 
-
+        /// <summary>
+        /// Gets a section for the given tram.
+        /// </summary>
+        /// <param name="tramId">The id of the tram.</param>
+        /// <param name="status">The status of the tram.</param>
+        /// <returns>A string with the section id and the track id seperated by a comma.</returns>
         public string GetSection(int tramId, string status)
         {
             try
@@ -95,6 +100,11 @@ namespace EyeCT4RailsLogic.Repositories
             }           
         }
 
+        /// <summary>
+        /// Gets an assigned section for the given tram.
+        /// </summary>
+        /// <param name="tramId">The id of the tram.</param>
+        /// <returns>A string with the section id and the track id seperated by a comma.</returns>
         public string GetAssignedSection(int tramId)
         {
             Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
