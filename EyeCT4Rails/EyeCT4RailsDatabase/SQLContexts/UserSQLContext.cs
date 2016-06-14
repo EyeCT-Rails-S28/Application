@@ -108,7 +108,7 @@ namespace EyeCT4RailsDatabase.SQLContexts
             return ret;
         }
 
-        public bool CheckUser(string email)
+        public bool UserExists(string email)
         {
             string query = "SELECT COUNT(ID) FROM \"user\" WHERE EMAIL = :email";
 

@@ -76,5 +76,23 @@ namespace EyeCT4RailsLogic.Repositories
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
         }
+
+        /// <summary>
+        /// Checks if a user exists base on it's email.
+        /// </summary>
+        /// <param name="email">The email of the user.</param>
+        /// <returns>Bolean thats indicates if the user exists or not</returns>
+        public bool UserExists(string email)
+        {
+            try
+            {
+                return _context.UserExists(email);
+            }
+            catch (Exception e)
+            {
+                ExceptionHandler.FilterOracleDatabaseException(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
+        }
     }
 }
