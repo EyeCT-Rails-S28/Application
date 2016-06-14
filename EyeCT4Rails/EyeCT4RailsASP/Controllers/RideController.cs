@@ -4,7 +4,8 @@ using System;
 using System.Web.Mvc;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
-using EyeCT4RailsLogic;
+using EyeCT4RailsLogic.Repositories;
+using EyeCT4RailsLogic.Utilities;
 using Newtonsoft.Json;
 
 namespace EyeCT4RailsASP.Controllers
@@ -78,7 +79,7 @@ namespace EyeCT4RailsASP.Controllers
                 }
                 else
                 {
-                    section = RideManagementRepository.Instance.GetFreeSection(depot, depot.Trams.Find(t => t.Id == tramId).TramType);
+                    section = SectionUtil.GetFreeSection(depot, depot.Trams.Find(t => t.Id == tramId).TramType);
                     track = depot.Tracks.Find(t => t.Sections.Find(s => s.Id == section.Id) != null);
 
                     if (track == null)

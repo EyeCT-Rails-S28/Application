@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using EyeCT4RailsDatabase.Models;
+using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 
-namespace EyeCT4RailsDatabase
+namespace EyeCT4RailsDatabase.SQLContexts
 {
     public class RideManagementSqlContext : IRideManagementContext
     {

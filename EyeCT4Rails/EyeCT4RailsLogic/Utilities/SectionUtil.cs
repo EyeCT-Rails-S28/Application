@@ -1,56 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.Linq;
-using EyeCT4RailsDatabase;
-using EyeCT4RailsDatabase.Models;
-using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
-// ReSharper disable MemberCanBeMadeStatic.Local
 
-namespace EyeCT4RailsLogic
+namespace EyeCT4RailsLogic.Utilities
 {
-    public class RideManagementRepository
+    public class SectionUtil
     {
-        private static RideManagementRepository _instance;
-        private readonly IRideManagementContext _context;
-
-        private RideManagementRepository()
-        {
-            _context = new RideManagementSqlContext();
-        }
-
-        /// <summary>
-        /// The instance of the singleton RideManagementRepository.
-        /// </summary>
-        public static RideManagementRepository Instance => _instance ?? (_instance = new RideManagementRepository());
-
-        /// <summary>
-        /// Changes the status of a tram. Dangerous code!
-        /// </summary>
-        /// <param name="tramId">The tram to change the status of/</param>
-        /// <param name="status">The new status of a tram.</param>
-        public void ChangeTramStatus(int tramId, Status status)
-        {
-            try
-            {
-                _context.ReportStatusChange(tramId, status);
-            }
-            catch (Exception e)
-            {
-                LogicExceptionHandler.FilterOracleDatabaseException(e);
-                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
-            }
-        }
-
         /// <summary>
         /// Gets a free section from a given depot.
         /// </summary>
         /// <param name="depot">The depot in question.</param>
+        /// <param name="type">The type of tram.</param>
         /// <returns>The first free section it finds.</returns>
-        public Section GetFreeSection(Depot depot, TramType type)
+        public static Section GetFreeSection(Depot depot, TramType type)
         {
             var tracks = depot.Tracks;
 
@@ -87,7 +51,7 @@ namespace EyeCT4RailsLogic
         /// </summary>
         /// <param name="track">The track in question.</param>
         /// <returns>A free section.</returns>
-        private Section GetFreeSection(Track track)
+        private static Section GetFreeSection(Track track)
         {
             //Fetches all sections that have access to the outside world.
             List<Section> freeSections =
@@ -112,9 +76,19 @@ namespace EyeCT4RailsLogic
         /// Checks wheter a section is accessible from the outside.
         /// </summary>
         /// <param name="section">The section to check for.</param>
+        /// <returns>A bool that is true, if and only if it can reach the outside.</returns>
+        public static bool CheckSectionFreedom(Section section)
+        {
+            return CheckSectionFreedom(section.PreviousSection, false) || CheckSectionFreedom(section.NextSection, true);
+        }
+
+        /// <summary>
+        /// Checks wheter a section is accessible from the outside.
+        /// </summary>
+        /// <param name="section">The section to check for.</param>
         /// <param name="direction">The direction in which to look. True is next.</param>
         /// <returns>A bool that is true, if and only if it can reach the outside.</returns>
-        public bool CheckSectionFreedom(Section section, bool direction)
+        private static bool CheckSectionFreedom(Section section, bool direction)
         {
             if (section == null)
                 return true;
@@ -126,5 +100,30 @@ namespace EyeCT4RailsLogic
                 ? CheckSectionFreedom(section.NextSection, true)
                 : CheckSectionFreedom(section.PreviousSection, false);
         }
+
+        /// <summary>
+        /// Checks wheter blocking the given section, either by placing a tram or blocking the section, will result in errors.
+        /// </summary>
+        /// <param name="section">The section in question.</param>
+        /// <param name="track">The track the section belongs to.</param>
+        /// <returns>A bool that is true when there will be no errors, false when there will be errors.</returns>
+        public static bool CheckSectionBlocking(Section section, Track track)
+        {
+            section.Blocked = true;
+
+            List<Section> sectionsWithTrams =
+                track.Sections.FindAll(s => s.Tram != null && s.Tram.Status == Status.Dienst);
+
+            if (sectionsWithTrams.Any(s => !CheckSectionFreedom(s)))
+            {
+                section.Blocked = false;
+                return false;
+            }
+
+            section.Blocked = false;
+            return true;
+        }
+
+        private SectionUtil() {}
     }
 }
