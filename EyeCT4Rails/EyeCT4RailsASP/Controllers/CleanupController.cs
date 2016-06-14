@@ -62,7 +62,7 @@ namespace EyeCT4RailsASP.Controllers
                     if (user != null)
                     {
                         bool succes = CleanupRepository.Instance.ScheduleJob((JobSize)Enum.Parse(typeof(JobSize), jobSize),
-                            user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+                            user, Convert.ToInt32(tramId), Convert.ToDateTime(date));
 
                         if (!succes)
                         {
@@ -114,7 +114,7 @@ namespace EyeCT4RailsASP.Controllers
 
                     if (user != null)
                     {
-                        bool succes = CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
+                        bool succes = CleanupRepository.Instance.ScheduleRecurringJob((JobSize)Enum.Parse(typeof(JobSize), jobSize), user, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
 
                         if (!succes)
                         {

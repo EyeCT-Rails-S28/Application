@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsDatabase.SQLContexts;
 using EyeCT4RailsLib.Classes;
@@ -121,13 +122,33 @@ namespace EyeCT4RailsLogic.Repositories
         /// <param name="tramId">The tram which the job will be done for.</param>
         /// <param name="date">The time when the job will start.</param>
         /// <returns>true if, and only if, this job was succesfully added.</returns>
-        public bool ScheduleJob(JobSize size, int userId, int tramId, DateTime date)
+        public bool ScheduleJob(JobSize size, User user, int tramId, DateTime date, bool mail = true)
         {
             try
             {
                 if (_context.CheckJobLimit(date, size))
                 {
-                    _context.ScheduleJob(size, userId, tramId, date);
+                    _context.ScheduleJob(size, user.Id, tramId, date);
+
+
+                    if (mail)
+                    {
+                        MailUtil.SendMail(user.Email, "Er is een nieuwe reparatiebeurt toegewezen.",
+                            $"Beste {user.Name},\n" +
+                            "\n" +
+                            $"Er is een nieuwe reparatiebeurt ingepland.\n" +
+                            "Het gaat hier om de volgende beurt:\n" +
+                            "\n" +
+                            $"Type: {size}\n" +
+                            $"Tramnummer: {tramId}\n" +
+                            $"Datum: {date.ToShortDateString()}\n" +
+                            "\n" +
+                            $"Let op, de eerstvolgende reparatiebeurt begint op {date.ToShortDateString()}.\n" +
+                            "\n" +
+                            "Met vriendelijke groet,\n" +
+                            "Systeembeheer");
+                    }
+
                     return true;
                 }
 
@@ -150,8 +171,8 @@ namespace EyeCT4RailsLogic.Repositories
         /// <param name="interval">Interval between schedules.</param>
         /// <param name="endDate">The end date of the recurring schedule.</param>
         /// <returns>A bool that is true, if and only if, all jobs were scheduled.</returns>
-        public bool ScheduleRecurringJob(JobSize size, int userId, int tramId, DateTime date, int interval,
-            DateTime endDate)
+        public bool ScheduleRecurringJob(JobSize size, User user, int tramId, DateTime date, int interval,
+            DateTime endDate, bool mail = true)
         {
             ExceptionHandler.CheckForInvalidDateException(date, endDate, interval);
 
@@ -171,8 +192,27 @@ namespace EyeCT4RailsLogic.Repositories
             //Schedule the same job at each date.
             foreach (var x in dates)
             {
-                if (!ScheduleJob(size, userId, tramId, x))
+                if (!ScheduleJob(size, user, tramId, x, false))
                     success = false;
+            }
+
+            if (mail)
+            {
+                MailUtil.SendMail(user.Email, "Er zijn nieuwe reparatiebeurten toegewezen.",
+                    $"Beste {user.Name},\n" +
+                    "\n" +
+                    $"Er zijn {dates.Count} nieuwe reparatiebeurten ingepland.\n" +
+                    "Het gaat hier om de volgende beurten:\n" +
+                    "\n" +
+                    $"Type: {size}\n" +
+                    $"Tramnummer: {tramId}\n" +
+                    $"Aantal beurten: {dates.Count}\n" +
+                    $"Interval: {interval}\n" +
+                    "\n" +
+                    $"Let op, de eerstvolgende reparatiebeurt begint op {dates.First().ToShortDateString()}.\n" +
+                    "\n" +
+                    "Met vriendelijke groet,\n" +
+                    "Systeembeheer");
             }
 
             //Only return true if every job could be scheduled.
