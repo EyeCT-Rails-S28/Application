@@ -37,5 +37,12 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="id">The id of the user.</param>
         /// <returns>The user with the given id.</returns>
         User GetUser(int id);
+
+        /// <summary>
+        /// Checks if a user exists base on it's email.
+        /// </summary>
+        /// <param name="email">The email of the user.</param>
+        /// <returns>Bolean thats indicates if the user exists or not</returns>
+        bool UserExists(string email);
     }
 }

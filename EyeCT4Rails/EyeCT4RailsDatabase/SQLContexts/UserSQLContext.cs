@@ -108,6 +108,25 @@ namespace EyeCT4RailsDatabase.SQLContexts
             return ret;
         }
 
+        public bool UserExists(string email)
+        {
+            string query = "SELECT COUNT(ID) FROM \"user\" WHERE EMAIL = :email";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object> { { ":email", email } };
+
+            bool ret = false;
+
+            using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
+            {
+                if (reader.Read())
+                {
+                    ret = true;
+                }
+            }
+
+            return ret;
+        }
+
         private List<Right> GetRights(int roleId)
         {
             const string query =
