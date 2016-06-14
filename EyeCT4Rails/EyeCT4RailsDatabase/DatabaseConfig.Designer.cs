@@ -25,7 +25,7 @@ namespace EyeCT4RailsDatabase {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SYSTEM")]
+        [global::System.Configuration.DefaultSettingValueAttribute("PTS36")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -34,7 +34,7 @@ namespace EyeCT4RailsDatabase {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("systeem")]
+        [global::System.Configuration.DefaultSettingValueAttribute("PTS36")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -52,7 +52,7 @@ namespace EyeCT4RailsDatabase {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        [global::System.Configuration.DefaultSettingValueAttribute("172.20.36.2")]
         public string Host {
             get {
                 return ((string)(this["Host"]));

@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="Username" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SYSTEM</Value>
+      <Value Profile="(Default)">PTS36</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">systeem</Value>
+      <Value Profile="(Default)">PTS36</Value>
     </Setting>
     <Setting Name="Service" Type="System.String" Scope="Application">
       <Value Profile="(Default)">xe</Value>
     </Setting>
     <Setting Name="Host" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">localhost</Value>
+      <Value Profile="(Default)">172.20.36.2</Value>
     </Setting>
     <Setting Name="Port" Type="System.String" Scope="Application">
       <Value Profile="(Default)">1521</Value>
