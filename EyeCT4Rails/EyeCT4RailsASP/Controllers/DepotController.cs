@@ -204,7 +204,8 @@ namespace EyeCT4RailsASP.Controllers
                     status = "success",
                     trackId = track?.Id,
                     sectionId = section?.Id,
-                    tram = section?.Tram,
+                    tramStatus = section?.Tram?.Status,
+                    tramType = section?.Tram?.TramType.GetDescription(),
 
                     cleanup = new
                     {
