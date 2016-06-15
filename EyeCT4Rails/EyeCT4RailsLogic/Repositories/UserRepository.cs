@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsDatabase.SQLContexts;
 using EyeCT4RailsLib.Classes;
@@ -78,15 +79,33 @@ namespace EyeCT4RailsLogic.Repositories
         }
 
         /// <summary>
-        /// Checks if a user exists base on it's email.
+        /// Gets a user based on its ID.
         /// </summary>
-        /// <param name="email">The email of the user.</param>
-        /// <returns>Bolean thats indicates if the user exists or not</returns>
-        public bool UserExists(string email)
+        /// <param name="userId">The id of the user.</param>
+        /// <returns>User for given id, null if the user doesn't exist.</returns>
+        public User GetUser(int userId)
         {
             try
             {
-                return _context.UserExists(email);
+                return _context.GetUser(userId);
+            }
+            catch (Exception e)
+            {
+                ExceptionHandler.FilterOracleDatabaseException(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
+        }
+
+        /// <summary>
+        /// Gets list of users with a specific role.
+        /// </summary>
+        /// <param name="role">Role of user.</param>
+        /// <returns>List of users with a specific role.</returns>
+        public List<User> GetUsers(Role role)
+        {
+            try
+            {
+                return _context.GetUsers(role);
             }
             catch (Exception e)
             {

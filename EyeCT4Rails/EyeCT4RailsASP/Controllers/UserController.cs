@@ -1,7 +1,6 @@
 ﻿using System;
-using static EyeCT4RailsASP.Models.UserUtilities;
-
 using System.Web.Mvc;
+using static EyeCT4RailsASP.Models.UserUtilities;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Repositories;

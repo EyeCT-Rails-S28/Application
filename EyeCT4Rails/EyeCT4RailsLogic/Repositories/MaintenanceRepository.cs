@@ -118,9 +118,10 @@ namespace EyeCT4RailsLogic.Repositories
         /// Adds a maintenance job. Dangerous code!
         /// </summary>
         /// <param name="size">The type of maintenance which should be done.</param>
-        /// <param name="userId">The user who will be performing the job.</param>
+        /// <param name="user">The user who will be performing the job.</param>
         /// <param name="tramId">The tram which the job will be done for.</param>
         /// <param name="date">The time when the job will start.</param>
+        /// <param name="mail">Whether a mail should be sent, or not.</param>
         /// <returns>true if, and only if, this job was succesfully added.</returns>
         public bool ScheduleJob(JobSize size, User user, int tramId, DateTime date, bool mail = true)
         {
@@ -139,7 +140,7 @@ namespace EyeCT4RailsLogic.Repositories
                             $"Er is een nieuwe reparatiebeurt ingepland.\n" +
                             "Het gaat hier om de volgende beurt:\n" +
                             "\n" +
-                            $"Type: {size}\n" +
+                            $"Type: {TranslationUtil.TranslateJobSize(size)}\n" +
                             $"Tramnummer: {tramId}\n" +
                             $"Datum: {date.ToShortDateString()}\n" +
                             "\n" +
@@ -165,11 +166,12 @@ namespace EyeCT4RailsLogic.Repositories
         /// Schedules a job for till a certain day with a given interval. Schedules everything it can.
         /// </summary>
         /// <param name="size">Size of the job.</param>
-        /// <param name="userId">User involved in the job.</param>
+        /// <param name="user">User involved in the job.</param>
         /// <param name="tramId">Tram involved in the job.</param>
         /// <param name="date">Date of the job.</param>
         /// <param name="interval">Interval between schedules.</param>
         /// <param name="endDate">The end date of the recurring schedule.</param>
+        /// <param name="mail">Whether a mail should be sent, or not.</param>
         /// <returns>A bool that is true, if and only if, all jobs were scheduled.</returns>
         public bool ScheduleRecurringJob(JobSize size, User user, int tramId, DateTime date, int interval,
             DateTime endDate, bool mail = true)
@@ -204,7 +206,7 @@ namespace EyeCT4RailsLogic.Repositories
                     $"Er zijn {dates.Count} nieuwe reparatiebeurten ingepland.\n" +
                     "Het gaat hier om de volgende beurten:\n" +
                     "\n" +
-                    $"Type: {size}\n" +
+                    $"Type: {TranslationUtil.TranslateJobSize(size)}\n" +
                     $"Tramnummer: {tramId}\n" +
                     $"Aantal beurten: {dates.Count}\n" +
                     $"Interval: {interval}\n" +

@@ -1,6 +1,7 @@
 ﻿@using EyeCT4RailsASP.Models
 @using EyeCT4RailsLib
 @using EyeCT4RailsLib.Classes
+@using EyeCT4RailsLogic.Utilities
 
 @{
     ViewBag.Title = "Overzicht";
@@ -34,6 +35,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tramnummer</th>
+                <th>Medewerker</th>
                 <th>Soort</th>
                 <th>Type Beurt</th>
                 <th>Reparatie Datum</th>
@@ -42,13 +44,14 @@
             </thead>
 
             <tbody>
-            @foreach (Job job in ViewBag.jobs)
+            @foreach (Job job in ViewBag.Jobs)
             {
                 <tr class="clickable-row" data-href="HistoryOfJob/?tramId=@job.Tram.Id">
                     <td>@job.Id</td>
                     <td>@job.Tram.Id</td>
-                    <td>@TranslationUtilities.TranslateJobSize(job.JobSize)</td>
-                    <td>@TranslationUtilities.TranslateJobType(job.JobType)</td>
+                    <td>@job.User.Name</td>
+                    <td>@TranslationUtil.TranslateJobSize(job.JobSize)</td>
+                    <td>@TranslationUtil.TranslateJobType(job.JobType)</td>
                     <td>@job.Date.ToShortDateString()</td>
                     <td><a class="btn btn-primary" href="ChangeToDone?jobId=@job.Id" role="button">Afronden</a></td>
                 </tr>
@@ -86,6 +89,17 @@
                                                 <option value="Small">Klein</option>
                                             </select>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="userId">Medewerker:</label>
+                                            <select class="form-control" name="userId" id="userId">
+                                                @foreach (User user in ViewBag.Users)
+                                                {
+                                                    <option value="@user.Id">@user.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="tramId">Tram ID: </label>
                                             <input type="text" class="form-control" name="tramId" id="tramId" required>
@@ -108,6 +122,17 @@
                                                 <option value="Small">Klein</option>
                                             </select>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="userId">Medewerker:</label>
+                                            <select class="form-control" name="userId" id="userId">
+                                                @foreach (User user in ViewBag.Users)
+                                                {
+                                                    <option value="@user.Id">@user.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="tramId">Tram ID: </label>
                                             <input type="text" class="form-control" name="tramId" id="tramId" required>

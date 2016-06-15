@@ -3,8 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using EyeCT4RailsLib.Enums;
 using System.Web.Mvc;
+using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLogic.Repositories;
 using EyeCT4RailsLogic.Utilities;
