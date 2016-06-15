@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsDatabase.SQLContexts;
-using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 using EyeCT4RailsLogic.Exceptions;
@@ -16,6 +16,8 @@ namespace EyeCT4RailsLogic.Repositories
     {
         private static DepotManagementRepository _instance;
         private readonly IDepotManagementContext _context;
+
+        private bool _simulating;
 
         private DepotManagementRepository()
         {
@@ -74,7 +76,7 @@ namespace EyeCT4RailsLogic.Repositories
                 Section section = track?.Sections.Find(x => x.Id == sectionId);
 
                 //If the section does not exist, throw an exception.
-                if (section == null)        
+                if (section == null)
                     throw new InvalidIdException("Section ID niet gevonden.");
 
                 //If there is a tram on the section, throw an exception.
@@ -84,7 +86,7 @@ namespace EyeCT4RailsLogic.Repositories
                 //If blocking the section causes a tram that has a reserved spot to be blocked, throw an exception.
                 if (!section.Blocked)
                 {
-                    if(!CheckSectionBlocking(section, track))
+                    if (!CheckSectionBlocking(section, track))
                         throw new InvalidUserOperationException("Deze sectie kan niet geblokkeerd worden (vrijheid).");
                 }
 
@@ -119,7 +121,7 @@ namespace EyeCT4RailsLogic.Repositories
 
                 try
                 {
-                    status = (Status) Enum.Parse(typeof (Status), statusStr);
+                    status = (Status)Enum.Parse(typeof(Status), statusStr);
                 }
                 catch (Exception)
                 {
@@ -154,7 +156,7 @@ namespace EyeCT4RailsLogic.Repositories
 
                 //Get the tram in question.
                 Tram tram = depot.Trams.Find(t => t.Id == tramId);
-                if(tram == null)
+                if (tram == null)
                     throw new InvalidIdException("Tram ID niet gevonden.");
 
                 //Check whether this section isn't already occupied.
@@ -169,12 +171,12 @@ namespace EyeCT4RailsLogic.Repositories
                 if (depot.Tracks.Any(t => t.Sections.Find(s => s.Tram != null && s.Tram.Id == tramId) != null))
                     throw new InvalidUserOperationException($"De tram met nummer {tramId} is al geplaatst.");
 
-                if(tram.Status != Status.Dienst)
+                if (tram.Status != Status.Dienst)
                     throw new InvalidUserOperationException("Tram moet in dienst zijn om gereserveerd te worden.");
 
                 //Check whether blocking the section will result in inaccessible reservations.
                 if (!CheckSectionBlocking(section, track))
-                    throw new InvalidUserOperationException("Deze sectie kan niet geblokkeerd worden (vrijheid).");               
+                    throw new InvalidUserOperationException("Deze sectie kan niet geblokkeerd worden (vrijheid).");
 
                 _context.ReserveSection(tramId, sectionId);
             }
@@ -256,14 +258,14 @@ namespace EyeCT4RailsLogic.Repositories
 
                 //Check whether the section has a tram.
                 if (section.Tram == null)
-                    throw new InvalidUserOperationException("Op deze sectie staat geen tram." );
+                    throw new InvalidUserOperationException("Op deze sectie staat geen tram.");
 
                 //Check whether this section can be reached.
                 if (!CheckSectionFreedom(section))
                     throw new InvalidUserOperationException("Op deze sectie kan geen tram geplaatst worden.");
 
                 //Check whether the tram can be removed.
-                if(section.Tram.Status == Status.Defect || section.Tram.Status == Status.Schoonmaak)
+                if (section.Tram.Status == Status.Defect || section.Tram.Status == Status.Schoonmaak)
                     throw new InvalidUserOperationException("Een tram die schoonmaak of reparatie nodig heeft mag niet verwijderd worden.");
 
                 ChangeTramStatus(section.Tram.Id, Status.Dienst.ToString());
@@ -312,7 +314,7 @@ namespace EyeCT4RailsLogic.Repositories
                 FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
-        } 
+        }
 
         /// <summary>
         /// Gets the information of the depot. Dangerous code!
@@ -380,7 +382,7 @@ namespace EyeCT4RailsLogic.Repositories
                 dictionary.Add("Section", section);
                 dictionary.Add("Cleanup", cleanup);
                 dictionary.Add("Maintenance", maintenance);
- 
+
                 return dictionary;
             }
             catch (Exception e)
@@ -389,7 +391,68 @@ namespace EyeCT4RailsLogic.Repositories
                 FilterCustomException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
-        } 
+        }
 
+        /// <summary>
+        /// Starts simulating trams on a different thread.
+        /// </summary>
+        public void StartSimulation()
+        {
+            StopSimulation();
+
+            _simulating = true;
+
+            Thread thread = new Thread(DoSimulation);
+            thread.Start();
+        }
+
+        /// <summary>
+        /// Stops simulating trams.
+        /// </summary>
+        public void StopSimulation() => _simulating = false;
+
+        /// <summary>
+        /// Actual method for simulating trams.
+        /// </summary>
+        private void DoSimulation()
+        {
+            try
+            {
+                Depot depot = GetDepot("Havenstraat");
+
+                List<Section> sections = new List<Section>();
+                depot.Tracks.ForEach(t => sections.AddRange(t.Sections));
+
+                List<Tram> parkedTrams = new List<Tram>();
+                sections.FindAll(s => s.Tram != null).ForEach(s => parkedTrams.Add(s.Tram));
+
+                List<Tram> unparkedTrams = new List<Tram>(depot.Trams);
+                unparkedTrams.RemoveAll(t => parkedTrams.Contains(t));
+
+                int count = unparkedTrams.Count;
+                Random random = new Random();
+
+                for (int i = 0; i < count; i++)
+                {
+                    if (!_simulating)
+                        break;
+
+                    Tram tram = unparkedTrams[random.Next(unparkedTrams.Count)];
+                    Section section = GetFreeSection(depot, tram.TramType);
+                    AddTramToSection(tram.Id, section.Id);
+
+                    unparkedTrams.Remove(tram);
+
+                    Thread.Sleep(500);
+
+                    depot = GetDepot("Havenstraat");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
     }
 }
