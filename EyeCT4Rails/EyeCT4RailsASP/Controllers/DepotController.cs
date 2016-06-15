@@ -15,7 +15,7 @@ namespace EyeCT4RailsASP.Controllers
     public class DepotController : Controller
     {
         private const Right RIGHT = Right.ManageDepot;
-        private static bool cancelled;
+        private static bool _cancelled;
 
         public ActionResult Index()
         {
@@ -210,7 +210,7 @@ namespace EyeCT4RailsASP.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            cancelled = false;
+            _cancelled = false;
 
             Thread thread = new Thread(DoWork);
             thread.Start();
@@ -225,7 +225,7 @@ namespace EyeCT4RailsASP.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            cancelled = true;
+            _cancelled = true;
 
             return RedirectToAction("Index");
         }
@@ -250,7 +250,7 @@ namespace EyeCT4RailsASP.Controllers
             {
                 for (int i = 0; i < count; i++)
                 {
-                    if (cancelled)
+                    if (_cancelled)
                     {
                         break;
                     }
