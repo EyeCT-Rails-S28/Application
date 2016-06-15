@@ -194,6 +194,7 @@
     <Content Include="Views\Maintenance\HistorySince.cshtml" />
     <Content Include="Views\Cleanup\HistorySince.cshtml" />
     <Content Include="Scripts\jquery-2.2.3.min.map" />
+    <Content Include="Views\Depot\Trams.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
