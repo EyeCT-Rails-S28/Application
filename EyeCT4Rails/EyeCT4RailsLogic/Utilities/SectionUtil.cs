@@ -67,7 +67,7 @@ namespace EyeCT4RailsLogic.Utilities
             //Fetches all sections that have access to the outside world.
             List<Section> freeSections =
                 track.Sections.Where(
-                    section => CheckSectionFreedom(section, false) || CheckSectionFreedom(section, true)).ToList();
+                    section => (CheckSectionFreedom(section, false) || CheckSectionFreedom(section, true)) && CheckSectionBlocking(section, track)).ToList();
 
             if (freeSections.Count == 0)
                 return null;
