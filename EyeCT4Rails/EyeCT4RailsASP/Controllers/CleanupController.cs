@@ -63,7 +63,7 @@ namespace EyeCT4RailsASP.Controllers
                     JobSize size = (JobSize) Enum.Parse(typeof (JobSize), jobSize);
 
                     bool succes =                                           
-                        CleanupRepository.Instance.ScheduleJob(size, user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date));
+                        CleanupRepository.Instance.ScheduleJob(size, user, Convert.ToInt32(tramId), Convert.ToDateTime(date));
 
                     if (!succes)
                         TempData["Exception"] = "Beurt toevoegen is niet gelukt.";
@@ -99,7 +99,7 @@ namespace EyeCT4RailsASP.Controllers
                     User user = Session["User"] as User;
                     JobSize size = (JobSize)Enum.Parse(typeof(JobSize), jobSize);
 
-                    bool succes = CleanupRepository.Instance.ScheduleRecurringJob(size, user.Id, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
+                    bool succes = CleanupRepository.Instance.ScheduleRecurringJob(size, user, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
 
                     if (!succes)
                         TempData["Exception"] = "Beurten toevoegen is niet gelukt.";
