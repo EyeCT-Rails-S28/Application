@@ -17,19 +17,19 @@
 }
 
 .Dienst {
-    color: green;
+    color: green !important;
 }
 
 .Remise {
-    color: #000000;
+    color: #000000 !important;
 }
 
 .Schoonmaak {
-    color: cornflowerblue;
+    color: cornflowerblue !important;
 }
 
 .Defect {
-    color: red;
+    color: red !important;
 }
 
 /* ----------------------DEPOT----------------------- */

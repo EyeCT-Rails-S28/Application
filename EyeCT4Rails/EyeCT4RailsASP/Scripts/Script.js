@@ -19,7 +19,7 @@ $(document).ready(function () {
 
             loop();
 
-            $(document).on("click", "#buttonAddTram", function() {
+            function onComplete() {
                 var tramId = $("#tramNumber").val();
                 var option = $("#type").val();
                 var trackId = $("#trackId").val();
@@ -38,6 +38,18 @@ $(document).ready(function () {
                         }
                     });
                 }
+            };
+
+            $("#tramNumber").keypress(function (e) {
+                if (parseInt(e.which) === 13) {
+                    onComplete();
+                    $("#modalAddTram").modal("toggle");
+                }
+            });
+            $(document).on("click", "#buttonAddTram", onComplete);
+
+            $("#modalAddTram").on("shown.bs.modal", function() {
+                $("#tramNumber").focus();
             });
 
             $(document)
@@ -136,7 +148,7 @@ function getSection(tramnumber, assist) {
 }
 
 function timer() {
-    if (tramId == -1) {
+    if (parseInt(tramId) === -1) {
         return false;
     }
 
@@ -158,6 +170,8 @@ function timer() {
     if (tramId >= 0) {
         setTimeout(timer, 2500);
     }
+
+    return true;
 }
 
 (function ($, window) {
