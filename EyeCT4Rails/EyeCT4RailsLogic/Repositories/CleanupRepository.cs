@@ -139,7 +139,7 @@ namespace EyeCT4RailsLogic.Repositories
                             $"Er is een nieuwe schoonmaakbeurt ingepland.\n" +
                             "Het gaat hier om de volgende beurt:\n" +
                             "\n" +
-                            $"Type: {size}\n" +
+                            $"Type: {TranslationUtil.TranslateJobSize(size)}\n" +
                             $"Tramnummer: {tramId}\n" +
                             $"Datum: {date.ToShortDateString()}\n" +
                             "\n" +
@@ -205,7 +205,7 @@ namespace EyeCT4RailsLogic.Repositories
                     $"Er zijn {dates.Count} nieuwe schoonmaakbeurten ingepland.\n" +
                     "Het gaat hier om de volgende beurten:\n" +
                     "\n" +
-                    $"Type: {size}\n" +
+                    $"Type: {TranslationUtil.TranslateJobSize(size)}\n" +
                     $"Tramnummer: {tramId}\n" +
                     $"Aantal beurten: {dates.Count}\n" +
                     $"Interval: {interval}\n" +

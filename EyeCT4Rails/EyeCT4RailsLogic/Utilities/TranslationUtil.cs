@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using EyeCT4RailsLib;
 using EyeCT4RailsLib.Enums;
 
-namespace EyeCT4RailsASP.Models
+namespace EyeCT4RailsLogic.Utilities
 {
-    public class TranslationUtilities
+    public class TranslationUtil
     {
         public static string TranslateJobType(JobType jobType)
         {
@@ -27,7 +28,7 @@ namespace EyeCT4RailsASP.Models
             return translation[jobSize];
         }
 
-        private TranslationUtilities()
+        private TranslationUtil()
         {
             
         }

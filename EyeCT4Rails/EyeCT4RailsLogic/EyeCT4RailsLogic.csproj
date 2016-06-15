@@ -63,6 +63,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Utilities\MailUtil.cs" />
     <Compile Include="Utilities\SectionUtil.cs" />
+    <Compile Include="Utilities\TranslationUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EyeCT4RailsDatabase\EyeCT4RailsDatabase.csproj">

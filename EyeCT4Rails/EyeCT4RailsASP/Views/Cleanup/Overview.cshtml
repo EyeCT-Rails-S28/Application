@@ -1,6 +1,7 @@
 ﻿@using EyeCT4RailsASP.Models
 @using EyeCT4RailsLib
 @using EyeCT4RailsLib.Classes
+@using EyeCT4RailsLogic.Utilities
 
 @{
     ViewBag.Title = "Overzicht";
@@ -49,8 +50,8 @@
                     <td>@job.Id</td>
                     <td>@job.Tram.Id</td>
                     <td>@job.User.Name</td>
-                    <td>@TranslationUtilities.TranslateJobSize(job.JobSize)</td>
-                    <td>@TranslationUtilities.TranslateJobType(job.JobType)</td>
+                    <td>@TranslationUtil.TranslateJobSize(job.JobSize)</td>
+                    <td>@TranslationUtil.TranslateJobType(job.JobType)</td>
                     <td>@job.Date.ToShortDateString()</td>
                     <td><a class="btn btn-primary" href="ChangeToDone?jobId=@job.Id" role="button">Afronden</a></td>
                 </tr>
