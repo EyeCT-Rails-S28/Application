@@ -150,7 +150,7 @@ namespace EyeCT4RailsASP.Controllers
 
                 ViewBag.History = history;
                 ViewBag.TramId = tramId;
-                ViewBag.TramType = history[0].Tram.TramType;
+                ViewBag.TramType = history[0].Tram.TramType.GetDescription();
 
                 return View();
             }

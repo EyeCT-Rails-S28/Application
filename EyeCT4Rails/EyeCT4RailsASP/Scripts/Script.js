@@ -58,8 +58,8 @@ $(document).ready(function () {
                         var json = JSON.parse(data);
                         if (json.status === "success") {
                             $("#tramData > tbody > tr:first > td:first").text(tramId);
-                            $("#tramData > tbody > tr:first > td:nth-child(2)").removeClass().addClass(json.tram.Status).text(json.tram.Status);
-                            $("#tramData > tbody > tr:first > td:nth-child(3)").text(json.tram.TramType);
+                            $("#tramData > tbody > tr:first > td:nth-child(2)").removeClass().addClass(json.tramStatus).text(json.tramStatus);
+                            $("#tramData > tbody > tr:first > td:nth-child(3)").text(json.tramType);
                             $("#tramData > tbody > tr:first > td:nth-child(4)").text(json.trackId);
                             $("#tramData > tbody > tr:first > td:nth-child(5)").text(json.sectionId);
 

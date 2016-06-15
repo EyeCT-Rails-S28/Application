@@ -153,7 +153,7 @@ namespace EyeCT4RailsASP.Controllers
                 ViewBag.History = history;
                 ViewBag.TramId = tramId;
                 //Gets the type of the tram, works since the whole list of jobs concerns the same tram.
-                ViewBag.TramType = history[0].Tram.TramType;
+                ViewBag.TramType = history[0].Tram.TramType.GetDescription();
 
                 return View();
             }
