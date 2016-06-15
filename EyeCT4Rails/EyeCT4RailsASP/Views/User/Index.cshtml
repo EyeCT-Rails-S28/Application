@@ -14,7 +14,7 @@
     };
 }
 
-<div class="row" id="userManagement">
+<div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h2>Gebruiker Toevoegen</h2>
 
@@ -24,18 +24,23 @@
                 <label for="name">Naam: </label>
                 <input type="text" class="form-control" name="name" id="name" required value="@ViewBag.Name">
             </div>
-            <div class="form-group">
-                <label for="email">Email: </label>
-                <input type="email" class="form-control" name="email" id="email" required value="@ViewBag.Email">
+
+            <label for="email">Email: </label>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Email" aria-describedby="addonEmail" name="email" id="email">
+                <span class="input-group-addon" id="addonEmail">@@tranviaremise.com</span>
             </div>
+
             <div class="form-group">
                 <label for="password">Wachtwoord: </label>
                 <input type="password" class="form-control" name="password" id="password" required>
             </div>
+
             <div class="form-group">
                 <label for="passwordRepeat">Herhaal wachtwoord: </label>
                 <input type="password" class="form-control" name="passwordRepeat" id="passwordRepeat" required>
             </div>
+
             <div class="form-group">
                 <label for="role">Functie:</label>
                 <select class="form-control" name="role" id="role" required>
