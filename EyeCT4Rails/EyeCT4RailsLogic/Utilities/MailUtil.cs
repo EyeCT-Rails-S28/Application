@@ -6,9 +6,12 @@ using System.Threading;
 
 namespace EyeCT4RailsLogic.Utilities
 {
+    /// <summary>
+    /// Utility class for all mail related code.
+    /// </summary>
     public static class MailUtil
     {
-        private static SmtpClient client = new SmtpClient
+        private static readonly SmtpClient Client = new SmtpClient
         {
             Port = 25,
             Host = "smtp.tranviaremise.com",
@@ -66,7 +69,7 @@ namespace EyeCT4RailsLogic.Utilities
             {
                 try
                 {
-                    client.Send(message);
+                    Client.Send(message);
                 }
                 catch (Exception ex)
                 {
