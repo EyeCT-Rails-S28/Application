@@ -6,6 +6,9 @@ using EyeCT4RailsLogic.Exceptions;
 
 namespace EyeCT4RailsLogic.Utilities
 {
+    /// <summary>
+    /// Utility class for all section related code.
+    /// </summary>
     public class SectionUtil
     {
         /// <summary>
@@ -77,10 +80,7 @@ namespace EyeCT4RailsLogic.Utilities
         /// </summary>
         /// <param name="section">The section to check for.</param>
         /// <returns>A bool that is true, if and only if it can reach the outside.</returns>
-        public static bool CheckSectionFreedom(Section section)
-        {
-            return CheckSectionFreedom(section.PreviousSection, false) || CheckSectionFreedom(section.NextSection, true);
-        }
+        public static bool CheckSectionFreedom(Section section) => CheckSectionFreedom(section.PreviousSection, false) || CheckSectionFreedom(section.NextSection, true);
 
         /// <summary>
         /// Checks wheter a section is accessible from the outside.

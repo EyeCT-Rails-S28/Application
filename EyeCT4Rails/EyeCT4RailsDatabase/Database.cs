@@ -4,14 +4,23 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace EyeCT4RailsDatabase
 {
+    /// <summary>
+    /// Database class, is a singleton, handles the connecting to the database automaticly.
+    /// </summary>
     public class Database
     {
+        /// <summary>
+        /// Connection string for an oracle connection.
+        /// </summary>
         private static readonly string CONNECTION_STRING =
             $"data source=(DESCRIPTION =(ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = {DatabaseConfig.Default.Host})(PORT = {DatabaseConfig.Default.Port})))" +
             $"(CONNECT_DATA =(SERVICE_NAME = {DatabaseConfig.Default.Service})));USER ID={DatabaseConfig.Default.Username};PASSWORD={DatabaseConfig.Default.Password}";
 
         private static Database _instance;
 
+        /// <summary>
+        /// The instance of the singleton Database. Connects to the database automaticly.
+        /// </summary>
         public static Database Instance
         {
             get
@@ -28,12 +37,18 @@ namespace EyeCT4RailsDatabase
 
         public OracleConnection Connection { get; }
 
+        /// <summary>
+        /// Private constructor that connects to a database using the connection string.
+        /// </summary>
         private Database()
         {
             Connection = new OracleConnection {ConnectionString = CONNECTION_STRING};
             Connection.Open();
         }
 
+        /// <summary>
+        /// Deconstructor for closing the connection when the program terminates.
+        /// </summary>
         ~Database()
         {
             Connection.Close();
@@ -50,11 +65,13 @@ namespace EyeCT4RailsDatabase
         {
             using (OracleCommand command = new OracleCommand(query, Connection) {CommandType = CommandType.Text})
             {
+                //Add all the parameters to the oracle command.
                 foreach (KeyValuePair<string, object> entry in parameters)
                 {
                     command.Parameters.Add(new OracleParameter(entry.Key, entry.Value));
                 }
 
+                //If the query should return a reader, return a reader.
                 if (queryType == QueryType.Query)
                     return command.ExecuteReader();
                 command.ExecuteNonQuery();
@@ -68,10 +85,7 @@ namespace EyeCT4RailsDatabase
         /// <param name="query">The query that should be send to the database.</param>
         /// <param name="queryType">The type of query.</param>
         /// <returns>A reader object if the query returns results, returns null otherwise.</returns>
-        public OracleDataReader ExecuteQuery(string query, QueryType queryType)
-        {
-            return ExecuteQuery(query, new Dictionary<string, object>(), queryType);
-        }
+        public OracleDataReader ExecuteQuery(string query, QueryType queryType) => ExecuteQuery(query, new Dictionary<string, object>(), queryType);
     }
 
     public enum QueryType

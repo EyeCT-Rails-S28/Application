@@ -16,6 +16,11 @@ namespace EyeCT4RailsLib.Classes
         /// </summary>
         public List<Right> Rights => new List<Right>(_rights);
 
+        /// <summary>
+        /// Constructs a function class.
+        /// </summary>
+        /// <param name="role">The role of the function.</param>
+        /// <param name="rights">The rights of the function.</param>
         public Function(Role role, List<Right> rights)
         {
             Role = role;

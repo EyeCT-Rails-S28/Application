@@ -5,12 +5,15 @@ using System.Reflection;
 
 namespace EyeCT4RailsLib.Enums
 {
+    /// <summary>
+    /// Types of a tram.
+    /// </summary>
     public enum TramType
     {
         [Description("Combino")] Combino = 1,
-        [Description("11G")] _11G = 2,
+        [Description("11G")] ElevenG = 2,
         [Description("Dubbel Combino")] DCombino = 3,
-        [Description("12G")] _12G = 4,
+        [Description("12G")] TwelveG = 4,
         [Description("Opleidingstram")] Trainer = 5
     }
 

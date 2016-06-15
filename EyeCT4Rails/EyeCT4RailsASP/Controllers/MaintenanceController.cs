@@ -32,10 +32,10 @@ namespace EyeCT4RailsASP.Controllers
                 ViewBag.Jobs = jobs;
                 ViewBag.Users = users;
 
-                if (TempData["exception"] != null)
+                if (TempData["Exception"] != null)
                 {
-                    ViewBag.Exception = TempData["exception"].ToString();
-                    TempData.Remove("exception");
+                    ViewBag.Exception = TempData["Exception"].ToString();
+                    TempData.Remove("Exception");
                 }
             }
             catch (Exception e)
@@ -56,9 +56,9 @@ namespace EyeCT4RailsASP.Controllers
             try
             {
                 if (string.IsNullOrWhiteSpace(tramId))
-                    TempData["exception"] = "Tram ID moet ingevuld zijn.";
+                    TempData["Exception"] = "Tram ID moet ingevuld zijn.";
                 else if (string.IsNullOrWhiteSpace(date))
-                    TempData["exception"] = "Datum moet ingevuld zijn.";
+                    TempData["Exception"] = "Datum moet ingevuld zijn.";
                 else
                 {
                     User user = UserRepository.Instance.GetUser(userId);
@@ -81,7 +81,7 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception ex)
             {
-                TempData["exception"] = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                TempData["Exception"] = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
             }
 
             return RedirectToAction("Overview", "Maintenance");
@@ -96,13 +96,13 @@ namespace EyeCT4RailsASP.Controllers
             try
             {
                 if (string.IsNullOrWhiteSpace(tramId))
-                    TempData["exception"] = "Tram ID moet ingevuld zijn.";
+                    TempData["Exception"] = "Tram ID moet ingevuld zijn.";
                 else if (string.IsNullOrWhiteSpace(date))
-                    TempData["exception"] = "Datum moet ingevuld zijn.";
+                    TempData["Exception"] = "Datum moet ingevuld zijn.";
                 else if (string.IsNullOrWhiteSpace(endDate))
-                    TempData["exception"] = "Eind datum moet ingevuld zijn.";
+                    TempData["Exception"] = "Eind datum moet ingevuld zijn.";
                 else if (string.IsNullOrWhiteSpace(interval))
-                    TempData["exception"] = "Interval moet ingevuld zijn.";
+                    TempData["Exception"] = "Interval moet ingevuld zijn.";
                 else
                 {
                     User user = UserRepository.Instance.GetUser(userId);
@@ -124,7 +124,7 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception ex)
             {
-                TempData["exception"] = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
+                TempData["Exception"] = $"Er is een fout opgetreden bij het inplannen van een reparatie: {ex.Message}";
             }
 
             return RedirectToAction("Overview", "Maintenance");
@@ -143,7 +143,7 @@ namespace EyeCT4RailsASP.Controllers
 
                 if (history == null || history.Count == 0)
                 {
-                    TempData["exception"] = $"Geen geschiedenis gevonden voor tramnummer {tramId}.";
+                    TempData["Exception"] = $"Geen geschiedenis gevonden voor tramnummer {tramId}.";
 
                     return RedirectToAction("Overview", "Maintenance");
                 }
@@ -156,7 +156,7 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception ex)
             {
-                TempData["exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                TempData["Exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
                 return RedirectToAction("Overview", "Maintenance");
             }
         }
@@ -181,7 +181,7 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception ex)
             {
-                TempData["exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                TempData["Exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
                 return RedirectToAction("Overview", "Maintenance");
             }
         }
@@ -209,7 +209,7 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception ex)
             {
-                TempData["exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
+                TempData["Exception"] = $"Er is een fout opgetreden bij het weergeven van de geschiedenis: {ex.Message}";
                 return RedirectToAction("Overview", "Maintenance");
             }
         }
@@ -225,7 +225,7 @@ namespace EyeCT4RailsASP.Controllers
             }
             catch (Exception ex)
             {
-                TempData["exception"] = $"Er is een fout opgetreden bij het afronden van een beurt: {ex.Message}";
+                TempData["Exception"] = $"Er is een fout opgetreden bij het afronden van een beurt: {ex.Message}";
             }
 
             return RedirectToAction("Overview", "Maintenance");
