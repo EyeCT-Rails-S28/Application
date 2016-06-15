@@ -12,10 +12,12 @@
         <button id="reservedButton" type="button" class="btn btn-primary" disabled="disabled">Bevestig</button>
         <!-- Single button -->
         <div class="btn-group pull-right">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Simulatie <span class="caret"></span>
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Acties <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
+                <li><a href="/Depot/Trams">Lijst van trams</a></li>
+                <li class="divider" role="separator"></li>
                 <li><a href="/Depot/Simulate">Start Simulatie</a></li>
                 <li><a href="/Depot/Cancel">Annuleer Simulatie</a></li>
             </ul>
@@ -74,13 +76,13 @@
                 <h4 class="modal-title">Tramnummer invoegen</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="type" name="type" value=""/>
-                <input type="hidden" id="trackId" name="trackId" value=""/>
-                <input type="hidden" id="sectionId" name="sectionId" value=""/>
+                <input type="hidden" id="type" name="type" value="" />
+                <input type="hidden" id="trackId" name="trackId" value="" />
+                <input type="hidden" id="sectionId" name="sectionId" value="" />
 
                 <div class="form-group">
                     <label for="tramNumber">Tramnummer:</label>
-                    <input type="text" class="form-control" id="tramNumber" placeholder="Tramnummer">
+                    <input type="text" class="form-control" id="tramNumber" placeholder="Tramnummer" autofocus>
                 </div>
 
                 <div class="form-group">

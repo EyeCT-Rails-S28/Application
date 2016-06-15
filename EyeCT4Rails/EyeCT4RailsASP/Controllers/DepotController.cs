@@ -203,6 +203,30 @@ namespace EyeCT4RailsASP.Controllers
             }
         }
 
+        public ActionResult Trams()
+        {
+            if (!CheckRight(RIGHT, Session["User"] as User))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            try
+            {
+                List<Tram> trams = DepotManagementRepository.Instance.GetDepot("Havenstraat").Trams;
+                List<Track> tracks = DepotManagementRepository.Instance.GetDepot("Havenstraat").Tracks;
+
+                ViewBag.Trams = trams;
+                ViewBag.Tracks = tracks;
+
+                return View();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+
         public ActionResult Simulate()
         {
             if (!CheckRight(RIGHT, Session["User"] as User))

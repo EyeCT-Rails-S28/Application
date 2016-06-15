@@ -1,0 +1,71 @@
+﻿@using EyeCT4RailsLib.Classes
+
+@{
+    ViewBag.Title = "Trams";
+
+    List<Track> tracks = ViewBag.Tracks as List<Track>;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Lijn</th>
+                    <th>Sectie</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    if (tracks == null)
+                    {
+                        <tr><td colspan="5">Er zijn geen trams gevonden.</td></tr>
+                    }
+                    else
+                    {
+                        foreach (Tram tram in ViewBag.Trams)
+                        {
+                            Track track = tracks.Find(t => t.Sections.Exists(s => s.Tram?.Id == tram.Id));
+                            Section tramSection = null;
+
+                            if (track != null)
+                            {
+                                tramSection = track.Sections.Find(s => s.Tram?.Id == tram.Id);
+                            }
+
+                            <tr>
+                                <td>@tram.Id</td>
+                                <td>@tram.TramType</td>
+                                <td class="@tram.Status">@tram.Status</td>
+
+                                @if (track != null)
+                                {
+                                    <td>@track.Id</td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+
+                                @if (tramSection != null)
+                                {
+                                    <td>@tramSection.Id</td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

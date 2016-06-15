@@ -16,6 +16,22 @@
     white-space: normal;
 }
 
+.Dienst {
+    color: green !important;
+}
+
+.Remise {
+    color: #000000 !important;
+}
+
+.Schoonmaak {
+    color: cornflowerblue !important;
+}
+
+.Defect {
+    color: red !important;
+}
+
 /* ----------------------DEPOT----------------------- */
 a {
     cursor: pointer;
@@ -32,22 +48,6 @@ a {
 
 .overview > .blocked:hover {
     background-color: #696969;
-}
-
-.overview > .Dienst {
-    color: #cc0066;
-}
-
-.overview > .Remise {
-    color: #000000;
-}
-
-.overview > .Schoonmaak {
-    color: cornflowerblue;
-}
-
-.overview > .Defect {
-    color: red;
 }
 
 #contextMenu {
