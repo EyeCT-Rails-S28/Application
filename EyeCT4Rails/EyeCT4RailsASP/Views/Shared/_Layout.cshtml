@@ -77,6 +77,13 @@
         </div>
     }
 
+    @if (ViewBag.Success != null)
+    {
+        <div class="alert alert-success">
+            <strong>@ViewBag.Success</strong>
+        </div>
+    }
+
     @RenderBody()
     <hr/>
     <footer>
