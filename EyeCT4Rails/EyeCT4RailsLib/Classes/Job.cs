@@ -62,7 +62,7 @@ namespace EyeCT4RailsLib.Classes
         /// <returns>Returns in a string in the format: 'MT: 11-06-2016 - Done - Size: Big - Tram: 2001 - User: Henk'</returns>
         public override string ToString()
         {
-            string job = GetType().Name == "Cleanup" ? "CL" : "MT";
+            string job = JobType == JobType.Cleanup ? "CL" : "MT";
             string done = IsDone ? "Done" : "Not Done";
             string tram = "None";
             string user = "None";

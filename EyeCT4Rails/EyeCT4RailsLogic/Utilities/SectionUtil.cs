@@ -26,19 +26,27 @@ namespace EyeCT4RailsLogic.Utilities
                 case TramType.DCombino:
                 case TramType.Trainer:
                     var track57 = tracks.Find(t => t.Id == 57);
-                    tracks.Remove(track57);
-                    tracks.Add(track57);
+                    if (track57 != null)
+                    {
+                        tracks.Remove(track57);
+                        tracks.Add(track57);
+                    }
                     break;
             }
 
             var track40 = tracks.Find(t => t.Id == 40);
-            tracks.Remove(track40);
-            tracks.Add(track40);
+            if (track40 != null)
+            {
+                tracks.Remove(track40);
+                tracks.Add(track40);
+            }
 
             var track58 = tracks.Find(t => t.Id == 58);
-            tracks.Remove(track58);
-            tracks.Add(track58);
-
+            if (track58 != null)
+            {
+                tracks.Remove(track58);
+                tracks.Add(track58);
+            }
 
             foreach (Section ret in tracks.Select(GetFreeSection).Where(ret => ret != null))
             {
@@ -76,14 +84,14 @@ namespace EyeCT4RailsLogic.Utilities
         }
 
         /// <summary>
-        /// Checks wheter a section is accessible from the outside.
+        /// Checks whether a section is accessible from the outside.
         /// </summary>
         /// <param name="section">The section to check for.</param>
         /// <returns>A bool that is true, if and only if it can reach the outside.</returns>
         public static bool CheckSectionFreedom(Section section) => CheckSectionFreedom(section.PreviousSection, false) || CheckSectionFreedom(section.NextSection, true);
 
         /// <summary>
-        /// Checks wheter a section is accessible from the outside.
+        /// Checks whether a section is accessible from the outside.
         /// </summary>
         /// <param name="section">The section to check for.</param>
         /// <param name="direction">The direction in which to look. True is next.</param>
@@ -102,7 +110,7 @@ namespace EyeCT4RailsLogic.Utilities
         }
 
         /// <summary>
-        /// Checks wheter blocking the given section, either by placing a tram or blocking the section, will result in errors.
+        /// Checks whether blocking the given section, either by placing a tram or blocking the section, will result in errors.
         /// </summary>
         /// <param name="section">The section in question.</param>
         /// <param name="track">The track the section belongs to.</param>
