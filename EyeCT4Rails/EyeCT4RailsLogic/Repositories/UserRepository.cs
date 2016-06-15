@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EyeCT4RailsDatabase.Models;
 using EyeCT4RailsDatabase.SQLContexts;
 using EyeCT4RailsLib.Classes;
@@ -87,6 +88,24 @@ namespace EyeCT4RailsLogic.Repositories
             try
             {
                 return _context.UserExists(email);
+            }
+            catch (Exception e)
+            {
+                ExceptionHandler.FilterOracleDatabaseException(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
+        }
+
+        /// <summary>
+        /// Gets list of users with a specific role.
+        /// </summary>
+        /// <param name="role">Role of user.</param>
+        /// <returns>List of users with a specific role.</returns>
+        public List<User> GetUsers(Role role)
+        {
+            try
+            {
+                return _context.GetUsers(role);
             }
             catch (Exception e)
             {

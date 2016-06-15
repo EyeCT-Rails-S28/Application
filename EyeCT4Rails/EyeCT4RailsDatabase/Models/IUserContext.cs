@@ -1,4 +1,5 @@
-﻿using EyeCT4RailsLib;
+﻿using System.Collections.Generic;
+using EyeCT4RailsLib;
 using EyeCT4RailsLib.Classes;
 using EyeCT4RailsLib.Enums;
 
@@ -37,6 +38,13 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="id">The id of the user.</param>
         /// <returns>The user with the given id.</returns>
         User GetUser(int id);
+
+        /// <summary>
+        /// Gets list of users with a specific role.
+        /// </summary>
+        /// <param name="role">Role of user.</param>
+        /// <returns>List of users with a specific role.</returns>
+        List<User> GetUsers(Role role);
 
         /// <summary>
         /// Checks if a user exists base on it's email.

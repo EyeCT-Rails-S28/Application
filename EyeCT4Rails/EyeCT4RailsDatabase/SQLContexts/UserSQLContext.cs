@@ -108,6 +108,32 @@ namespace EyeCT4RailsDatabase.SQLContexts
             return ret;
         }
 
+        public List<User> GetUsers(Role role)
+        {
+            List<User> ret = new List<User>();
+
+            string query =
+                "SELECT u.id, u.name, u.email,  r.id FROM \"user\" u JOIN  \"role\" r  ON r.id = u.role_id WHERE r.description = :role";
+
+            Dictionary<string, object> parameters = new Dictionary<string, object> { { ":role", role } };
+
+            using (OracleDataReader reader = Database.Instance.ExecuteQuery(query, parameters, QueryType.Query))
+            {
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string name = reader.GetString(1);
+                    string email = reader.GetString(2);
+                    List<Right> rights = GetRights(reader.GetInt32(3));
+
+                    Function function = new Function(role, rights);
+                    ret.Add(new User(id, name, email, function));
+                }
+            }
+
+            return ret;
+        }
+
         public bool UserExists(string email)
         {
             string query = "SELECT COUNT(ID) FROM \"user\" WHERE EMAIL = :email";
