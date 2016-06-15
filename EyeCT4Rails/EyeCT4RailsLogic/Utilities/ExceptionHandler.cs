@@ -33,6 +33,12 @@ namespace EyeCT4RailsLogic.Utilities
                 throw new CustomException(e.Message);
         }
 
+        /// <summary>
+        /// Checks the validity of a given period. Throws an exception if the period does not exist logically.
+        /// </summary>
+        /// <param name="startDate">The starting date.</param>
+        /// <param name="endDate">The end date.</param>
+        /// <param name="interval">The interval between two jobs.</param>
         public static void CheckForInvalidDateException(DateTime startDate, DateTime endDate, int interval)
         {
             if (endDate < startDate)

@@ -4,8 +4,16 @@ using EyeCT4RailsLib.Enums;
 
 namespace EyeCT4RailsLogic.Utilities
 {
+    /// <summary>
+    /// Utility class for all translation code.
+    /// </summary>
     public class TranslationUtil
     {
+        /// <summary>
+        /// Translates a jobType enum to Dutch.
+        /// </summary>
+        /// <param name="jobType">The jobType.</param>
+        /// <returns>A Dutch string.</returns>
         public static string TranslateJobType(JobType jobType)
         {
             Dictionary<JobType, string> translation = new Dictionary<JobType, string>
@@ -17,6 +25,11 @@ namespace EyeCT4RailsLogic.Utilities
             return translation[jobType];
         }
 
+        /// <summary>
+        /// Translates a jobSize enum to a Dutch string.
+        /// </summary>
+        /// <param name="jobSize">The jobsize that should be translated.</param>
+        /// <returns>A Dutch string.</returns>
         public static string TranslateJobSize(JobSize jobSize)
         {
             Dictionary<JobSize, string> translation = new Dictionary<JobSize, string>

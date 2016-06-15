@@ -3,13 +3,15 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace EyeCT4RailsLogic.Utilities
 {
+    /// <summary>
+    /// Utility class for all mail related code.
+    /// </summary>
     public class MailUtil
     {
-        private static SmtpClient client = new SmtpClient
+        private static readonly SmtpClient Client = new SmtpClient
         {
             Port = 25,
             Host = "smtp.tranviaremise.com",
@@ -21,12 +23,11 @@ namespace EyeCT4RailsLogic.Utilities
         };
 
         /// <summary>
-        /// 
+        /// Sends a mail to a mail adress with the given content.
         /// </summary>
-        /// <param name="to"></param>
-        /// <param name="subject"></param>
-        /// <param name="content"></param>
-        /// <returns></returns>
+        /// <param name="to">The receivers email adress.</param>
+        /// <param name="subject">The subject of the mail.</param>
+        /// <param name="content">The contents of the email.</param>
         public static void SendMail(string to, string subject, string content)
         {
             MailMessage message = new MailMessage("systeem@tranviaremise.com", to, subject, content)
@@ -35,10 +36,14 @@ namespace EyeCT4RailsLogic.Utilities
                 DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure
             };
 
-            Thread thread = new Thread(new ParameterizedThreadStart(Send));
+            Thread thread = new Thread(Send);
             thread.Start(message);
         }
 
+        /// <summary>
+        /// Method for sending the actual mail.
+        /// </summary>
+        /// <param name="o">The mail.</param>
         private static void Send(object o)
         {
             MailMessage message = o as MailMessage;
@@ -46,7 +51,7 @@ namespace EyeCT4RailsLogic.Utilities
             {
                 try
                 {
-                    client.Send(message);
+                    Client.Send(message);
                 }
                 catch (Exception ex)
                 {

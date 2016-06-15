@@ -65,6 +65,11 @@ namespace EyeCT4RailsLib.Classes
             return true;
         }
 
+        /// <summary>
+        /// Adds a previous section to a section.
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
         public bool AddPreviousSection(Section section)
         {
             if (PreviousSection != null)

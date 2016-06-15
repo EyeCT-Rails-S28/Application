@@ -4,6 +4,9 @@ using System.Text;
 
 namespace EyeCT4RailsLogic.Utilities
 {
+    /// <summary>
+    /// Utility class for all hashing code.
+    /// </summary>
     public class HashingUtil
     {
         /// <summary>
@@ -37,6 +40,9 @@ namespace EyeCT4RailsLogic.Utilities
             return Convert.ToBase64String(ret);
         }
 
+        /// <summary>
+        /// Private constructor to prevent creation of the class.
+        /// </summary>
         private HashingUtil()
         {
         }

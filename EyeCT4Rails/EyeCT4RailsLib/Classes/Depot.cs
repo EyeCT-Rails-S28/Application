@@ -49,6 +49,10 @@ namespace EyeCT4RailsLib.Classes
                 _tracks.Add(track);
         }
 
+        /// <summary>
+        /// Adds a tram to the depot.
+        /// </summary>
+        /// <param name="tram">The new tram.</param>
         public void AddTram(Tram tram)
         {
             if (!_trams.Contains(tram))
@@ -57,6 +61,10 @@ namespace EyeCT4RailsLib.Classes
             }
         }
 
+        /// <summary>
+        /// ToString method of the depot class.
+        /// </summary>
+        /// <returns>Returns the name of the depot.</returns>
         public override string ToString()
         {
             return $"{Name}";

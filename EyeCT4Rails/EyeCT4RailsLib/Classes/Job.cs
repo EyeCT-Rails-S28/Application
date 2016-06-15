@@ -56,6 +56,10 @@ namespace EyeCT4RailsLib.Classes
             User = user;
         }
 
+        /// <summary>
+        /// ToString method of the job class.
+        /// </summary>
+        /// <returns>Returns in a string in the format: 'MT: 11-06-2016 - Done - Size: Big - Tram: 2001 - User: Henk'</returns>
         public override string ToString()
         {
             string job = GetType().Name == "Cleanup" ? "CL" : "MT";
@@ -66,7 +70,7 @@ namespace EyeCT4RailsLib.Classes
             if (Tram != null)
                 tram = Tram.Id.ToString();
             if (User != null)
-                user = User?.Name;
+                user = User.Name;
 
             return $"{job}: {Date} - {done} - Size: {JobSize} - Tram: {tram} - User: {user}";
         }
