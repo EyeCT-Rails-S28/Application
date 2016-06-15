@@ -19,6 +19,27 @@ $(document).ready(function () {
 
             loop();
 
+            $(document).on("click", "#buttonAddTram", function() {
+                var tramId = $("#tramNumber").val();
+                var option = $("#type").val();
+                var trackId = $("#trackId").val();
+                var sectionId = $("#sectionId").val();
+
+                if (tramId.isEmpty() || isNaN(tramId)) {
+                    showAlert("Dit is geen juist gestructureerd tramnummer.");
+                } else {
+                    $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function(data) {
+                        var json = JSON.parse(data);
+                        if (json.status === "success") {
+                            refreshDepot();
+                            resetAlert();
+                        } else {
+                            showAlert(json.message);
+                        }
+                    });
+                }
+            });
+
             $(document)
                 .on("click",
                     "a.list-group-item.reservation",
@@ -46,7 +67,6 @@ $(document).ready(function () {
                     "#reservedButton",
                     function () {
                         if (selectedSectionId != null && selectedTramId != null) {
-
                             $.post("/Depot/ReserveTram",
                                 { trackId: selectedTrackId, sectionId: selectedSectionId, tramId: selectedTramId },
                                 function (data) {
@@ -243,20 +263,11 @@ function handleOption(invokedOn, selectedMenu) {
                 return;
             }
 
-            tramId = prompt("Voeg hier a.u.b. het gewenste tramnummer in.", "");
-            if (tramId.isEmpty() || isNaN(tramId)) {
-                showAlert("Dit is geen juist gestructureerd tramnummer.");
-            } else {
-                $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function (data) {
-                    var json = JSON.parse(data);
-                    if (json.status === "success") {
-                        refreshDepot();
-                        resetAlert();
-                    } else {
-                        showAlert(json.message);
-                    }
-                });
-            }
+            $("#type").val(option);
+            $("#trackId").val(trackId);
+            $("#sectionId").val(sectionId);
+
+            $("#modalAddTram").modal("toggle");
         } else if (option === "Tram verwijderen") {
             $.post("/Depot/RemoveTram", { trackId: trackId, sectionId: sectionId }, function (data) {
                 var json = JSON.parse(data);
