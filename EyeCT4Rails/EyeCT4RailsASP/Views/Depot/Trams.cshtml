@@ -1,4 +1,5 @@
 ﻿@using EyeCT4RailsLib.Classes
+@using EyeCT4RailsLib.Enums
 
 @{
     ViewBag.Title = "Trams";
@@ -41,7 +42,7 @@
 
                             <tr>
                                 <td>@tram.Id</td>
-                                <td>@tram.TramType</td>
+                                <td>@tram.TramType.GetDescription()</td>
                                 <td class="@tram.Status">@tram.Status</td>
 
                                 @if (track != null)
