@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\CustomException.cs" />
+    <Compile Include="Exceptions\InvalidEmailException.cs" />
     <Compile Include="Exceptions\InvalidIdException.cs" />
     <Compile Include="Exceptions\InvalidUserOperationException.cs" />
     <Compile Include="Exceptions\SpecialActionException.cs" />
