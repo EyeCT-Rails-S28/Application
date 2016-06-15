@@ -67,12 +67,25 @@ namespace EyeCT4RailsLogic.Repositories
         {
             try
             {
+                if (email.Contains("@"))
+                {
+                    email = email.Substring(0, email.IndexOf("@", StringComparison.Ordinal));
+                }
+
+                email += "@tranviaremise.com";
+
+                if (!MailUtil.IsValidEmail(email))
+                {
+                    throw new InvalidEmailException($"The specified email address ({email}) is not a valid email address.");
+                }
+
                 var salt = HashingUtil.GetNewSalt();
                 var hash = HashingUtil.HashString(password, salt);
                  _context.CreateUser(name, hash, email, role, salt);
             }
             catch (Exception e)
             {
+                ExceptionHandler.FilterCustomException(e);
                 ExceptionHandler.FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
