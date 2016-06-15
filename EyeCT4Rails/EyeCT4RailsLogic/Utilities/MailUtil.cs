@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading;
@@ -43,7 +44,14 @@ namespace EyeCT4RailsLogic.Utilities
             MailMessage message = o as MailMessage;
             if (message != null)
             {
-                client.Send(message);
+                try
+                {
+                    client.Send(message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             }
         }
 
