@@ -27,8 +27,10 @@ namespace EyeCT4RailsASP.Controllers
             try
             {
                 List<Job> jobs = CleanupRepository.Instance.GetSchedule();
+                List<User> users = UserRepository.Instance.GetUsers(Role.Cleanup);
 
                 ViewBag.Jobs = jobs;
+                ViewBag.Users = users;
 
                 if (TempData["Exception"] != null)
                 {
