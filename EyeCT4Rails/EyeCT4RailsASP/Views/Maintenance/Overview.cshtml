@@ -33,6 +33,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Tramnummer</th>
+                    <th>Medewerker</th>
                     <th>Soort</th>
                     <th>Type Beurt</th>
                     <th>Reparatie Datum</th>
@@ -46,6 +47,7 @@
                     <tr class="clickable-row" data-href="HistoryOfJob/?tramId=@job.Tram.Id">
                         <td>@job.Id</td>
                         <td>@job.Tram.Id</td>
+                        <td>@job.User.Name</td>
                         <td>@TranslationUtilities.TranslateJobSize(job.JobSize)</td>
                         <td>@TranslationUtilities.TranslateJobType(job.JobType)</td>
                         <td>@job.Date.ToShortDateString()</td>
@@ -57,7 +59,7 @@
     </div>
 </div>
 
-<<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,6 +87,17 @@
                                                 <option value="Small">Klein</option>
                                             </select>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="userId">Medewerker:</label>
+                                            <select class="form-control" name="userId" id="userId">
+                                                @foreach (User user in ViewBag.Users)
+                                                {
+                                                    <option value="@user.Id">@user.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="tramId">Tram ID: </label>
                                             <input type="text" class="form-control" name="tramId" id="tramId" required>
@@ -107,6 +120,17 @@
                                                 <option value="Small">Klein</option>
                                             </select>
                                         </div>
+
+                                        <div class="form-group">
+                                            <label for="userId">Medewerker:</label>
+                                            <select class="form-control" name="userId" id="userId">
+                                                @foreach (User user in ViewBag.Users)
+                                                {
+                                                    <option value="@user.Id">@user.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+
                                         <div class="form-group">
                                             <label for="tramId">Tram ID: </label>
                                             <input type="text" class="form-control" name="tramId" id="tramId" required>
