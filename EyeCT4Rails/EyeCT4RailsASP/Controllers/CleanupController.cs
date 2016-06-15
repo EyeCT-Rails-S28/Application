@@ -47,7 +47,7 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddOne(string jobSize, string tramId, string date)
+        public ActionResult AddOne(string jobSize, int userId, string tramId, string date)
         {
             if (!CheckRight(RIGHT, Session["User"] as User))
                 return RedirectToAction("Index", "Login");
@@ -61,14 +61,22 @@ namespace EyeCT4RailsASP.Controllers
                     TempData["Exception"] = "Datum moet ingevuld zijn.";
                 else
                 {
-                    User user = Session["User"] as User;
-                    JobSize size = (JobSize) Enum.Parse(typeof (JobSize), jobSize);
+                    User user = UserRepository.Instance.GetUser(userId);
 
-                    bool succes =                                           
+                    if (user != null)
+                    {
+                        JobSize size = (JobSize)Enum.Parse(typeof(JobSize), jobSize);
+
+                        bool succes =
                         CleanupRepository.Instance.ScheduleJob(size, user, Convert.ToInt32(tramId), Convert.ToDateTime(date));
 
-                    if (!succes)
-                        TempData["Exception"] = "Beurt toevoegen is niet gelukt.";
+                        if (!succes)
+                            TempData["Exception"] = "Beurt toevoegen is niet gelukt.";
+                    }
+                    else
+                    {
+                        TempData["Exception"] = "Gebruiker bestaat niet.";
+                    }
                 }
             }
             catch (Exception ex)
@@ -80,7 +88,7 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMore(string jobSize, string tramId, string date, string endDate, string interval)
+        public ActionResult AddMore(string jobSize, int userId, string tramId, string date, string endDate, string interval)
         {
             if (!CheckRight(RIGHT, Session["User"] as User))
                 return RedirectToAction("Index", "Login");
@@ -98,18 +106,27 @@ namespace EyeCT4RailsASP.Controllers
                     TempData["Exception"] = "Interval moet ingevuld zijn.";
                 else
                 {
-                    User user = Session["User"] as User;
-                    JobSize size = (JobSize)Enum.Parse(typeof(JobSize), jobSize);
+                    User user = UserRepository.Instance.GetUser(userId);
 
-                    bool succes = CleanupRepository.Instance.ScheduleRecurringJob(size, user, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
+                    if (user != null)
+                    {
+                        JobSize size = (JobSize)Enum.Parse(typeof(JobSize), jobSize);
 
-                    if (!succes)
-                        TempData["Exception"] = "Beurten toevoegen is niet gelukt.";
+                        bool succes = CleanupRepository.Instance.ScheduleRecurringJob(size, user, Convert.ToInt32(tramId), Convert.ToDateTime(date), Convert.ToInt32(interval), Convert.ToDateTime(endDate));
+
+
+                        if (!succes)
+                            TempData["Exception"] = "Beurt toevoegen is niet gelukt.";
+                    }
+                    else
+                    {
+                        TempData["Exception"] = "Gebruiker bestaat niet.";
+                    }
                 }
             }
             catch (Exception ex)
             {
-                TempData["Exception"] = $"Er is een fout opgetreden bij het inplannen van een schoonmaakbeurt: {ex.Message}";          
+                TempData["Exception"] = $"Er is een fout opgetreden bij het inplannen van een schoonmaakbeurt: {ex.Message}";
             }
 
             return RedirectToAction("Overview", "Cleanup");

@@ -79,15 +79,15 @@ namespace EyeCT4RailsLogic.Repositories
         }
 
         /// <summary>
-        /// Checks if a user exists base on it's email.
+        /// Gets a user based on its ID.
         /// </summary>
-        /// <param name="email">The email of the user.</param>
-        /// <returns>Bolean thats indicates if the user exists or not</returns>
-        public bool UserExists(string email)
+        /// <param name="userId">The id of the user.</param>
+        /// <returns>User for given id, null if the user doesn't exist.</returns>
+        public User GetUser(int userId)
         {
             try
             {
-                return _context.UserExists(email);
+                return _context.GetUser(userId);
             }
             catch (Exception e)
             {

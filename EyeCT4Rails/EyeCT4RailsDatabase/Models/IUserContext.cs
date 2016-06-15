@@ -45,12 +45,5 @@ namespace EyeCT4RailsDatabase.Models
         /// <param name="role">Role of user.</param>
         /// <returns>List of users with a specific role.</returns>
         List<User> GetUsers(Role role);
-
-        /// <summary>
-        /// Checks if a user exists base on it's email.
-        /// </summary>
-        /// <param name="email">The email of the user.</param>
-        /// <returns>Bolean thats indicates if the user exists or not</returns>
-        bool UserExists(string email);
     }
 }
