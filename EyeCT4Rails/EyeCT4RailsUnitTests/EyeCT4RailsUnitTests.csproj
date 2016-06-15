@@ -62,6 +62,9 @@
     <Compile Include="LibTests\CleanupTest.cs" />
     <Compile Include="LibTests\LineTest.cs" />
     <Compile Include="LogicTest\HashingTests.cs" />
+    <Compile Include="LogicTest\SectionTests.cs" />
+    <Compile Include="LogicTest\TranslateTests.cs" />
+    <Compile Include="LogicTest\EmailTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
