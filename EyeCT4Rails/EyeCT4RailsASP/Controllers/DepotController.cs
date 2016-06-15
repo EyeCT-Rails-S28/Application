@@ -28,7 +28,7 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public string SetSectionBlocked(int trackId = -1, int sectionId = -1)
+        public string SetSectionBlocked(int sectionId = -1)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public string AddTram(int trackId = -1, int sectionId = -1, int tramId = -1, bool reserved = false)
+        public string AddTram(int sectionId = -1, int tramId = -1, bool reserved = false)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public string RemoveTram(int trackId = -1, int sectionId = -1)
+        public string RemoveTram(int sectionId)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace EyeCT4RailsASP.Controllers
                 if (!CheckRight(RIGHT, Session["User"] as User))
                 {
                     throw new Exception("User not logged in!");
-                }          
+                }
 
                 DepotManagementRepository.Instance.ChangeTramStatus(tramId, status);
 
@@ -184,7 +184,58 @@ namespace EyeCT4RailsASP.Controllers
         }
 
         [HttpPost]
-        public string ReserveTram(int trackId, int sectionId, int tramId)
+        public string GetTramInfo(int tramId)
+        {
+            try
+            {
+                if (!CheckRight(RIGHT, Session["User"] as User))
+                {
+                    throw new Exception("User not logged in!");
+                }
+
+                Dictionary<string, object> dictionary = DepotManagementRepository.Instance.GetTramInfo(tramId);
+                Track track = dictionary["Track"] as Track;
+                Section section = dictionary["Section"] as Section;
+                Job cleanup = dictionary["Cleanup"] as Job;
+                Job maintenance = dictionary["Maintenance"] as Job;
+
+                return JsonConvert.SerializeObject(new
+                {
+                    status = "success",
+                    trackId = track?.Id,
+                    sectionId = section?.Id,
+                    tram = section?.Tram,
+
+                    cleanup = new
+                    {
+                        size = cleanup == null ? null : TranslationUtil.TranslateJobSize(cleanup.JobSize),
+                        user = cleanup?.User,
+                        date = cleanup?.Date.ToShortDateString()
+                    },
+                    maintenance = new
+                    {
+                        size = maintenance == null ? null : TranslationUtil.TranslateJobSize(maintenance.JobSize),
+                        user = maintenance?.User,
+                        date = maintenance?.Date.ToShortDateString()
+                    }
+                },
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                        Converters = new List<JsonConverter>
+                        {
+                            new Newtonsoft.Json.Converters.StringEnumConverter()
+                        }
+                    });
+            }
+            catch (Exception e)
+            {
+                return JsonConvert.SerializeObject(new { status = "fail", message = e.Message });
+            }
+        }
+
+        [HttpPost]
+        public string ReserveTram(int sectionId, int tramId)
         {
             try
             {
@@ -212,19 +263,20 @@ namespace EyeCT4RailsASP.Controllers
 
             try
             {
-                List<Tram> trams = DepotManagementRepository.Instance.GetDepot("Havenstraat").Trams;
-                List<Track> tracks = DepotManagementRepository.Instance.GetDepot("Havenstraat").Tracks;
+                Depot depot = DepotManagementRepository.Instance.GetDepot("Havenstraat");
+
+                List<Tram> trams = depot.Trams;
+                List<Track> tracks = depot.Tracks;
 
                 ViewBag.Trams = trams;
                 ViewBag.Tracks = tracks;
-
-                return View();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                
-                throw;
+                ViewBag.Exception = e.Message;
             }
+
+            return View();
         }
 
         public ActionResult Simulate()
