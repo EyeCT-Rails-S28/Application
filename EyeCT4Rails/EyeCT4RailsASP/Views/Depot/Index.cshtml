@@ -51,7 +51,7 @@
     </ul>
 </div>
 
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalAddTram" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalAddTram" tabindex="-1" role="dialog" aria-labelledby="modalAddTram">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -87,6 +87,82 @@
 
                 <div class="form-group">
                     <button type="button" id="buttonAddTram" class="btn btn-primary" data-dismiss="modal">Voeg toe</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalTram" tabindex="-1" role="dialog" aria-labelledby="modalTram">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Tram informatie</h4>
+            </div>
+            <div class="modal-body">
+                <table id="tramData" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tram ID</th>
+                            <th>Status</th>
+                            <th>Type</th>
+                            <th>Track ID</th>
+                            <th>Sectie ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div id="tramRepair">
+                    <h4>Eerstvolgende reparatiebeurt</h4>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Grootte</th>
+                                <th>Datum</th>
+                                <th>Medewerker</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="tramCleanup">
+                    <h4>Eerstvolgende schoonmaakbeurt</h4>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Grootte</th>
+                                <th>Datum</th>
+                                <th>Medewerker</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">

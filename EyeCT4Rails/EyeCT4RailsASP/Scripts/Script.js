@@ -1,5 +1,4 @@
-﻿var selectedTrackId;
-var selectedSectionId;
+﻿var selectedSectionId;
 var selectedTramId;
 
 var tramId = -1;
@@ -22,13 +21,12 @@ $(document).ready(function () {
             function onComplete() {
                 var tramId = $("#tramNumber").val();
                 var option = $("#type").val();
-                var trackId = $("#trackId").val();
                 var sectionId = $("#sectionId").val();
 
                 if (tramId.isEmpty() || isNaN(tramId)) {
                     showAlert("Dit is geen juist gestructureerd tramnummer.");
                 } else {
-                    $.post("/Depot/AddTram", { trackId: trackId, sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function(data) {
+                    $.post("/Depot/AddTram", { sectionId: sectionId, tramId: tramId, reserved: option === "Tram reserveren" }, function(data) {
                         var json = JSON.parse(data);
                         if (json.status === "success") {
                             refreshDepot();
@@ -52,6 +50,47 @@ $(document).ready(function () {
                 $("#tramNumber").focus();
             });
 
+            $(document).on("dblclick", "a.list-group-item.context", function () {
+                var tramId = parseInt($(this).text());
+
+                if (!isNaN(tramId)) {
+                    $.post("/Depot/GetTramInfo", { tramId: tramId }, function (data) {
+                        var json = JSON.parse(data);
+                        if (json.status === "success") {
+                            $("#tramData > tbody > tr:first > td:first").text(tramId);
+                            $("#tramData > tbody > tr:first > td:nth-child(2)").removeClass().addClass(json.tram.Status).text(json.tram.Status);
+                            $("#tramData > tbody > tr:first > td:nth-child(3)").text(json.tram.TramType);
+                            $("#tramData > tbody > tr:first > td:nth-child(4)").text(json.trackId);
+                            $("#tramData > tbody > tr:first > td:nth-child(5)").text(json.sectionId);
+
+                            if (json.maintenance.user == null) {
+                                $("#tramRepair").hide();
+                            } else {
+                                $("#tramRepair").show();
+
+                                $("#tramRepair > table > tbody > tr:first > td:first").text(json.maintenance.size);
+                                $("#tramRepair > table > tbody > tr:first > td:nth-child(2)").text(json.maintenance.date);
+                                $("#tramRepair > table > tbody > tr:first > td:nth-child(3)").text(json.maintenance.user.Name);
+                            }
+
+                            if (json.cleanup.user == null) {
+                                $("#tramCleanup").hide();
+                            } else {
+                                $("#tramCleanup").show();
+
+                                $("#tramCleanup > table > tbody > tr:first > td:first").text(json.cleanup.size);
+                                $("#tramCleanup > table > tbody > tr:first > td:nth-child(2)").text(json.cleanup.date);
+                                $("#tramCleanup > table > tbody > tr:first > td:nth-child(3)").text(json.cleanup.user.Name);
+                            }
+
+                            $("#modalTram").modal("toggle");
+                        } else {
+                            showAlert(json.message);
+                        }
+                    });
+                }
+            });
+
             $(document)
                 .on("click",
                     "a.list-group-item.reservation",
@@ -66,7 +105,6 @@ $(document).ready(function () {
                     "a.list-group-item.context",
                     function () {
                         if (selectedTramId != null) {
-                            selectedTrackId = $(this).parent().children().first().text();
                             selectedSectionId = $(this).attr("sectionid");
                             refreshDepot();
 
@@ -80,11 +118,10 @@ $(document).ready(function () {
                     function () {
                         if (selectedSectionId != null && selectedTramId != null) {
                             $.post("/Depot/ReserveTram",
-                                { trackId: selectedTrackId, sectionId: selectedSectionId, tramId: selectedTramId },
+                                { sectionId: selectedSectionId, tramId: selectedTramId },
                                 function (data) {
                                     var json = JSON.parse(data);
                                     if (json.status === "success") {
-                                        selectedTrackId = null;
                                         selectedSectionId = null;
                                         selectedTramId = null;
 
@@ -249,7 +286,7 @@ function handleOption(invokedOn, selectedMenu) {
     }
 
     if (option === "Sectie (de)blokkeren") {
-        $.post("/Depot/SetSectionBlocked", { trackId: trackId, sectionId: sectionId }, function (data) {
+        $.post("/Depot/SetSectionBlocked", { sectionId: sectionId }, function (data) {
             var json = JSON.parse(data);
             if (json.status === "success") {
                 refreshDepot();
@@ -278,12 +315,11 @@ function handleOption(invokedOn, selectedMenu) {
             }
 
             $("#type").val(option);
-            $("#trackId").val(trackId);
             $("#sectionId").val(sectionId);
 
             $("#modalAddTram").modal("toggle");
         } else if (option === "Tram verwijderen") {
-            $.post("/Depot/RemoveTram", { trackId: trackId, sectionId: sectionId }, function (data) {
+            $.post("/Depot/RemoveTram", { sectionId: sectionId }, function (data) {
                 var json = JSON.parse(data);
                 if (json.status === "success") {
                     refreshDepot();
@@ -333,7 +369,7 @@ function refreshDepot() {
                     var index = j + 12 * i;
                     var track = json.tracks[index];
 
-                    line += '<div class="col-md-1">';
+                    line += '<div class="col-md-1 col-xs-2">';
                     line += '<div class="list-group overview">';
 
                     line += '<a class="list-group-item active text-center">' + track.Id + '</a>';

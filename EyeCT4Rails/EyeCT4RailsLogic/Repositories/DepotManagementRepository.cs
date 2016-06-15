@@ -347,6 +347,48 @@ namespace EyeCT4RailsLogic.Repositories
                 FilterOracleDatabaseException(e);
                 throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
             }
+        }
+
+        /// <summary>
+        /// Gets information about a specific tram.
+        /// </summary>
+        /// <param name="tramId">The tram ID of the tram to look up information on.</param>
+        /// <returns>A dictionary full of information about the specified tram.</returns>
+        public Dictionary<string, object> GetTramInfo(int tramId)
+        {
+            try
+            {
+                Dictionary<string, object> dictionary = new Dictionary<string, object>();
+
+                Depot depot = GetDepot("Havenstraat");
+                Track track = depot.Tracks.Find(t => t.Sections.Exists(s => s.Tram?.Id == tramId));
+                if (track == null)
+                {
+                    throw new InvalidIdException("Tram not in depot.");
+                }
+
+                Section section = track.Sections.Find(s => s.Tram?.Id == tramId);
+                if (section == null)
+                {
+                    throw new InvalidIdException("Tram not in depot.");
+                }
+
+                Job cleanup = CleanupRepository.Instance.GetSchedule().Find(j => j.Tram.Id == section.Tram.Id);
+                Job maintenance = MaintenanceRepository.Instance.GetSchedule().Find(j => j.Tram.Id == section.Tram.Id);
+
+                dictionary.Add("Track", track);
+                dictionary.Add("Section", section);
+                dictionary.Add("Cleanup", cleanup);
+                dictionary.Add("Maintenance", maintenance);
+ 
+                return dictionary;
+            }
+            catch (Exception e)
+            {
+                FilterOracleDatabaseException(e);
+                FilterCustomException(e);
+                throw new UnknownException("FATAL ERROR! EXTERMINATE! EXTERMINATE!");
+            }
         } 
 
     }
